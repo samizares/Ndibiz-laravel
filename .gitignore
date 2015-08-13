@@ -1,0 +1,11 @@
+/vendor
+/node_modules
+Homestead.yaml
+/bootstrap/compiled.php
+composer.lock
+composer.phar
+.env.php
+_ide_helper.php
+
+
+
