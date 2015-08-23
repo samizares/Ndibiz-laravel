@@ -60,8 +60,6 @@
     });
   });
 
-
-
   // Category toggle
   //-------------------------------------------------
 
@@ -79,8 +77,44 @@
     });
   });
 
+// Dropzone - Picture Upload
+//--------------------------------------------
 
 
+
+// Gallery Nanogallery
+//--------------------------------------------
+  $(document).ready(function () {
+         jQuery("#nanoGallery").nanoGallery({
+            thumbnailWidth: 'auto',
+            thumbnailHeight: 100,
+            locationHash: false,
+            thumbnailHoverEffect:'borderLighter,imageScaleIn80',
+            itemsBaseURL:'http://brisbois.fr/nanogallery/demonstration/'
+          });
+    });
+
+//Text rotator
+//-------------------------------------------------
+  
+    $(document).ready(function () {
+        $("#demo").wordsrotator({
+        words: ['Local Restaurants (Mama Put)','Hotels','Mechanic Workshops'], // Array of words, it may contain HTML values
+        randomize: true, //show random entries from the words array
+        animationIn: "flipInY", //css class for entrace animation
+        animationOut: "flipOutY", //css class for exit animation
+        speed: 3000 // delay in milliseconds between two words
+        });
+
+         $("#demo2").wordsrotator({
+        words: ['Lagos','Abuja','PortHarcourt'], // Array of words, it may contain HTML values
+        randomize: true, //show random entries from the words array
+        animationIn: "rotateInUpLeft", //css class for entrace animation
+        animationOut: "flipOutY", //css class for exit animation
+        speed: 3000 // delay in milliseconds between two words
+        });
+    });
+   
 
   //home slide tab-content hide
   //---------------------------------------
@@ -107,13 +141,25 @@
     itemsTablet: [600,2]
   });
 
+  // featured businesses slider customize
+  //-----------------------------------------
+  $("#businesses-slider").owlCarousel({
+    autoPlay: 3000,
+    items : 5,
+    itemsDesktop : [1199,4],
+    itemsDesktopSmall : [979,3],
+    itemsTablet: [600,2],
+    paginationNumbers: true,
+    paginationSpeed : 400
+  });
+
 
   // home slider section
   //-------------------------------------------
   var homeSlide = $("#home-slider");
 
   homeSlide.owlCarousel({
-
+    autoPlay: 3000,
     navigation : false, // Show next and prev buttons
     slideSpeed : 600,
     paginationSpeed : 600,
@@ -135,73 +181,7 @@
 
   // UOU Selects
   // ---------------------------------------------------------
-  $.fn.uouCustomSelect = function () {
-    var $select = $(this);
-
-    $select.wrap('<div class="uou-custom-select"></div>');
-
-    var $container = $select.parent('.uou-custom-select');
-
-    $container.append('<ul class="select-clone"></ul>');
-
-    var $list = $container.children('.select-clone'),
-      placeholder = $select.data('placeholder') ? $select.data('placeholder') : $select.find('option:eq(0)').text();
-
-    // $('<input class="value-holder" type="text" disabled="disabled" placeholder="' + placeholder + '"><i class="fa fa-chevron-down"></i>').insertBefore($list);
-    $('<input class="value-holder" type="hidden" disabled="disabled" placeholder="' + placeholder + '"><span class="placeholder">' + placeholder + '</span><i class="fa fa-chevron-down"></i>').insertBefore($list);
-
-    var $valueHolder = $container.children('.value-holder');
-    var $valuePlaceholder = $container.children('.placeholder');
-
-    // Create clone list
-    $select.find('option').each(function () {
-      var $this = $(this);
-
-      $list.append('<li data-value="' + $this.val() + '">' + $this.text() + '</li>');
-    });
-
-    // Toggle list
-    $container.on('click', function () {
-      // console.log('click ' + $container);
-      $container.toggleClass('active');
-      $list.slideToggle(250);
-    });
-
-    // Option Select
-    $list.children('li').on('click', function () {
-      var $this = $(this);
-
-      $valueHolder.val($this.text());
-      $valuePlaceholder.html($this.text());
-      $select.find('option[value="' + $this.data('value') + '"]').prop('selected', true);
-    });
-
-    // Hide
-    $container.on('clickoutside touchendoutside', function () {
-      if (!dragging) {
-        $container.removeClass('active');
-        $list.slideUp(250);
-      }
-    });
-
-    // Links
-    if ($select.hasClass('links')) {
-      $select.on('change', function () {
-        window.location.href = select.val();
-      });
-    }
-
-    $select.on('change', function () {
-      cosole.log(chnaged);
-      cosole.log($(this).val());
-    });
-  };
-
-  $('select').each(function () {
-    $(this).uouCustomSelect();
-  });
-
-
+ 
 
   // map initialization
   //-----------------------------------
@@ -220,7 +200,6 @@
         html: 'NdiBiz'
     }]
   });
-
 
   // company map initialization
 
@@ -246,12 +225,7 @@
   // company-map-street
 
 
-
-
-
-
   // contact map
-
   $("#contact_map_canvas").goMap({
     maptype: 'ROADMAP',
     zoom: 13,
@@ -266,12 +240,7 @@
   });
 
 
-
   // company-contact map
-
-
-
-
   $('a[data-toggle="tab"]').on('shown.bs.tab', function (event) {
     if(event.target.outerText == 'CONTACT'){
       $("#contact_map_canvas_one").goMap({
@@ -301,12 +270,6 @@
       });
     }
   });
-
-
-
-
-
-
 
 
   // distance slider initialize
@@ -448,7 +411,18 @@
     if ($headerSocialToggle.hasClass('active')) { $headerSocialToggle.removeClass('active'); }
   });
 
+    // Header Social Toggle
+  // ---------------------------------------------------------
+  var $pageSocialToggle = $('#profile .social-share');
 
+  $pageSocialToggle.children('a').on('click', function (event) {
+    event.preventDefault();
+    $(this).parent('.social-share').toggleClass('active');
+  });
+
+  $pageSocialToggle.on('clickoutside touchendoutside', function () {
+    if ($pageSocialToggle.hasClass('active')) { $pageSocialToggle.removeClass('active'); }
+  });
 
 
   // sub-categories remove and active class
@@ -465,7 +439,104 @@
   });
 
 
+  // Datatables
+  //-----------------------------------------------------
+    $(document).ready(function() {
+        $('#cats-table').DataTable({
+            "paging":   true,
+            "pagingType": "full_numbers"
+        });
+    });
 
+   // Create category
+  //-----------------------------------------------------
+  $(document).ready(function() {
+    $("#cat_name").select2({
+      placeholder: 'Create new category',
+      tags: true,
+
+    });
+
+  });
+
+
+  $(document).ready(function() {
+    $("#image_class").select2({
+      placeholder: 'Choose/create  new fontawesome class',
+      tags: true,
+    });
+  });
+
+  $(document).ready(function() {
+    $("#sub_cat").select2({
+      placeholder: 'create a sub category',
+      tags: true,
+    });
+  });
+
+  // Edit category
+  //-----------------------------------------------------
+  $(document).ready(function() {
+  $("#cat_name").select2({
+    tags: true
+
+  });
+
+});
+
+
+$(document).ready(function() {
+  $("#image_class").select2({
+    tags: true
+  });
+});
+
+$(document).ready(function() {
+  $("#sub_cat").select2({
+    tags: true
+  });
+});
+
+// View Biz
+//-----------------------------------------------------
+$(function() {
+      $("#biz-table").DataTable({
+        order: [[0, "desc"]]
+      });
+    });
+
+// Uploads
+//-----------------------------------------------------
+// Confirm file delete
+$(document).ready(function() {
+    function delete_file(name) {
+      $("#delete-file-name1").html(name);
+      $("#delete-file-name2").val(name);
+      $("#modal-file-delete").modal("show");
+    }
+
+    // Confirm folder delete
+    function delete_folder(name) {
+      $("#delete-folder-name1").html(name);
+      $("#delete-folder-name2").val(name);
+      $("#modal-folder-delete").modal("show");
+    }
+
+    // Preview image
+    function preview_image(path) {
+      $("#preview-image").attr("src", path);
+      $("#modal-image-view").modal("show");
+    }
+
+    // Startup code
+    $(function() {
+      $("#uploads-table").DataTable();
+    });
+
+     $(function() {
+      $("#category").DataTable();
+    });
+  });
   // style switcr for list-grid view
   //--------------------------------------------------
   $('.change-view button').on('click',function(e) {
