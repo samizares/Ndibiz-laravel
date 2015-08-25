@@ -44,11 +44,10 @@
 
 @yield('content')
 
-<script
-src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="{{asset('js/jquery-2.1.3.min.js') }}"></script>
 <script src="{{asset('js/bootstrap.min.js')}}"></script>
 <script src="{{asset('js/datatable.js')}}"></script>
-<script src="{{asset('js/select2.min.js')}}"></script>"
+<script src="{{asset('js/select22.min.js')}}"></script>
 
 @yield('scripts')
 

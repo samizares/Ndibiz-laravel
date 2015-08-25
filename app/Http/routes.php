@@ -15,9 +15,10 @@
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
 //Route::get('bizreg', 'HomeController@regbiz');
+Route::get('review/biz/{id}', 'HomeController@getBizreview');
+Route::post('review/biz/{id}', 'HomeController@postReview');
 Route::resource('biz', 'BizController');
 Route::get('search', 'HomeController@search');
-ROute::get('lga', 'HomeController@lga');
 Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
 Route::get('auth/login', 'Auth\AuthController@getLogin');
@@ -26,24 +27,12 @@ Route::get('activate/{confirmation_code}', 'Auth\AuthController@activateAccount'
 Route::get('confirm','HomeController@confirm');
 Route::get('auth/logout', 'Auth\AuthController@getLogout');
 
-Route::get('api', function()
-    {
-      // Retrieve user's input ('q' query parameter)
-       $query = Input::get('q','');
+Route::get('api/location', 'ApiController@location');
+Route::get('api/category', 'ApiController@category');
+Route::get('api/company', 'ApiController@company');
+Route::get('api/lga', 'ApiController@lga');
+Route::get('api/subcat', 'ApiController@subcat');
 
-       if(trim(urldecode($query))=='')
-          return Response::json(['data'=> []], 200);
-
-        // Search the data in DB and retrieve a list of items matching the search query
-      $data = \DB::table('states')
-    ->where('name','like','%'.$query.'%')
-    ->orderBy('name','asc')
-    ->take(10)
-    ->get(['id', 'name']);
-
-        // Return JSON-encoded list of items inside of "data" object as a response to the request
-        return Response::json(['data' => $data]);
-    });
 // Admin area
 get('admin', function () {
   return redirect('/admin/cat');
@@ -54,7 +43,8 @@ $router->group([
   'middleware' => 'auth',
 ], function () {
   resource('admin/biz', 'BizController');
-  resource('admin/cat', 'CatController', ['except' => 'show']);
+  resource('admin/cat', 'CatController');
+  resource('admin/location', 'LocationController');
   get('admin/upload', 'UploadController@index');
   post('admin/upload/file', 'UploadController@uploadFile');
   delete('admin/upload/file', 'UploadController@deleteFile');

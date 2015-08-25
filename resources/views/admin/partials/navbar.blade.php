@@ -7,6 +7,9 @@
     <li @if (Request::is('admin/cat*')) class="active" @endif>
       <a href="/admin/cat">Categories</a>
     </li>
+     <li @if (Request::is('admin/location*')) class="active" @endif>
+      <a href="/admin/location">Location</a>
+    </li>
     <li @if (Request::is('admin/upload*')) class="active" @endif>
       <a href="/admin/upload">Uploads</a>
     </li>

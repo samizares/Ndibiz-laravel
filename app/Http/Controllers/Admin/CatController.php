@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CatCreateRequest;
 use App\Http\Requests\CatUpdateRequest;
 use App\Cat;
-use App\Sub_cat;
+use App\SubCat;
 class CatController extends Controller
 {
     protected $fields = [
@@ -40,15 +40,9 @@ class CatController extends Controller
     {
         $cats   = Cat::lists('name','name'); 
         $image_class= Cat::lists('image_class','image_class');
-        $subcats= Sub_cat::lists('name','name');
+        $subcats= SubCat::lists('name','name');
 
          return view('admin.cat.create', compact('cats','image_class','subcats'));
-
-      //  $data = [];
-     //foreach ($this->fields as $field => $default) {
-    //  $data[$field] = old($field, $default);
-     //   }
-
     
     }
 
@@ -76,13 +70,13 @@ class CatController extends Controller
             if($category){
                 foreach ($sub_cats as $sub) {
 
-                    if ($existingCat= Sub_cat::where('name', $sub)->first()) {
+                    if ($existingCat= SubCat::where('name', $sub)->first()) {
 
                         return back()
                          ->withError("The Sub-Category  '$existingCat->name' already belongs to another Category.");
 
                     } else{
-                         $newCat = new Sub_cat();
+                         $newCat = new SubCat();
                          $newCat -> name = $sub;
                          $newCat -> cats_id = $category->id; 
                          $newCat->save();
@@ -107,7 +101,7 @@ class CatController extends Controller
     {
         $image_class= Cat::lists('image_class','image_class');
         $cats  = Cat::lists('name', 'name'); 
-        $subcats= Sub_cat::lists('name','name');
+        $subcats= SubCat::lists('name','name');
         $cat =  Cat::findOrFail($id);
         $list= $cat->subcats->lists('name')->all();
 
@@ -147,11 +141,11 @@ class CatController extends Controller
        //  dd($cat->subcats);
          $cat->subcats()->delete();
           foreach ($sub_cats as $sub) {
-            if( $existingCat = Sub_cat::where('name', $sub)->first()) {
+            if( $existingCat = SubCat::where('name', $sub)->first()) {
                  $real[]= $existingCat;
                 }
                  else{
-                     $newCat = new Sub_cat();
+                     $newCat = new SubCat();
                      $newCat ->name  = $sub;
                      $newCat->save();
                  $real[]=$newCat;

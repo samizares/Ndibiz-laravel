@@ -192,8 +192,8 @@
     }
 
     $select.on('change', function () {
-      cosole.log(chnaged);
-      cosole.log($(this).val());
+     // console.log(changed);
+     // console.log($(this).val());
     });
   };
 

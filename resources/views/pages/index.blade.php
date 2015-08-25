@@ -469,26 +469,47 @@
  <script>
  $(function() {
       // Enable Selectize
-
-    $('#keywords').selectize();
-});
+    $('#location').selectize({
+    valueField: 'id',
+    labelField: 'name',
+    searchField: ['name'],
+    renrender:{
+        option:function(item, escape) {
+          return '<div>' + escape(item.name) +'</div>';
+        }
+      },
+      load:function(query, callback){
+        if(!query.length) return callback();
+        $.ajax({
+          url: './api/location',
+          type: 'GET',
+          dataType: 'json',
+          data: {
+            l: query
+          },
+          success: function(res) {
+            callback(res.data);
+            } 
+        });
+      }
+  });
+})
 
     $(function() {
       // Enable Selectize
-
-    $('#location').selectize({
+    $('#category').selectize({
       valueField: 'id',
       labelField: 'name',
       searchField: ['name'],
       render:{
-        option:function(item,escape) {
-          return '<div>'  + escape(item.name) + '</div>';
+        option:function(item, escape) {
+          return '<div><i class="fa fa-home"></i>' + escape(item.name) +'</div>';
         }
       },
       load:function(query, callback) {
         if(!query.length) return callback();
         $.ajax({
-          url: './api',
+          url: './api/category',
           type: 'GET',
           dataType: 'json',
           data: {
@@ -506,16 +527,36 @@
      $(function() {
       // Enable Selectize
 
-    $('#category').selectize({
+    $('#company').selectize({
+      valueField: 'id',
       searchField: ['name'],
       labelField: 'name',
+      render:{
+        option:function(item, escape) {
+          return '<div><i class="fa fa-female"></i>' + escape(item.name) +'</div>';
+         }
+        },
+      load:function(query, callback) {
+        if(!query.length) return callback();
+        $.ajax({
+          url: './api/company',
+          type: 'GET',
+          dataType: 'json',
+          data: {
+            m: query
+          },
+          success: function(res) {
+            callback(res.data);
+            }
+        });
+      }
     });
 });
 
       $(function() {
       // Enable Selectize
 
-    $('#category2').select2({
+    $('#category3').select2({
       placeholder: 'search category',
       tags: true,
 

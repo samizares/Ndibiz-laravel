@@ -14,8 +14,9 @@
   <link rel="stylesheet" href="{{ asset('css/selectize.default.css')}}">
   <link rel="stylesheet" href="{{ asset('css/select2.min.css')}}">
 
-  <!-- GOOGLE FONTS -->
-  <link href='http://fonts.googleapis.com/css?family=Raleway:400,700,600,800%7COpen+Sans:400italic,400,600,700' rel='stylesheet' type='text/css'>
+  <!-- GOOGLE FONTS 
+  <link href='http://fonts.googleapis.com/css?family=Raleway:400,700,600,
+  800%7COpen+Sans:400italic,400,600,700' rel='stylesheet' type='text/css'> -->
 
   <!--[if IE 9]>
     <script src="{{asset('js/media.match.min.js')}}"></script>

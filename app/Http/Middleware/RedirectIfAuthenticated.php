@@ -24,6 +24,7 @@ class RedirectIfAuthenticated
     {
         $this->auth = $auth;
     }
+    
 
     /**
      * Handle an incoming request.

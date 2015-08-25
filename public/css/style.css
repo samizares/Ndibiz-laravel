@@ -2858,7 +2858,7 @@ th {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-}
+}  
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
@@ -3107,6 +3107,7 @@ button {
 }
 /* select box */
 /* Custom selects */
+
 .uou-custom-select {
   position: relative;
   display: block;
@@ -3127,6 +3128,7 @@ button {
   color: #b7b7b7;
   cursor: pointer;
 }
+
 .uou-custom-select .placeholder {
   display: block;
   position: relative;
@@ -3139,7 +3141,7 @@ button {
   padding: 3px 30px 3px 15px;
   margin: 0;
   color: #919191;
-  font-size: 16px;
+  //font-size: 16px;
   border-radius: 3px;
   cursor: pointer;
 }
@@ -3150,7 +3152,7 @@ button {
 .uou-custom-select .select-clone {
   position: absolute;
   top: 100%;
-  z-index: 99;
+ // z-index: 99;
   display: none;
   background-color: #fff;
   margin: 0;
@@ -3164,6 +3166,7 @@ button {
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
 }
+
 .uou-custom-select .select-clone > li {
   display: block;
   padding: 3px 15px;
@@ -3174,6 +3177,7 @@ button {
 .uou-custom-select .select-clone > li:last-child {
   margin-bottom: 10px;
 }
+
 ::-webkit-input-placeholder {
   color: #919191;
 }
@@ -3188,6 +3192,8 @@ button {
 :-ms-input-placeholder {
   color: #919191;
 }
+
+
 /* BUTTONS */
 /* --------------------------------------- */
 .btn {

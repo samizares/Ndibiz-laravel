@@ -34,10 +34,10 @@
               <td>{{ $cat->name }}</td>
                <td> <i class="fa fa-{{$cat->image_class}}"> </i> </td>
               <td class="hidden-md">{{ $cat->meta_description }}</td>
-              <td>@foreach($cat->subcats as $cat)
-                 <li>{{ $cat->name }} </li> @endforeach</td>
+              <td>@foreach($cat->subcats as $catt)
+                 <li>{{ $catt->name }} </li> @endforeach</td>
               <td>
-                <a href="#"
+                <a href="/admin/cat/{{$cat->id}}/edit"
                    class="btn btn-xs btn-info">
                   <i class="fa fa-edit"></i> Edit
                 </a>

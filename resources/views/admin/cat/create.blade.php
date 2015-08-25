@@ -25,7 +25,7 @@
                  <label for="cat" class="col-md-3 control-label">Category Names</label>
                  <div class="col-md-8">
 
-                  {!!Form::select('name', $cats,null,['class'=>'form-control', 'id'=>'cat_name']) !!}
+                  {!!Form::select('name', $cats,null,['class'=>'form-control', 'id'=>'cat_name','placeholder'=>'Select Category']) !!}
                   
               </div>
             </div>
@@ -57,6 +57,8 @@
   </div>
 </div>
 
+
+
               <div class="form-group">
                 <div class="col-md-7 col-md-offset-3">
                   <button type="submit" class="btn btn-primary btn-md">
@@ -80,7 +82,6 @@
   <script>
 $(document).ready(function() {
   $("#cat_name").select2({
-    placeholder: 'Create new category',
     tags: true,
 
   });
@@ -102,5 +103,21 @@ $(document).ready(function() {
   });
 });
 
+$(document).ready(function() {
+ $('#stateList').on('change', function(){
+      if($(this).val() !== "select state") {
+         var model=$('#lga');
+        model.empty();
+       $.get('{{ URL::to('api/lga') }}', {z: $(this).val()}, function(result){
+        var model=$('#lga');
+        model.empty();
+         $.each(result.data,function(){
+                          $('#lga').append('<option value="'+this.id+'">'+this.text+'</option>');
+
+                    });
+       });
+     }
+  });
+});
 </script>
 @stop

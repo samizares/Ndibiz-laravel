@@ -3,17 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\BusinessRegRequest;
+use App\Http\Requests\LocationCreateRequest;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Biz;
 use App\State;
 use App\Address;
-use App\SubCat;
-use App\Biz_Subcat_pivot;
+use App\Lga;
 use App\Cat;
 
-class BizController extends Controller
+class LocationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,10 +21,10 @@ class BizController extends Controller
      */
     public function index()
     {
-        $bizs= Biz::all();
-     //  foreach( $bizs as $biz)             
-     //   dd($biz->address->street);
-       return view('admin.biz.index', compact('bizs'));
+        $states= State::all();
+     // foreach ($states as $state)          
+     //  dd($state->name);
+       return view('admin.location.index', compact('states'));
     }
 
     /**
@@ -36,9 +35,9 @@ class BizController extends Controller
     public function create()
     {
           $stateList= State::lists('name','id');
-          $catList   = Cat::lists('name','id');
+          $lgaList   = lga::lists('name','id');
 
-        return view('admin.biz.create', compact('stateList', 'catList'));
+        return view('admin.location.create', compact('stateList', 'lgaList'));
     }
 
     /**
@@ -47,35 +46,23 @@ class BizController extends Controller
      * @param  Request  $request
      * @return Response
      */
-    public function store(BusinessRegRequest $request)
-    {
-       // dd($request->input('sub'));
-        $biz = new Biz();
-        $biz->name =         $request->input('name');
-        $biz->contactname=   $request->input('contactname');
-        $biz->email=         $request->input('email');
-        $biz->website=       $request->input('website');
-        $biz->phone1=        $request->input('phone1');
-        $biz->phone2=        $request->input('phone2');
-        $biz->user_id=       \Auth::id();
-        $biz->save();
+    public function store(LocationCreateRequest $request)
+    {     
+        $state_id= $request->input('state');
+       // $state= State::where('id', $state_id)->first();
+        $locs= $request->input('lga');
 
-        $add= new Address();
-        $add->street= $request->input('address');
-        $add->lga_id= $request->input('lga');
-        $add->state_id=$request->input('state');
-        $add->biz_id= $biz->id;
-        $add->save();
+        foreach ($locs as $loc) {
 
-        $category=$request->input('cats');
+            $area = new Lga();
+            $area ->name = $loc;
+            $area ->state_id = $state_id; 
+            $area->save();
+         }
+                    
        
-        $biz->cats()->sync($category);
-
-        $subs= $request->input('sub');
-        $biz->subcats()->sync($subs);
-       
-        return redirect('/admin/biz')
-         ->withSuccess("The business '$biz->name' has been created.");
+        return redirect('/admin/location/create')
+         ->withSuccess("Area created.");
     }
 
     /**
@@ -138,7 +125,7 @@ class BizController extends Controller
 
         $add= Address::where('biz_id', $biz->id)->first();
         $add->street= $request->input('address');
-        $add->lga_id= $request->input('lga');
+        $add->region= $request->input('lga');
         $add->state_id=$request->input('state');
         $add->save();
 
