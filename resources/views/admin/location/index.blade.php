@@ -1,135 +1,64 @@
-@extends('master')
-<!-- HEAD STARTS-->
-  @section('title', 'Admin')
-  @section('stylesheets')     
-    <link href="{{asset('plugins/datatable/css/datatables.css')}}" rel="stylesheet">
-    <link href="{{asset('plugins/datatable/css/dataTables.bootstrap.css')}}" rel="stylesheet">
-    <link href="{{asset('plugins/bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet">
-  @endsection
-<!-- HEAD ENDS-->
+@extends('admin.layout')
 
-<!-- HEADER STARTS -->
-  <!-- breadcrumbs -->
-  @section('breadcrumb')
-        <div class="breadcrumb">
-          <div class="featured-listing" style="margin:0;">
-              <h2 class="page-title" style="margin:0;">Admin >> Business Locations</h2>
-          </div>
-        </div>
-  @endsection
-  <!-- navigation -->
-  @section('header-navbar')
-          <div class="header-nav-bar">
-              <div class="container">
-                <nav>
-                  <button><i class="fa fa-bars"></i></button>
-                  @include('admin.partials.navbar')
-                </nav>
-              </div> <!-- end .container -->
-          </div> <!-- end .header-nav-bar -->   
-  @endsection
-<!-- HEADER ENDS -->
-
-<!-- CONTENT STARTS -->
 @section('content')
-  <div id="page-content" class="home-slider-content">
-    <div class="container">
-     <div class="home-with-slide">
-      @include('admin.partials.errors')
-      @include('admin.partials.success')
-      <div class="row page-title-row">
-        <div class="col-md-6">
-          <h3><a href="/admin">Admin</a> <small>» Locations</small></h3>
-        </div>
-        <div class="col-md-6 text-right">
-          <a href="/admin/location/create" class="btn btn-default-inverse btn-md">
-            <i class="fa fa-plus-circle"></i> New Location
-          </a>
-        </div>
+  <div class="container-fluid">
+    <div class="row page-title-row">
+      <div class="col-md-6">
+        <h3>All Location Covered <small>» Listing</small></h3>
       </div>
-      <div class="row">
-        <div class="col-md-9 col-md-push-3">
+      <div class="col-md-6 text-right">
+        <a href="/admin/location/create" class="btn btn-success btn-md">
+          <i class="fa fa-plus-circle"></i> Add Location
+        </a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
 
-            <table id="locTable" class="table">
-              <thead>
-                <tr>
-                  <th>State</th>
-                  <th>Region</th>
-                  <th>Total Area/region In state </th>
-                  <th data-sortable="false">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                @foreach ($states as $state)
-                  <tr>
-                    <td>{{ $state-> name }}</td>
+        @include('admin.partials.errors')
+        @include('admin.partials.success')
 
-                    <td>@foreach($state-> lgas as $area)
-                     <span>{{ $area->name }} </span>, @endforeach</td> 
-                    <td>{{count($state->lgas)}}</td>
-                    <td>
-                      <a href="/admin/location/{{$state->id}}/edit"
-                         class="btn btn-xs btn-default-inverse animated fadeIn" 
-                         data-toggle="tooltip" data-placement="top" title="Edit Location Info">
-                        <i class="fa fa-edit"></i>
-                      </a>
-                      <a href="/admin/location/{{$state->id}}/delete"
-                         class="btn btn-xs btn-default-inverse animated fadeInRight" 
-                         data-toggle="tooltip" data-placement="top" title="Delete Location Info">
-                        <i class="fa fa-trash"></i>
-                      </a>
-                    </td>
-                  </tr>
-                @endforeach
-              </tbody>
-            </table>
-        </div>
-        <div class="col-md-3 col-md-pull-9 category-toggle">
-            <button><i class="fa fa-briefcase"></i></button>
-            <div class="post-sidebar">
-                  <div class="latest-post-content">
-                      <h2>Admin Panel</h2>
-                      <div class="single-product"></div>
-                  </div>
-            </div>
-        </div> <!-- end .page-sidebar -->
-      </div> <!-- end row-->
-     </div> <!-- end .home-with-slide -->
-    </div> <!-- end .container -->
-  </div>  <!-- end #page-content -->
+        <table id="loc-table" class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>State</th>
+              <th>Region</th>
+              <th>Total Area/region In state </th>
+              <th data-sortable="false">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach ($states as $state)
+              <tr>
+                <td>{{ $state-> name }}</td>
 
-  @endsection
-<!-- CONTENT ENDS -->
+                <td>@foreach($state-> lgas as $area)
+                 <li>{{ $area->name }} </li> @endforeach</td> 
+                <td>{{count($state->lgas)}}</td>
+                <td>
+                  <a href="/admin/location/{{$state->id}}/edit"
+                     class="btn btn-xs btn-info">
+                    <i class="fa fa-edit"></i> Edit
+                  </a>
+                </td>
+              </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </div>
+    </div>
 
-<!-- SCRIPTS STARTS -->
-  @section('scripts')    
-    <script src="{{asset('plugins/bootstrap-3.3.5/js/bootstrap.js')}}"></script>
-    <script src="{{asset('plugins/datatable/js/datatables.js')}}"></script>
-    <script src="{{asset('js/scripts.js')}}"></script>
+  </div>
 
-    <script type="text/javascript">
-        // Datatables
-        //-----------------------------------------------------
-          $(document).ready(function() {
-            $('#locTable').DataTable();
-          });
 
-          $(document).ready(function () {
-              $('.bizpop').popover({
-                  content: function () {
-                      // Get the content from the hidden sibling.
-                      return $(this).siblings('.viewbiz').html();
-                  },
-                  trigger: 'click',
-                  placement: 'left'
-              });
-          });
+@stop
 
-          $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
-          });
-
-         
-    </script>
-  @endsection
-<!-- SCRIPTS ENDS -->
+@section('scripts')
+  <script>
+    $(function() {
+      $("#loc-table").DataTable({
+        order: [[0, "desc"]]
+      });
+    });
+  </script>
+@stop

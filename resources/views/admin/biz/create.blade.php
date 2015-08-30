@@ -1,38 +1,22 @@
-@extends('master')
-<!-- HEAD STARTS-->
-  @section('title', 'Admin')
-  @section('stylesheets')     
-    <link href="{{asset('plugins/bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet">
-  @endsection
-<!-- HEAD ENDS-->
+@extends('admin.layout')
 
-<!-- HEADER STARTS -->
-  <!-- breadcrumbs -->
-  @section('breadcrumb')
-        <div class="breadcrumb">
-          <div class="featured-listing" style="margin:0;">
-              <h2 class="page-title animated fadeInLeft" style="margin:0;">New Business form</h2>
-          </div>
-        </div>
-  @endsection
-<!-- HEADER ENDS -->
-
-<!-- CONTENT STARTS -->
 @section('content')
-<div id="page-content" class="home-slider-content">
-  <div class="container">
-    @include('admin.partials.errors')
+  <div class="container-fluid">
     <div class="row page-title-row">
       <div class="col-md-12">
-        <h3><a href="/admin">Admin</a> » <a href="/admin/biz">Businesses</a> » <small> Add New Business</small></h3>
+        <h3>Business <small>» Create New Business</small></h3>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-md-9 col-md-push-3">
+      <div class="col-md-8 col-md-offset-2">
         <div class="panel panel-default">
-          
-          <div class="panel-body">            
+          <div class="panel-heading">
+            <h3 class="panel-title">New Business form</h3>
+          </div>
+          <div class="panel-body">
+
+            @include('admin.partials.errors')
 
             <form class="form-horizontal" role="form" method="POST"  action="/admin/biz">
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -120,7 +104,7 @@
 
               <div class="form-group">
                 <div class="col-md-7 col-md-offset-3">
-                  <button type="submit" class="btn btn-default btn-md">
+                  <button type="submit" class="btn btn-primary btn-md">
                     <i class="fa fa-plus-circle"></i>
                       Add New Business
                   </button>
@@ -132,77 +116,64 @@
           </div>
         </div>
       </div>
-      <div class="col-md-3 col-md-pull-9 category-toggle">
-            <button><i class="fa fa-briefcase"></i></button>
-            <div class="post-sidebar">
-                  <div class="latest-post-content">
-                      <h2>Admin Panel</h2>
-                      <div class="single-product"></div>
-                  </div>
-            </div>
-        </div> <!-- end .page-sidebar -->
     </div>
   </div>
-</div>
-@endsection
-<!-- CONTENT ENDS -->
 
-<!-- SCRIPTS STARTS -->
+@stop
+
 @section('scripts')
-  <script src="{{asset('plugins/bootstrap-3.3.5/js/bootstrap.js')}}"></script>
-  <script src="{{asset('js/scripts.js')}}"></script>
   <script>
-    $(document).ready(function() {
-      $("#category").select2({
-         placeholder: 'select business category',
-      });
+$(document).ready(function() {
+  $("#category").select2({
+     placeholder: 'select business category',
+  });
 
-    });
+});
 
-    $(document).ready(function() {
-      var y=[];
-     $('#category').change(function(){
-          if($(this).val() !== "select business category") {
-             var model=$('#sub');
-            model.empty();
-           $.get('{{ URL::to('api/subcat') }}', {y: $(this).val()}, function(result){
-             $.each(result.data,function(){
-                              $('#sub').append('<option value="'+this.id+'">'+this.text+'</option>');
+$(document).ready(function() {
+  var y=[];
+ $('#category').change(function(){
+      if($(this).val() !== "select business category") {
+         var model=$('#sub');
+        model.empty();
+       $.get('{{ URL::to('api/subcat') }}', {y: $(this).val()}, function(result){
+         $.each(result.data,function(){
+                          $('#sub').append('<option value="'+this.id+'">'+this.text+'</option>');
 
-                        });
-           });
-         }
-      });
-    });
+                    });
+       });
+     }
+  });
+});
 
-    $(document).ready(function() {
-      $("#stateList").select2({
-        placeholder: 'select state',
-      });
-    });
+$(document).ready(function() {
+  $("#stateList").select2({
+    placeholder: 'select state',
+  });
+});
 
-    $(document).ready(function() {
-     $('#stateList').change(function(){
-          if($(this).val() !== "select state") {
-             var model=$('#lga');
-            model.empty();
-           $.get('{{ URL::to('api/lga')}}', {z: $(this).val()}, function(result){       
-             $.each(result.data,function(){
-                              $('#lga').append('<option value="'+this.id+'">'+this.text+'</option>');
+$(document).ready(function() {
+ $('#stateList').change(function(){
+      if($(this).val() !== "select state") {
+         var model=$('#lga');
+        model.empty();
+       $.get('{{ URL::to('api/lga')}}', {z: $(this).val()}, function(result){       
+         $.each(result.data,function(){
+                          $('#lga').append('<option value="'+this.id+'">'+this.text+'</option>');
 
-                        });
-           });
-         }
-      });
-    });
+                    });
+       });
+     }
+  });
+});
 
-    $(document).ready(function() {
-      $("#sub").select2({
-        placeholder: 'select or create subcategories',
-        tags: true,
-      });
-    });
+$(document).ready(function() {
+  $("#sub").select2({
+    placeholder: 'select or create subcategories',
+    tags: true,
+  });
+});
 
 
 </script>
-@endsection
+@stop

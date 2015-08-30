@@ -163,9 +163,6 @@ samp {
   font-family: monospace, monospace;
   font-size: 1em;
 }
-.btn-group button {
-  width: auto;
-}
 button,
 input,
 optgroup,
@@ -2868,7 +2865,7 @@ th {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-}
+}  
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
@@ -2892,7 +2889,6 @@ a:hover,
 a:focus {
   color: #fdc600;
   transition: all .3s ease;
-  text-decoration: none;
 }
 a:focus {
   outline: thin dotted;
@@ -3121,6 +3117,7 @@ button {
 }
 /* select box */
 /* Custom selects */
+
 .uou-custom-select {
   position: relative;
   display: block;
@@ -3141,6 +3138,7 @@ button {
   color: #b7b7b7;
   cursor: pointer;
 }
+
 .uou-custom-select .placeholder {
   display: block;
   position: relative;
@@ -3153,7 +3151,7 @@ button {
   padding: 7px 30px 7px 15px;
   margin: 0;
   color: #919191;
-  font-size: 16px;
+  //font-size: 16px;
   border-radius: 3px;
   cursor: pointer;
 }
@@ -3164,7 +3162,7 @@ button {
 .uou-custom-select .select-clone {
   position: absolute;
   top: 100%;
-  z-index: 99;
+ // z-index: 99;
   display: none;
   background-color: #fff;
   margin: 0;
@@ -3178,6 +3176,7 @@ button {
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
 }
+
 .uou-custom-select .select-clone > li {
   display: block;
   padding: 3px 15px;
@@ -3188,6 +3187,7 @@ button {
 .uou-custom-select .select-clone > li:last-child {
   margin-bottom: 10px;
 }
+
 ::-webkit-input-placeholder {
   color: #919191;
 }
@@ -3202,6 +3202,8 @@ button {
 :-ms-input-placeholder {
   color: #919191;
 }
+
+
 /* BUTTONS */
 /* --------------------------------------- */
 .btn {
@@ -3383,7 +3385,7 @@ fieldset[disabled] .btn-default-inverse.active {
 #header .header-top-bar .header-language {
   position: relative;
   float: left;
-  z-index: 999;
+  z-index: 9999;
   margin-right: 10px;
   padding: 6px 0;
   font-weight: 700;
@@ -4301,7 +4303,6 @@ fieldset[disabled] .btn-default-inverse.active {
   background: transparent url("../img/content/feature-bg.jpg") no-repeat fixed center top / cover;
   text-align: center;
   margin-top:70px;
-  border-radius: 0;
 }
 .breadcrumb, .featured-listing {margin: 0;}
 .breadcrumb .featured-listing h2 {padding:10px;margin-top: 60px;}
@@ -4478,7 +4479,6 @@ fieldset[disabled] .btn-default-inverse.active {
   margin-top: 0;
   color: #333333;
   margin-bottom: 30px;
-  text-align: left;
 }
 #categories .accordion {
   position: relative;
@@ -4501,9 +4501,9 @@ fieldset[disabled] .btn-default-inverse.active {
 }
 #categories .accordion ul li a {
   display: block;
-  padding: 15px 0 15px 11px;
+  padding: 15px 0 15px 30px;
   text-transform: uppercase;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
 }
 #categories .accordion ul li a .fa {
@@ -4512,7 +4512,6 @@ fieldset[disabled] .btn-default-inverse.active {
 #categories .accordion ul li a:hover {
   color: inherit;
 }
-#categories .accordion ul li a span.subcat { display: inline-block;}
 #categories .accordion ul li a span {
   font-weight: normal;
   display: block;
@@ -4531,14 +4530,7 @@ fieldset[disabled] .btn-default-inverse.active {
   font-size: 15px;
   font-weight: normal;
 }
-
-#categories .accordion ul li a,
-#categories .accordion ul li div a {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
+#categories .accordion ul li a:before,
 #categories .accordion ul li div a:before {
   content: "\f196";
   position: relative;
@@ -4556,6 +4548,7 @@ fieldset[disabled] .btn-default-inverse.active {
   font-weight: 700;
 }
 
+#categories .accordion ul li a.active:before,
 #categories .accordion ul li div a.active:before {
   content: "\f147";
 }
@@ -4930,11 +4923,6 @@ fieldset[disabled] .btn-default-inverse.active {
 }
 /* company-sidebar */
 /* ---------------------------------------- */
-
-.viewbiz {
-  display: none;
-}
-
 .company-sidebar {
   position: relative;
   padding-top: 30px;
@@ -5179,29 +5167,6 @@ fieldset[disabled] .btn-default-inverse.active {
   float: right;
   width: 69%;
 }*/
-
-.pagination > .active > a, 
-.pagination > .active > span, 
-.pagination > .active > a:hover, 
-.pagination > .active > span:hover, 
-.pagination > .active > a:focus, 
-.pagination > .active > span:focus {
-  border: medium none #CCC;
-  color: #FDC600;
-  background-color: #333;
-}
-
-.pagination > li > a, 
-.pagination > li > span {
-  color: #FDC600;
-}
-.pagination > li > a:hover, 
-.pagination > li > span:hover, 
-.pagination > li > a:focus, 
-.pagination > li > span:focus {
-    color: #FDC600;
-}
-
 /* product-details */
 .product-details {
   position: relative;
@@ -7978,10 +7943,6 @@ fieldset[disabled] .btn-default-inverse.active {
 /* --------------------------------------- */
 /* SHORTCODES */
 /* --------------------------------------- */
-.table > tbody > tr > td {
-  min-width: 100px;
-}
-
 .shortcodes {
   position: relative;
   padding-bottom: 50px;

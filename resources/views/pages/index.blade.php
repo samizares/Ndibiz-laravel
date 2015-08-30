@@ -1,125 +1,113 @@
 @extends('master')
-<!-- HEAD -->
-@section('title', 'Home')
-@section('stylesheets')
-    <link rel="stylesheet" href="{{ asset('plugins/text-rotator/jquery.wordrotator.css')}}">
-@endsection
-<!-- HEADER -->
-<!-- search -->
+
 @section('search')
-  @include('partials.search')
-@endsection
-<!-- slider -->
-@section('slider')
-        <div class="slider-content">
-          <div id="home-slider" class="">
-            <div class="item">
-              <img src="img/content/home-slide-img.jpg" alt="">
-              <div class="slide-content">             
-                <h1><small><i class="fa fa-search"></i> Search for <br><span id="demo"></span> <br>in <br><span id="demo2"></span></small></h1>
-                <h1><small>Connect</small> <span>Businesses</span> <small>To</small> <span>Customers</span></h1>
-                <h1 class="hidden-xs"><a class="btn btn-default btn-lg" href=""><i class="fa fa-plus-square"></i> Add a Business</a> <small>OR</small> 
-                <a class="btn btn-default  btn-lg" href=""><i class="fa fa-plus-square"></i> Claim Your Business</a></h1>
-              </div>
-            </div>
-          </div>
+@include('partials.search')
 
-          <div class="customNavigation hidden">
-            <a class="btn prev"><i class="fa fa-angle-left"></i></a>
-            <a class="btn next"><i class="fa fa-angle-right"></i></a>
-          </div>
-        </div> <!-- END .slider-content -->    
 @endsection
-<!-- navigation -->
-@section('header-navbar')
-        <div class="header-nav-bar">
-            <div class="container">
-              <nav>
-                <button><i class="fa fa-bars"></i></button>
-                <ul class="primary-nav list-unstyled">
-                  <li class="bg-color active"><a href="/">Home<i class="fa fa-home"></i></a></li>
-                  <li class=""><a href="/categories">Categories</a></li>
-                  <li class=""><a href="/businesses">Businesses</a></li>
-                  <li><a href="#">About Us</a></li>
-                  <li><a href="#">Contact Us</a></li>
-                  <li><a href="/admin">Admin</a></li>
-                </ul>
-              </nav>
-            </div> <!-- end .container -->
-        </div> <!-- end .header-nav-bar -->   
+
+@include('partials.notifications')
+
+@section('map')
+ <div class="map-section">
+
+       <!-- <div id="map_canvas"></div>  -->
+
+      </div> 
 @endsection
-<!-- CONTENT -->
 @section('content')
-  @include('partials.notifications')
+	 <div class="header-nav-bar">
+      <div class="container">
+        <nav>
 
+          <button><i class="fa fa-bars"></i></button>
+
+          <ul class="primary-nav list-unstyled">
+            <li class="bg-color"><a href="#">Home<i class="fa fa-home"></i></a></li>
+            <li class=""><a href="#">Categories<i class="fa fa-angle-down"></i></a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact Us</a></li>
+          </ul>
+        </nav>
+      </div> <!-- end .container -->
+    </div> <!-- end .header-nav-bar -->
+  </header> <!-- end #header -->
+
+
+  
   <div id="page-content" class="home-slider-content">
     <div class="container">
-      <div class="home-with-slide category-listing">
+      <div class="home-with-slide">
         <div class="row">
-          <h2><strong>Featured</strong> Directory Categories</h2>
+
           <div class="col-md-9 col-md-push-3">
             <div class="page-content">
+
+
               <div class="product-details">
-                <div class="tab-content">                  
-                  <div class="tab-pane active" id="all-categories">                      
-                      <div class="row clearfix">
+                <div class="tab-content">
+
+                  <div class="tab-pane active" id="all-categories">
+                    <h3>Directory <span>Categories</span></h3>
+
+                    <div class="row clearfix">
                         @unless ( $cats->isEmpty() )
                         @foreach ($cats as $cat)
                           <div class="col-md-3 col-sm-4 col-xs-6">
                             <div class="category-item">
                              <a href="#"><i class="fa fa-{{$cat->image_class}}"></i>{{ $cat->name}} </a>
                             </div>
-                          </div>
+                         </div>
                          @endforeach
                           @endunless
-                          <div class="view-more">
-                            <a class="btn btn-default text-center" href="#"><i class="fa fa-plus-square-o"></i>View More</a>
-                          </div>
-                      </div> <!-- end .row -->                   
+
+                     
+
+                      <div class="view-more">
+                        <a class="btn btn-default text-center" href="#"><i class="fa fa-plus-square-o"></i>View More</a>
+                      </div>
+
+                    </div> <!-- end .row -->
+                   
                   </div> <!-- end .tabe-pane -->
 
-
                 </div> <!-- end .tabe-content -->
+
               </div> <!-- end .product-details -->
             </div> <!-- end .page-content -->
           </div>
 
           <div class="col-md-3 col-md-pull-9 category-toggle">
             <button><i class="fa fa-briefcase"></i></button>
+
             <div class="page-sidebar">
+              
+
               <!-- Category accordion -->
               <div id="categories">
                 <div class="accordion">
                   <ul class="nav nav-tabs home-tab" role="tablist">
                     <li class="active">
-                      <a href="#all-categories"  role="tab" data-toggle="tab">Nightlife
-                        <span>Clubs, Bars, Comedy clubs</span>
+                      <a href="#all-categories"  role="tab" data-toggle="tab">All Categories
+                        <span>Display all categories</span>
+                      </a>
+                    </li>
+                 
+                   
+                    <li>
+                      <a href="#resturants" role="tab" data-toggle="tab">Restaurants &amp; Fastfoods
+                        <span>5-star Restaurants, Mamaput (Local Canteens), Fastfoods</span>
                       </a>
                     </li>
 
                     <li>
-                      <a href="#entertainment" role="tab" data-toggle="tab">Entertainment
-                        <span>Cinemas, Museums, Arcades</span>
+                      <a href="#real-estate" role="tab" data-toggle="tab">Real Estate
+                        <span>Demo 1, Demo 1, Demo 1</span>
                       </a>
                     </li>
-
-                    <li>
-                      <a href="#local"  role="tab" data-toggle="tab">Local Services
-                        <span>Car Mechanic, Drycleaners, Phone Repair</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#local"  role="tab" data-toggle="tab">Property
-                        <span>Estate Agents, Shared Office Spaces</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#local"  role="tab" data-toggle="tab">Hospitality & Travel
-                        <span>Airports, Care Hire, Hotels, Travel Agencies</span>
-                      </a>
-                    </li>
-                  </ul>
+                
+                  </ul>                
                 </div> <!-- end .accordion -->
+
               </div> <!-- end #categories -->
 
             </div> <!-- end .page-sidebar -->
@@ -131,10 +119,10 @@
   
   <div class="featured-listing" id= "featured-list">
     <div class="container">
-      <h2><strong>Featured</strong> Businesses</h2>
-      <div id="businesses-slider" class="owl-carousel owl-theme clearfix">
-        
-        <div class="item">
+      <div class="row clearfix">
+        <h2><strong>Featured</strong> Businesses</h2>
+
+        <div class="col-md-3 col-sm-4 col-xs-6">
           <div class="single-product">
             <figure>
               <img src="img/content/post-img-1.jpg" alt="">
@@ -169,7 +157,7 @@
 
         </div>
 
-        <div class="item">
+        <div class="col-md-3 col-sm-4 col-xs-6">
 
           <div class="single-product">
             <figure>
@@ -206,7 +194,7 @@
 
         </div>
 
-        <div class="item">
+        <div class="col-md-3 col-sm-4 col-xs-6">
 
           <div class="single-product">
             <figure>
@@ -243,7 +231,7 @@
 
         </div>
 
-        <div class="item">
+        <div class="col-md-3 col-sm-4 col-xs-6">
 
           <div class="single-product">
             <figure>
@@ -280,7 +268,7 @@
 
         </div>
 
-        <div class="item">
+        <div class="col-md-3 col-sm-4 col-xs-6">
 
           <div class="single-product">
             <figure>
@@ -317,7 +305,7 @@
 
         </div>
 
-        <div class="item">
+        <div class="col-md-3 col-sm-4 col-xs-6">
 
           <div class="single-product">
             <figure>
@@ -354,7 +342,7 @@
 
         </div>
 
-        <div class="item">
+        <div class="col-md-3 col-sm-4 col-xs-6">
 
           <div class="single-product">
             <figure>
@@ -391,7 +379,7 @@
 
         </div>
 
-        <div class="item">
+        <div class="col-md-3 col-sm-4 col-xs-6">
 
           <div class="single-product">
             <figure>
@@ -477,43 +465,102 @@
 
 @endsection
 
-<!-- FOOTER STARTS -->
-  @section('footer')
-    @include('includes.footer')
-  @endsection
-<!-- FOOTER ENDS -->
+@section('scripts')
+ <script>
+ $(function() {
+      // Enable Selectize
+    $('#location').selectize({
+    valueField: 'id',
+    labelField: 'name',
+    searchField: ['name'],
+    renrender:{
+        option:function(item, escape) {
+          return '<div>' + escape(item.name) +'</div>';
+        }
+      },
+      load:function(query, callback){
+        if(!query.length) return callback();
+        $.ajax({
+          url: './api/location',
+          type: 'GET',
+          dataType: 'json',
+          data: {
+            l: query
+          },
+          success: function(res) {
+            callback(res.data);
+            } 
+        });
+      }
+  });
+})
 
-<!-- SCRIPTS STARTS -->
-  @section('scripts')
-    <script src="{{asset('js/selectize.min.js')}}"></script>
-    <script src="{{asset('js/select22.min.js')}}"></script>
-    <script src="{{asset('plugins/text-rotator/jquery.wordrotator.min.js') }}"></script>
-    <script src="{{asset('js/owl.carousel.js') }}"></script>
+    $(function() {
+      // Enable Selectize
+    $('#category').selectize({
+      valueField: 'id',
+      labelField: 'name',
+      searchField: ['name'],
+      render:{
+        option:function(item, escape) {
+          return '<div><i class="fa fa-home"></i>' + escape(item.name) +'</div>';
+        }
+      },
+      load:function(query, callback) {
+        if(!query.length) return callback();
+        $.ajax({
+          url: './api/category',
+          type: 'GET',
+          dataType: 'json',
+          data: {
+            q: query
+          },
+          success: function(res) {
+            callback(res.data);
+            }
+        });
+      }
+      });
 
-    <script src="{{asset('js/scripts.js') }}"></script>
+    });
 
-    <script>
-      //Text rotator
-      //-------------------------------------------------
-        
-          $(document).ready(function () {
-              $("#demo").wordsrotator({
-              words: ['Local Restaurants (Mama Put)','Hotels','Mechanic Workshops'], // Array of words, it may contain HTML values
-              randomize: true, //show random entries from the words array
-              animationIn: "flipInY", //css class for entrace animation
-              animationOut: "flipOutY", //css class for exit animation
-              speed: 3000 // delay in milliseconds between two words
-              });
+     $(function() {
+      // Enable Selectize
 
-               $("#demo2").wordsrotator({
-              words: ['Lagos','Abuja','PortHarcourt'], // Array of words, it may contain HTML values
-              randomize: true, //show random entries from the words array
-              animationIn: "rotateInUpLeft", //css class for entrace animation
-              animationOut: "flipOutY", //css class for exit animation
-              speed: 3000 // delay in milliseconds between two words
-              });
-          });
-         
-    </script>
-  @stop
-<!-- SCRIPTS ENDS -->
+    $('#company').selectize({
+      valueField: 'id',
+      searchField: ['name'],
+      labelField: 'name',
+      render:{
+        option:function(item, escape) {
+          return '<div><i class="fa fa-female"></i>' + escape(item.name) +'</div>';
+         }
+        },
+      load:function(query, callback) {
+        if(!query.length) return callback();
+        $.ajax({
+          url: './api/company',
+          type: 'GET',
+          dataType: 'json',
+          data: {
+            m: query
+          },
+          success: function(res) {
+            callback(res.data);
+            }
+        });
+      }
+    });
+});
+
+      $(function() {
+      // Enable Selectize
+
+    $('#category3').select2({
+      placeholder: 'search category',
+      tags: true,
+
+      });
+});
+</script>
+@endsection
