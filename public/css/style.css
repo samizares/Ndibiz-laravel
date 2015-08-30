@@ -3371,6 +3371,11 @@ fieldset[disabled] .btn-default-inverse.active {
 .check-box input[type="checkbox"] {
   width: 0;
 }
+
+.tab-pane {
+  display: block;
+}
+
 #header .header-top-bar .header-biz,
 #header .header-top-bar .header-login,
 #header .header-top-bar .header-register,

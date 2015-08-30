@@ -2,9 +2,9 @@
 <!-- HEAD -->
 @section('title', 'Categories')
 @section('stylesheets')
-    <link href="{{asset('plugins/datatable/css/datatables.css')}}" rel="stylesheet">
-    <link href="{{asset('plugins/datatable/css/dataTables.bootstrap.css')}}" rel="stylesheet">
-    <link href="{{asset('plugins/bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet">
+    <!-- <link href="{{asset('plugins/datatable/css/datatables.css')}}" rel="stylesheet"> -->
+    <!-- <link href="{{asset('plugins/datatable/css/dataTables.bootstrap.css')}}" rel="stylesheet"> -->
+    <!-- <link href="{{asset('plugins/bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet"> -->
 @endsection
 <!-- HEADER -->
 <!-- breadcrumbs -->
@@ -44,15 +44,12 @@
       <div class="col-md-9">
 
         <div class="row">
-          <div class="col-md-9 col-md-push-3">
+          <div class="col-md-9 col-md-push-3 category-toggle">
             <div class="page-content">
               <div class="product-details">
                 <div class="tab-content">   
                 @unless ( $cats->isEmpty() )
-                  @foreach ($cats as $cat)           
-
-
-
+                  @foreach ($cats as $cat)   
 
                   <div class="tab-pane" id="{{ $cat->name }}">                      
                       <div class="row clearfix">
@@ -84,11 +81,9 @@
                 <div class="accordion">
                   <ul class="nav nav-tabs home-tab" role="tablist">
                     @foreach ($cats as $cat)
-                    <li>
+                    <li class="">
                       <a href="#{{ $cat->name }}"  role="tab" data-toggle="tab"><i class="fa fa-{{$cat->image_class}}"></i>
-                      {{ $cat->name }}<!-- <br>
-                      @foreach($cat->subcats as $cat)<span class="subcat">{{ $cat->name}} </span>,  @endforeach -->
-                      </a>
+                      {{ $cat->name }}</a>
                     </li>
                     @endforeach
                   </ul>
@@ -126,5 +121,22 @@
     </div> <!-- end .container -->
   </div>  <!-- end #page-content -->
 
+@endsection
+
+@section('scripts')
+  <script src="{{asset('plugins/bootstrap-3.3.5/js/bootstrap.js')}}"></script>
+    <script src="{{asset('plugins/datatable/js/datatables.js')}}"></script>
+    <script src="{{asset('js/scripts.js')}}"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+       
+       // $('.tab-pane a[href="#fashion"]').tab('show');
+       // $('#fashion').tab('show');
+        
+        $('li:first-child').addClass('active');
+        $('.tab-pane:first-child ').addClass('active');
+    });
+      
+  </script>
 @endsection
 
