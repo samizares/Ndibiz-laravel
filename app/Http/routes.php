@@ -32,6 +32,7 @@ Route::get('api/category', 'ApiController@category');
 Route::get('api/company', 'ApiController@company');
 Route::get('api/lga', 'ApiController@lga');
 Route::get('api/subcat', 'ApiController@subcat');
+Route::get('api/featured', 'ApiController@featured');
 
 // Admin area
 get('admin', function () {

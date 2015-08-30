@@ -77,8 +77,8 @@ class CatController extends Controller
 
                     } else{
                          $newCat = new SubCat();
-                         $newCat -> name = $sub;
-                         $newCat -> cats_id = $category->id; 
+                         $newCat ->name = $sub;
+                         $newCat ->cat_id = $category->id; 
                          $newCat->save();
                         }
                     }

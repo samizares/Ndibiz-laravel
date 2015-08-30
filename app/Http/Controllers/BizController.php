@@ -37,8 +37,9 @@ class BizController extends Controller
     {
          $stateList= State::lists('name','name');
          $catList   = Cat::lists('name','id');
+         $featured= Biz::whereFeatured('YES')->get();
 
-        return view('pages.regbiz', compact('stateList', 'catList'));
+        return view('pages.regbiz', compact('stateList', 'catList','featured'));
         
     }
 

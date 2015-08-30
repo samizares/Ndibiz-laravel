@@ -18,7 +18,8 @@ class HomeController extends Controller
 		$cats = Cat::all();
 		$stateList= State::lists('name','name');
 		$catList   = Cat::lists('name','name'); 
-		return view('pages.index', compact('stateList','catList','cats'));
+		 $featured= Biz::whereFeatured('YES')->get();
+		return view('pages.index', compact('stateList','catList','cats','featured'));
 	}
 	
 	public function regbiz()

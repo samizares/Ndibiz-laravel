@@ -93,11 +93,30 @@ class ApiController extends Controller
            $data[]=array('id' => $key, 'text'=>$value);
         }
       } else {
-        $data[]= array('id'=>'0','text'=>'No subcategories found');
+        $list=\App\SubCat::lists('name','id')->all();
+          foreach( $list as $key => $value) {
+           $data[]=array('id' => $key, 'text'=>$value);
+        }
+
+      //  $data[]= array('id'=>'0','text'=>'No subcategories found');
       }
     
       return \Response::json(['data'=>$data]);
 
+    }
+
+    public function featured()
+    {
+      $biz_id=\Input::get('id');
+      $newValue=\Input::get('data');
+
+      $biz=\App\Biz::whereId($biz_id)->first();
+      $biz->featured = $newValue;
+
+     if($biz->save()) 
+        return \Response::json(array('status'=>1));
+    else 
+        return \Response::json(array('status'=>'error','msg'=>'could not be updated'));
     }
 
 

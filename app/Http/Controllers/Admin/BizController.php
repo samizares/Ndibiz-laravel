@@ -24,7 +24,7 @@ class BizController extends Controller
     {
         $bizs= Biz::all();
      //  foreach( $bizs as $biz)             
-     //   dd($biz->address->street);
+     
        return view('admin.biz.index', compact('bizs'));
     }
 
