@@ -7,9 +7,6 @@
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <input type="hidden" name="folder" value="{{ $folder }}">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">
-            ×
-          </button>
           <h4 class="modal-title">Create New Folder</h4>
         </div>
         <div class="modal-body">
@@ -24,12 +21,16 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">
-            Cancel
-          </button>
-          <button type="submit" class="btn btn-primary">
-            Create Folder
-          </button>
+          <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                <div class="btn-group" role="group">
+                  <button type="button" class="btn btn-default-inverse" data-dismiss="modal">
+                    Cancel
+                  </button></div>
+                <div class="btn-group" role="group">
+                  <button type="submit" class="btn">
+                    Create Folder
+                  </button></div>
+          </div>
         </div>
       </form>
     </div>
@@ -117,9 +118,6 @@
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <input type="hidden" name="folder" value="{{ $folder }}">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">
-            ×
-          </button>
           <h4 class="modal-title">Upload New File</h4>
         </div>
         <div class="modal-body">
@@ -142,12 +140,16 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">
-            Cancel
-          </button>
-          <button type="submit" class="btn btn-primary">
-            Upload File
-          </button>
+          <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                <div class="btn-group" role="group">
+                  <button type="button" class="btn btn-default-inverse" data-dismiss="modal">
+                    Cancel
+                  </button></div>
+                <div class="btn-group" role="group">
+                  <button type="submit" class="btn">
+                    Upload File
+                  </button></div>
+          </div>
         </div>
       </form>
     </div>

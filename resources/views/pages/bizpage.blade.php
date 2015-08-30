@@ -1,9 +1,6 @@
 @extends('master')
 <!-- HEAD -->
 @section('title', 'Home')
-@section('stylesheets')
-    <link rel="stylesheet" href="{{ asset('plugins/text-rotator/jquery.wordrotator.css')}}">
-@endsection
 <!-- HEADER -->
 <!-- search -->
 @section('search')
@@ -37,12 +34,12 @@
               <nav>
                 <button><i class="fa fa-bars"></i></button>
                 <ul class="primary-nav list-unstyled">
-                  <li class="bg-color active"><a href="/">Home<i class="fa fa-home"></i></a></li>
-                  <li class=""><a href="/categories">Categories</a></li>
-                  <li class=""><a href="/businesses">Businesses</a></li>
+                  <li class="bg-color active"><a href="index.php">Home<i class="fa fa-home"></i></a></li>
+                  <li class=""><a href="categories.php">Categories</a></li>
+                  <li class=""><a href="businesses.php">Businesses</a></li>
                   <li><a href="#">About Us</a></li>
                   <li><a href="#">Contact Us</a></li>
-                  <li><a href="/admin">Admin</a></li>
+                   <li><a href="/admin">Admin</a></li>
                 </ul>
               </nav>
             </div> <!-- end .container -->
@@ -78,7 +75,73 @@
                       </div> <!-- end .row -->                   
                   </div> <!-- end .tabe-pane -->
 
+                  <div class="tab-pane" id="entertainment">                      
+                      <div class="row clearfix">
+                        @unless ( $cats->isEmpty() )
+                        @foreach ($cats as $cat)
+                          <div class="col-md-3 col-sm-4 col-xs-6">
+                            <div class="category-item">
+                             <a href="#"><i class="fa fa-{{$cat->image_class}}"></i>{{ $cat->name}} </a>
+                            </div>
+                          </div>
+                         @endforeach
+                          @endunless
+                          <div class="view-more">
+                            <a class="btn btn-default text-center" href="#"><i class="fa fa-plus-square-o"></i>View More</a>
+                          </div>
+                      </div> <!-- end .row -->                   
+                  </div> <!-- end .tabe-pane -->
 
+                  <div class="tab-pane" id="local">                      
+                      <div class="row clearfix">
+                        @unless ( $cats->isEmpty() )
+                        @foreach ($cats as $cat)
+                          <div class="col-md-3 col-sm-4 col-xs-6">
+                            <div class="category-item">
+                             <a href="#"><i class="fa fa-{{$cat->image_class}}"></i>{{ $cat->name}} </a>
+                            </div>
+                          </div>
+                         @endforeach
+                          @endunless
+                          <div class="view-more">
+                            <a class="btn btn-default text-center" href="#"><i class="fa fa-plus-square-o"></i>View More</a>
+                          </div>
+                      </div> <!-- end .row -->                   
+                  </div> <!-- end .tabe-pane -->
+
+                  <div class="tab-pane" id="property">                      
+                      <div class="row clearfix">
+                        @unless ( $cats->isEmpty() )
+                        @foreach ($cats as $cat)
+                          <div class="col-md-3 col-sm-4 col-xs-6">
+                            <div class="category-item">
+                             <a href="#"><i class="fa fa-{{$cat->image_class}}"></i>{{ $cat->name}} </a>
+                            </div>
+                          </div>
+                         @endforeach
+                          @endunless
+                          <div class="view-more">
+                            <a class="btn btn-default text-center" href="#"><i class="fa fa-plus-square-o"></i>View More</a>
+                          </div>
+                      </div> <!-- end .row -->                   
+                  </div> <!-- end .tabe-pane -->
+
+                   <div class="tab-pane" id="travel">                      
+                      <div class="row clearfix">
+                        @unless ( $cats->isEmpty() )
+                        @foreach ($cats as $cat)
+                          <div class="col-md-3 col-sm-4 col-xs-6">
+                            <div class="category-item">
+                             <a href="#"><i class="fa fa-{{$cat->image_class}}"></i>{{ $cat->name}} </a>
+                            </div>
+                          </div>
+                         @endforeach
+                          @endunless
+                          <div class="view-more">
+                            <a class="btn btn-default text-center" href="#"><i class="fa fa-plus-square-o"></i>View More</a>
+                          </div>
+                      </div> <!-- end .row -->                   
+                  </div> <!-- end .tabe-pane -->
                 </div> <!-- end .tabe-content -->
               </div> <!-- end .product-details -->
             </div> <!-- end .page-content -->
@@ -86,6 +149,7 @@
 
           <div class="col-md-3 col-md-pull-9 category-toggle">
             <button><i class="fa fa-briefcase"></i></button>
+
             <div class="page-sidebar">
               <!-- Category accordion -->
               <div id="categories">
@@ -477,43 +541,3 @@
 
 @endsection
 
-<!-- FOOTER STARTS -->
-  @section('footer')
-    @include('includes.footer')
-  @endsection
-<!-- FOOTER ENDS -->
-
-<!-- SCRIPTS STARTS -->
-  @section('scripts')
-    <script src="{{asset('js/selectize.min.js')}}"></script>
-    <script src="{{asset('js/select22.min.js')}}"></script>
-    <script src="{{asset('plugins/text-rotator/jquery.wordrotator.min.js') }}"></script>
-    <script src="{{asset('js/owl.carousel.js') }}"></script>
-
-    <script src="{{asset('js/scripts.js') }}"></script>
-
-    <script>
-      //Text rotator
-      //-------------------------------------------------
-        
-          $(document).ready(function () {
-              $("#demo").wordsrotator({
-              words: ['Local Restaurants (Mama Put)','Hotels','Mechanic Workshops'], // Array of words, it may contain HTML values
-              randomize: true, //show random entries from the words array
-              animationIn: "flipInY", //css class for entrace animation
-              animationOut: "flipOutY", //css class for exit animation
-              speed: 3000 // delay in milliseconds between two words
-              });
-
-               $("#demo2").wordsrotator({
-              words: ['Lagos','Abuja','PortHarcourt'], // Array of words, it may contain HTML values
-              randomize: true, //show random entries from the words array
-              animationIn: "rotateInUpLeft", //css class for entrace animation
-              animationOut: "flipOutY", //css class for exit animation
-              speed: 3000 // delay in milliseconds between two words
-              });
-          });
-         
-    </script>
-  @stop
-<!-- SCRIPTS ENDS -->
