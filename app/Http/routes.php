@@ -47,6 +47,7 @@ $router->group([
   resource('admin/cat', 'CatController');
   resource('admin/location', 'LocationController');
   get('admin/upload', 'UploadController@index');
+  post('admin/sub', 'SubCatController@deleteSub');
   post('admin/upload/file', 'UploadController@uploadFile');
   delete('admin/upload/file', 'UploadController@deleteFile');
   post('admin/upload/folder', 'UploadController@createFolder');

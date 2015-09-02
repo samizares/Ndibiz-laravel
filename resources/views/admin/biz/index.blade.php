@@ -24,6 +24,7 @@
               <th>Business name</th>
               <th>Address</th>
               <th>phone1</th>
+              <th>Featured</th>
               <th>category</th>
               <th>Sub-Category</th>
               <th>State</th>
@@ -36,6 +37,8 @@
                 <td>{{ $biz-> name }}</td>
                 <td>{{ $biz-> address->street}}</td> 
                 <td>{{ $biz-> phone1 }}</td>
+                <td> 
+                  <span class="featured" id="{{$biz->id}}">{{ $biz->featured }}</a></td>
                 <td>@foreach($biz->cats as $cat)
                  <li>{{ $cat->name }} </li> @endforeach</td> 
 
@@ -71,5 +74,45 @@
         order: [[0, "desc"]]
       });
     });
+
+    $(function(){
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.fn.editable.defaults.mode = 'inline';
+    $.fn.editable.defaults.params = function (params) {
+        params._token = $("meta[name=token]").attr("content");
+        return params;
+    };
+    $('.featured').editable();
+     $(document).on('click','.editable-submit',function(){
+      var x = $(this).closest('td').children('span').attr('id');
+      var y = $('.input-sm').val();
+      var z = $(this).closest('td').children('span');
+      $.ajax({
+        url: "{{ URL::to('api/featured')}}?id="+x+"&data="+y,
+        type: 'GET',
+        success: function(s){
+          if(s == 'status'){
+          $(z).html(y);}
+          if(s == 'error') {
+          alert('Error Processing your Request!');}
+        },
+        error: function(e){
+          alert('Error Processing your Request!!');
+        }
+      });
+    /*  type:'text',
+      title:'Edit Featured',
+      url: '{{ URL::to('api/featured')}}',
+      pk: '{{$biz->id}}',
+      ajaxOptions: {
+        dataType: 'json'
+        }  */
+          
+    });
+  });
   </script>
 @stop

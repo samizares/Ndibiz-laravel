@@ -6,13 +6,13 @@
             <button class="toggle-btn" type="submit"><i class="fa fa-bars"></i></button>
 
             <div class="search-value">
-              <div class="keywords">
+            <!--  <div class="keywords">
                  
                 <select class="" id="company" name="company" 
                 placeholder="Quick search>> type business/company name">
                 </select>
               
-              </div>
+              </div>  -->
 
           
               <div class="category-search">
@@ -23,7 +23,7 @@
               </div>
 
               <div class="select-location">
-                <select id="location" name="location" placeholder="Choose a city...">
+                <select id="location" name="location" placeholder="type area/city...">
                 </select> 
               
               </div>

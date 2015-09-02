@@ -1,12 +1,12 @@
-
 <div class="form-group">
   <label for="name" class="col-md-3 control-label">
-   Sub Categories
+   Sub Categories(Readonly )
   </label>
   <div class="col-md-8">
      {!!Form::select('sub_cats[]', $subcats,$list,['class'=>'form-control', 'multiple'=>'multiple','id'=>'sub_cat']) !!}
   </div>
 </div>
+
 <div class="form-group">
   <label for="meta_description" class="col-md-3 control-label">
     Meta Description

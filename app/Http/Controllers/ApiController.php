@@ -86,6 +86,9 @@ class ApiController extends Controller
 
       $query=\Input::get('y');
 
+      $catId=\App\Cat::whereId($query)->first();
+      $desc=$catId->meta_description;
+
       $list=\App\SubCat::where('cat_id', '=', $query)
       ->lists('name','id')->all();
       if(count($list) > 0) {
@@ -93,15 +96,12 @@ class ApiController extends Controller
            $data[]=array('id' => $key, 'text'=>$value);
         }
       } else {
-        $list=\App\SubCat::lists('name','id')->all();
-          foreach( $list as $key => $value) {
-           $data[]=array('id' => $key, 'text'=>$value);
+        $data[]= array('id'=>'0','text'=>'No Subcategories found');
         }
 
-      //  $data[]= array('id'=>'0','text'=>'No subcategories found');
-      }
+      
     
-      return \Response::json(['data'=>$data]);
+      return \Response::json(['data'=>$data, 'desc'=>$desc]);
 
     }
 
