@@ -19,7 +19,7 @@ public function biz()
 
 public function subcats()
 {
-  return $this->hasMany('App\Sub_cat','cats_id');
+  return $this->hasMany('App\SubCat','cat_id');
 }
 
 }

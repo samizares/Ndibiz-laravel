@@ -7,7 +7,7 @@
       </div>
       <div class="col-md-6 text-right">
         <a href="/admin/cat/create" class="btn btn-success btn-md">
-          <i class="fa fa-plus-circle"></i> New Category
+          <i class="fa fa-plus-circle"></i> New Category|SubCategory
         </a>
       </div>
     </div>
@@ -34,10 +34,14 @@
               <td>{{ $cat->name }}</td>
                <td> <i class="fa fa-{{$cat->image_class}}"> </i> </td>
               <td class="hidden-md">{{ $cat->meta_description }}</td>
-              <td>@foreach($cat->subcats as $cat)
-                 <li>{{ $cat->name }} </li> @endforeach</td>
+              <td>@foreach($cat->subcats as $catt)
+                 <li>{{ $catt->name }} &emsp; <a href="/admin/sub?d={{$catt->id}}" data-method="DELETE" 
+                     data-token="{{csrf_token()}}" data-confirm="Are you sure">
+                      <i class="fa fa-times-circle"></i> Delete </a> 
+                     
+                    </li> @endforeach</td>
               <td>
-                <a href="#"
+                <a href="/admin/cat/{{$cat->id}}/edit"
                    class="btn btn-xs btn-info">
                   <i class="fa fa-edit"></i> Edit
                 </a>
@@ -52,6 +56,7 @@
 @stop
 
 @section('scripts')
+<script src="{{asset('js/deleteHandler.js') }}"></script>
   <script>
     $(function() {
       $("#cats-table").DataTable({

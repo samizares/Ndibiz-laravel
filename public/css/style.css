@@ -163,6 +163,9 @@ samp {
   font-family: monospace, monospace;
   font-size: 1em;
 }
+.btn-group button {
+  width: auto;
+}
 button,
 input,
 optgroup,
@@ -171,6 +174,8 @@ textarea {
   color: inherit;
   font: inherit;
   margin: 0;
+  display: block;
+  width: 100%;
 }
 button {
   overflow: visible;
@@ -2764,6 +2769,11 @@ th {
   -moz-transform: translate3d(0, 0, 0);
   -ms-transform: translate3d(0, 0, 0);
 }
+
+.featured-listing #businesses-slider .owl-carousel .owl-item {
+  width: 235px !important;
+}
+
 /*
 *   Owl Carousel Owl Demo Theme
 * v1.3.3
@@ -2882,6 +2892,7 @@ a:hover,
 a:focus {
   color: #fdc600;
   transition: all .3s ease;
+  text-decoration: none;
 }
 a:focus {
   outline: thin dotted;
@@ -3030,6 +3041,9 @@ h6,
 p {
   margin: 0 0 20px;
 }
+h1 small {
+  color: #fff;
+}
 .text-left {
   text-align: left;
 }
@@ -3088,13 +3102,13 @@ form {
 }
 input {
   outline: 0;
-  border: none;
   width: 100%;
   height: inherit;
   color: #333333;
   font-size: 16px;
   padding: 5px 15px;
   border-radius: 3px;
+  border: solid 1px #BFBDBD;
 }
 button {
   border-radius: 3px;
@@ -3131,12 +3145,12 @@ button {
   display: block;
   position: relative;
   outline: 0;
-  border: 0;
+  border: solid 1px #BFBDBD;
   background: #fff;
   width: 100%;
   height: inherit;
   line-height: 24px;
-  padding: 3px 30px 3px 15px;
+  padding: 7px 30px 7px 15px;
   margin: 0;
   color: #919191;
   font-size: 16px;
@@ -3350,24 +3364,38 @@ fieldset[disabled] .btn-default-inverse.active {
   width: 100%;
   padding: 10px 0;
 }
+#auth-page .login {
+  padding: 70px;
+  min-height: 250px;
+}
+.check-box input[type="checkbox"] {
+  width: 0;
+}
+
+.tab-pane {
+  display: block;
+}
+
+#header .header-top-bar .header-biz,
 #header .header-top-bar .header-login,
 #header .header-top-bar .header-register,
 #header .header-top-bar .header-social,
 #header .header-top-bar .header-language {
   position: relative;
   float: left;
-  z-index: 9999;
-  margin-right: 20px;
+  z-index: 999;
+  margin-right: 10px;
   padding: 6px 0;
   font-weight: 700;
+  text-transform: uppercase;
 }
 #header .header-top-bar .header-login div,
 #header .header-top-bar .header-register div {
   visibility: hidden;
   opacity: 0;
   position: absolute;
-  top: 44px;
-  left: 0;
+  top: 54px;
+  right: 0;
   z-index: 99;
   padding: 20px;
   width: 350px;
@@ -3393,8 +3421,8 @@ fieldset[disabled] .btn-default-inverse.active {
 }
 #header .header-top-bar .header-logo {
   float: left;
-  width: 60%;
-  text-align: center;
+  width: 56%;
+  text-align: left;
   text-transform: uppercase;
 }
 #header .header-top-bar .header-logo h2 {
@@ -3416,28 +3444,44 @@ fieldset[disabled] .btn-default-inverse.active {
     width: 60%;
   }
 }
+
 #header .header-top-bar .header-social,
 #header .header-top-bar .header-language {
   text-align: left;
 }
+
 #header .header-top-bar .header-social > a,
 #header .header-top-bar .header-language > a {
-  color: #777777;
+  color: ;
 }
+#profile .social-share > a .fa-chevron-down,
 #header .header-top-bar .header-social > a .fa-chevron-down,
 #header .header-top-bar .header-language > a .fa-chevron-down {
   position: relative;
   top: -2px;
   font-size: 10px;
 }
+#profile .social-share > a:hover,
+#header .header-top-bar .header-login > a:hover,
+#header .header-top-bar .header-register > a:hover,
 #header .header-top-bar .header-social > a:hover,
 #header .header-top-bar .header-language > a:hover {
   color: #fdc600;
 }
+#profile .social-share ul {
+    position: absolute;
+    top: 85px;
+    right: 0;
+    z-index: 999;
+    margin: 0;
+    visibility: hidden;
+    opacity: 0;
+    transition: all .3s ease;
+}
 #header .header-top-bar .header-social ul,
 #header .header-top-bar .header-language ul {
   position: absolute;
-  top: 44px;
+  top: 54px;
   left: 0;
   z-index: 999;
   margin: 0;
@@ -3445,28 +3489,37 @@ fieldset[disabled] .btn-default-inverse.active {
   opacity: 0;
   transition: all .3s ease;
 }
+#profile .social-share ul li {
+    background-color: rgba(0, 0, 0, 0.8);
+    margin: 0;
+}
 #header .header-top-bar .header-social ul li,
 #header .header-top-bar .header-language ul li {
   padding: 10px 15px 0;
   background-color: rgba(0, 0, 0, 0.8);
   margin: 0;
 }
+#profile .social-share ul li:last-child,
 #header .header-top-bar .header-social ul li:last-child,
 #header .header-top-bar .header-language ul li:last-child {
   padding-bottom: 10px;
 }
+#profile .social-share ul a,
 #header .header-top-bar .header-social ul a,
 #header .header-top-bar .header-language ul a {
   color: #fff;
 }
+#profile .social-share ul a .fa,
 #header .header-top-bar .header-social ul a .fa,
 #header .header-top-bar .header-language ul a .fa {
   font-size: 24px;
 }
+#profile .social-share ul a:hover,
 #header .header-top-bar .header-social ul a:hover,
 #header .header-top-bar .header-language ul a:hover {
   color: #fdc600;
 }
+#profile .social-share.active ul,
 #header .header-top-bar .header-social.active ul,
 #header .header-top-bar .header-language.active ul {
   visibility: visible;
@@ -3504,14 +3557,21 @@ fieldset[disabled] .btn-default-inverse.active {
   }
 }
 @media (max-width: 992px) and (max-width: 480px) {
+  #auth-page .login,
   #header .header-top-bar .header-login div,
   #header .header-top-bar .header-register div {
-    width: 280px;
+    width: 320px;
   }
 }
 @media (max-width: 480px) {
   #header .header-top-bar .header-register div {
     left: -70px;
+  }
+}
+
+@media (max-width: 992px) {
+  #header .header-top-bar .header-biz {
+    padding-top: 40px;
   }
 }
 /* hesader search bar */
@@ -3657,7 +3717,7 @@ fieldset[disabled] .btn-default-inverse.active {
   background-color: #fdc600;
 }
 @media (max-width: 768px) {
-  .header-search .header-search-bar .search-btn {
+  .header-search .header-search-bar .toggle-btn {
     display: none;
   }
 }
@@ -4061,7 +4121,7 @@ fieldset[disabled] .btn-default-inverse.active {
   position: relative;
   z-index: 30;
   width: 100%;
-  height: 650px;
+  height: auto;
   overflow: visible;
 }
 @media (max-width: 992px) {
@@ -4082,7 +4142,7 @@ fieldset[disabled] .btn-default-inverse.active {
 .slider-content #home-slider {
   position: relative;
   width: 100%;
-  height: 920px;
+  height: 530px;
 }
 @media (max-width: 992px) {
   .slider-content #home-slider {
@@ -4105,7 +4165,7 @@ fieldset[disabled] .btn-default-inverse.active {
 .slider-content #home-slider .item > img {
   display: block;
   width: 100%;
-  height: 920px;
+  height: 530px;
 }
 @media (max-width: 992px) {
   .slider-content #home-slider .item > img {
@@ -4149,10 +4209,10 @@ fieldset[disabled] .btn-default-inverse.active {
 }
 .slider-content #home-slider .item .slide-content h1 {
   position: relative;
-  top: 220px;
+  top: 60px;
   text-transform: uppercase;
   color: #fff;
-  font-size: 76px;
+  font-size: 50px;
   font-family: 'Raleway', sans-serif;
   font-weight: 800;
 }
@@ -4167,8 +4227,8 @@ fieldset[disabled] .btn-default-inverse.active {
 }
 @media (max-width: 480px) {
   .slider-content #home-slider .item .slide-content h1 {
-    font-size: 36px;
-    top: 70px;
+    font-size: 30px;
+    top: 65px;
   }
 }
 .slider-content #home-slider .item .slide-content h2 {
@@ -4198,12 +4258,12 @@ fieldset[disabled] .btn-default-inverse.active {
 }
 .slider-content .customNavigation .btn.prev {
   position: absolute;
-  top: 58%;
+  top: 48%;
   left: -2px;
 }
 .slider-content .customNavigation .btn.next {
   position: absolute;
-  top: 58%;
+  top: 48%;
   right: -2px;
 }
 #header {
@@ -4241,9 +4301,10 @@ fieldset[disabled] .btn-default-inverse.active {
   background: transparent url("../img/content/feature-bg.jpg") no-repeat fixed center top / cover;
   text-align: center;
   margin-top:70px;
+  border-radius: 0;
 }
-
-.breadcrumb .featured-listing h2 {padding:10px;}
+.breadcrumb, .featured-listing {margin: 0;}
+.breadcrumb .featured-listing h2 {padding:10px;margin-top: 60px;}
 
 /*PAge contents*/
 
@@ -4251,8 +4312,9 @@ fieldset[disabled] .btn-default-inverse.active {
   min-height: 250px;
 }
 
-.page-forms input, .page-forms select {
-  border: solid 1px #eee;
+.page-forms input, .page-forms select,
+.login input {
+  border: solid 1px #BFBDBD;
   padding: 10px 15px;
   margin: 10px 0;
 }
@@ -4413,9 +4475,10 @@ fieldset[disabled] .btn-default-inverse.active {
 /* ------------------------------------ */
 #categories {
   position: relative;
-  margin-top: 35px;
+  margin-top: 0;
   color: #333333;
   margin-bottom: 30px;
+  text-align: left;
 }
 #categories .accordion {
   position: relative;
@@ -4438,9 +4501,9 @@ fieldset[disabled] .btn-default-inverse.active {
 }
 #categories .accordion ul li a {
   display: block;
-  padding: 15px 0 15px 30px;
+  padding: 15px 0 15px 11px;
   text-transform: uppercase;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 700;
 }
 #categories .accordion ul li a .fa {
@@ -4449,6 +4512,7 @@ fieldset[disabled] .btn-default-inverse.active {
 #categories .accordion ul li a:hover {
   color: inherit;
 }
+#categories .accordion ul li a span.subcat { display: inline-block;}
 #categories .accordion ul li a span {
   font-weight: normal;
   display: block;
@@ -4467,6 +4531,14 @@ fieldset[disabled] .btn-default-inverse.active {
   font-size: 15px;
   font-weight: normal;
 }
+
+#categories .accordion ul li a,
+#categories .accordion ul li div a {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 #categories .accordion ul li div a:before {
   content: "\f196";
   position: relative;
@@ -4483,6 +4555,7 @@ fieldset[disabled] .btn-default-inverse.active {
 #categories .accordion ul li div a.active {
   font-weight: 700;
 }
+
 #categories .accordion ul li div a.active:before {
   content: "\f147";
 }
@@ -4520,7 +4593,7 @@ fieldset[disabled] .btn-default-inverse.active {
   .category-toggle button {
     display: block;
     position: absolute;
-    right: -39px;
+    right: -40px;
     top: 10px;
     z-index: 999;
     height: 40px;
@@ -4857,6 +4930,11 @@ fieldset[disabled] .btn-default-inverse.active {
 }
 /* company-sidebar */
 /* ---------------------------------------- */
+
+.viewbiz {
+  display: none;
+}
+
 .company-sidebar {
   position: relative;
   padding-top: 30px;
@@ -5052,10 +5130,16 @@ fieldset[disabled] .btn-default-inverse.active {
     display: none;
   }
 }
-.pagination {
+/*.pagination {
   margin: 0;
   padding: 0;
   list-style: none;
+}
+.pagination li.first,
+.pagination li.next,
+.pagination li.previous,
+.pagination li.last {
+  width: 80px;
 }
 .pagination li {
   float: left;
@@ -5094,7 +5178,30 @@ fieldset[disabled] .btn-default-inverse.active {
   text-align: center;
   float: right;
   width: 69%;
+}*/
+
+.pagination > .active > a, 
+.pagination > .active > span, 
+.pagination > .active > a:hover, 
+.pagination > .active > span:hover, 
+.pagination > .active > a:focus, 
+.pagination > .active > span:focus {
+  border: medium none #CCC;
+  color: #FDC600;
+  background-color: #333;
 }
+
+.pagination > li > a, 
+.pagination > li > span {
+  color: #FDC600;
+}
+.pagination > li > a:hover, 
+.pagination > li > span:hover, 
+.pagination > li > a:focus, 
+.pagination > li > span:focus {
+    color: #FDC600;
+}
+
 /* product-details */
 .product-details {
   position: relative;
@@ -5588,7 +5695,7 @@ fieldset[disabled] .btn-default-inverse.active {
   position: relative;
 }
 .home-with-slide {
-  margin-top: -30px !important;
+  margin-top: 0px !important;
 }
 /* single product style */
 /* --------------------------------------- */
@@ -5767,6 +5874,18 @@ fieldset[disabled] .btn-default-inverse.active {
   .featured-listing {
     background-attachment: scroll;
   }
+}
+.category-listing {
+  text-align: center;
+}
+
+.category-listing h2 {
+  margin: 0;
+  padding-bottom: 30px;
+  color: inherit;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-family: 'Raleway', sans-serif;
 }
 .featured-listing h2 {
   margin: 0;
@@ -6066,7 +6185,7 @@ fieldset[disabled] .btn-default-inverse.active {
   position: relative;
   width: 35%;
   padding: 30px;
-  text-align: center;
+  text-align: left;
   border: 3px solid #333333;
   border-radius: 3px;
 }
@@ -6083,6 +6202,9 @@ fieldset[disabled] .btn-default-inverse.active {
 }
 .register-content .registration-details .box p .fa {
   padding-right: 6px;
+}
+.register-content .registration-details .box a { 
+  width: 100%;
 }
 .register-content .registration-details .box a {
   margin-top: 15px;
@@ -6157,6 +6279,12 @@ fieldset[disabled] .btn-default-inverse.active {
 .our-partners #partners-slider {
   position: relative;
 }
+
+
+.featured-listing #businesses-slider .item {
+  margin-right: 10px;
+}
+
 .our-partners #partners-slider .item {
   margin: 0 10px;
   padding: 0 20px;
@@ -7231,6 +7359,9 @@ fieldset[disabled] .btn-default-inverse.active {
 .company-profile h5 a {
   color: #d0d0d0;
 }
+.company-profile .social-link div {
+  display: inline-block;
+}
 .company-profile .social-link {
   margin-top: -40px;
 }
@@ -7847,6 +7978,10 @@ fieldset[disabled] .btn-default-inverse.active {
 /* --------------------------------------- */
 /* SHORTCODES */
 /* --------------------------------------- */
+.table > tbody > tr > td {
+  min-width: 100px;
+}
+
 .shortcodes {
   position: relative;
   padding-bottom: 50px;

@@ -9,7 +9,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CatCreateRequest;
 use App\Http\Requests\CatUpdateRequest;
 use App\Cat;
-use App\Sub_cat;
+use App\SubCat;
+use DB;
 class CatController extends Controller
 {
     protected $fields = [
@@ -38,17 +39,13 @@ class CatController extends Controller
      */
     public function create()
     {
-        $cats   = Cat::lists('name','name'); 
+        $cats   = Cat::lists('name','id'); 
         $image_class= Cat::lists('image_class','image_class');
-        $subcats= Sub_cat::lists('name','name');
+        $all_image= DB::table('subcategory')->lists('name','name');
+        $subcats= SubCat::lists('name','name');
+        $subcats_image=SubCat::lists('image_class','image_class');
 
-         return view('admin.cat.create', compact('cats','image_class','subcats'));
-
-      //  $data = [];
-     //foreach ($this->fields as $field => $default) {
-    //  $data[$field] = old($field, $default);
-     //   }
-
+         return view('admin.cat.create', compact('cats','image_class','subcats','subcats_image','all_image'));
     
     }
 
@@ -61,39 +58,50 @@ class CatController extends Controller
     public function store(CatCreateRequest $request)
     {  
       //  dd($request->input('sub_cats'));
-            $category=new Cat();
-            $category->name= $request->input('name');
-            $category->meta_description=$request->input('meta_description');
-            $category->image_class= $request->input('image_class');
-            $category->save();
+             $catName= $request->input('name');
+             if($existingCat= Cat::where('name', $catName)->first()) {
+                $existingCat->meta_description=$request->input('meta_description');
+                $existingCat->image_class=$request->input('cat_image');
+                $existingCat->save();
 
-           // $obj=$category->cat()->
-
-            $sub_cats= $request->input('sub_cats');
-
-
-          //  $name=[];
-            if($category){
-                foreach ($sub_cats as $sub) {
-
-                    if ($existingCat= Sub_cat::where('name', $sub)->first()) {
-
-                        return back()
-                         ->withError("The Sub-Category  '$existingCat->name' already belongs to another Category.");
-
-                    } else{
-                         $newCat = new Sub_cat();
-                         $newCat -> name = $sub;
-                         $newCat -> cats_id = $category->id; 
-                         $newCat->save();
-                        }
-                    }
+                if($request->input('subcat') ){
+                $newSub= new SubCat();
+                $newSub->name=$request->input('subcat');
+                $newSub->image_class=$request->input('sub_image');
+                $newSub->cat_id=$existingCat->id;
                  }
 
-                    return redirect('/admin/cat')
-                     ->withSuccess("The Category '$category->name' was created.");
+                 return redirect('/admin/cat')
+                     ->withSuccess("The Category '$existingCat->name' has been updated.");
+                 
+             }
+             else{
+                 $category=new Cat();
+                 $category->name= $request->input('name');
+                 $category->meta_description=$request->input('meta_description');
+                 $category->image_class= $request->input('cat_image');
+                  $category->save();
 
- }    
+                   if($request->input('subcat') ){
+                  $freshSub=new SubCat();
+                  $freshSub->name=$request->input('subcat');
+                  $freshSub->image_class= $request->input('sub_image');
+                  $freshSub->cat_id= $category->id;
+                  $freshSub->save();
+                 }
+
+
+                  return redirect('/admin/cat')
+                     ->withSuccess("The Category '$category->name' has been created.");
+                 
+
+              }
+
+
+        }
+           
+
+   
 
 
 
@@ -105,11 +113,12 @@ class CatController extends Controller
      */
     public function edit($id)
     {
-        $image_class= Cat::lists('image_class','image_class');
-        $cats  = Cat::lists('name', 'name'); 
-        $subcats= Sub_cat::lists('name','name');
         $cat =  Cat::findOrFail($id);
         $list= $cat->subcats->lists('name')->all();
+        $image_class= Cat::lists('image_class','image_class');
+        $cats  = Cat::lists('name', 'name'); 
+        $subcats= SubCat::lists('name','name');
+        
 
      // dd($cat->subcats->lists('id')->all());
        //  $data = ['id' => $id];
@@ -141,57 +150,23 @@ class CatController extends Controller
         $cat->image_class= $request->input('image_class');
         
              $cat->save();
-         $sub_cats= $request->input('sub_cats');
+     /*    $sub_cats= $request->input('sub_cats');
          $real= [];
 
        //  dd($cat->subcats);
          $cat->subcats()->delete();
           foreach ($sub_cats as $sub) {
-            if( $existingCat = Sub_cat::where('name', $sub)->first()) {
+            if( $existingCat = SubCat::where('name', $sub)->first()) {
                  $real[]= $existingCat;
                 }
                  else{
-                     $newCat = new Sub_cat();
+                     $newCat = new SubCat();
                      $newCat ->name  = $sub;
                      $newCat->save();
                  $real[]=$newCat;
                  }
             }
-                $cat->subcats()->saveMany($real);
-
-           /**   foreach ($sub_cats as $sub) {
-                $newCat = new Sub_cat();
-                $newCat ->name  = $sub;
-                $newCat->save();
-            if ($cat->subcats->contains($newCat))
-            {
-
-            }
-        }  */
-
-
-       /**      $catsId =[];
-              if($cat){
-               foreach ($sub_cats as $sub) {
-
-                    if (  $existingCat = Sub_cat::where('name', $sub)->first()) {
-                       //  $catsId[]= $existingCat->id;
-                         $existingCat->cat()->associate($cat)->save();
-                        
-                   }
-                    else{
-                         $newCat = new Sub_cat();
-                         $newCat ->name  = $sub;
-                       //  $newCat ->cats_id = $cat->id; 
-                          $newCat ->cat()->associate($cat)->save();
-                    
-
-                
-                        }
-                    }
-                 } 
-               //  $cat->subcats()->attach($cat->id);  */
-
+                $cat->subcats()->saveMany($real); */
 
 
     return redirect("/admin/cat/")
@@ -210,6 +185,6 @@ class CatController extends Controller
         $cat->delete();
 
     return redirect('/admin/cat')
-        ->withSuccess("The '$cat->name' tag has been deleted.");
+        ->withSuccess("The '$cat->name' category has been deleted.");
     }
 }

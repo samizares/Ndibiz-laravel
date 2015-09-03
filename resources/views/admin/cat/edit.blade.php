@@ -26,7 +26,7 @@
 
               <div class="form-group">
                 <label for="cat" class="col-md-3 control-label">Category</label>
-                <div class="col-md-3">
+                <div class="col-md-8">
                    {!!Form::select('name', $cats,$cat->name,['class'=>'form-control', 'id'=>'cat_name']) !!}
                 </div>
               </div>
@@ -93,23 +93,18 @@
 $(document).ready(function() {
   $("#cat_name").select2({
     tags: true
-
   });
-
 });
-
-
 $(document).ready(function() {
   $("#image_class").select2({
     tags: true
   });
 });
-
 $(document).ready(function() {
   $("#sub_cat").select2({
-    tags: true
+    tags: true,
+    disabled:true
   });
 });
-
 </script>
 @stop

@@ -6,7 +6,7 @@
     @yield('search')
 
     @yield('map') 
-	 
+   
     </div>
     <br><br> <!-- END .SEARCH-MAP -->
 @yield('content')

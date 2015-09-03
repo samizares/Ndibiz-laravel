@@ -121,7 +121,8 @@
     <div class="container">
       <div class="row clearfix">
         <h2><strong>Featured</strong> Businesses</h2>
-
+        @unless ( $featured->isEmpty() )
+                  @foreach ($featured as $feature)
         <div class="col-md-3 col-sm-4 col-xs-6">
           <div class="single-product">
             <figure>
@@ -149,272 +150,16 @@
 
               </figcaption>
             </figure>
-            <h4><a href="#">Patt's Bar</a></h4>
+            <h4><a href="#">{{$feature->name}}</a></h4>
 
-            <h5 class="fa fa-tags"> <a href="#">Nightlife</a>, <a href="#">Clubs</a></h5> <br>
-
-          </div> <!-- end .single-product -->
-
-        </div>
-
-        <div class="col-md-3 col-sm-4 col-xs-6">
-
-          <div class="single-product">
-            <figure>
-              <img src="img/content/post-img-2.jpg" alt="">
-
-              <div class="rating">
-                <ul class="list-inline">
-                  <li><a href="#"><i class="fa fa-star"></i></a></li>
-                  <li><a href="#"><i class="fa fa-star"></i></a></li>
-                  <li><a href="#"><i class="fa fa-star"></i></a></li>
-                  <li><a href="#"><i class="fa fa-star-half-o"></i></a></li>
-                  <li><a href="#"><i class="fa fa-star-o"></i></a></li>
-                </ul>
-
-                <p>Featured</p>
-
-              </div> <!-- end .rating -->
-
-              <figcaption>
-                <div class="bookmark">
-                  <a href="#"><i class="fa fa-bookmark-o"></i> Bookmark</a>
-                </div>
-                <div class="read-more">
-                  <a href="#"><i class="fa fa-angle-right"></i> Read More</a>
-                </div>
-
-              </figcaption>
-            </figure>
-            <h4><a href="#">Waheed The Vulcanizer</a></h4>
-
-            <h5 class="fa fa-tags"> <a href="#">car repair</a>, <a href="#">road-side business</a></h5>
+            <h5 class="fa fa-tags"> @foreach($feature->subcats as $sub)
+                  <a href="#">{{ $sub->name }}</a>,@endforeach</h5> <br>
 
           </div> <!-- end .single-product -->
 
         </div>
-
-        <div class="col-md-3 col-sm-4 col-xs-6">
-
-          <div class="single-product">
-            <figure>
-              <img src="img/content/post-img-2.jpg" alt="">
-
-              <div class="rating">
-                <ul class="list-inline">
-                  <li><a href="#"><i class="fa fa-star"></i></a></li>
-                  <li><a href="#"><i class="fa fa-star"></i></a></li>
-                  <li><a href="#"><i class="fa fa-star"></i></a></li>
-                  <li><a href="#"><i class="fa fa-star-half-o"></i></a></li>
-                  <li><a href="#"><i class="fa fa-star-o"></i></a></li>
-                </ul>
-
-                <p>Featured</p>
-
-              </div> <!-- end .rating -->
-
-              <figcaption>
-                <div class="bookmark">
-                  <a href="#"><i class="fa fa-bookmark-o"></i> Bookmark</a>
-                </div>
-                <div class="read-more">
-                  <a href="#"><i class="fa fa-angle-right"></i> Read More</a>
-                </div>
-
-              </figcaption>
-            </figure>
-            <h4><a href="#">Waheed The Vulcanizer</a></h4>
-
-            <h5 class="fa fa-tags"> <a href="#">car repair</a>, <a href="#">road-side business</a></h5>
-
-          </div> <!-- end .single-product -->
-
-        </div>
-
-        <div class="col-md-3 col-sm-4 col-xs-6">
-
-          <div class="single-product">
-            <figure>
-              <img src="img/content/post-img-2.jpg" alt="">
-
-              <div class="rating">
-                <ul class="list-inline">
-                  <li><a href="#"><i class="fa fa-star"></i></a></li>
-                  <li><a href="#"><i class="fa fa-star"></i></a></li>
-                  <li><a href="#"><i class="fa fa-star"></i></a></li>
-                  <li><a href="#"><i class="fa fa-star-half-o"></i></a></li>
-                  <li><a href="#"><i class="fa fa-star-o"></i></a></li>
-                </ul>
-
-                <p>Featured</p>
-
-              </div> <!-- end .rating -->
-
-              <figcaption>
-                <div class="bookmark">
-                  <a href="#"><i class="fa fa-bookmark-o"></i> Bookmark</a>
-                </div>
-                <div class="read-more">
-                  <a href="#"><i class="fa fa-angle-right"></i> Read More</a>
-                </div>
-
-              </figcaption>
-            </figure>
-            <h4><a href="#">Waheed The Vulcanizer</a></h4>
-
-            <h5 class="fa fa-tags"> <a href="#">car repair</a>, <a href="#">road-side business</a></h5>
-
-          </div> <!-- end .single-product -->
-
-        </div>
-
-        <div class="col-md-3 col-sm-4 col-xs-6">
-
-          <div class="single-product">
-            <figure>
-              <img src="img/content/post-img-2.jpg" alt="">
-
-              <div class="rating">
-                <ul class="list-inline">
-                  <li><a href="#"><i class="fa fa-star"></i></a></li>
-                  <li><a href="#"><i class="fa fa-star"></i></a></li>
-                  <li><a href="#"><i class="fa fa-star"></i></a></li>
-                  <li><a href="#"><i class="fa fa-star-half-o"></i></a></li>
-                  <li><a href="#"><i class="fa fa-star-o"></i></a></li>
-                </ul>
-
-                <p>Featured</p>
-
-              </div> <!-- end .rating -->
-
-              <figcaption>
-                <div class="bookmark">
-                  <a href="#"><i class="fa fa-bookmark-o"></i> Bookmark</a>
-                </div>
-                <div class="read-more">
-                  <a href="#"><i class="fa fa-angle-right"></i> Read More</a>
-                </div>
-
-              </figcaption>
-            </figure>
-            <h4><a href="#">Waheed The Vulcanizer</a></h4>
-
-            <h5 class="fa fa-tags"> <a href="#">car repair</a>, <a href="#">road-side business</a></h5>
-
-          </div> <!-- end .single-product -->
-
-        </div>
-
-        <div class="col-md-3 col-sm-4 col-xs-6">
-
-          <div class="single-product">
-            <figure>
-              <img src="img/content/post-img-2.jpg" alt="">
-
-              <div class="rating">
-                <ul class="list-inline">
-                  <li><a href="#"><i class="fa fa-star"></i></a></li>
-                  <li><a href="#"><i class="fa fa-star"></i></a></li>
-                  <li><a href="#"><i class="fa fa-star"></i></a></li>
-                  <li><a href="#"><i class="fa fa-star-half-o"></i></a></li>
-                  <li><a href="#"><i class="fa fa-star-o"></i></a></li>
-                </ul>
-
-                <p>Featured</p>
-
-              </div> <!-- end .rating -->
-
-              <figcaption>
-                <div class="bookmark">
-                  <a href="#"><i class="fa fa-bookmark-o"></i> Bookmark</a>
-                </div>
-                <div class="read-more">
-                  <a href="#"><i class="fa fa-angle-right"></i> Read More</a>
-                </div>
-
-              </figcaption>
-            </figure>
-            <h4><a href="#">Waheed The Vulcanizer</a></h4>
-
-            <h5 class="fa fa-tags"> <a href="#">car repair</a>, <a href="#">road-side business</a></h5>
-
-          </div> <!-- end .single-product -->
-
-        </div>
-
-        <div class="col-md-3 col-sm-4 col-xs-6">
-
-          <div class="single-product">
-            <figure>
-              <img src="img/content/post-img-2.jpg" alt="">
-
-              <div class="rating">
-                <ul class="list-inline">
-                  <li><a href="#"><i class="fa fa-star"></i></a></li>
-                  <li><a href="#"><i class="fa fa-star"></i></a></li>
-                  <li><a href="#"><i class="fa fa-star"></i></a></li>
-                  <li><a href="#"><i class="fa fa-star-half-o"></i></a></li>
-                  <li><a href="#"><i class="fa fa-star-o"></i></a></li>
-                </ul>
-
-                <p>Featured</p>
-
-              </div> <!-- end .rating -->
-
-              <figcaption>
-                <div class="bookmark">
-                  <a href="#"><i class="fa fa-bookmark-o"></i> Bookmark</a>
-                </div>
-                <div class="read-more">
-                  <a href="#"><i class="fa fa-angle-right"></i> Read More</a>
-                </div>
-
-              </figcaption>
-            </figure>
-            <h4><a href="#">Waheed The Vulcanizer</a></h4>
-
-            <h5 class="fa fa-tags"> <a href="#">car repair</a>, <a href="#">road-side business</a></h5>
-
-          </div> <!-- end .single-product -->
-
-        </div>
-
-        <div class="col-md-3 col-sm-4 col-xs-6">
-
-          <div class="single-product">
-            <figure>
-              <img src="img/content/post-img-2.jpg" alt="">
-
-              <div class="rating">
-                <ul class="list-inline">
-                  <li><a href="#"><i class="fa fa-star"></i></a></li>
-                  <li><a href="#"><i class="fa fa-star"></i></a></li>
-                  <li><a href="#"><i class="fa fa-star"></i></a></li>
-                  <li><a href="#"><i class="fa fa-star-half-o"></i></a></li>
-                  <li><a href="#"><i class="fa fa-star-o"></i></a></li>
-                </ul>
-
-                <p>Featured</p>
-
-              </div> <!-- end .rating -->
-
-              <figcaption>
-                <div class="bookmark">
-                  <a href="#"><i class="fa fa-heart"></i> Favourite</a>
-                </div>
-                <div class="read-more">
-                  <a href="#"><i class="fa fa-angle-right"></i> Read More</a>
-                </div>
-
-              </figcaption>
-            </figure>
-            <h4><a href="#">Waheed The Vulcanizer</a></h4>
-
-            <h5 class="fa fa-tags"> <a href="#">car repair</a>, <a href="#">road-side business</a></h5>
-
-          </div> <!-- end .single-product -->
-
-        </div>
+        @endforeach
+        @endunless
 
       </div>  <!-- end .row -->
 
@@ -469,26 +214,47 @@
  <script>
  $(function() {
       // Enable Selectize
-
-    $('#keywords').selectize();
-});
+    $('#location').selectize({
+    valueField: 'id',
+    labelField: 'name',
+    searchField: ['name'],
+    renrender:{
+        option:function(item, escape) {
+          return '<div>' + escape(item.name) +'</div>';
+        }
+      },
+      load:function(query, callback){
+        if(!query.length) return callback();
+        $.ajax({
+          url: './api/location',
+          type: 'GET',
+          dataType: 'json',
+          data: {
+            l: query
+          },
+          success: function(res) {
+            callback(res.data);
+            } 
+        });
+      }
+  });
+})
 
     $(function() {
       // Enable Selectize
-
-    $('#location').selectize({
+    $('#category').selectize({
       valueField: 'id',
       labelField: 'name',
       searchField: ['name'],
       render:{
-        option:function(item,escape) {
-          return '<div>'  + escape(item.name) + '</div>';
+        option:function(item, escape) {
+          return '<div><i class="fa fa-home"></i>' + escape(item.name) +'</div>';
         }
       },
       load:function(query, callback) {
         if(!query.length) return callback();
         $.ajax({
-          url: './api',
+          url: './api/category',
           type: 'GET',
           dataType: 'json',
           data: {
@@ -506,16 +272,36 @@
      $(function() {
       // Enable Selectize
 
-    $('#category').selectize({
+    $('#company').selectize({
+      valueField: 'id',
       searchField: ['name'],
       labelField: 'name',
+      render:{
+        option:function(item, escape) {
+          return '<div><i class="fa fa-female"></i>' + escape(item.name) +'</div>';
+         }
+        },
+      load:function(query, callback) {
+        if(!query.length) return callback();
+        $.ajax({
+          url: './api/company',
+          type: 'GET',
+          dataType: 'json',
+          data: {
+            m: query
+          },
+          success: function(res) {
+            callback(res.data);
+            }
+        });
+      }
     });
 });
 
       $(function() {
       // Enable Selectize
 
-    $('#category2').select2({
+    $('#category3').select2({
       placeholder: 'search category',
       tags: true,
 

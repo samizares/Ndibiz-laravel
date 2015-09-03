@@ -6,23 +6,26 @@
             <button class="toggle-btn" type="submit"><i class="fa fa-bars"></i></button>
 
             <div class="search-value">
-              <div class="keywords">
+            <!--  <div class="keywords">
                  
-                <select class="" id="keywords" name="keywords">
-                  <option value="">Enter Keyword to search</option>
+                <select class="" id="company" name="company" 
+                placeholder="Quick search>> type business/company name">
                 </select>
               
+              </div>  -->
+
+          
+              <div class="category-search">
+                <select id="category" name="category" placeholder="Search by categories here...">
+               </select> 
+               <!-- {!!Form::select('category', $catList,'Select a category',['class'=>'form-control', 
+               'id'=>'category']) !!} -->
               </div>
 
               <div class="select-location">
-                <select id="location" name="location">
-                <option value="">Choose a city...</option>
-              </select> 
-               <!-- {!!Form::select('location',$stateList,'Choose a city',['id'=>'location']) !!} -->
-              </div>
-
-              <div class="category-search">
-                {!!Form::select('category', $catList,'Select a category',['class'=>'form-control', 'id'=>'category']) !!}
+                <select id="location" name="location" placeholder="type area/city...">
+                </select> 
+              
               </div>
 
               <button class="search-btn" type="submit"><i class="fa fa-search"></i></button>

@@ -51,12 +51,18 @@
             </div>  
              <div class="form-group">
               <label for="state">State</label>
-              {!!Form::select('state', $stateList,null,['class'=>'form-control', 'id'=>'stateList']) !!}
+              <select id="stateList" name="stateList" placeholder="select state">
+                <option value="">Choose a city</option>
+                <option value="25">Lagos</option>
+                <option value="23">Abuja</option>
+                <option value="26">Abia</option>
+                </select> 
             </div> 
 
             <div class="form-group">
-              <label for="lga">Local Government Area</label>
-               {!!Form::select('lga', [],null,['class'=>'form-control', 'id'=>'lga']) !!}
+              <label for="lga">Region/Area</label> 
+              <select id="lga" name="lga" placeholder="Pick an area/region">                
+               </select>   
             </div>
 
             <div class="form-group">
@@ -66,9 +72,12 @@
           </div>
           <div class="col-md-6">  
             <div class="form-group">
-              <label for="products">Products / Services</label>
-              {!!Form::select('product', $catList,null,['class'=>'form-control', 'id'=>'cats_name']) !!}
-            </div>    
+                  <label for="products">Products / Services</label>
+                  <div class="category-search">                
+                    {!!Form::select('cats[]', $catList, null, ['class'=>'Form-control','id'=>'cat2',
+                    'multiple','data-placeholder'=>'Select Categories']) !!}
+                  </div> 
+            </div>   
             <div class="form-group">
               <label for="website">Website address</label>
               <input type="text" id="website" name="website" class="form-control" placeholder="www.pattsbar.com.ng">
@@ -96,25 +105,192 @@
   @endsection
   
   @section('scripts')
- <!-- <script>
+  <script>
 $(document).ready(function() {
-  $("#cat_name").select2({
-    placeholder: 'Choose your business category',
+  $("#cat2").select2({
+    tags: true
 
   });
 
-});
+//});
 
+//$(function() {
+ // on("submit", function(e)
+  $(document).ready(function() {
+ $('#stateList').on('change', function(){
+      if($(this).val() !== "select state") {
+         var model=$('#lga');
+        model.empty();
+       $.get('{{ URL::to('api/lga') }}', {z: $(this).val()}, function(result){
+        var model=$('#lga');
+        model.empty();
+         $.each(result.data,function(){
+                          $('#lga').append('<option value="'+this.id+'">'+this.text+'</option>');
 
-$(document).ready(function() {
-  $("#stateList").select2({
-    placeholder: 'Choose the state your business is located at'
+                    });
+       });
+     }
   });
 });
+  //  if($(this).val() !== "select state") {
 
-$(document).ready(function() {
-  $("#lga").select2({
-  });
-});
-</script>  -->
+
+    //   $.get('{{ URL::to('api/lga') }}', {z: $(this).val()}, function(result){
+    //     $('#lga').html(result);
+    //   });
+  
+  
+  /*var state= $("#stateList").val();
+ $("#lga").select2({
+    ajax:{
+      url: "{{ URL::to('api/lga') }}",
+      dataType:'json',
+      deleay:250,
+      data:  {
+        z:state
+        },
+        processResults: function (data){
+          return{
+            results:data
+          };
+        },
+        cache:true
+     },
+     minimumInputLength:1
+    
+ });  */
+
+
+ /*  $(function() {
+      // Enable Selectize
+    $('#category').selectize({
+      plugins: ['remove_button'],
+      valueField: 'id',
+      labelField: 'name',
+      searchField: ['name'],
+      render:{
+        option:function(item, escape) {
+          return '<div><i class="fa fa-car"></i>' + escape(item.name) +'</div>';
+        }
+      },
+      load:function(query, callback) {
+        if(!query.length) return callback();
+        $.ajax({
+          url: '{{ URL::to('api/category') }}',
+          type: 'GET',
+          dataType: 'json',
+          data: {
+            q: query
+          },
+          success: function(res) {
+            callback(res.data);
+            }
+        });
+      }
+      });
+
+    });    
+
+   var xhr;
+   var state_List, $state_List;
+   var lga_area, $lga_area; 
+      // Enable Selectize
+    $state_List= $('#stateList').selectize({ 
+      
+     //  $('#stateList').selectize({
+    valueField: 'id',
+    labelField: 'name',
+    searchField: ['name'],
+    render:{
+        option:function(item, escape) {
+          return '<div>' + escape(item.name) +'</div>';
+        }
+      },
+      load:function(query, callback){
+        if(!query.length) return callback();
+        $.ajax({
+          url: '{{ URL::to('api/location') }}',
+          type: 'GET',
+          dataType: 'json',
+          data: {
+            l: query
+          },
+          success: function(res) {
+            callback(res.data);
+            } 
+        });
+      }, 
+        onChange: function(value){
+          if(!value.length) return;          
+         // lga_area.disable();
+        //  lga_area.clearOptions();
+          lga_area.load(function(callback){
+                xhr && xhr.abort();
+                xhr= $.ajax({
+                  url: '{{ URL::to('api/lga') }}',
+                 type: 'GET',
+                 dataType: 'json',
+                  data: {
+                     z: value
+                    },
+                  success: function(results) {
+                   // console.log(results);
+                       lga_area.enable();
+                      callback(results);
+                    },
+                  error: function() {
+                  callback();
+                }
+                })
+          });
+        }
+      });
+      $lga_area=$('#lga').selectize({
+         valueField:'id',
+         labelField:'name',
+         searchField:['name']         
+      });
+
+      lga_area = $lga_area[0].selectize;
+      state_List= $state_List[0].selectize;
+
+      lga_area.disable();
+    /*  onChange:function(){
+       // var state= $("#stateList").val();
+        $.getJSON('{{ URL::to('api/lga') }}',{state:$("#stateList").val()}, function(data){
+            var model=$('#lga');
+            model.empty();
+            $.each(data,function(index,element) {
+            model.append("<option value='"+element.name+"'>" + element.name + "</option>");
+              
+          })
+        });
+       /*   $.ajax({
+          url: '{{ URL::to('api/lga') }}',
+          type:'get',
+          data: {
+            z: state
+          },
+          success: function(res) {
+            $("#lga").html(res)
+            },
+            error : function(resp){} 
+        }); 
+
+       }  */
+
+ 
+ /*   $("#stateList").change(function(){
+      $.get('{{ URL::to('api/lga') }}',{z:$("#stateList").val()}, function(data){
+            var model=$('#lga');
+            model.empty();
+            $.each(data,function(index,element) {
+            model.append("<option value='"+element.name+"'>" + element.name + "</option>");
+              
+          })
+        });
+    })    */
+ 
+
+</script>  
 @stop

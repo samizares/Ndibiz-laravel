@@ -1,19 +1,25 @@
-<ul class="nav navbar-nav">
+<ul class="nav navbar-nav primary-nav list-unstyled">
   <li><a href="/">Main Home</a></li>
   @if (Auth::check())
-    <li @if (Request::is('admin/biz*')) class="active" @endif>
+    <li @if (Request::is('admin/biz*')) @endif>
       <a href="/admin/biz">Businesses</a>
     </li>
-    <li @if (Request::is('admin/cat*')) class="active" @endif>
+    <li @if (Request::is('admin/cat*')) @endif>
       <a href="/admin/cat">Categories</a>
     </li>
-    <li @if (Request::is('admin/upload*')) class="active" @endif>
+    <li @if (Request::is('admin/location*')) @endif>
+      <a href="/admin/location">Location</a>
+    </li>
+    <li @if (Request::is('admin/upload*')) @endif>
       <a href="/admin/upload">Uploads</a>
+    </li>
+    <li @if (Request::is('admin/test*')) @endif>
+      <a href="/admin/test">Testing</a>
     </li>
   @endif
 </ul>
 
-<ul class="nav navbar-nav navbar-right">
+<!-- <ul class="nav navbar-nav navbar-right">
   @if (Auth::guest())
     <li><a href="/auth/login">Login</a></li>
   @else
@@ -27,4 +33,4 @@
       </ul>
     </li>
   @endif
-</ul>
+</ul> -->

@@ -16,6 +16,11 @@ class State extends Model
 
 	public function biz()
 	{
-		return $this->hasMany('App\Biz');
+		return $this->belongsToMany('App\Biz','biz_state_pivot');
+	}
+
+	public function address()
+	{
+		return $this->hasMany('App\Address');
 	}
 }

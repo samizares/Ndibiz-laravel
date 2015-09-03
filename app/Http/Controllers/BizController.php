@@ -35,10 +35,11 @@ class BizController extends Controller
      */
     public function create()
     {
-       $stateList= State::lists('name','name');
-        $catList   = Cat::lists('name','id');
+         $stateList= State::lists('name','name');
+         $catList   = Cat::lists('name','id');
+         $featured= Biz::whereFeatured('YES')->get();
 
-        return view('pages.regbiz', compact('stateList', 'catList'));
+        return view('pages.regbiz', compact('stateList', 'catList','featured'));
         
     }
 
@@ -76,7 +77,7 @@ class BizController extends Controller
      */
     public function show($id)
     {
-        //
+       //
     }
 
     /**

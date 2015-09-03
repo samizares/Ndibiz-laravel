@@ -30,9 +30,10 @@ class BusinessRegRequest extends Request
             'email'        => 'required | email',
             'phone1'       => 'required |numeric|min:6',
             'phone2'       => 'numeric|min:6',
-            'product'     => 'required',
+            'cats'         => 'required',
+            'sub'          => 'required',
             'website'      => 'url',
-            'state'     => 'required',
+            'state'        => 'required',
 
      ];
     }
