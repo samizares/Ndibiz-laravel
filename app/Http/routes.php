@@ -14,6 +14,8 @@
 
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
+Route::get('/categories', 'HomeController@categories');
+Route::get('/businesses', 'HomeController@businesses');
 //Route::get('bizreg', 'HomeController@regbiz');
 Route::get('review/biz/{id}', 'HomeController@getBizreview');
 Route::post('review/biz/{id}', 'HomeController@postReview');
@@ -36,13 +38,14 @@ Route::get('api/featured', 'ApiController@featured');
 
 // Admin area
 get('admin', function () {
-  return redirect('/admin/cat');
+  return redirect('/admin/');
 });
 
 $router->group([
   'namespace' => 'Admin',
   'middleware' => 'auth',
 ], function () {
+  resource('admin/', 'AdminController@index');
   resource('admin/biz', 'BizController');
   resource('admin/cat', 'CatController');
   resource('admin/location', 'LocationController');

@@ -11,6 +11,7 @@ use App\Http\Requests\CatUpdateRequest;
 use App\Cat;
 use App\SubCat;
 use DB;
+
 class CatController extends Controller
 {
     protected $fields = [

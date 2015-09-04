@@ -1,66 +1,4 @@
-/* --------------------------------------
-Table Of  Content
 
-1. Bootstrap
-2. Font Awesome
-3. Pluging
-    3.1 Core Owl Carousel CSS File
-    3.2 Owl Carousel Theme
-4. General Styles
-  4.1 Typography
-  4.2 Forms
-  4.3 Button
-5. Header
-  5.1 Header Top Bar
-  5.2 Header Search Bar
-  5.3 Header Map Section
-  5.4 Header Nav Bar
-  5.5 Header Slide content
-  5.6
-6. Home With Slider
-7. Page Sidebar
-  7.1 Location Detail
-  7.2 Distance Range
-  7.3 Categories
-8. Post Sidebar
-9. Company Sidebar
-10. Page Content
-  10.1 View Switcher
-  10.2 Bootstrap Tab
-  10.3 Product Details
-  10.4 Category Item (home with slider)
-11. Company Single Product
-12. Featured Listing
-13. Classified Content
-14. Register Now
-15. Our Partner
-16. Page Heading (for post about us contact us)
-17. About Us
-18. Contact Us
-19. Price Listing
-20. Sample Page
-21. Blog List
-22. Blog Post
-23. Comment Section
-24. Company Profile
-25. Company Events
-26. Company Contact
-27. Footer
-28. Shortcodes
-
----------------------------------------------- */
-/* LESS BUILD */
-/* fonts */
-/*
-  Color Mixins
-
-  Example:
-  #777777 lighten(@text-color, 46.5%)
-  #bebebe lighten(@text-color, 74.5%)
-*/
-/* Bootstrap */
-/* ====================================================== */
-/*! normalize.css v3.0.1 | MIT License | git.io/normalize */
 html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;
@@ -963,6 +901,25 @@ th {
 .affix {
   position: fixed;
 }
+.m5-bttm { margin-bottom: 5px; }
+.m5-top { margin-top: 5px; }
+.m5-right { margin-right: 5px; }
+.m5-left { margin-left: 5px; }
+
+.p5-bttm { padding-bottom: 5px; }
+.p5-top { padding-top: 5px !important; }
+.p5-right { padding-right: 5px; }
+.p5-left { padding-left: 5px; }
+
+.p10-bttm { padding-bottom: 10px !important; }
+.p10-top { padding-top: 10px !important; }
+.p10-right { padding-right: 10px !important; }
+.p10-left { padding-left: 10px !important; }
+
+.dataTables_filter {
+  float: right;
+}
+
 @-ms-viewport {
   width: device-width;
 }
@@ -3356,6 +3313,56 @@ fieldset[disabled] .btn-default-inverse.active {
   color: #333333;
   background-color: #fdc600;
 }
+.btn-border {
+  color: #333333;
+  background-color: transparent;
+  border: 1px solid #333;
+}
+.btn-default:hover,
+.btn-default:focus,
+.btn-default.focus,
+.btn-default:active,
+.btn-default.active,
+.open > .dropdown-toggle.btn-default {
+  color: #333333;
+  background-color: #ca9e00;
+  border-color: #adadad;
+}
+.btn-default:active,
+.btn-default.active,
+.open > .dropdown-toggle.btn-default {
+  background-image: none;
+}
+.btn-default.disabled,
+.btn-default[disabled],
+fieldset[disabled] .btn-default,
+.btn-default.disabled:hover,
+.btn-default[disabled]:hover,
+fieldset[disabled] .btn-default:hover,
+.btn-default.disabled:focus,
+.btn-default[disabled]:focus,
+fieldset[disabled] .btn-default:focus,
+.btn-default.disabled.focus,
+.btn-default[disabled].focus,
+fieldset[disabled] .btn-default.focus,
+.btn-default.disabled:active,
+.btn-default[disabled]:active,
+fieldset[disabled] .btn-default:active,
+.btn-default.disabled.active,
+.btn-default[disabled].active,
+fieldset[disabled] .btn-default.active {
+  background-color: #fdc600;
+  border-color: #cccccc;
+}
+.btn-default .badge {
+  color: #fdc600;
+  background-color: #333333;
+}
+.btn-default:hover,
+.btn-default:focus {
+  background: #333333 !important;
+  color: #fdc600;
+}
 /* HEADER */
 /* --------------------------------------- */
 /* Header Top Bar */
@@ -3383,7 +3390,7 @@ fieldset[disabled] .btn-default-inverse.active {
 #header .header-top-bar .header-language {
   position: relative;
   float: left;
-  z-index: 999;
+  z-index: 1050;
   margin-right: 10px;
   padding: 6px 0;
   font-weight: 700;
@@ -3703,13 +3710,35 @@ fieldset[disabled] .btn-default-inverse.active {
     margin-right: 0;
   }
 }
-.header-search .header-search-bar .toggle-btn,
+
+.header-search .header-search-bar .search-in {
+  width: 40px;
+  height: 40px;
+  color: #333;
+  float: left;
+  background-color: #FFD231;
+  margin: 0 10px;
+  border-radius: 50%;
+  transition: all 0.3s ease 0s;
+  padding: 0 10px;
+  line-height: 41px;
+  font-size: 20px;
+}
+
+
+.header-search .header-search-bar .search-btn .fa-search {
+  font-size: 30px;
+}
+.header-search .header-search-bar .search-btn span {
+  font-size: 25px;
+}
 .header-search .header-search-bar .search-btn {
   float: left;
   width: 40px;
   height: 40px;
   color: #777777;
   background-color: #fff;
+  margin-right: 10px;
   transition: all .3s ease;
 }
 .header-search .header-search-bar .toggle-btn:hover,
@@ -3717,15 +3746,14 @@ fieldset[disabled] .btn-default-inverse.active {
   background-color: #fdc600;
 }
 @media (max-width: 768px) {
-  .header-search .header-search-bar .toggle-btn {
+  .header-search .header-search-bar .search-in {
     display: none;
   }
 }
 .header-search .header-search-bar .keywords {
   float: left;
-  width: 31%;
+  width: 28%;
   height: 40px;
-  margin-left: 10px;
 }
 .header-search .header-search-bar .keywords input {
   color: #333333;
@@ -3735,20 +3763,19 @@ fieldset[disabled] .btn-default-inverse.active {
 .header-search .header-search-bar .select-location,
 .header-search .header-search-bar .category-search {
   float: left;
-  width: 30%;
+  width: 42%;
   height: 40px;
-  border-left: 1px solid #aaaaaa;
 }
 .header-search .header-search-bar .search-btn {
   background-color: #fdc600;
   color: #333333;
   font-size: 16px;
+  margin-left: 10px;
 }
 .header-search .header-search-bar .search-btn:hover {
   background-color: #ffd231;
 }
 .header-search .header-search-bar .category-search {
-  margin-right: 10px;
   background-color: transparent;
 }
 .header-search .header-search-bar .category-search .uou-custom-select {
@@ -3758,20 +3785,29 @@ fieldset[disabled] .btn-default-inverse.active {
   .header-search .header-search-bar .keywords,
   .header-search .header-search-bar .select-location,
   .header-search .header-search-bar .category-search {
-    width: 29%;
+    width: 40%;
   }
 }
 @media (max-width: 992px) {
   .header-search .header-search-bar .keywords,
   .header-search .header-search-bar .select-location,
   .header-search .header-search-bar .category-search {
-    width: 27%;
+    width: 40%;
   }
 }
 @media (max-width: 768px) {
+
+  .header-search .header-search-bar .search-btn {
+    margin-left: 0px;
+  }
+  .header-search .header-search-bar .search-btn,
   .header-search .header-search-bar .search-value .select-location,
   .header-search .header-search-bar .search-value .category-search {
-    display: none !important;
+    width: 100%;
+  }
+
+  .header-search .header-search-bar .search-value .select-location {
+    margin: 5px 0;
   }
   .header-search .header-search-bar .search-value .keywords {
     width: 88%;
@@ -4533,6 +4569,8 @@ fieldset[disabled] .btn-default-inverse.active {
 }
 
 #categories .accordion ul li a,
+.product-details .tab-pane .single-product h4 a,
+.post-sidebar .latest-post h4,
 #categories .accordion ul li div a {
     white-space: nowrap;
     overflow: hidden;
@@ -4789,6 +4827,8 @@ fieldset[disabled] .btn-default-inverse.active {
   margin: 0;
   padding: 5px 15px 0 5px;
   line-height: 20px;
+  max-height: 43px;
+  overflow: hidden;
 }
 .post-sidebar .latest-post .read-more {
   display: block;
@@ -5060,7 +5100,7 @@ fieldset[disabled] .btn-default-inverse.active {
 .change-view {
   position: relative;
   z-index: 99;
-  top: 50px;
+  top: 0px;
   color: #333333;
 }
 @media (max-width: 992px) {
@@ -5292,7 +5332,7 @@ fieldset[disabled] .btn-default-inverse.active {
 }
 .product-details .tab-pane .row {
   position: relative;
-  padding-top: 115px;
+  padding-top: 50px;
 }
 @media (max-width: 480px) {
   .product-details .tab-pane .row {
@@ -5310,6 +5350,7 @@ fieldset[disabled] .btn-default-inverse.active {
   box-shadow: 0 2px #dddddd;
 }
 .product-details .tab-pane .single-product > p,
+.product-details .tab-pane .single-product > .address-preview,
 .product-details .tab-pane .single-product > .read-more {
   display: none !important;
 }
@@ -5318,7 +5359,7 @@ fieldset[disabled] .btn-default-inverse.active {
   margin: 0;
   padding: 1px;
   width: 100%;
-  height: 200px;
+  height: 160px;
   border-bottom: 1px solid #dddddd;
 }
 .product-details .tab-pane .single-product figure img {
@@ -5406,7 +5447,7 @@ fieldset[disabled] .btn-default-inverse.active {
 .product-details .tab-pane .single-product h4,
 .product-details .tab-pane .single-product h5 {
   margin: 0;
-  padding: 5px 30px 0;
+  padding: 5px 10px 0;
   text-transform: capitalize;
 }
 .product-details .tab-pane .single-product h4 a:hover,
@@ -5450,6 +5491,12 @@ fieldset[disabled] .btn-default-inverse.active {
 /* product-details */
 .product-details-list {
   position: relative;
+}
+.product-details-list .tab-pane .single-product .address-preview .collapse {
+  display: none;
+}
+.product-details-list .tab-pane .single-product .address-preview .collapse.in {
+  display: block;
 }
 .product-details-list .tab-pane {
   position: relative;
@@ -5499,7 +5546,7 @@ fieldset[disabled] .btn-default-inverse.active {
 }
 .product-details-list .tab-pane .row {
   position: relative;
-  padding-top: 115px;
+  padding-top: 30px;
 }
 @media (max-width: 480px) {
   .product-details-list .tab-pane .row {
@@ -5613,6 +5660,7 @@ fieldset[disabled] .btn-default-inverse.active {
   font-size: 13px;
   font-weight: bold;
   text-transform: capitalize;
+  float: right;
 }
 .product-details-list .tab-pane .single-product a.read-more .fa {
   padding-right: 5px;
@@ -5876,7 +5924,7 @@ fieldset[disabled] .btn-default-inverse.active {
   }
 }
 .category-listing {
-  text-align: center;
+  text-align: left;
 }
 
 .category-listing h2 {
@@ -8127,4 +8175,8 @@ fieldset[disabled] .btn-default-inverse.active {
 .shortcodes .vertical.tab-content {
   margin-left: 140px;
   border-left: 3px solid #fdc600;
+}
+.nav-tabs > li {
+  float: none;
+  margin-bottom: -1px;
 }

@@ -1,15 +1,50 @@
-@extends('admin.layout')
+@extends('master')
+<!-- HEAD STARTS-->
+  @section('title', 'Admin')
+  @section('stylesheets')     
+    <link href="{{asset('plugins/datatable/css/datatables.css')}}" rel="stylesheet">
+    <link href="{{asset('plugins/datatable/css/dataTables.bootstrap.css')}}" rel="stylesheet">
+    <link href="{{asset('plugins/bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet">
+    <link href="{{asset('plugins/select2/select2.min.css')}}" rel="stylesheet">
+    <!-- <link href="{{asset('plugins/bootstrap-editable/bootstrap-editable.css')}}" rel="stylesheet"> -->
+  @endsection
+<!-- HEAD ENDS-->
 
+<!-- HEADER STARTS -->
+  <!-- breadcrumbs -->
+  @section('breadcrumb')
+        <div class="breadcrumb">
+          <div class="featured-listing" style="margin:0;">
+              <h2 class="page-title animated fadeInLeft" style="margin:0;">Admin >> Business Listings</h2>
+          </div>
+        </div>
+  @endsection
+  <!-- navigation -->
+  @section('header-navbar')
+          <div class="header-nav-bar">
+              <div class="container">
+                <nav>
+                  <button><i class="fa fa-bars"></i></button>
+                  @include('admin.partials.navbar')
+                </nav>
+              </div> <!-- end .container -->
+          </div> <!-- end .header-nav-bar -->   
+  @endsection
+<!-- HEADER ENDS -->
+
+<!-- CONTENT STARTS -->
 @section('content')
-  <div class="container-fluid">
+  <div id="page-content" class="home-slider-content">
+  <div class="container">
+   <div class="home-with-slide">
     <div class="row page-title-row">
       <div class="col-md-12">
-        <h3>Categories <small>» Create New Category</small></h3>
+        <h3><a href="/admin">Admin</a> » <a href="/admin/cat">Business Categories</a> » <small>New Category</small></h3>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-md-8 col-md-offset-2">
+      <div class="col-md-9 col-md-push-3">
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title">New Category Form</h3>
@@ -88,61 +123,74 @@
           </div>
         </div>
       </div>
+      <div class="col-md-3 col-md-pull-9 category-toggle">
+                <button><i class="fa fa-briefcase"></i></button>
+                <div class="post-sidebar">
+                      <div class="latest-post-content">
+                          <h2>Admin Panel</h2>
+                          <div class="single-product"></div>
+                      </div>
+                </div>
+            </div> <!-- end .page-sidebar -->
     </div>
-  </div>
-
-@stop
+  </div> <!-- end .home-with-slide -->
+  </div> <!-- end .container -->
+</div>  <!-- end #page-content -->
+@endsection
 
 @section('scripts')
+  <script src="{{asset('plugins/bootstrap-3.3.5/js/bootstrap.js')}}"></script>
+  <script src="{{asset('plugins/select2/select2.min.js')}}"></script>  
   <script>
-$(document).ready(function() {
-  $("#cat_name").select2({
-    tags: true,
+    $(document).ready(function() {
+      $("#cat_name").select2({
+        tags: true,
 
-  });
+      });
 
-});
-
-
-$(document).ready(function() {
-  $("#cat_image").select2({
-    placeholder: 'Choose Category Image',
-    tags: true,
-  });
-});
-
-$(document).ready(function() {
-  $("#sub_image").select2({
-    placeholder: 'Choose Sub-Category Image',
-    tags: true,
-  });
-});
+    });
 
 
-$(document).ready(function() {
- $('#cat_name').on('change', function(){
-      if($(this).val() !== "Select/Create Category") {
-         var model=$('#subcat');
-        model.empty();
-       $.get('{{ URL::to('api/subcat') }}', {y: $(this).val()}, function(result){
-         $.each(result.data,function(){
-                          $('#subcat').append('<option value="'+this.id+'">'+this.text+'</option>');
+    $(document).ready(function() {
+      $("#cat_image").select2({
+        placeholder: 'Choose Category Image',
+        tags: true,
+      });
+    });
 
-                    });
-          
-            $('#meta_description').val(result.desc);
-            console.log(result.desc)
-          
-       });
-     }
-  });
-});
+    $(document).ready(function() {
+      $("#sub_image").select2({
+        placeholder: 'Choose Sub-Category Image',
+        tags: true,
+      });
+    });
 
-$(document).ready(function() {
-  $("#subcat").select2({
-    placeholder: 'create a sub category',
-    tags: true,
-  });
-});
-</script>
+
+    $(document).ready(function() {
+     $('#cat_name').on('change', function(){
+          if($(this).val() !== "Select/Create Category") {
+             var model=$('#subcat');
+            model.empty();
+           $.get('{{ URL::to('api/subcat') }}', {y: $(this).val()}, function(result){
+             $.each(result.data,function(){
+                              $('#subcat').append('<option value="'+this.id+'">'+this.text+'</option>');
+
+                        });
+              
+                $('#meta_description').val(result.desc);
+                console.log(result.desc)
+              
+           });
+         }
+      });
+    });
+
+    $(document).ready(function() {
+      $("#subcat").select2({
+        placeholder: 'create a sub category',
+        tags: true,
+      });
+    });
+  </script>
+  <script src="{{asset('js/scripts.js')}}"></script>
 @stop
