@@ -53,7 +53,7 @@
   <script type="text/javascript">
        $(document).ready(function() {
               $("body").addClass('animated fadeIn');
-              $("h2.page-title").addClass('animated fadeInLeft');
+              $("h2.page-title").addClass('animated zoomIn');
           });
 
        $(function () {
