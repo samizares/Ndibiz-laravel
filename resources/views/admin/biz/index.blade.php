@@ -5,7 +5,8 @@
     <link href="{{asset('plugins/datatable/css/datatables.css')}}" rel="stylesheet">
     <link href="{{asset('plugins/datatable/css/dataTables.bootstrap.css')}}" rel="stylesheet">
     <link href="{{asset('plugins/bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet">
-    <!-- <link href="{{asset('plugins/bootstrap-editable/bootstrap-editable.css')}}" rel="stylesheet"> -->
+    <link href="{{asset('plugins/bootstrap-editable/bootstrap-editable.css')}}" rel="stylesheet">
+    
   @endsection
 <!-- HEAD ENDS-->
 
