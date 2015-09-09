@@ -44,6 +44,7 @@
                   <li><a href="#">About Us</a></li>
                   <li><a href="#">Contact Us</a></li>
                   <li><a href="/admin">Admin</a></li>
+                  <li><a href="/search-results">Search-results</a></li>
                 </ul>
               </nav>
             </div> <!-- end .container -->

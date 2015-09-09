@@ -39,6 +39,17 @@ class HomeController extends Controller
 		$featured= Biz::whereFeatured('YES')->get();
 		return view('pages.categories', compact('stateList','catList','cats','featured'));
 	}
+
+	public function searchResults()
+	{
+		
+		$cats = Cat::all();
+		$stateList= State::lists('name','name');
+		$catList   = Cat::lists('name','name'); 
+		$featured= Biz::whereFeatured('YES')->get();
+
+         return view('pages.search-results', compact('stateList','catList','cats','featured'));
+	}
 	
 	public function regbiz()
 	{
