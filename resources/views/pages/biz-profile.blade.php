@@ -31,15 +31,7 @@
                 <div class="social-link text-right">
                   <div class="btn-group">
                     <button type="button" class="btn btn-default"><i class="fa fa-share-alt"></i> Share</button>
-                    <button type="button" class="btn btn-default">Share</button>
-                    <button type="button" class="btn btn-default">Share</button>
-                  </div>
-                  <ul class="list-inline">
-                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                    <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                  </ul>
+                   </div>
                 </div>
 
                 

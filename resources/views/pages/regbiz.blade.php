@@ -1,42 +1,41 @@
 @extends('master')
+<!-- HEAD STARTS-->
+  @section('title', 'Register A Business')
+  @section('stylesheets')     
+    <!-- <link href="{{asset('plugins/bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet"> -->
+    <link href="{{asset('plugins/select2/select2.min.css')}}" rel="stylesheet">
+  @endsection
+<!-- HEAD ENDS-->
 
-@section('content')
-
-<div class="breadcrumb">
-
-        <div class="featured-listing">
-            <h2 class="page-title">Business Registration</h2>
+<!-- HEADER STARTS -->
+  <!-- breadcrumbs -->
+  @section('breadcrumb')
+        <div class="breadcrumb">
+          <div class="featured-listing" style="margin:0;">
+              <h2 class="page-title animated fadeInLeft" style="margin:0;">Business Registration</h2>
+          </div>
         </div>
+  @endsection
+ 
+<!-- HEADER ENDS -->
 
-      </div>
-<div class="header-nav-bar">
-      <div class="container">
-        <nav>
-
-          <button><i class="fa fa-bars"></i></button>
-
-          <ul class="primary-nav list-unstyled">
-            <li class="bg-color"><a href="index.php">Home<i class="fa fa-home"></i></a></li>
-            <li class=""><a href="categories.php">Categories<i class="fa fa-angle-down"></i></a></li>
-            <li><a href="about-us.php">About Us</a></li>
-            <li><a href="contact-us.php">Contact Us</a></li>
-          </ul>
-        </nav>
-      </div> <!-- end .container -->
-    </div> <!-- end .header-nav-bar -->
-  </header> <!-- end #header -->
+<!-- CONTENT STARTS -->
+@section('content')
   <div id="page-content" class="home-slider-content">
     <div class="container">
+      @include('admin.partials.errors')
+      @include('admin.partials.success')
+      <div class="row page-title-row">
+        <div class="col-md-12">
+          <h3><a href="/businesses">Businesses</a> » <small> Add New Business</small></h3>
+        </div>
+      </div>
       <div class="page-forms">
         <form method="POST"  action="/biz">
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="row">
-          <h3 class="text-center">Create a business profile and become visible to your customers.</h3>
-
-           @include('admin.partials.errors')
-            @include('admin.partials.success')
           
-          <div class="col-md-6">     
+          <div class="col-md-8">     
             <div class="form-group">
               <label for="name">Business Name</label>
               <input required type="text" id="name" name="name" class="form-control" placeholder="Patt's Bar">
@@ -51,26 +50,20 @@
             </div>  
              <div class="form-group">
               <label for="state">State</label>
-              <select id="stateList" name="stateList" placeholder="select state">
-                <option value="">Choose a city</option>
-                <option value="25">Lagos</option>
-                <option value="23">Abuja</option>
-                <option value="26">Abia</option>
-                </select> 
+              {!!Form::select('state', $stateList, null, ['class'=>'form-control','id'=>'stateList',
+                    'placeholder'=>'select state']) !!}
             </div> 
 
             <div class="form-group">
               <label for="lga">Region/Area</label> 
-              <select id="lga" name="lga" placeholder="Pick an area/region">                
-               </select>   
+              <select id="lga" name="lga" class="form-control"> </select>    
             </div>
 
             <div class="form-group">
               <label for="contact-person">Contact Person</label>
               <input type="text" id="contactname" name=" contactname" class="form-control" placeholder="Mr Patt" required>
             </div>
-          </div>
-          <div class="col-md-6">  
+
             <div class="form-group">
                   <label for="products">Products / Services</label>
                   <div class="category-search">                
@@ -94,203 +87,53 @@
               <label for="contact2">Phone Number 2</label>
               <input type="text" id="contact" name="phone2"class="form-control" placeholder="Phone number 2">
             </div> 
+            <input type="submit" class="btn btn-default" value="Add Business">
           </div>
-          <input type="submit" class="btn btn-default" value="Add Business">
+
+          <div class="col-md-3">
+            <div class="post-sidebar">
+                  <div class="latest-post-content">
+                      <h2>Registration Guides</h2>
+                      <div class="single-product"></div>
+                  </div>
+
+                  <div class="latest-post-content">
+                      <h2>Registration Benefits</h2>
+                      <div class="single-product"></div>
+                  </div>
+            </div>
+          </div> <!-- end .page-sidebar -->
         </div> <!-- end .row -->
         </form>
       </div> <!-- end .home-with-slide -->
     </div> <!-- end .container -->
-  </div>  <!-- end #page-content -->
+  </div>  <!-- end #page-content -->  
+@endsection
   
-  @endsection
-  
-  @section('scripts')
+@section('scripts')
+  <!-- // <script src="{{asset('plugins/bootstrap-3.3.5/js/bootstrap.js')}}"></script> -->
+  <script src="{{asset('plugins/select2/select2.min.js')}}"></script>
   <script>
-$(document).ready(function() {
-  $("#cat2").select2({
-    tags: true
-
-  });
-
-//});
-
-//$(function() {
- // on("submit", function(e)
-  $(document).ready(function() {
- $('#stateList').on('change', function(){
-      if($(this).val() !== "select state") {
-         var model=$('#lga');
-        model.empty();
-       $.get('{{ URL::to('api/lga') }}', {z: $(this).val()}, function(result){
-        var model=$('#lga');
-        model.empty();
-         $.each(result.data,function(){
-                          $('#lga').append('<option value="'+this.id+'">'+this.text+'</option>');
-
-                    });
-       });
-     }
-  });
-});
-  //  if($(this).val() !== "select state") {
-
-
-    //   $.get('{{ URL::to('api/lga') }}', {z: $(this).val()}, function(result){
-    //     $('#lga').html(result);
-    //   });
-  
-  
-  /*var state= $("#stateList").val();
- $("#lga").select2({
-    ajax:{
-      url: "{{ URL::to('api/lga') }}",
-      dataType:'json',
-      deleay:250,
-      data:  {
-        z:state
-        },
-        processResults: function (data){
-          return{
-            results:data
-          };
-        },
-        cache:true
-     },
-     minimumInputLength:1
-    
- });  */
-
-
- /*  $(function() {
-      // Enable Selectize
-    $('#category').selectize({
-      plugins: ['remove_button'],
-      valueField: 'id',
-      labelField: 'name',
-      searchField: ['name'],
-      render:{
-        option:function(item, escape) {
-          return '<div><i class="fa fa-car"></i>' + escape(item.name) +'</div>';
-        }
-      },
-      load:function(query, callback) {
-        if(!query.length) return callback();
-        $.ajax({
-          url: '{{ URL::to('api/category') }}',
-          type: 'GET',
-          dataType: 'json',
-          data: {
-            q: query
-          },
-          success: function(res) {
-            callback(res.data);
-            }
-        });
-      }
+    $(document).ready(function() {
+      $("#cat2").select2({
+        tags: true
       });
 
-    });    
+    $(document).ready(function() {
+       $('#stateList').on('change', function(){
+            if($(this).val() !== "select state") {
+               var model=$('#lga');
+              model.empty();
+             $.get('{{ URL::to('api/lga') }}', {z: $(this).val()}, function(result){
+              var model=$('#lga');
+              model.empty();
+               $.each(result.data,function(){
+                                $('#lga').append('<option value="'+this.id+'">'+this.text+'</option>');
 
-   var xhr;
-   var state_List, $state_List;
-   var lga_area, $lga_area; 
-      // Enable Selectize
-    $state_List= $('#stateList').selectize({ 
-      
-     //  $('#stateList').selectize({
-    valueField: 'id',
-    labelField: 'name',
-    searchField: ['name'],
-    render:{
-        option:function(item, escape) {
-          return '<div>' + escape(item.name) +'</div>';
-        }
-      },
-      load:function(query, callback){
-        if(!query.length) return callback();
-        $.ajax({
-          url: '{{ URL::to('api/location') }}',
-          type: 'GET',
-          dataType: 'json',
-          data: {
-            l: query
-          },
-          success: function(res) {
-            callback(res.data);
-            } 
+                          });
+             });
+           }
         });
-      }, 
-        onChange: function(value){
-          if(!value.length) return;          
-         // lga_area.disable();
-        //  lga_area.clearOptions();
-          lga_area.load(function(callback){
-                xhr && xhr.abort();
-                xhr= $.ajax({
-                  url: '{{ URL::to('api/lga') }}',
-                 type: 'GET',
-                 dataType: 'json',
-                  data: {
-                     z: value
-                    },
-                  success: function(results) {
-                   // console.log(results);
-                       lga_area.enable();
-                      callback(results);
-                    },
-                  error: function() {
-                  callback();
-                }
-                })
-          });
-        }
       });
-      $lga_area=$('#lga').selectize({
-         valueField:'id',
-         labelField:'name',
-         searchField:['name']         
-      });
-
-      lga_area = $lga_area[0].selectize;
-      state_List= $state_List[0].selectize;
-
-      lga_area.disable();
-    /*  onChange:function(){
-       // var state= $("#stateList").val();
-        $.getJSON('{{ URL::to('api/lga') }}',{state:$("#stateList").val()}, function(data){
-            var model=$('#lga');
-            model.empty();
-            $.each(data,function(index,element) {
-            model.append("<option value='"+element.name+"'>" + element.name + "</option>");
-              
-          })
-        });
-       /*   $.ajax({
-          url: '{{ URL::to('api/lga') }}',
-          type:'get',
-          data: {
-            z: state
-          },
-          success: function(res) {
-            $("#lga").html(res)
-            },
-            error : function(resp){} 
-        }); 
-
-       }  */
-
- 
- /*   $("#stateList").change(function(){
-      $.get('{{ URL::to('api/lga') }}',{z:$("#stateList").val()}, function(data){
-            var model=$('#lga');
-            model.empty();
-            $.each(data,function(index,element) {
-            model.append("<option value='"+element.name+"'>" + element.name + "</option>");
-              
-          })
-        });
-    })    */
- 
-
-</script>  
+  </script>  
 @stop

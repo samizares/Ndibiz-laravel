@@ -13,22 +13,6 @@
           <a href="/biz/create" class="btn btn-default"><i class="fa fa-plus"></i> Add a Business</a>           
         </div><!-- END .HEADER-CALL-TO-ACTION -->
 
-        <!-- HEADER-SOCIAL -->
-        <div class="header-social">
-          <a class="btn" href="#"><span>Get Social</span>
-            <span><i class="fa fa-share-alt"></i></span>
-            <i class="social-arrow"></i>
-          </a>
-
-          <ul class="list-inline">
-            <li class="active"><a href="#"><i class="fa fa-facebook-square"></i></a></li>
-            <li><a href="#"><i class="fa fa-google-plus-square"></i></a></li>
-            <li><a href="#"><i class="fa fa-twitter-square"></i></a></li>
-            <li><a href="#"><i class="fa fa-linkedin-square"></i></a></li>
-          </ul>
-        </div>
-        <!-- END HEADER-SOCIAL -->
-
         <!-- HEADER-LOGIN -->
         
           @if (Auth::check())
@@ -62,6 +46,5 @@
     @yield('search') 
     @yield('slider')
     @yield('breadcrumb')
-    @yield('header-navbar')   
-  </div><!-- END .SEARCH-MAP -->
+    @yield('header-navbar') 
 </header> <!-- end #header -->
