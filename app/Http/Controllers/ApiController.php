@@ -18,12 +18,12 @@ class ApiController extends Controller
           return \Response::json(['data'=> []], 200);
 
         
-      $cats = \App\Cat::where('name','like','%'.$query.'%')
+      $cats = \App\Cat::has('biz')->where('name','like','%'.$query.'%')
     	->orderBy('name','asc')
     	->take(10)
-    	->get(['id','name','image_class'])->toArray();
+    	->get(['id','name','image_class'])->toArray();  
 
-    $subcats = \App\SubCat::where('name','like','%'.$query.'%')
+      $subcats = \App\SubCat::has('biz')->where('name','like','%'.$query.'%')
    		 ->orderBy('name','asc')
    		 ->take(10)
    		 ->get(['id','name'])->toArray();
@@ -56,10 +56,18 @@ class ApiController extends Controller
     	 if(trim(urldecode($query))=='')
           return \Response::json(['data'=> []], 200);
 
-       $data=\App\State::where('name','like', '%'.$query.'%')
+       $lga=\App\Lga::where('name','like', '%'.$query.'%')
        ->orderBy('name', 'asc')
        ->take(10)
        ->get(['id','name'])->toArray();
+
+       $state= \App\State::where('name','like', '%'.$query.'%')
+       ->orderBy('name', 'asc')
+       ->take(5)
+       ->get(['id','name'])->toArray();
+
+        $data = array_merge($lga, $state);
+
         return \Response::json(['data'=>$data]);
 
     }
@@ -87,7 +95,7 @@ class ApiController extends Controller
       $query=\Input::get('y');
 
       $catId=\App\Cat::whereId($query)->first();
-      $desc=$catId->meta_description;
+     // $desc=$catId->meta_description;
 
       $list=\App\SubCat::where('cat_id', '=', $query)
       ->lists('name','id')->all();
@@ -117,6 +125,13 @@ class ApiController extends Controller
         return \Response::json(array('status'=>1));
     else 
         return \Response::json(array('status'=>'error','msg'=>'could not be updated'));
+    }
+
+    public function searchCat()
+    {
+        $sub= \Input::get('sub');
+        $loc= \Input::get('loc');
+        $business= \DB::table('biz_subcat_pivot')->whereSubcat_id('query');
     }
 
 

@@ -68,5 +68,28 @@ class Biz extends Model
       $this->rating_count = $reviews->count();
       $this->save();
   }
+  
+  public function scopeByState($query, $stateID){
+    return $query->whereHas('address', function($q) use ($stateID){
+        $q->where('state_id', $stateID);
+      });
+    }
+
+    public function scopeBySub($query, $subID){
+     return $query->whereHas('subcats', function($q) use ($subID){
+        $q->where('subcat_id', $subID);
+      });
+    }
+    public function scopeByCat($query,$catID){
+       return $query->whereHas('cats', function($q) use ($catID){
+         $q->where('cat_id', $catID);
+      });
+    }
+
+    public function scopeByArea($query, $areaID){
+      return $query->whereHas('address', function($q) use ($areaID){
+          $q->where('lga_id', $areaID);
+        });
+    } 
 }
 

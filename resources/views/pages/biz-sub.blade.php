@@ -1,6 +1,6 @@
 @extends('master')
 <!-- HEAD -->
-@section('title', 'Businesses')
+@section('title', 'Subcategory Businesses')
 @section('stylesheets')
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 @endsection
@@ -9,7 +9,7 @@
 @section('breadcrumb')
       <div class="breadcrumb">
         <div class="featured-listing" style="margin:0;">
-            <h2 class="page-title" style="margin:0;">Business Listings</h2>
+            <h2 class="page-title" style="margin:0;">{{$sub->name}} Businesses</h2>
         </div>
       </div>
 @endsection
@@ -50,8 +50,10 @@
                     <div class="change-view">
                         <button class="grid-view"><i class="fa fa-th"></i></button>
                         <button class="list-view active"><i class="fa fa-bars"></i></button>
-                    </div>                     
-                      <div class="row clearfix">
+                    </div> 
+                     <div class="row clearfix">
+                      <h3>{{$sub->name}} Businesses</h3>
+                        <p>Checked Out the businesses: </p>                         
                         @unless ( $bizs->isEmpty() )
                        @foreach ($bizs as $biz) 
                           <div class="col-sm-4 col-xs-6">
@@ -92,7 +94,7 @@
                           @endforeach
                 @endunless
 
-               {!! $bizs->render() !!} 
+          
  
                       </div> <!-- end .row -->                   
                   </div> <!-- end .tabe-pane -->                 

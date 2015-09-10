@@ -52,6 +52,9 @@
                         <button class="list-view active"><i class="fa fa-bars"></i></button>
                     </div>                     
                       <div class="row clearfix">
+                        <h3>Oops</h3>
+                        <p>Sorry!!! your search <em>{{ $val }} in {{$loc }} </em> didn't yield any outcome,
+                          but check out related business in that category</p>
                         @unless ( $bizs->isEmpty() )
                        @foreach ($bizs as $biz) 
                           <div class="col-sm-4 col-xs-6">
@@ -92,7 +95,7 @@
                           @endforeach
                 @endunless
 
-               {!! $bizs->render() !!} 
+            
  
                       </div> <!-- end .row -->                   
                   </div> <!-- end .tabe-pane -->                 

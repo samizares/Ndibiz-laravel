@@ -22,4 +22,5 @@ public function subcats()
   return $this->hasMany('App\SubCat','cat_id');
 }
 
+
 }

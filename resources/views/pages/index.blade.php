@@ -15,7 +15,7 @@
         <div class="slider-content">
           <div id="home-slider" class="">
             <div class="item">
-              <img src="img/content/home-slide-img.jpg" alt="">
+              <img src="{{asset('img/content/home-slide-img.jpg')}}" alt="">
               <div class="slide-content">             
                 <h1><small><i class="fa fa-search"></i> Search for <br><span id="demo"></span> <br>in <br><span id="demo2"></span></small></h1>
                 <h1><small>Connect</small> <span>Businesses</span> <small>To</small> <span>Customers</span></h1>
@@ -140,7 +140,7 @@
         <div class="item">
           <div class="single-product">
             <figure>
-              <img src="img/content/post-img-1.jpg" alt="">
+              <img src="asset('img/content/post-img-1.jpg')}}" alt="">
               <div class="rating">
                 <ul class="list-inline">
                   <li><a href="#"><i class="fa fa-star"></i></a></li>
@@ -159,14 +159,14 @@
                   <a href="#"><i class="fa fa-bookmark-o"></i> Bookmark</a>
                 </div>
                 <div class="read-more">
-                  <a href="#"><i class="fa fa-angle-right"></i> Read More</a>
+                  <a href="/review/biz/{{$feature->id}}"><i class="fa fa-angle-right"></i> Read More</a>
                 </div>
 
               </figcaption>
             </figure>
             <h4><a href="#">{{$feature->name}}</a></h4>
             <h5 class="fa fa-tags"> @foreach($feature->subcats as $sub)
-                  <a href="#">{{ $sub->name }}</a>,@endforeach</h5> <br>
+                  <a href="/biz/subcat/{{$sub->id}}">{{ $sub->name }}</a>,@endforeach</h5> <br>
           </div> <!-- end .single-product -->
         </div>
         @endforeach
@@ -257,7 +257,7 @@
           $(document).ready(function() {
             // Enable location search
             $('#location').selectize({
-                valueField: 'id',
+                valueField: 'name',
                 labelField: 'name',
                 searchField: ['name'],
                 renrender:{
@@ -268,7 +268,7 @@
                   load:function(query, callback){
                     if(!query.length) return callback();
                     $.ajax({
-                      url: './api/location',
+                      url: '{{URL::to('api/location')}}',
                       type: 'GET',
                       dataType: 'json',
                       data: {
@@ -283,7 +283,7 @@
 
               // Enable category search
               $('#category').selectize({
-                valueField: 'id',
+                valueField: 'name',
                 labelField: 'name',
                 searchField: ['name'],
                 render:{
@@ -294,7 +294,7 @@
                 load:function(query, callback) {
                   if(!query.length) return callback();
                   $.ajax({
-                    url: './api/category',
+                    url: '{{URL::to('api/category')}}',
                     type: 'GET',
                     dataType: 'json',
                     data: {
