@@ -82,7 +82,7 @@
                                     <li><a href="#"><i class="fa fa-star-o"></i></a></li>
                                     <li>50 reviews</li>
                                   </ul>
-                              <h5><i class="fa fa-tags"></i> @foreach( $biz->subcats as $sub) <a href="#">{{$sub->name}}</a>, @endforeach</h5>
+                              <h5><i class="fa fa-tags"></i> @foreach( $biz->subcats as $sub) <a href="/biz/subcat/{{$sub->id}}">{{$sub->name}}</a>, @endforeach</h5>
                               <div class="row p5-top address-preview">
                                 <input type="button" class="col-md-5" data-toggle="collapse" data-target="#toggleAddress" value="Address">
                                 <div id="toggleAddress" class="collapse col-md-9 col-md-push-3 animated slideDown">

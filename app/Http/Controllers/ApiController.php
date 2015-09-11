@@ -94,10 +94,10 @@ class ApiController extends Controller
 
       $query=\Input::get('y');
 
-      $catId=\App\Cat::whereId($query)->first();
-     // $desc=$catId->meta_description;
-
-      $list=\App\SubCat::where('cat_id', '=', $query)
+       foreach($query as $q){
+     // $catId=\App\Cat::whereId($q)->first();
+     // $desc=$catId->meta_description
+      $list=\App\SubCat::where('cat_id', '=', $q)
       ->lists('name','id')->all();
       if(count($list) > 0) {
           foreach( $list as $key => $value) {
@@ -106,10 +106,11 @@ class ApiController extends Controller
       } else {
         $data[]= array('id'=>'0','text'=>'No Subcategories found');
         }
+      }
 
       
     
-      return \Response::json(['data'=>$data, 'desc'=>$desc]);
+      return \Response::json(['data'=>$data]);
 
     }
 

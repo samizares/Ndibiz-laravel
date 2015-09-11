@@ -140,7 +140,7 @@
         <div class="item">
           <div class="single-product">
             <figure>
-              <img src="asset('img/content/post-img-1.jpg')}}" alt="">
+              <img src="{{asset('img/content/post-img-1.jpg')}}" alt="">
               <div class="rating">
                 <ul class="list-inline">
                   <li><a href="#"><i class="fa fa-star"></i></a></li>
