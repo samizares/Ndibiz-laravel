@@ -28,7 +28,7 @@ class HomeController extends Controller
 	public function businesses()
 	{
 		$cats = Cat::all();
-		$bizs = Biz::orderBy('created_at', 'desc')->paginate(10);
+		$bizs = Biz::orderBy('created_at', 'desc')->paginate(6);
 		$stateList= State::lists('name','name');
 		$catList   = Cat::lists('name','name'); 
 		 $featured= Biz::whereFeatured('YES')->paginate(3);
