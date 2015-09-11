@@ -22,6 +22,7 @@ Route::get('/search-results', 'HomeController@searchResults');
 Route::get('review/biz/{id}', 'HomeController@getBizreview');
 Route::post('review/biz/{id}', 'HomeController@postReview');
 Route::get('biz/subcat/{id}', 'HomeController@bizSub');
+Route::get('biz/cat/{id}', 'HomeController@bizCat');
 Route::resource('biz', 'BizController');
 Route::get('search', 'HomeController@search');
 Route::get('auth/register', 'Auth\AuthController@getRegister');

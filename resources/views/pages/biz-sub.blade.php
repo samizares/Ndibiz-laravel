@@ -109,13 +109,26 @@
 
           <div class="col-md-3 col-md-pull-9 category-toggle">
             <button><i class="fa fa-briefcase"></i></button>
-
-            <div class="post-sidebar">
-              <div class="latest-post-content">
-                <h2>Filters</h2>
-                
-            </div>
-
+            <div class="page-sidebar">
+              <!-- Category accordion -->
+              <div id="categories">
+                <div class="accordion">
+                  <ul class="nav nav-tabs home-tab" role="tablist">
+                    @foreach ($cats as $cat)
+                    <li>
+                      <a href="#<?php echo str_replace(' ', '', $cat->name); ?>"  role="tab" data-toggle="tab"><i class="fa fa-{{$cat->image_class}}"></i>
+                        {{ $cat->name }}
+                     <!-- <div>
+                        @foreach($cat->subcats as $sub)
+                          <a href="#{{ $sub->name}}" role="tab" data-toggle="tab">{{ $sub->name}}</a>
+                        @endforeach
+                      </div>  -->
+                      </a>
+                    </li>
+                    @endforeach
+                  </ul>
+                </div> <!-- end .accordion -->
+              </div> <!-- end #categories -->
             </div> <!-- end .page-sidebar -->
           </div> <!-- end grid layout-->
         </div> <!-- end .row -->
