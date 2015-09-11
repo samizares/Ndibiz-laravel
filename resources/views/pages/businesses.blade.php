@@ -45,15 +45,16 @@
             <div class="page-content">
               <div class="product-details-list view-switch">
                 <div class="tab-content">
-
-                  <div class="tab-pane active" id=""> 
+                  @unless ( $cats->isEmpty() )
+                  @foreach ($cats as $cat)
+                  <div class="tab-pane" id="{{ $cat->name }}"> 
                     <div class="change-view">
                         <button class="grid-view"><i class="fa fa-th"></i></button>
                         <button class="list-view active"><i class="fa fa-bars"></i></button>
                     </div>                     
                       <div class="row clearfix">
-                        @unless ( $bizs->isEmpty() )
-                       @foreach ($bizs as $biz) 
+                          @unless ( $bizs->isEmpty() )
+                          @foreach ($bizs as $biz) 
                           <div class="col-sm-4 col-xs-6">
                             <div class="single-product">
                               <figure>
@@ -72,7 +73,7 @@
                               </figure>
                               <h4><a href="/review/biz/{{$biz->id}}">
                                 {{$biz->name}}</a></h4>
-                              <ul class="list-inline m5-bttm p10-left">
+                                  <ul class="list-inline m5-bttm p10-left">
                                     <li><a href="#"><i class="fa fa-star"></i></a></li>
                                     <li><a href="#"><i class="fa fa-star"></i></a></li>
                                     <li><a href="#"><i class="fa fa-star"></i></a></li>
@@ -86,12 +87,13 @@
                                                             </div> <!-- end .single-product -->
                           </div> <!-- end .col-sm-4 grid layout -->   
                           @endforeach
-                @endunless
+                          @endunless
 
-               {!! $bizs->render() !!} 
- 
+                          {!! $bizs->render() !!}  
                       </div> <!-- end .row -->                   
-                  </div> <!-- end .tabe-pane -->                 
+                  </div> <!-- end .tabe-pane -->  
+                  @endforeach
+                  @endunless               
                 </div> <!-- end .tabe-content -->
               </div> <!-- end .product-details -->
             </div> <!-- end .page-content -->
@@ -107,7 +109,7 @@
                   <ul class="nav nav-tabs home-tab" role="tablist">
                      @foreach ($cats as $cat)
                       <li>
-                        <a class="" href="#<?php echo str_replace(' ', '', $cat->name); ?>"  role="tab" data-toggle="tab"><i class="fa fa-{{$cat->image_class}}"></i>
+                        <a class="" href="#{{ $cat->name }}"  role="tab" data-toggle="tab"><i class="fa fa-{{$cat->image_class}}"></i>
                         {{ $cat->name }}</a>
                       </li>
                       @endforeach
@@ -123,6 +125,12 @@
       <!-- SIDEBAR RIGHT -->
       <div class="col-md-3">
         <div class="post-sidebar">
+            <div class="recently-added">
+                <h2>Recent Reviews</h2>
+                <div class="single-product"></div>
+                
+            </div>
+           
             <div class="latest-post-content">
                 <h2>Featured Businesses</h2>
                 @if ( ! $featured-> isEmpty() )
@@ -171,10 +179,7 @@
                     <a href=""> <i class="fa fa-newspaper-o"></i> Advert Space</a>
                 </div>
             </div>
-            <div class="recently-added">
-                <h2>Recent Reviews</h2>
-                <div class="single-product"></div>
-            </div>
+            
         </div>
       </div>
     </div>
