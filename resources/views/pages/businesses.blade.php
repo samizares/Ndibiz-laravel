@@ -80,14 +80,10 @@
                                     <li><a href="#"><i class="fa fa-star-o"></i></a></li>
                                     <li>50 reviews</li>
                                   </ul>
-                              <h5><i class="fa fa-tags"></i> @foreach( $biz->subcats as $sub) <a href="/biz/subcat/{{$sub->id}}">{{$sub->name}}</a>, @endforeach</h5>
-                              <div class="row p5-top address-preview">
-                                <input type="button" class="col-md-5" data-toggle="collapse" data-target="#toggleAddress" value="Address">
-                                <div id="toggleAddress" class="collapse col-md-9 col-md-push-3 animated slideDown">
-                                  <p>{{$biz->address->street}}</p></div>
-                              </div>
-                              <a class="read-more" href="/review/biz/{{$biz->id}}"><i class="fa fa-angle-right"></i>Read More</a>
-                            </div> <!-- end .single-product -->
+
+                              <h5 class="p0-bttm">@foreach( $biz->subcats as $sub) <a class="btn" href="#"><i class="fa fa-tags"></i> {{$sub->name}}</a> @endforeach</h5>
+                                <h5 class="p5-top address-preview"><i class="fa fa-map-marker"></i> <span>{{$biz->address->street}}</span>, <span>{{ $biz-> address->state->name}}</span></h5>
+                                                            </div> <!-- end .single-product -->
                           </div> <!-- end .col-sm-4 grid layout -->   
                           @endforeach
                 @endunless
@@ -109,18 +105,13 @@
               <div id="categories">
                 <div class="accordion">
                   <ul class="nav nav-tabs home-tab" role="tablist">
-                    @foreach ($cats as $cat)
-                    <li>
-                      <a href="#<?php echo str_replace(' ', '', $cat->name); ?>"  role="tab" data-toggle="tab"><i class="fa fa-{{$cat->image_class}}"></i>
-                        {{ $cat->name }}
-                      <div>
-                        @foreach($cat->subcats as $sub)
-                          <a href="#{{ $sub->name}}" role="tab" data-toggle="tab">{{ $sub->name}}</a>
-                        @endforeach
-                      </div>
-                      </a>
-                    </li>
-                    @endforeach
+                     @foreach ($cats as $cat)
+                      <li>
+                        <a class="" href="#<?php echo str_replace(' ', '', $cat->name); ?>"  role="tab" data-toggle="tab"><i class="fa fa-{{$cat->image_class}}"></i>
+                        {{ $cat->name }}</a>
+                      </li>
+                      @endforeach
+                    
                   </ul>
                 </div> <!-- end .accordion -->
               </div> <!-- end #categories -->

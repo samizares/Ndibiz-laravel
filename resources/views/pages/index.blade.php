@@ -156,7 +156,7 @@
 
               <figcaption>
                 <div class="bookmark">
-                  <a href="#"><i class="fa fa-bookmark-o"></i> Bookmark</a>
+                  <a href="#"><i class="fa fa-heart-o fa-fw"></i> Bookmark</a>
                 </div>
                 <div class="read-more">
                   <a href="/review/biz/{{$feature->id}}"><i class="fa fa-angle-right"></i> Read More</a>
@@ -164,7 +164,7 @@
 
               </figcaption>
             </figure>
-            <h4><a href="#">{{$feature->name}}</a></h4>
+            <h4><a href="/review/biz/{{$feature->id}}">{{$feature->name}}</a></h4>
             <h5 class="fa fa-tags"> @foreach($feature->subcats as $sub)
                   <a href="/biz/subcat/{{$sub->id}}">{{ $sub->name }}</a>,@endforeach</h5> <br>
           </div> <!-- end .single-product -->
