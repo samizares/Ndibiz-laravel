@@ -93,7 +93,7 @@
                                     <li><a href="#"><i class="fa fa-star-o"></i></a></li>
                                     <li>50 reviews</li>
                                   </ul>
-                              <span class="p0-bttm">@foreach( $biz->subcats as $sub) <span><a class="btn" href="#"><i class="fa fa-tags"></i> {{$sub->name}}</a></span> @endforeach</span>
+                              <span class="p0-bttm">@foreach( $biz->subcats as $sub) <span><a class="btn" href="/biz/subcat/{{$sub->id}}"><i class="fa fa-tags"></i> {{$sub->name}}</a></span> @endforeach</span>
                               <h5 class="p5-top address-preview"><i class="fa fa-map-marker"></i> <span>{{$biz->address->street}}</span>, <span>{{ $biz-> address->state->name}}</span></h5>
                             </div> <!-- end .single-product -->
                           </div> <!-- end .col-sm-4 grid layout -->   
