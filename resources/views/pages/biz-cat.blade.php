@@ -1,6 +1,6 @@
 @extends('master')
 <!-- HEAD -->
-@section('title', 'Businesses')
+@section('title', 'Category Businesses')
 @section('stylesheets')
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 @endsection
@@ -9,7 +9,7 @@
 @section('breadcrumb')
       <div class="breadcrumb">
         <div class="featured-listing" style="margin:0;">
-            <h2 class="page-title" style="margin:0;">Business Listings</h2>
+            <h2 class="page-title" style="margin:0;">{{$cat->name}} Businesses</h2>
         </div>
       </div>
 @endsection
@@ -45,16 +45,17 @@
             <div class="page-content">
               <div class="product-details-list view-switch">
                 <div class="tab-content">
-                  @unless ( $cats->isEmpty() )
-                  @foreach ($cats as $cat)
-                  <div class="tab-pane" id="<?php echo str_replace(' ', '', $cat->name); ?>"> 
+
+                  <div class="tab-pane active" id=""> 
                     <div class="change-view">
                         <button class="grid-view"><i class="fa fa-th"></i></button>
                         <button class="list-view active"><i class="fa fa-bars"></i></button>
-                    </div>                     
-                      <div class="row clearfix">
-                         <h3>{{$cat->name}} Businesses</h3>
-                          @foreach ($cat->biz as $biz) 
+                    </div> 
+                     <div class="row clearfix">
+                      <h3>{{$cat->name}} Businesses</h3>
+                        <p>Checked Out the businesses: </p>                         
+                        @unless ( $bizs->isEmpty() )
+                       @foreach ($bizs as $biz) 
                           <div class="col-sm-4 col-xs-6">
                             <div class="single-product">
                               <figure>
@@ -73,7 +74,7 @@
                               </figure>
                               <h4><a href="/review/biz/{{$biz->id}}">
                                 {{$biz->name}}</a></h4>
-                                  <ul class="list-inline m5-bttm p10-left">
+                              <ul class="list-inline m5-bttm p10-left">
                                     <li><a href="#"><i class="fa fa-star"></i></a></li>
                                     <li><a href="#"><i class="fa fa-star"></i></a></li>
                                     <li><a href="#"><i class="fa fa-star"></i></a></li>
@@ -81,19 +82,22 @@
                                     <li><a href="#"><i class="fa fa-star-o"></i></a></li>
                                     <li>50 reviews</li>
                                   </ul>
-
-                              <h5 class="p0-bttm">@foreach( $biz->subcats as $sub) <a class="btn" href="/biz/subcat/{{$sub->id}}"><i class="fa fa-tags"></i> {{$sub->name}}</a> @endforeach</h5>
-                                <h5 class="p5-top address-preview"><i class="fa fa-map-marker"></i> <span>{{$biz->address->street}}</span>, <span>{{ $biz-> address->state->name}}</span></h5>
-                                                            </div> <!-- end .single-product -->
+                              <h5><i class="fa fa-tags"></i> @foreach( $biz->subcats as $sub) <a href="#">{{$sub->name}}</a>, @endforeach</h5>
+                              <div class="row p5-top address-preview">
+                                <input type="button" class="col-md-5" data-toggle="collapse" data-target="#toggleAddress" value="Address">
+                                <div id="toggleAddress" class="collapse col-md-9 col-md-push-3 animated slideDown">
+                                  <p>{{$biz->address->street}}</p></div>
+                              </div>
+                              <a class="read-more" href="/review/biz/{{$biz->id}}"><i class="fa fa-angle-right"></i>Read More</a>
+                            </div> <!-- end .single-product -->
                           </div> <!-- end .col-sm-4 grid layout -->   
-                                                 
+                          @endforeach
+                @endunless
 
-                          {!! $cat->biz()->paginate(6)->render() !!} 
-                          @endforeach 
+          
+ 
                       </div> <!-- end .row -->                   
-                  </div> <!-- end .tabe-pane -->  
-                  @endforeach
-                  @endunless               
+                  </div> <!-- end .tabe-pane -->                 
                 </div> <!-- end .tabe-content -->
               </div> <!-- end .product-details -->
             </div> <!-- end .page-content -->
@@ -107,14 +111,18 @@
               <div id="categories">
                 <div class="accordion">
                   <ul class="nav nav-tabs home-tab" role="tablist">
-                     @foreach ($cats as $cat)
-                      <li>
-                        <a class="" href="#<?php echo str_replace(' ', '', $cat->name); ?>" 
-                         role="tab" data-toggle="tab"><i class="fa fa-{{$cat->image_class}}"></i>
-                        {{ $cat->name }}</a>
-                      </li>
-                      @endforeach
-                    
+                    @foreach ($cats as $cat)
+                    <li>
+                      <a href="#<?php echo str_replace(' ', '', $cat->name); ?>"  role="tab" data-toggle="tab"><i class="fa fa-{{$cat->image_class}}"></i>
+                        {{ $cat->name }}
+                      <div>
+                        @foreach($cat->subcats as $sub)
+                          <a href="#{{ $cat->name}}" role="tab" data-toggle="tab">{{ $cat->name}}</a>
+                        @endforeach
+                      </div>
+                      </a>
+                    </li>
+                    @endforeach
                   </ul>
                 </div> <!-- end .accordion -->
               </div> <!-- end #categories -->
@@ -126,12 +134,6 @@
       <!-- SIDEBAR RIGHT -->
       <div class="col-md-3">
         <div class="post-sidebar">
-            <div class="recently-added">
-                <h2>Recent Reviews</h2>
-                <div class="single-product"></div>
-                
-            </div>
-           
             <div class="latest-post-content">
                 <h2>Featured Businesses</h2>
                 @if ( ! $featured-> isEmpty() )
@@ -180,7 +182,10 @@
                     <a href=""> <i class="fa fa-newspaper-o"></i> Advert Space</a>
                 </div>
             </div>
-            
+            <div class="recently-added">
+                <h2>Recent Reviews</h2>
+                <div class="single-product"></div>
+            </div>
         </div>
       </div>
     </div>
@@ -199,12 +204,12 @@
        // $('#fashion').tab('show');
         
         $('li:first-child').addClass('active');
-      //  $('.tab-pane:first-child ').addClass('active');
+        $('.tab-pane:first-child ').addClass('active');
     });
 
       // style switcr for list-grid view
       //--------------------------------------------------
-    /*  $(document).ready(function() {
+      $(document).ready(function() {
           $('.change-view button').on('click',function(e) {
             
           if ($(this).hasClass('grid-view')) {
@@ -219,7 +224,7 @@
             }
         });
 
-      });  */
+      });
 
       $(function() {
               

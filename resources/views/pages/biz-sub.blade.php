@@ -115,11 +115,11 @@
                     <li>
                       <a href="#<?php echo str_replace(' ', '', $cat->name); ?>"  role="tab" data-toggle="tab"><i class="fa fa-{{$cat->image_class}}"></i>
                         {{ $cat->name }}
-                      <div>
+                     <!-- <div>
                         @foreach($cat->subcats as $sub)
                           <a href="#{{ $sub->name}}" role="tab" data-toggle="tab">{{ $sub->name}}</a>
                         @endforeach
-                      </div>
+                      </div>  -->
                       </a>
                     </li>
                     @endforeach

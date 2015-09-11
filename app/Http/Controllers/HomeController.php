@@ -177,6 +177,18 @@ class HomeController extends Controller
 
 		return view('pages.biz-sub',compact('bizs','stateList','catList','cats','featured','recent','sub'));
 	 }
+	  public function bizCat($id)
+	 {
+	 	$cat= Cat::findOrFail($id);
+	 	$bizs=$cat->biz;
+	 	$cats = Cat::all();
+		$stateList= State::lists('name','name');
+		$catList   = Cat::lists('name','name'); 
+		$featured= Biz::whereFeatured('YES')->paginate(3);
+		$recent= Biz::orderBy('created_at', 'desc')->paginate(1);
+
+		return view('pages.biz-sub',compact('bizs','stateList','catList','cats','featured','recent','cat'));
+	 }
 
 	 public function postReview()
 	 {
