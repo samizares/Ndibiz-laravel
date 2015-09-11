@@ -901,6 +901,17 @@ th {
 .affix {
   position: fixed;
 }
+
+.m0-bttm { margin-bottom: 0px; }
+.m0-top { margin-top: 0px; }
+.m0-right { margin-right: 0px; }
+.m0-left { margin-left: 0px; }
+
+.p0-bttm { padding-bottom: 0px !important; }
+.p0-top { padding-top: 0px !important; }
+.p0-right { padding-right: 0px; }
+.p0-left { padding-left: 0px; }
+
 .m5-bttm { margin-bottom: 5px; }
 .m5-top { margin-top: 5px; }
 .m5-right { margin-right: 5px; }
