@@ -5,6 +5,10 @@
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 @endsection
 <!-- HEADER -->
+<!-- search -->
+@section('search')
+  @include('partials.search')
+@endsection
 <!-- breadcrumbs -->
 @section('breadcrumb')
       <div class="breadcrumb">
@@ -37,9 +41,17 @@
 
   <div id="page-content">
     <div class="container">
+    
     <div class="row">
       <div class="col-md-9">
-
+        <div class="row page-title-row">
+          <div class="col-md-6">
+            <h3 class="m0-top"><a href="/"><i class="fa fa-home"></i> </a> » <small>Business Listings</small></h3>
+          </div>
+          <div class="col-md-6 text-right">
+            
+          </div>
+        </div>
         <div class="row">
           <div class="col-md-9 col-md-push-3">
             <div class="page-content">
@@ -81,16 +93,16 @@
                                     <li><a href="#"><i class="fa fa-star-o"></i></a></li>
                                     <li>50 reviews</li>
                                   </ul>
-
-                              <h5 class="p0-bttm">@foreach( $biz->subcats as $sub) <a class="btn" href="/biz/subcat/{{$sub->id}}"><i class="fa fa-tags"></i> {{$sub->name}}</a> @endforeach</h5>
-                                <h5 class="p5-top address-preview"><i class="fa fa-map-marker"></i> <span>{{$biz->address->street}}</span>, <span>{{ $biz-> address->state->name}}</span></h5>
-                                                            </div> <!-- end .single-product -->
+                              <span class="p0-bttm">@foreach( $biz->subcats as $sub) <span><a class="btn" href="/biz/subcat/{{$sub->id}}"><i class="fa fa-tags"></i> {{$sub->name}}</a></span> @endforeach</span>
+                              <h5 class="p5-top address-preview"><i class="fa fa-map-marker"></i> <span>{{$biz->address->street}}</span>, <span>{{ $biz-> address->state->name}}</span></h5>
+                            </div> <!-- end .single-product -->
                           </div> <!-- end .col-sm-4 grid layout -->   
                                                  
 
                           {!! $cat->biz()->paginate(6)->render() !!} 
                           @endforeach 
                       </div> <!-- end .row -->                   
+
                   </div> <!-- end .tabe-pane -->  
                   @endforeach
                   @endunless               
@@ -193,11 +205,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     
   <script type="text/javascript">
-    $(document).ready(function() {
-       
-       // $('.tab-pane a[href="#fashion"]').tab('show');
-       // $('#fashion').tab('show');
-        
+    $(document).ready(function() {        
         $('li:first-child').addClass('active');
       //  $('.tab-pane:first-child ').addClass('active');
     });
@@ -220,10 +228,6 @@
         });
 
       });  */
-
-      $(function() {
-              
-      });
       
   </script>
   <script src="{{asset('js/scripts.js')}}"></script>

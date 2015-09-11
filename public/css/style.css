@@ -3599,7 +3599,7 @@ fieldset[disabled] .btn-default.active {
   width: 100%;
 }
 .header-search .header-search-bar {
-  position: absolute;
+  /*position: absolute;*/
   top: 0;
   width: 100%;
   padding: 15px 0;
@@ -4546,6 +4546,10 @@ fieldset[disabled] .btn-default.active {
 #categories .accordion ul li:hover {
   background-color: #fdc600;
 }
+.nav-tabs > li.active > a {
+  border-color: transparent;
+}
+
 #categories .accordion ul li a {
   display: block;
   padding: 15px 0 15px 11px;
@@ -5254,6 +5258,22 @@ fieldset[disabled] .btn-default.active {
 }
 
 /* product-details */
+.tab-pane .single-product ul li,
+.tab-pane .single-product ul li a {
+  color: #666;
+}
+.tab-pane .single-product ul li a:hover,
+.tab-pane .single-product ul li a:focus {
+  color: #FDC600;
+}
+
+.tab-pane .single-product span a, 
+.tab-pane .single-product h6, 
+.tab-pane .single-product h5 {
+  color: #999;
+  font-weight: 400;
+}
+
 .product-details {
   position: relative;
 }
@@ -5350,6 +5370,9 @@ fieldset[disabled] .btn-default.active {
     padding-top: 80px;
   }
 }
+.product-details .tab-pane .single-product span {
+  display: none;
+}
 .product-details .tab-pane .single-product {
   position: relative;
   height: auto;
@@ -5440,14 +5463,14 @@ fieldset[disabled] .btn-default.active {
 }
 .product-details .tab-pane .single-product figure figcaption .bookmark {
   position: relative;
-  top: 70px;
+  top: 45px;
 }
 .product-details .tab-pane .single-product figure figcaption .bookmark .fa {
   padding: 7px 9px;
 }
 .product-details .tab-pane .single-product figure figcaption .read-more {
   position: relative;
-  top: 90px;
+  top: 65px;
 }
 .product-details .tab-pane .single-product figure figcaption .read-more .fa {
   padding: 7px 11px;
@@ -5467,6 +5490,9 @@ fieldset[disabled] .btn-default.active {
 }
 .product-details .tab-pane .single-product h4 {
   padding-top: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .product-details .tab-pane .single-product h5 {
   padding-bottom: 10px;

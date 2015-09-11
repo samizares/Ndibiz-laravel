@@ -2,7 +2,6 @@
 <!-- HEAD -->
 @section('title', 'Home')
 @section('stylesheets')
-    <link rel="stylesheet" href="{{ asset('plugins/selectize/selectize.default.css')}}">
     <link rel="stylesheet" href="{{ asset('plugins/text-rotator/jquery.wordrotator.css')}}">
 @endsection
 <!-- HEADER -->
@@ -227,7 +226,6 @@
 
 <!-- SCRIPTS STARTS -->
   @section('scripts')
-    <script src="{{asset('plugins/selectize/selectize.min.js')}}" type="text/javascript"></script>
     <script src="{{asset('plugins/text-rotator/jquery.wordrotator.min.js') }}"></script>
     <script src="{{asset('plugins/owl-carousel/owl.carousel.js') }}"></script>
     <script src="{{asset('js/scripts.js') }}"></script>
@@ -251,65 +249,6 @@
               animationIn: "rotateInUpLeft", //css class for entrace animation
               animationOut: "flipOutY", //css class for exit animation
               speed: 3000 // delay in milliseconds between two words
-              });
-          });
-
-          $(document).ready(function() {
-            // Enable location search
-            $('#location').selectize({
-                valueField: 'name',
-                labelField: 'name',
-                searchField: ['name'],
-                renrender:{
-                    option:function(item, escape) {
-                      return '<div><i class="fa fa-map-marker"></i>' + ' ' + escape(item.name) +'</div>';
-                    }
-                  },
-                  load:function(query, callback){
-                    if(!query.length) return callback();
-                    $.ajax({
-                      url: '{{URL::to('api/location')}}',
-                      type: 'GET',
-                      dataType: 'json',
-                      data: {
-                        l: query
-                      },
-                      success: function(res) {
-                        callback(res.data);
-                        } 
-                    });
-                  }
-              });
-
-              // Enable category search
-              $('#category').selectize({
-                valueField: 'name',
-                labelField: 'name',
-                searchField: ['name'],
-                render:{
-                  option:function(item, escape) {
-                    return '<div><i class="fa fa-home"></i>' + ' ' + escape(item.name) +'</div>';
-                  }
-                },
-                load:function(query, callback) {
-                  if(!query.length) return callback();
-                  $.ajax({
-                    url: '{{URL::to('api/category')}}',
-                    type: 'GET',
-                    dataType: 'json',
-                    data: {
-                      q: query
-                    },
-                    success: function(res) {
-                      callback(res.data);
-                      }
-                  });
-                }
-              });
-
-              $('#category3').select2({
-                placeholder: 'search category',
-                tags: true
               });
           });         
     </script>

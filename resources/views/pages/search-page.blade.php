@@ -5,11 +5,15 @@
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 @endsection
 <!-- HEADER -->
+<!-- search -->
+@section('search')
+  @include('partials.search')
+@endsection
 <!-- breadcrumbs -->
 @section('breadcrumb')
       <div class="breadcrumb">
         <div class="featured-listing" style="margin:0;">
-            <h2 class="page-title" style="margin:0;">Business Search Listings</h2>
+            <h2 class="page-title" style="margin:0;">Search results for "{{ $val }} in {{$loc}}" </h2>
         </div>
       </div>
 @endsection
@@ -39,30 +43,32 @@
     <div class="container">
     <div class="row">
       <div class="col-md-9">
-
+        <div class="row page-title-row">
+          <div class="col-md-6 m5-bttm">
+            <h3 class="m0-top"><a href="/"><i class="fa fa-home"></i> </a> » <a href="/businesses">Business Listings </a> » <small>Search Results</small></h3>
+          </div>
+          <div class="col-md-6 text-right">
+            
+          </div>
+        </div>
         <div class="row">
           <div class="col-md-9 col-md-push-3">
             <div class="page-content">
               <div class="product-details-list view-switch">
                 <div class="tab-content">
-
-                  <div class="tab-pane active" id=""> 
+                <h3 class="m0-top">You searched for {{ $val }} in {{$loc}} </h3>
+                  <div class="tab-pane active"> 
                     <div class="change-view">
                         <button class="grid-view"><i class="fa fa-th"></i></button>
                         <button class="list-view active"><i class="fa fa-bars"></i></button>
                     </div> 
-                     <div class="row clearfix">
-                      <h3>Search Results</h3>
-                        <p>You searched for {{ $val }} in {{$loc}} </p>                         
-                        @unless ( $bizs->isEmpty() )
-                       @foreach ($bizs as $biz) 
+                     <div class="row clearfix">          
+                      @unless ( $bizs->isEmpty() )
+                      @foreach ($bizs as $biz) 
                           <div class="col-sm-4 col-xs-6">
                             <div class="single-product">
                               <figure>
                                 <img src="{{asset('img/content/post-img-10.jpg') }}" alt="">
-                                <div class="rating">
-                                  
-                                </div> <!-- end .rating -->
                                 <figcaption>
                                   <div class="bookmark">
                                     <a href="#"><i class="fa fa-bookmark-o"></i> Bookmark</a>
@@ -81,14 +87,9 @@
                                     <li><a href="#"><i class="fa fa-star-half-o"></i></a></li>
                                     <li><a href="#"><i class="fa fa-star-o"></i></a></li>
                                     <li>50 reviews</li>
-                                  </ul>
-                              <h5><i class="fa fa-tags"></i> @foreach( $biz->subcats as $sub) <a href="/biz/subcat/{{$sub->id}}">{{$sub->name}}</a>, @endforeach</h5>
-                              <div class="row p5-top address-preview">
-                                <input type="button" class="col-md-5" data-toggle="collapse" data-target="#toggleAddress" value="Address">
-                                <div id="toggleAddress" class="collapse col-md-9 col-md-push-3 animated slideDown">
-                                  <p>{{$biz->address->street}}</p></div>
-                              </div>
-                              <a class="read-more" href="/review/biz/{{$biz->id}}"><i class="fa fa-angle-right"></i>Read More</a>
+                              </ul>
+                              <span>@foreach( $biz->subcats as $sub) <span><a href="/biz/subcat/{{$sub->id}}"><i class="fa fa-tags"></i> {{$sub->name}}</a></span> @endforeach</span>
+                              <h5 class="p5-top address-preview"><i class="fa fa-map-marker"></i> <span>{{$biz->address->street}}</span>, <span>{{ $biz-> address->state->name}}</span></h5>
                             </div> <!-- end .single-product -->
                           </div> <!-- end .col-sm-4 grid layout -->   
                           @endforeach
@@ -106,26 +107,11 @@
           <div class="col-md-3 col-md-pull-9 category-toggle">
             <button><i class="fa fa-briefcase"></i></button>
 
-            <div class="page-sidebar">
-              <!-- Category accordion -->
-              <div id="categories">
-                <div class="accordion">
-                  <ul class="nav nav-tabs home-tab" role="tablist">
-                    @foreach ($cats as $cat)
-                    <li>
-                      <a href="#<?php echo str_replace(' ', '', $cat->name); ?>"  role="tab" data-toggle="tab"><i class="fa fa-{{$cat->image_class}}"></i>
-                        {{ $cat->name }}
-                      <div>
-                        @foreach($cat->subcats as $sub)
-                          <a href="#{{ $sub->name}}" role="tab" data-toggle="tab">{{ $sub->name}}</a>
-                        @endforeach
-                      </div>
-                      </a>
-                    </li>
-                    @endforeach
-                  </ul>
-                </div> <!-- end .accordion -->
-              </div> <!-- end #categories -->
+            <div class="post-sidebar">
+              <div class="latest-post-content">
+                <h2>Filters</h2>
+                
+            </div>
 
             </div> <!-- end .page-sidebar -->
           </div> <!-- end grid layout-->
