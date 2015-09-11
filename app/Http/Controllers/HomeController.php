@@ -172,10 +172,11 @@ class HomeController extends Controller
 	 	$cats = Cat::all();
 		$stateList= State::lists('name','name');
 		$catList   = Cat::lists('name','name'); 
+		$loc=Input::get('location');
 		$featured= Biz::whereFeatured('YES')->paginate(3);
 		$recent= Biz::orderBy('created_at', 'desc')->paginate(1);
 
-		return view('pages.biz-sub',compact('bizs','stateList','catList','cats','featured','recent','sub'));
+		return view('pages.biz-sub',compact('bizs','stateList','catList','loc','cats','featured','recent','sub'));
 	 }
 
 	 public function postReview()

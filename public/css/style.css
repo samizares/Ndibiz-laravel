@@ -5669,6 +5669,7 @@ fieldset[disabled] .btn-default.active {
 .product-details-list .tab-pane .single-product h5 {
   margin: 0;
   padding-bottom: 5px;
+  text-transform: capitalize;
 }
 .product-details-list .tab-pane .single-product h4 a:hover,
 .product-details-list .tab-pane .single-product h5 a:hover {
