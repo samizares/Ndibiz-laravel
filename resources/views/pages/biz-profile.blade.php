@@ -3,6 +3,8 @@
 @section('title', 'Business Profile')
 @section('stylesheets')
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+   <!-- <link rel="stylesheet" type="text/css" href="plugins/nanogallery/css/nanogallery.min.css"> -->
+   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/nanogallery/5.8.0/css/nanogallery.min.css">
 @endsection
 <!-- HEADER -->
 <!-- search -->
@@ -74,7 +76,7 @@
                     </div>
                     <div class="col-md-3">
                             <div class="opening-hours">
-                              <h5>Opening Hours</h5>
+                              <h5><i class="fa fa-clock-o"></i> Opening Hours</h5>
                               <table>
                                 <tbody>
                                   <tr><th>Mon:</th>  <td>9AM-5PM</td></tr>
@@ -98,10 +100,10 @@
                   <div class="tab-pane active" id="company-product">
                     <div class="company-product">
 
-                      <h2 class="text-uppercase mb30">Gallery</h2>
+                      <h3 class="text-uppercase m10-top">Gallery</h3>
 
                       <div class="row">
-                            <div id="nanoGallery">
+                            <div id="nanoGallery3">
                                 <a href="post-img-2.jpg" data-ngthumb="post-img-2.jpg" data-ngdesc="Description1">Title Image1</a>
                                 <a href="post-img-2.jpg" data-ngthumb="post-img-2.jpg" data-ngdesc="Description1">Title Image1</a>
                                 <a href="post-img-2.jpg" data-ngthumb="post-img-2.jpg" data-ngdesc="Description1">Title Image1</a>
@@ -578,6 +580,8 @@
 
 @section('scripts')
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <!-- // <script type="text/javascript" src="plugins/nanogallery/jquery.nanogallery.min.js"></script> -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/nanogallery/5.8.0/jquery.nanogallery.min.js"></script>
     
   <script type="text/javascript">
     $(document).ready(function() {        
@@ -585,24 +589,14 @@
       //  $('.tab-pane:first-child ').addClass('active');
     });
 
-      // style switcr for list-grid view
-      //--------------------------------------------------
-    /*  $(document).ready(function() {
-          $('.change-view button').on('click',function(e) {
-            
-          if ($(this).hasClass('grid-view')) {
-            $(this).addClass('active');
-            $('.list-view').removeClass('active');
-            $('.page-content .view-switch').removeClass('product-details-list').addClass('product-details');
-
-          } else if($(this).hasClass('list-view')) {
-            $(this).addClass('active');
-            $('.grid-view').removeClass('active');
-            $('.page-content .view-switch').removeClass('product-details').addClass('product-details-list');
-            }
+    $(document).ready(function () {
+        $("#nanoGallery3").nanoGallery({
+            itemsBaseURL:"{{asset('../img/content/')}}",
+            thumbnailHoverEffect:'imageScale150',
+            thumbnailHeight:100,
+            thumbnailWidth: 150
         });
-
-      });  */
+    });
       
   </script>
   <script src="{{asset('js/scripts.js')}}"></script>

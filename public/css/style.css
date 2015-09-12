@@ -917,6 +917,11 @@ th {
 .m5-right { margin-right: 5px; }
 .m5-left { margin-left: 5px; }
 
+.m10-bttm { margin-bottom: 10px; }
+.m10-top { margin-top: 10px; }
+.m10-right { margin-right: 10px; }
+.m10-left { margin-left: 10px; }
+
 .p5-bttm { padding-bottom: 5px; }
 .p5-top { padding-top: 5px !important; }
 .p5-right { padding-right: 5px; }
