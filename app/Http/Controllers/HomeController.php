@@ -160,9 +160,11 @@ class HomeController extends Controller
         // Get all reviews that are not spam for the business and paginate them
         $reviews = $biz->reviews()->with('user')->approved()->notSpam()
         ->orderBy('created_at','desc')->paginate(50);
+        $featured= Biz::whereFeatured('YES')->paginate(3);
+		$recent= Biz::orderBy('created_at', 'desc')->paginate(1);
 
          return view('pages.biz-profile', array('biz'=>$biz,'reviews'=>$reviews,
-         		'stateList'=>$stateList,'catList'=>$catList));
+         		'stateList'=>$stateList,'catList'=>$catList), compact('featured','recent'));
 	 }
 
 	 public function bizSub($id)
