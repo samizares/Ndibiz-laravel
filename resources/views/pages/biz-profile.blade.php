@@ -135,7 +135,7 @@
                         <div class="col-md-12">
 
                           <div class="contact-map-company">
-                            <div id="contact_map_canvas_one">
+                            <div id="map">
 
                             </div>
                           </div> <!-- end .map-section -->
@@ -388,25 +388,19 @@
   <script src="{{asset('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js')}}"></script>
   <script type="text/javascript" src="{{asset('plugins/nanogallery/jquery.nanogallery.min.js')}}"></script>
   <script type="text/javascript" src="{{asset('https://maps.googleapis.com/maps/api/js')}}"></script>
-  <script type="text/javascript" src="{{asset('plugins/gomaps/jquery.gomap-1.3.3.min.js')}}"></script>
     
   <script type="text/javascript">    
 
-    // $('a[data-toggle="tab"]').on('shown.bs.tab', function (event) {
-    //   if(event.target.outerText == 'CONTACT'){
-    //     $("#contact_map_canvas_one").goMap({
-    //       maptype: 'ROADMAP',
-    //       zoom: 13,
-    //       scrollwheel: false,
-
-    //       markers: [{
-    //         latitude: 37.792218928191865,
-    //         longitude: -122.43700504302979,
-    //         icon: 'img/content/map-marker-company.png'
-    //       }]
-    //     });
-    //   }
-    // });
+    function initialize() {
+        var mapCanvas = document.getElementById('map');
+        var mapOptions = {
+          center: new google.maps.LatLng(44.5403, -78.5463),
+          zoom: 8,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        var map = new google.maps.Map(mapCanvas, mapOptions)
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
 
     $(document).ready(function() {        
         $('li:first-child').addClass('active');
@@ -420,14 +414,6 @@
             thumbnailHeight:100,
             thumbnailWidth: 150
         });
-    });
-
-    // company-contact map
-    $(document).ready(function() {
-       $('#contact_map_canvas_one').goMap({
-          address: 'Utako, Abuja, Nigeria',
-          maptype: 'ROADMAP'
-       });
     });
       
   </script>
