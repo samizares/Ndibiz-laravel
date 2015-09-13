@@ -2,9 +2,8 @@
 <!-- HEAD -->
 @section('title', 'Business Profile')
 @section('stylesheets')
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-   <!-- <link rel="stylesheet" type="text/css" href="plugins/nanogallery/css/nanogallery.min.css"> -->
-   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/nanogallery/5.8.0/css/nanogallery.min.css">
+   <link rel="stylesheet" href="{{asset('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css')}}">
+   <link rel="stylesheet" type="text/css" href="{{asset('plugins/nanogallery/css/nanogallery.min.css')}}">
 @endsection
 <!-- HEADER -->
 <!-- search -->
@@ -121,16 +120,16 @@
                   <div class="tab-pane" id="company-contact">
                     <div class="company-profile company-contact">
 
-                      <h2>Contact Us</h2>
-
-                      <div class="social-link text-right">
-                        <ul class="list-inline">
-                          <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                          <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                          <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                          <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                        </ul>
-                      </div>
+                      <h3 class="text-uppercase m10-top">Contact Us
+                        <span class="social-link text-right">
+                          <ul class="list-inline">
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                          </ul>
+                        </span>
+                      </h3>
 
                       <div class="row">
                         <div class="col-md-12">
@@ -141,50 +140,48 @@
                             </div>
                           </div> <!-- end .map-section -->
                           <div class="row">
-                            
-                            <div class="col-md-6">
-                          <h3>Business Address</h3>
+                            <h3 class="p10-left">Business Info</h3>
+                            <div class="col-md-8">
+                              <div class="address-details clearfix">
+                                <i class="fa fa-map-marker"></i>
+                                <p>
+                                  <span>{{$biz->address->street}}</span>
+                                  <span>{{$biz->address->lga->name}}</span>
+                                  <span>{{$biz->address->state->name}}, Nigeria.</span>
+                                </p>
+                              </div>
 
-                          <div class="address-details clearfix">
-                            <i class="fa fa-map-marker"></i>
+                              <div class="address-details clearfix">
+                                <i class="fa fa-phone"></i>
+                                <p>
+                                  <span><strong>Phone 1:</strong> {{$biz->phone1}}</span>
+                                  <span><strong>Phone 2:</strong> {{$biz->phone2}}</span>
+                                </p>
+                              </div>
 
-                            <p>
-                              <span>{{$biz->address->street}}</span>
-                              <span>{{$biz->address->lga->name}}</span>
-                              <span>{{$biz->address->state->name}} Nigeria</span>
-                            </p>
-                          </div>
-
-                          <div class="address-details clearfix">
-                            <i class="fa fa-phone"></i>
-
-                            <p>
-                              <span><strong>Phone 1:</strong> {{$biz->phone1}}</span>
-                              <span><strong>Phone 2:</strong> {{$biz->phone2}}</span>
-                            </p>
-                          </div>
-
-                          <div class="address-details clearfix">
-                            <i class="fa fa-envelope-o"></i>
-
-                            <p>
-                              <span><strong>E-mail:</strong> {{$biz->email}}</span>
-                              <span><span><strong>Website:</strong> {{$biz->website}}</span></span>
-                            </p>
-                          </div>
+                              <div class="address-details clearfix">
+                                <i class="fa fa-envelope-o"></i>
+                                <p>
+                                  <span><strong>E-mail:</strong> {{$biz->email}}</span>
+                                  <span><strong>Website:</strong> {{$biz->website}}</span>
+                                </p>
+                              </div>
                             </div>
-                            <div class="col-md-6">
-                          <h3>Opening Hours</h3>
-
-                          <div class="address-details clearfix">
-                            <i class="fa fa-clock-o"></i>
-
-                            <p>
-                              <span><strong>Mo-Fri:</strong> 9AM - 5PM</span>
-                              <span><span><strong>Saturday:</strong> 10AM - 2PM</span></span>
-                              <span><strong>Sunday:</strong> Closed</span>
-                            </p>
-                          </div>
+                            <div class="col-md-4">
+                              <div class="opening-hours">
+                                <h4><i class="fa fa-clock-o"></i> Opening Hours</h4>
+                                <table>
+                                  <tbody>
+                                    <tr><th>Mon:</th>  <td>9AM-5PM</td></tr>
+                                    <tr><th>Tues:</th> <td>9AM-5PM</td></tr>
+                                    <tr><th>Wed:</th> <td>9AM-5PM</td></tr>
+                                    <tr><th>Thurs:</th>  <td>9AM-5PM</td></tr>
+                                    <tr><th>Fri:</th> <td>9AM-5PM</td></tr>
+                                    <tr><th>Sat:</th> <td>9AM-5PM</td></tr>
+                                    <tr><th>Sun:</th> <td>9AM-5PM</td></tr>
+                                  </tbody>
+                                </table>
+                              </div>
                             </div>
                           </div>
                         </div> <!-- end main grid layout -->
@@ -218,69 +215,6 @@
                      <div class="company-ratings">
                       <h4>Rating <span>(5 Ratings)</span></h4>
 
-                      <div class="all-rating clearfix">
-                        <div class="company-rating-box">
-                          <ul class="list-inline">
-                            <li><a href="#"><i class="fa fa-star"></i></a></li>
-                            <li><a href="#"><i class="fa fa-star"></i></a></li>
-                            <li><a href="#"><i class="fa fa-star"></i></a></li>
-                            <li><a href="#"><i class="fa fa-star-half-o"></i></a></li>
-                            <li><a href="#"><i class="fa fa-star-o"></i></a></li>
-                          </ul>
-
-                          <h6>Overall</h6>
-                        </div>
-
-                        <div class="company-rating-box">
-                          <ul class="list-inline">
-                            <li><a href="#"><i class="fa fa-star"></i></a></li>
-                            <li><a href="#"><i class="fa fa-star"></i></a></li>
-                            <li><a href="#"><i class="fa fa-star"></i></a></li>
-                            <li><a href="#"><i class="fa fa-star-half-o"></i></a></li>
-                            <li><a href="#"><i class="fa fa-star-o"></i></a></li>
-                          </ul>
-
-                          <h6>Quality</h6>
-                        </div>
-
-                        <div class="company-rating-box">
-                          <ul class="list-inline">
-                            <li><a href="#"><i class="fa fa-star"></i></a></li>
-                            <li><a href="#"><i class="fa fa-star"></i></a></li>
-                            <li><a href="#"><i class="fa fa-star"></i></a></li>
-                            <li><a href="#"><i class="fa fa-star-half-o"></i></a></li>
-                            <li><a href="#"><i class="fa fa-star-o"></i></a></li>
-                          </ul>
-
-                          <h6>Support</h6>
-                        </div>
-
-                        <div class="company-rating-box">
-                          <ul class="list-inline">
-                            <li><a href="#"><i class="fa fa-star"></i></a></li>
-                            <li><a href="#"><i class="fa fa-star"></i></a></li>
-                            <li><a href="#"><i class="fa fa-star"></i></a></li>
-                            <li><a href="#"><i class="fa fa-star-half-o"></i></a></li>
-                            <li><a href="#"><i class="fa fa-star-o"></i></a></li>
-                          </ul>
-
-                          <h6>Price</h6>
-                        </div>
-
-                        <div class="company-rating-box">
-                          <ul class="list-inline">
-                            <li><a href="#"><i class="fa fa-star"></i></a></li>
-                            <li><a href="#"><i class="fa fa-star"></i></a></li>
-                            <li><a href="#"><i class="fa fa-star"></i></a></li>
-                            <li><a href="#"><i class="fa fa-star-half-o"></i></a></li>
-                            <li><a href="#"><i class="fa fa-star-o"></i></a></li>
-                          </ul>
-
-                          <h6>Products</h6>
-                        </div>
-                      </div> <!-- end .all-rating -->
-
-
                       <div class="rating-with-details">
 
                         <div class="single-content">
@@ -292,19 +226,16 @@
                               <li><a href="#"><i class="fa fa-star-half-o"></i></a></li>
                               <li><a href="#"><i class="fa fa-star-o"></i></a></li>
                             </ul>
-
-                            <h6>Overall</h6>
                           </div>
 
                           <div class="rating-details">
                             <div class="meta">
-                              <a href="#"><strong>John Doe</strong></a>
-                              -12 sep, 2014 - 9:14 Am
+                              <a href="#"><strong>John Snow</strong></a>
+                              -12 sep, 2015 - 9:14 Am
                             </div>
 
                             <div class="content">
-                              <p>Phasellus congue lacus eget neque. Phasellus ornare,
-                                ante vitae consectetuer consequat, purus sapien ultricies dolor.
+                              <p>I loved the services. The staff members where really helpful. Will definitely recommend to others.
                               </p>
                             </div>
                           </div>
@@ -319,19 +250,16 @@
                               <li><a href="#"><i class="fa fa-star-half-o"></i></a></li>
                               <li><a href="#"><i class="fa fa-star-o"></i></a></li>
                             </ul>
-
-                            <h6>Overall</h6>
                           </div>
 
                           <div class="rating-details">
                             <div class="meta">
-                              <a href="#"><strong>John Doe</strong></a>
-                              -12 sep, 2014 - 9:14 Am
+                              <a href="#"><strong>John Snow</strong></a>
+                              -12 sep, 2015 - 9:14 Am
                             </div>
 
                             <div class="content">
-                              <p>Phasellus congue lacus eget neque. Phasellus ornare,
-                                ante vitae consectetuer consequat, purus sapien ultricies dolor.
+                              <p>I loved the services. The staff members where really helpful. Will definitely recommend to others.
                               </p>
                             </div>
                           </div>
@@ -346,73 +274,16 @@
                               <li><a href="#"><i class="fa fa-star-half-o"></i></a></li>
                               <li><a href="#"><i class="fa fa-star-o"></i></a></li>
                             </ul>
-
-                            <h6>Overall</h6>
                           </div>
 
                           <div class="rating-details">
                             <div class="meta">
-                              <a href="#"><strong>John Doe</strong></a>
-                              -12 sep, 2014 - 9:14 Am
+                              <a href="#"><strong>John Snow</strong></a>
+                              -12 sep, 2015 - 9:14 Am
                             </div>
 
                             <div class="content">
-                              <p>Phasellus congue lacus eget neque. Phasellus ornare,
-                                ante vitae consectetuer consequat, purus sapien ultricies dolor.
-                              </p>
-                            </div>
-                          </div>
-                        </div> <!-- end .single-content -->
-
-                        <div class="single-content">
-                          <div class="company-rating-box">
-                            <ul class="list-inline">
-                              <li><a href="#"><i class="fa fa-star"></i></a></li>
-                              <li><a href="#"><i class="fa fa-star"></i></a></li>
-                              <li><a href="#"><i class="fa fa-star"></i></a></li>
-                              <li><a href="#"><i class="fa fa-star-half-o"></i></a></li>
-                              <li><a href="#"><i class="fa fa-star-o"></i></a></li>
-                            </ul>
-
-                            <h6>Overall</h6>
-                          </div>
-
-                          <div class="rating-details">
-                            <div class="meta">
-                              <a href="#"><strong>John Doe</strong></a>
-                              -12 sep, 2014 - 9:14 Am
-                            </div>
-
-                            <div class="content">
-                              <p>Phasellus congue lacus eget neque. Phasellus ornare,
-                                ante vitae consectetuer consequat, purus sapien ultricies dolor.
-                              </p>
-                            </div>
-                          </div>
-                        </div> <!-- end .single-content -->
-
-                        <div class="single-content">
-                          <div class="company-rating-box">
-                            <ul class="list-inline">
-                              <li><a href="#"><i class="fa fa-star"></i></a></li>
-                              <li><a href="#"><i class="fa fa-star"></i></a></li>
-                              <li><a href="#"><i class="fa fa-star"></i></a></li>
-                              <li><a href="#"><i class="fa fa-star-half-o"></i></a></li>
-                              <li><a href="#"><i class="fa fa-star-o"></i></a></li>
-                            </ul>
-
-                            <h6>Overall</h6>
-                          </div>
-
-                          <div class="rating-details">
-                            <div class="meta">
-                              <a href="#"><strong>John Doe</strong></a>
-                              -12 sep, 2014 - 9:14 Am
-                            </div>
-
-                            <div class="content">
-                              <p>Phasellus congue lacus eget neque. Phasellus ornare,
-                                ante vitae consectetuer consequat, purus sapien ultricies dolor.
+                              <p>I loved the services. The staff members where really helpful. Will definitely recommend to others.
                               </p>
                             </div>
                           </div>
@@ -420,71 +291,6 @@
 
                       </div> <!-- end .rating-with-details -->
                     </div> <!-- end .company-rating -->
-
-                    <div class="comments-section">
-                      <div class="comment-title">
-                        <h4>2 Comments</h4>
-                      </div>
-
-                      <ul class="comments">
-                        <li>
-                          <div class="comment">
-                            <img src="img/content/comment-image-1.jpg" alt="" class="avatar">
-                            <div class="meta">
-                              <a href="#"><strong>John Doe</strong></a>
-                              -12 sep, 2014 - 9:14 Am -
-                              <a href="#" class="reply">Reply</a>
-                            </div>
-                            <div class="content">
-                              <p>Phasellus congue lacus eget neque. Phasellus ornare,
-                                ante vitae consectetuer consequat, purus sapien ultricies dolor.</p>
-                            </div>
-                          </div> <!-- end .comment -->
-                          <ul>
-                            <li>
-                              <div class="comment">
-                                <img src="img/content/comment-image-2.jpg" alt="" class="avatar">
-
-                                <div class="meta">
-                                  <a href="#"><strong>John Doe</strong></a>
-                                  -12 sep, 2014 - 9:14 Am -
-                                  <a href="#" class="reply">Reply</a>
-                                </div>
-
-                                <div class="content">
-                                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                    Facilis qui aspernatur ad eaque reiciendis ipsum.</p>
-                                </div>
-                              </div>
-
-                            </li> <!-- end nasted li -->
-                          </ul> <!-- end .nasted ul-->
-                        </li> <!-- end .main list -->
-                      </ul> <!-- end .comments -->
-
-                      <h4>Join Conversation</h4>
-
-                      <form class="comment-form">
-                        <div class="row">
-                          <div class="col-md-4">
-                            <input type="text" placeholder="Name *" required>
-                          </div>
-
-                          <div class="col-md-4">
-                            <input type="email" placeholder="Email *" required>
-                          </div>
-
-                          <div class="col-md-4">
-                            <input type="url" placeholder="Website">
-                          </div>
-                        </div>
-
-                        <textarea placeholder="Your Comment ..." required></textarea>
-
-                        <button type="submit" class="btn btn-default"><i class="fa fa-envelope-o"></i> Send Message</button>
-                      </form>
-
-                    </div> <!-- end .comment-section -->
                   </div>
                 </div> <!-- end .tab-content -->
             </div> <!-- end .main-grid layout -->
@@ -508,7 +314,7 @@
                 </ul>
 
                 <div class="own-company">
-                  <a href="#">Own This Company<i class="fa fa-question-circle"></i>, Claim it.</a>
+                  <a href="#">Claim This Company</a>
                 </div>
               </div> <!-- end .page-sidebar -->
             </div> <!-- end .main-grid layout -->
@@ -579,11 +385,29 @@
 @endsection
 
 @section('scripts')
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-  <!-- // <script type="text/javascript" src="plugins/nanogallery/jquery.nanogallery.min.js"></script> -->
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/nanogallery/5.8.0/jquery.nanogallery.min.js"></script>
+  <script src="{{asset('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js')}}"></script>
+  <script type="text/javascript" src="{{asset('plugins/nanogallery/jquery.nanogallery.min.js')}}"></script>
+  <script type="text/javascript" src="{{asset('https://maps.googleapis.com/maps/api/js')}}"></script>
+  <script type="text/javascript" src="{{asset('plugins/gomaps/jquery.gomap-1.3.3.min.js')}}"></script>
     
-  <script type="text/javascript">
+  <script type="text/javascript">    
+
+    // $('a[data-toggle="tab"]').on('shown.bs.tab', function (event) {
+    //   if(event.target.outerText == 'CONTACT'){
+    //     $("#contact_map_canvas_one").goMap({
+    //       maptype: 'ROADMAP',
+    //       zoom: 13,
+    //       scrollwheel: false,
+
+    //       markers: [{
+    //         latitude: 37.792218928191865,
+    //         longitude: -122.43700504302979,
+    //         icon: 'img/content/map-marker-company.png'
+    //       }]
+    //     });
+    //   }
+    // });
+
     $(document).ready(function() {        
         $('li:first-child').addClass('active');
       //  $('.tab-pane:first-child ').addClass('active');
@@ -596,6 +420,14 @@
             thumbnailHeight:100,
             thumbnailWidth: 150
         });
+    });
+
+    // company-contact map
+    $(document).ready(function() {
+       $('#contact_map_canvas_one').goMap({
+          address: 'Utako, Abuja, Nigeria',
+          maptype: 'ROADMAP'
+       });
     });
       
   </script>

@@ -7438,7 +7438,7 @@ fieldset[disabled] .btn-default.active {
   width: auto;
 }
 .company-profile {
-  padding-top: 30px;
+  /*padding-top: 30px;*/
 }
 .company-profile h2 {
   text-transform: uppercase;
@@ -7467,6 +7467,8 @@ fieldset[disabled] .btn-default.active {
 }
 .company-profile .social-link {
   /*margin-top: -40px;*/
+  display: inline-block;
+  float: right;
 }
 .company-profile .social-link ul li {
   height: 40px;
@@ -7800,9 +7802,9 @@ fieldset[disabled] .btn-default.active {
 }
 .company-contact h3 {
   text-transform: uppercase;
-  font-size: 18px;
+  /*font-size: 18px;*/
   font-weight: 800;
-  margin: 30px 0;
+  /*margin: 30px 0;*/
 }
 .company-contact h5 {
   text-transform: capitalize;
