@@ -8,6 +8,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
   <title> @yield('title') | NdiBiz Directory</title>
+  <meta name="description" content="@yield('description')" />
 
   <!-- Stylesheets -->  
   @yield('stylesheets')
