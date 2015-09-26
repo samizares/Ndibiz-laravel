@@ -6,7 +6,10 @@
                     <!-- <div class="keywords">                       
                       <select class="" id="company" name="company" placeholder="Quick search >> type business/company name"></select>
                     </div> -->
-                    
+                    <!-- HEADER-LOG0 -->
+                    <div class="fixed-header-logo">
+                    </div>
+                    <!-- END HEADER LOGO -->
 
                     <div class="category-search">
                       <select id="category" name="category" placeholder="Search keywords e.g. pizza, bars, restaurants..."></select> 

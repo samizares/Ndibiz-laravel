@@ -902,6 +902,9 @@ th {
   position: fixed;
 }
 
+.m0 {margin: 0;}
+.p0 {padding: 0;}
+
 .m0-bttm { margin-bottom: 0px; }
 .m0-top { margin-top: 0px; }
 .m0-right { margin-right: 0px; }
@@ -936,6 +939,11 @@ th {
 .p20-top { padding-top: 20px !important; }
 .p20-right { padding-right: 20px !important; }
 .p20-left { padding-left: 20px !important; }
+
+.m20-bttm { margin-bottom: 20px !important; }
+.m20-top { margin-top: 20px !important; }
+.m20-right { margin-right: 20px !important; }
+.m20-left { margin-left: 20px !important; }
 
 .dataTables_filter {
   float: right;
@@ -3250,7 +3258,7 @@ fieldset[disabled] .btn {
 .btn-default.active,
 .open > .dropdown-toggle.btn-default {
   color: #333333;
-  background-color: #ca9e00;
+  background-color: #ca9e00 !important;
   border-color: #adadad;
 }
 .btn-default:active,
@@ -3304,6 +3312,18 @@ fieldset[disabled] .btn-default.active {
   background-color: #1a1a1a;
   border-color: #adadad;
 }
+
+.company-profile .dropdown-menu {
+  top: 105%;
+  left: 30px;
+  background-color: rgba(2, 1, 1, 0.54);
+  min-width: auto;
+  max-width: 60px;
+  border-radius: 0;
+  padding: 5px;
+  text-align: center;
+}
+
 .btn-default-inverse:active,
 .btn-default-inverse.active,
 .open > .dropdown-toggle.btn-default-inverse {
@@ -3383,6 +3403,7 @@ fieldset[disabled] .btn-default.active {
 .btn-default:focus {
   background: #333333 !important;
   color: #fdc600;
+  border: 1px solid #FDC600;
 }
 /* HEADER */
 /* --------------------------------------- */
@@ -3402,6 +3423,12 @@ fieldset[disabled] .btn-default.active {
 
 .tab-pane {
   display: block;
+}
+@media (min-width: 992px) {
+  #header .header-top-bar .header-biz {
+  margin-left: 140px;
+  text-align: right;
+  }
 }
 
 #header .header-top-bar .header-biz,
@@ -3861,6 +3888,13 @@ fieldset[disabled] .btn-default.active {
   .header-search.slider-home {
     height: 330px;
   }
+}
+.scroll-btn {
+  
+}
+.fixed-header-logo {
+  background-image: url('../img/logo_default2.png');
+  float: left;
 }
 .sticky {
   position: fixed !important;
@@ -4656,8 +4690,7 @@ fieldset[disabled] .btn-default.active {
   .category-toggle button {
     display: block;
     position: absolute;
-    right: -40px;
-    top: 650px;
+    right: -25px;
     z-index: 999;
     height: 40px;
     width: 40px;
@@ -5622,11 +5655,21 @@ fieldset[disabled] .btn-default.active {
   width: 100%;
   height: 100%;
 }
-.company-profile figure,
-.product-details-list .tab-pane .single-product figure {
+.company-profile figure {
   position: relative;
   width: 187px;
   height: 187px;
+  margin: 0;
+  margin-right: 20px;
+  margin-bottom: 5px;
+  float: left;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.product-details-list .tab-pane .single-product figure {
+  position: relative;
+  width: 120px;
+  height: 120px;
   margin: 0;
   margin-right: 20px;
   margin-bottom: 5px;
@@ -5753,7 +5796,7 @@ fieldset[disabled] .btn-default.active {
 .category-item {
   position: relative;
   width: 100%;
-  height: 190px;
+  height: 100px;
   background: #dddddd;
   border-radius: 3px;
   margin-bottom: 30px;
@@ -5764,7 +5807,7 @@ fieldset[disabled] .btn-default.active {
   position: relative;
   display: block;
   height: 100%;
-  padding: 60px 20px 0;
+  padding: 40px 10px;
   font-size: 15px;
   font-weight: bold;
   text-transform: capitalize;
@@ -5987,6 +6030,7 @@ fieldset[disabled] .btn-default.active {
   padding-bottom: 30px;
   color: inherit;
   text-transform: uppercase;
+  text-align: center;
   font-weight: 400;
   font-family: 'Raleway', sans-serif;
 }
@@ -7476,8 +7520,8 @@ fieldset[disabled] .btn-default.active {
   background-color: #fdc600;
   text-align: center;
   border-radius: 3px;
-  margin-right: 7px;
   transition: all .3s ease;
+  margin: 5px 0px;
 }
 .company-profile .social-link ul li:hover {
   background-color: #eeba00;
@@ -7485,8 +7529,10 @@ fieldset[disabled] .btn-default.active {
 .company-profile .social-link ul li a {
   display: block;
   color: #333333;
-  line-height: 40px;
+  line-height: 30px;
   font-size: 20px;
+  padding: 5px;
+  background-color: transparent;
 }
 @media (max-width: 600px) {
   .company-profile .social-link {

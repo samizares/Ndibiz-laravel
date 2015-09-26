@@ -5,9 +5,13 @@
 
       $(window).scroll(function () {
         if ($(this).scrollTop() > 60) {
-            nav.addClass("sticky");
+            nav.addClass("sticky").fadeIn(2000);
+            nav.addClass("fixed-header-logo");
+            nav.removeClass("scroll-btn");
         } else {
             nav.removeClass("sticky");
+            nav.removeClass("fixed-header-logo");
+            nav.addClass("scroll-btn");
         }
 
       });
@@ -17,7 +21,7 @@
   // header login register scripts
   //-------------------------------------------
   $(document).ready(function($) {
-    var $headerLoginRegister = $('#header .header-login, #header .header-register, #header .header-social');
+    var $headerLoginRegister = $('#header .header-login, #header .header-register, .company-profile .social-link');
 
     $headerLoginRegister.each(function () {
       var $this = $(this);
@@ -62,6 +66,18 @@
     // featured businesses slider customize
     //-----------------------------------------
     $("#businesses-slider").owlCarousel({
+      autoPlay: 3000,
+      items : 5,
+      itemsDesktop : [1199,4],
+      itemsDesktopSmall : [979,3],
+      itemsTablet: [600,2],
+      paginationNumbers: true,
+      paginationSpeed : 400
+    });
+
+    // featured businesses slider customize
+    //-----------------------------------------
+    $("#categories-slider").owlCarousel({
       autoPlay: 3000,
       items : 5,
       itemsDesktop : [1199,4],

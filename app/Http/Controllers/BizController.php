@@ -65,7 +65,7 @@ class BizController extends Controller
         $biz->cat_id= $request->product;
         $biz->save();
 
-        return redirect('/admin/biz')
+        return redirect('/business')
          ->withSuccess("The business '$biz->name' has been created.");
     }
 
