@@ -88,6 +88,34 @@
     });
   });
 
+  // Accordion
+  // ---------------------------------------------------------
+  $('.accordion').each(function () {
+
+    $(this).find('ul > li > a').on('click', function (event) {
+      event.preventDefault();
+
+      var $this = $(this),
+        $li = $this.parent('li'),
+        $div = $this.siblings('div'),
+        $siblings = $li.siblings('li').children('div');
+
+      if (!$li.hasClass('active')) {
+        $siblings.slideUp(250, function () {
+          $(this).parent('li').removeClass('active');
+        });
+
+        $div.slideDown(250, function () {
+          $li.addClass('active');
+        });
+      } else {
+        $div.slideUp(250, function () {
+          $li.removeClass('active');
+        });
+      }
+    });
+
+  });
 
   
    

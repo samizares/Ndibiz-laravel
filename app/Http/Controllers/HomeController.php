@@ -19,10 +19,13 @@ class HomeController extends Controller
    public function index()
 	{
 		$cats = Cat::all()->take(5);
+		$totalCat=Cat::count();
+		$totalSubCat=subCat::count();
 		$stateList= State::lists('name','id');
 		$catList   = SubCat::lists('name','id'); 
 	    $featured= Biz::whereFeatured('YES')->get();
-		return view('pages.index', compact('stateList','catList','cats','featured'));
+		return view('pages.index', compact('stateList','catList','cats','featured', 'totalCat', 'totalSubCat',
+		 'sub'));
 	}
 
 	public function businesses()
@@ -41,12 +44,12 @@ class HomeController extends Controller
 	{
 
 		$cats=  Cat::all();
-		$cats = Cat::orderBy('name', 'asc')->paginate(12);
+		$totalBiz=Biz::count();
 		$stateList= State::lists('name','name');
 		$catList  = Cat::lists('name','name'); 
 		$featured= Biz::whereFeatured('YES')->paginate(3);
 		$recent= Biz::orderBy('created_at', 'desc')->paginate(2);
-		return view('pages.categories', compact('stateList','catList','featured','cats','recent'));
+		return view('pages.categories', compact('stateList','catList','featured','cats','recent', 'totalBiz'));
 	}
 
 	public function searchResults()

@@ -3,6 +3,7 @@
 @section('title', 'Home')
 @section('stylesheets')
     <link rel="stylesheet" href="{{ asset('plugins/text-rotator/jquery.wordrotator.css')}}">
+    <link href="{{asset('plugins/bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet">
 @endsection
 <!-- HEADER -->
 <!-- search -->
@@ -31,59 +32,40 @@
         </div> <!-- END .slider-content -->    
 @endsection
 <!-- navigation -->
-@section('header-navbar')
-        <div class="header-nav-bar">
-            <div class="container">
-              <nav>
-                <button><i class="fa fa-bars"></i></button>
-                <ul class="primary-nav list-unstyled">
-                  <li class="bg-color active"><a href="/">Home<i class="fa fa-home"></i></a></li>
-                  <li class=""><a href="/categories">Categories</a></li>
-                  <li class=""><a href="/businesses">Businesses</a></li>
-                  <li><a href="#">About Us</a></li>
-                  <li><a href="#">Contact Us</a></li>
-                  <li><a href="/admin">Admin</a></li>
-                  <li><a href="/search-results">Search-results</a></li>
-                </ul>
-              </nav>
-            </div> <!-- end .container -->
-        </div> <!-- end .header-nav-bar -->   
-@endsection
+
 <!-- CONTENT -->
 @section('content')
   @include('partials.notifications')
   
-  <div id="page-content" class="home-slider-content homepage">
+  <div id="page-content" class="home-slider-content">
     <div class="container">
       <div class="home-with-slide category-listing">
         <div class="row">
           <h2><strong>Featured</strong> Directory Categories</h2>
-          <div class="col-md-9 col-md-push-3">
+           <div class="col-md-9 col-md-push-3">
             <div class="page-content">
               <div class="product-details">
-              @unless ( $cats->isEmpty() )
-              @foreach ($cats as $cat)
+              
                 <div class="tab-content">    
-                  @foreach ($cat->biz as $biz)               
+                @unless ( $cats->isEmpty() )
+              @foreach ($cats as $cat)
                   <div class="tab-pane" id="<?php echo str_replace(' ', '', $cat->name); ?>">                      
-                      <div class="row clearfix">                        
+                      <div class="row clearfix">    
+                      @foreach ($cat->biz as $biz)
                         @foreach($biz->subcats as $sub)
                           <div class="col-md-3 col-sm-4 col-xs-6">
                             <div class="category-item">
-                             <a class="btn" href="/biz/subcat/{{$sub->id}}"><i class="fa fa-tags"></i> {{$sub->name}}</a>
+                             <a class="btn" href="/biz/subcat/{{$sub->id}}"><span></span>{{$sub->name}}</a>
                             </div>
-                          </div>
-                          @endforeach
-                          <div class="view-more">
-                            <a class="btn btn-default text-center" href="#"><i class="fa fa-plus-square-o"></i>View More</a>
-                          </div>
-                        
+                          </div> 
+                        @endforeach
+                       @endforeach                
                       </div> <!-- end .row -->                   
                   </div> <!-- end .tabe-pane -->
-                  @endforeach
-                </div> <!-- end .tabe-content -->
-              @endforeach
+               @endforeach
               @endunless
+                </div> <!-- end .tabe-content -->
+             
               </div> <!-- end .product-details -->
             </div> <!-- end .page-content -->
           </div>
@@ -203,16 +185,15 @@
 
 
 <!-- FOOTER STARTS -->
-  @section('footer')
-    @include('includes.footer')
-  @endsection
+
 <!-- FOOTER ENDS -->
 
 <!-- SCRIPTS STARTS -->
   @section('scripts')
     <script src="{{asset('plugins/text-rotator/jquery.wordrotator.min.js') }}"></script>
     <script src="{{asset('plugins/owl-carousel/owl.carousel.js') }}"></script>
-    <script src="{{asset('js/scripts.js') }}"></script>
+    <script src="{{asset('plugins/bootstrap-3.3.5/js/bootstrap.js')}}"></script>
+    
 
     <script>
       //Text rotator
@@ -241,5 +222,6 @@
             //  $('.tab-pane:first-child ').addClass('active');
           });       
     </script>
+    <script src="{{asset('js/scripts.js') }}"></script>
   @stop
 <!-- SCRIPTS ENDS -->

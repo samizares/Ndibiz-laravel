@@ -212,7 +212,7 @@
 
       // style switcr for list-grid view
       //--------------------------------------------------
-    /*  $(document).ready(function() {
+      $(document).ready(function() {
           $('.change-view button').on('click',function(e) {
             
           if ($(this).hasClass('grid-view')) {
@@ -227,7 +227,7 @@
             }
         });
 
-      });  */
+      });
       
   </script>
   <script src="{{asset('js/scripts.js')}}"></script>
