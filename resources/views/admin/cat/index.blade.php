@@ -32,11 +32,9 @@
   <div id="page-content" class="home-slider-content">
   <div class="container">
    <div class="home-with-slide">
-    @include('admin.partials.errors')
-    @include('admin.partials.success')
           <div class="row page-title-row">
             <div class="col-md-6">
-              <h3><a href="/admin">Admin</a> <small>» Business Categories</small></h3>
+              <h3><a href="/admin">Admin</a> <small>» Business Categories ({{ $totalCat}})</small></h3>
             </div>
             <div class="col-md-6 text-right">
               <h3><a href="/admin/cat/create" class="btn btn-default-inverse btn-md">
@@ -69,7 +67,8 @@
               <td class="hidden-md">{{ $cat->meta_description }}</td>
               <td>
                 <div class="btn-group">@foreach($cat->subcats as $catt)
-                 <span class="btn btn-border">{{ $catt->name }} &emsp;</span><a class="m5-right fa fa-times-circle btn btn-default-inverse" href="/admin/sub?d={{$catt->id}}" data-method="DELETE" data-token="{{csrf_token()}}" data-confirm="Are you sure"></a> @endforeach
+                  <li>{{ $catt->name }} </li> @endforeach
+                 
                 </div>
               </td>
               <td>
@@ -77,12 +76,17 @@
                              class="btn btn-xs btn-default-inverse animated fadeIn" data-toggle="tooltip" data-placement="top" title="Edit Category Info">
                             <i class="fa fa-edit"></i>
                           </a>
-                          <a href="/admin/cat/{{$cat->id}}/delete"
-                             class="btn btn-xs btn-default-inverse animated fadeInRight" data-toggle="tooltip" data-placement="top" title="Delete Category">
-                            <i class="fa fa-trash"></i>
-                          </a> 
+                         <!-- <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target=".deleteModal_{{$cat->id}}">
+                                                      <i class="fa fa-trash-o"></i> <span class="hidden">Delete</span>
+                                                    </button>       -->           
+                           
+                      <!--    <a class="btn btn-xs btn-default-inverse animated fadeInRight" data-toggle="modal" data-target="#deleteModal_{{$cat->id}}">
+                             <i class="fa fa-trash"></i>
+                          </a> -->
+
               </td>
             </tr>
+            
           @endforeach
           </tbody>
         </table>
@@ -100,6 +104,36 @@
    </div> <!-- end .home-with-slide -->
   </div> <!-- end .container -->
 </div>  <!-- end #page-content -->
+<!--<div  class="modal fade deleteModal_{{$cat->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">
+            ×
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Please Confirm</h4>
+        </div>
+        <div class="modal-body">
+          <p class="lead">
+            <i class="fa fa-question-circle fa-lg"></i>  
+            Are you sure you want to delete this Category and its subcategories?
+          </p>
+        </div>
+        <div class="modal-footer">
+          <form method="POST" action="/admin/cat/{{ $cat->id }}">
+           <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="_method" value="DELETE">
+            <button type="button" class="btn btn-default"
+                    data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-danger">
+              <i class="fa fa-times-circle"></i> Yes
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
 @endsection
 <!-- CONTENT ENDS -->
 

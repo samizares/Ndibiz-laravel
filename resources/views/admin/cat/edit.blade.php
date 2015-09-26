@@ -157,8 +157,7 @@
     });
     $(document).ready(function() {
       $("#sub_cat").select2({
-        tags: true,
-        disabled:true
+        tags: true
       });
     });
   </script>

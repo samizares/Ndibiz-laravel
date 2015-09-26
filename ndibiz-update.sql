@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 10, 2015 at 01:57 PM
+-- Generation Time: Sep 26, 2015 at 01:48 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `address` (
   `state_id` int(10) unsigned NOT NULL,
   `biz_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
 
 --
 -- Dumping data for table `address`
@@ -53,7 +53,10 @@ INSERT INTO `address` (`id`, `street`, `lga_id`, `state_id`, `biz_id`) VALUES
 (16, '98,Fadeyi street', 3, 25, 19),
 (17, '56, Edumare street, of Ikosi', 4, 25, 20),
 (18, '34, etim Iyang crescent', 28, 25, 21),
-(19, '34,Toyin street', 31, 25, 22);
+(19, '34,Toyin street', 31, 25, 22),
+(20, '23, shangisha, off Association Avenue', 1, 25, 23),
+(21, '23, spare parts road,Spare parts market', 84, 25, 24),
+(22, '47,total crescent, off Abulegba street', 94, 25, 25);
 
 -- --------------------------------------------------------
 
@@ -78,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `biz` (
   `featured` varchar(5) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'NO',
   PRIMARY KEY (`id`),
   UNIQUE KEY `businessprofile_email_unique` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=23 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=29 ;
 
 --
 -- Dumping data for table `biz`
@@ -88,17 +91,20 @@ INSERT INTO `biz` (`id`, `name`, `contactname`, `email`, `website`, `phone1`, `p
 (1, 'samizares cab service', 'sammyoryor', 'samizares@gmail.com', 'http://www.samizarescab.com', 2147483647, 2147483647, '2015-08-12 21:17:40', '2015-08-27 17:36:11', 7, 3, 0, '', 'YES'),
 (3, 'coded Night club', 'Great sammy', 'samizares@yahoo.com', 'http://www.codednightclub.com', 2147483647, 2147483647, '2015-08-12 21:34:57', '2015-08-12 21:34:57', 7, 3, 0, '', 'NO'),
 (8, 'Bella''s place', 'Annabell', 'infobella@msn.com', 'http://bellasplace.com', 2147483647, 2147483647, '2015-08-24 11:06:04', '2015-08-24 11:06:04', 7, 3, 0, '', 'NO'),
-(9, 'Zares Mealss', 'Mr Piro', 'info@zares.com', 'http://www.zaresmeals.com', 2147483647, 2147483647, '2015-08-24 13:09:21', '2015-09-05 12:08:04', 7, 3, 0, '', 'NO'),
+(9, 'Zares Mealsss', 'Mr Piro', 'info@zares.com', 'http://www.zaresmeals.com', 2147483647, 2147483647, '2015-08-24 13:09:21', '2015-09-26 09:50:49', 7, 3, 0, '', 'YES'),
 (11, 'Sammy''s Bank', 'Zares', 'samizares@bank.com', 'http://www.sammysbank.com', 909837637, 2147483647, '2015-08-24 22:00:54', '2015-09-05 12:30:38', 7, 3, 0, '', 'YES'),
 (12, 'shanshan cars', 'Mr Phil', 'info@shahshan.com', 'http://www.shanshan.com', 2147483647, 2147483647, '2015-08-25 20:04:54', '2015-09-05 12:03:55', 7, 3, 0, '', 'YES'),
-(15, 'Twilight Services', 'Gentle jack', 'info@twillight.com', 'http://www.twilightservices.com', 2147483647, 2147483647, '2015-08-25 21:50:11', '2015-08-27 15:28:25', 7, 3, 0, '', 'YES'),
+(15, 'Twilight Services', 'Gentle jack', 'info@twillight.com', 'http://www.twilightservices.com', 2147483647, 2147483647, '2015-08-25 21:50:11', '2015-09-24 11:12:35', 7, 3, 0, '', 'YES'),
 (16, 'Angry birds', 'Angry man', 'info@angry.com', 'http://angrybirds.com', 9984003, 9489454, '2015-08-25 21:56:13', '2015-08-27 10:46:13', 7, 3, 0, '', 'YES'),
 (17, 'Franks home', 'Frank Spiff', 'info@frank.com', 'http://frankshome.com', 2147483647, 2147483647, '2015-08-25 22:06:40', '2015-08-27 12:55:09', 7, 3, 0, '', 'YES'),
 (18, 'Janes Super stores', 'Mrs Jane Foster', 'info@jane.com', 'http://janestores.com', 90434850, 94853324, '2015-08-27 17:17:17', '2015-08-27 17:17:17', 7, 3, 0, '', 'NO'),
 (19, 'Meegan Exotic cars', 'Mr Meegan Renault', 'info@meegan.com', 'http://meegancars.com', 2147483647, 2147483647, '2015-08-27 17:20:12', '2015-09-05 12:06:56', 7, 3, 0, '', 'YES'),
 (20, 'Mo''s Cathering services', 'Mrs Modukpe Uyi', 'info@mocat.com', 'http://mocathering.com', 909876789, 989049857, '2015-08-27 17:34:07', '2015-09-05 21:34:52', 7, 3, 0, '', 'YES'),
-(21, 'Fred engines', 'Mr Fred Perry', 'info@fredengines.com', 'http://fredengines.com', 980989485, 890458593, '2015-08-27 17:44:47', '2015-08-27 17:44:47', 7, 3, 0, '', 'NO'),
-(22, 'New Bank Biz', 'Gbenga Daniels', 'info@newbank.com', 'http://www.newbank.com', 2147483647, 2147483647, '2015-08-31 23:10:01', '2015-09-05 20:19:57', 7, 3, 0, '', '10');
+(21, 'Fred engines', 'Mr Fred Perry', 'info@fredengines.com', 'http://fredengines.com', 980989485, 890458593, '2015-08-27 17:44:47', '2015-09-24 11:13:25', 7, 3, 0, '', 'YES'),
+(22, 'New Bank Biz', 'Gbenga Daniels', 'info@newbank.com', 'http://www.newbank.com', 2147483647, 2147483647, '2015-08-31 23:10:01', '2015-09-24 11:13:16', 7, 3, 0, '', 'YES'),
+(23, 'Annabell''s Conglomerate', 'Ann Bella', 'info@anncong.com', 'http://www.annabellsconglomerate.com', 2147483647, 2147483647, '2015-09-11 03:08:21', '2015-09-11 03:08:21', 7, 3, 0, '', 'NO'),
+(24, 'Alade''s Auto Empire', 'Alade Bj', 'info@alade.com', 'http://aladeauto.com', 2147483647, 2147483647, '2015-09-11 03:14:41', '2015-09-11 03:14:41', 7, 3, 0, '', 'NO'),
+(25, 'Sammy1 testing bizzz', 'Sammy Estrada', 'info@sammytesting.com', 'http://sammytestingone.com', 2147483647, 2147483647, '2015-09-25 14:27:05', '2015-09-25 14:44:40', 7, 3, 0, '', 'NO');
 
 -- --------------------------------------------------------
 
@@ -113,7 +119,7 @@ CREATE TABLE IF NOT EXISTS `biz_cat_pivot` (
   PRIMARY KEY (`id`),
   KEY `biz_id` (`biz_id`),
   KEY `cat_id` (`cat_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=30 ;
 
 --
 -- Dumping data for table `biz_cat_pivot`
@@ -133,7 +139,13 @@ INSERT INTO `biz_cat_pivot` (`id`, `biz_id`, `cat_id`) VALUES
 (14, 19, 10),
 (15, 20, 36),
 (16, 21, 37),
-(17, 22, 34);
+(17, 22, 34),
+(18, 23, 37),
+(19, 23, 10),
+(20, 24, 10),
+(21, 24, 11),
+(24, 25, 43),
+(25, 25, 44);
 
 -- --------------------------------------------------------
 
@@ -167,7 +179,7 @@ CREATE TABLE IF NOT EXISTS `biz_subcat_pivot` (
   `subcat_id` int(10) unsigned NOT NULL,
   `biz_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=45 ;
 
 --
 -- Dumping data for table `biz_subcat_pivot`
@@ -195,7 +207,18 @@ INSERT INTO `biz_subcat_pivot` (`id`, `subcat_id`, `biz_id`) VALUES
 (19, 68, 20),
 (20, 70, 21),
 (21, 73, 21),
-(22, 65, 22);
+(22, 65, 22),
+(23, 70, 23),
+(24, 73, 23),
+(25, 59, 23),
+(26, 59, 24),
+(27, 61, 24),
+(28, 48, 24),
+(32, 93, 25),
+(33, 94, 25),
+(34, 95, 25),
+(35, 96, 25),
+(36, 97, 25);
 
 -- --------------------------------------------------------
 
@@ -210,29 +233,28 @@ CREATE TABLE IF NOT EXISTS `cats` (
   `meta_description` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=39 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=45 ;
 
 --
 -- Dumping data for table `cats`
 --
 
 INSERT INTO `cats` (`id`, `name`, `image_class`, `meta_description`) VALUES
-(1, 'Fashion', 'female', 'Classical clothes'),
 (2, 'Shopping', 'bicycle', NULL),
 (3, 'Sports & Leisure', 'futbol-o', NULL),
 (4, 'Restaurants', 'spoon', 'Great African cuisines'),
 (5, 'Transportation', 'taxi', 'Bus transportation'),
-(6, 'Hotel & Travels', 'institution', 'Get the cheapest hotel rooms here'),
-(8, 'Bars', 'glass', 'Nightlife'),
-(9, 'Arts And Entertainment', 'glass', 'Here this is it'),
+(9, 'Arts And Entertainment', 'glass', 'Here this is it, use it oh,,'),
 (10, 'cars', 'car', 'Automobiles'),
 (11, 'Cars and factories', 'bus', 'Does this really exist'),
 (12, 'Magnet producers', 'book', 'wow,,this is cool'),
 (33, 'home furniture', 'home', 'home utencils here'),
-(34, 'Banking and Finance', 'money', 'Contact the closest bank to you'),
 (36, 'Cathering Services', 'spoon', 'Ndibiz stock all kinds of Cathering Services'),
-(37, 'Car Mechanic', 'car', 'Check out all the mechanics for all the available cars'),
-(38, 'Shipping Services', 'ship', 'Get the trusted contacts of your trusted Shipping companies');
+(38, 'Shipping Services', 'ship', 'Get the trusted contacts of your trusted Shipping companies'),
+(40, 'Education', 'briefcase', 'Check out all the businesses in our Education categories'),
+(41, 'Electronics', 'television', 'Check out all the businesses in our Electronics category'),
+(43, 'Bars', 'glass', 'Check out the businesses in these categories'),
+(44, 'Banking and Finance', 'money', 'Get all the businesses in our Banking and Finance categories');
 
 -- --------------------------------------------------------
 
@@ -245,7 +267,7 @@ CREATE TABLE IF NOT EXISTS `lgas` (
   `name` varchar(100) NOT NULL,
   `state_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=99 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=120 ;
 
 --
 -- Dumping data for table `lgas`
@@ -349,7 +371,12 @@ INSERT INTO `lgas` (`id`, `name`, `state_id`) VALUES
 (95, 'SHOMOLU', 25),
 (96, 'Aguda', 25),
 (97, 'Ejigbo', 25),
-(98, 'Bariga', 25);
+(98, 'Bariga', 25),
+(111, 'state11', 39),
+(112, 'state22', 39),
+(113, 'state33', 39),
+(118, 'plateau3', 32),
+(119, 'plateau4', 32);
 
 -- --------------------------------------------------------
 
@@ -414,7 +441,7 @@ CREATE TABLE IF NOT EXISTS `states` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=38 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=40 ;
 
 --
 -- Dumping data for table `states`
@@ -457,7 +484,8 @@ INSERT INTO `states` (`id`, `name`) VALUES
 (34, 'Sokoto'),
 (35, 'Taraba'),
 (36, 'Yobe'),
-(37, 'Zamfara');
+(37, 'Zamfara'),
+(39, 'newState2');
 
 -- --------------------------------------------------------
 
@@ -469,7 +497,7 @@ CREATE TABLE IF NOT EXISTS `subcategory` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=166 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=167 ;
 
 --
 -- Dumping data for table `subcategory`
@@ -655,22 +683,14 @@ CREATE TABLE IF NOT EXISTS `sub_cats` (
   `image_class` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=82 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=102 ;
 
 --
 -- Dumping data for table `sub_cats`
 --
 
 INSERT INTO `sub_cats` (`id`, `name`, `cat_id`, `image_class`) VALUES
-(23, 'creativity', 9, 'paint-brush'),
-(25, 'men''s wear', 1, 'male'),
-(26, 'women''s wear', 1, 'female'),
-(27, 'bookings', 6, 'book'),
-(28, 'cheap rooms', 6, 'home'),
-(29, 'pubs', 8, 'home'),
-(30, 'clubs', 8, 'home'),
 (31, 'sodium', 12, 'question'),
-(32, 'great', 9, 'question'),
 (44, 'spoons', 33, 'spoon'),
 (45, 'table', 33, 'spoon'),
 (46, 'tee', 33, 'spoon'),
@@ -682,9 +702,6 @@ INSERT INTO `sub_cats` (`id`, `name`, `cat_id`, `image_class`) VALUES
 (61, 'mini mart', 10, 'edit'),
 (62, 'mamaput', 4, 'spoon'),
 (63, 'African dish', 4, 'spoon'),
-(64, 'accounting', 34, 'money'),
-(65, 'loans', 34, 'money'),
-(66, 'mortgage', 34, 'money'),
 (67, 'cake services', 36, 'birthday-cake'),
 (68, 'events food rental', 36, 'spoon'),
 (69, 'baking experts', 36, 'birthday-cake'),
@@ -692,13 +709,26 @@ INSERT INTO `sub_cats` (`id`, `name`, `cat_id`, `image_class`) VALUES
 (71, 'Peaugeut mechanic', 37, 'car'),
 (72, 'Jeep mechanic', 37, 'car'),
 (73, 'Toyota Mechanic', 37, 'car'),
-(74, 'Honda Mechanic', 37, 'car'),
-(75, 'Mitsubushi mechanic', 37, 'car'),
 (76, 'Kia Mechanic', 37, 'car'),
 (77, 'Volkswagon mechanic', 37, 'car'),
 (78, 'BMW mechanic', 37, 'car'),
 (80, 'clearing', 38, ''),
-(81, 'clearing and forwarding', 38, '');
+(81, 'clearing and forwarding', 38, ''),
+(82, 'web programming', 40, ''),
+(83, 'Networking', 40, ''),
+(84, 'computer hardware', 40, ''),
+(85, 'Televison', 41, ''),
+(86, 'Home theatre', 41, ''),
+(87, 'DVD', 41, ''),
+(93, 'pubs', 43, ''),
+(94, 'clubs', 43, ''),
+(95, 'Nightlife', 43, ''),
+(96, 'Loans', 44, ''),
+(97, 'mortagage', 44, ''),
+(98, 'creativity', 9, ''),
+(99, 'great', 9, ''),
+(100, 'wiser', 9, ''),
+(101, 'colours', 9, '');
 
 -- --------------------------------------------------------
 

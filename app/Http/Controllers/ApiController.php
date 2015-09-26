@@ -114,6 +114,29 @@ class ApiController extends Controller
 
     }
 
+    public function subcat2() {
+
+      $query=\Input::get('y');
+
+      $catId=\App\Cat::whereId($query)->first();
+      $desc=$catId->meta_description;
+
+      $list=\App\SubCat::where('cat_id', '=', $query)
+      ->lists('name','id')->all();
+      if(count($list) > 0) {
+          foreach( $list as $key => $value) {
+           $data[]=array('id' => $key, 'text'=>$value);
+        }
+      } else {
+        $data[]= array('id'=>'0','text'=>'No Subcategories found');
+        }
+
+      
+    
+      return \Response::json(['data'=>$data, 'desc'=>$desc]);
+
+    }
+
     public function featured()
     {
       $biz_id=\Input::get('id');

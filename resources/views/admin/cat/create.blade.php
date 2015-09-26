@@ -53,15 +53,16 @@
 
             @include('admin.partials.errors')
 
+         <!--   {!!Form::open(array('url'=>'/admin/cat', 'method'=>'POST','class'=>'form-hotizontal','role'=>'form')) !!} -->
             <form class="form-horizontal" role="form" method="POST"  action="/admin/cat">
-              <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
 
               <div class="form-group">
                  <label for="cat" class="col-md-3 control-label">Category Names</label>
                  <div class="col-md-8">
 
-                  {!!Form::select('name', $cats,null,['class'=>'form-control', 'id'=>'cat_name',
-                  'placeholder'=>'Select/Create Category']) !!}
+                  {!!Form::select('category_name', $cats,null,['class'=>'form-control', 'id'=>'cat_name',
+                  'placeholder'=>'Create Category']) !!}
                   
               </div>
             </div>
@@ -91,22 +92,12 @@
                      Sub Categories
                  </label>
                 <div class="col-md-8">
-                   <select id="subcat" name="subcat" class="form-control"> </select> 
-                  <!--  {!!Form::select('sub_cats', $subcats,null,['class'=>'form-control','id'=>'sub_cat']) !!}-->
+                 <!--  <select id="subcat" name="subcat" class="form-control"> </select> -->
+                   {!!Form::select('subcategory_name[]', $subcats,null,['class'=>'form-control',
+                   'id'=>'subcat', 'multiple'=>'multiple']) !!}
+
                 </div>
             </div>
-
-           <div class="form-group">
-                 <label for="image_class" class="col-md-3 control-label">
-                     Sub-category Image(Font Awesome)
-                 </label>
-                   <div class="col-md-8">
-                    
-                  {!!Form::select('sub_image', $all_image,null,['class'=>'form-control', 'id'=>'sub_image',
-                  'placeholder'=>'Select Sub-category Image']) !!}
-              </div>
-            </div>
-
 
 
               <div class="form-group">
@@ -117,8 +108,8 @@
                   </button>
                 </div>
               </div>
-
             </form>
+           <!-- {!!Form::close() !!}-->
 
           </div>
         </div>
@@ -143,6 +134,10 @@
   <script src="{{asset('plugins/select2/select2.min.js')}}"></script>  
   <script>
     $(document).ready(function() {
+    /*  $.ajaxSetup({
+         headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
+        }); */
+
       $("#cat_name").select2({
         tags: true,
 
@@ -165,13 +160,20 @@
       });
     });
 
-
     $(document).ready(function() {
+      $("#subcat").select2({
+        tags: true,
+        placeholder: 'create a Sub-Category',
+      });
+    });
+
+
+   /* $(document).ready(function() {
      $('#cat_name').on('change', function(){
           if($(this).val() !== "Select/Create Category") {
              var model=$('#subcat');
             model.empty();
-           $.get('{{ URL::to('api/subcat') }}', {y: $(this).val()}, function(result){
+           $.get('{{ URL::to('api/subcat2') }}', {y: $(this).val()}, function(result){
              $.each(result.data,function(){
                               $('#subcat').append('<option value="'+this.id+'">'+this.text+'</option>');
 
@@ -183,14 +185,9 @@
            });
          }
       });
-    });
+    });  */
 
-    $(document).ready(function() {
-      $("#subcat").select2({
-        placeholder: 'create a sub category',
-        tags: true,
-      });
-    });
+    
   </script>
   <script src="{{asset('js/scripts.js')}}"></script>
 @stop

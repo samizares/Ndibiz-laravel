@@ -79,7 +79,7 @@
              <div class="form-group">
                  <label for="cat" class="col-md-3 control-label">Business Category</label>
                  <div class="col-md-8">
-                  {!!Form::select('cats[]', $catList, null, ['class'=>'form-control','id'=>'category',
+                  {!!Form::select('cats[]', $catList, null, ['class'=>'form-control','id'=>'category3',
                   'multiple']) !!}
                   
                 </div>
@@ -162,7 +162,7 @@
   <script src="{{asset('plugins/select2/select2.min.js')}}"></script>
   <script>
     $(document).ready(function() {
-      $("#category").select2({
+      $("#category3").select2({
          placeholder: 'select business category',
       });
 
@@ -170,7 +170,7 @@
 
     $(document).ready(function() {
       var y=[];
-     $('#category').change(function(){
+     $('#category3').change(function(){
           if($(this).val() !== "select business category") {
              var model=$('#sub');
             model.empty();
@@ -199,7 +199,7 @@
              $.each(result.data,function(){
                               $('#lga').append('<option value="'+this.id+'">'+this.text+'</option>');
 
-                        });
+                 });
            });
          }
       });
@@ -208,7 +208,7 @@
     $(document).ready(function() {
       $("#sub").select2({
         placeholder: 'select or create subcategories',
-        tags: true,
+       // tags: true,
       });
     });
 
