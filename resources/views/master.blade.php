@@ -6,6 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!--  <meta name="_token" content="{!! csrf_token() !!}"/> -->
 
   <title> @yield('title') | NdiBiz Directory</title>
   <meta name="description" content="@yield('description')" />
@@ -13,7 +14,7 @@
   <!-- Stylesheets -->  
   @yield('stylesheets')
   
-  <link rel="stylesheet" href="{{ asset('css/style.css') }}"> 
+   <link rel="stylesheet" href="{{ asset('css/style.css') }}">  
   <link rel="stylesheet" href="{{ asset('plugins/animate.css')}}">
   <link rel="stylesheet" href="{{ asset('plugins/selectize/selectize.default.css')}}">
   <link href="{{asset('plugins/select2/select2.min.css')}}" rel="stylesheet">

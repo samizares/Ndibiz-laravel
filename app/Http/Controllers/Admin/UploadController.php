@@ -100,8 +100,9 @@ class UploadController extends Controller
   public function uploadFile(UploadFileRequest $request)
   {
     $file = $_FILES['file'];
+    $file2= \Input::file('file');
     $fileName = $request->get('file_name');
-    $fileName = $fileName ?: $file['name'];
+    $fileName = $fileName. '.' .$file2->getClientOriginalExtension() ?: $file['name'];
     $path = str_finish($request->get('folder'), '/') . $fileName;
     $content = File::get($file['tmp_name']);
 

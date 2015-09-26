@@ -4,7 +4,7 @@
   @section('stylesheets')     
     <link href="{{asset('plugins/datatable/css/datatables.css')}}" rel="stylesheet">
     <link href="{{asset('plugins/datatable/css/dataTables.bootstrap.css')}}" rel="stylesheet">
-    <link href="{{asset('plugins/bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet">
+    <link href="{{asset('plugins/bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet"> 
     <link href="{{asset('plugins/bootstrap-editable/bootstrap-editable.css')}}" rel="stylesheet">
     
   @endsection
@@ -41,7 +41,7 @@
       @include('admin.partials.success')
       <div class="row page-title-row">
         <div class="col-md-6">
-          <h3><a href="/admin">Admin</a> <small>» Business Listings</small></h3>
+          <h3><a href="/admin">Admin</a> <small>» Business Listings({{ $totalBiz}})</small></h3>
         </div>
         <div class="col-md-6 text-right">
           <a href="/admin/biz/create" class="btn btn-default-inverse btn-md">
@@ -84,10 +84,7 @@
                                class="btn btn-xs btn-default-inverse animated fadeIn" data-toggle="tooltip" data-placement="top" title="Edit Business Info">
                               <i class="fa fa-edit"></i>
                             </a>
-                            <a href="/review/biz/{{$biz->id}}/delete"
-                               class="btn btn-xs btn-default-inverse animated fadeInRight" data-toggle="tooltip" data-placement="top" title="Delete Business Info">
-                              <i class="fa fa-trash"></i>
-                            </a> 
+              
                   </td>
                 </tr>
               @endforeach
@@ -98,7 +95,7 @@
             <button><i class="fa fa-briefcase"></i></button>
             <div class="post-sidebar">
                   <div class="latest-post-content">
-                      <h2>Admin Panel</h2>
+                      <h2>Admin Biz Panel</h2>
                       <div class="single-product"></div>
                   </div>
             </div>
@@ -107,12 +104,13 @@
      </div> <!-- end .home-with-slide -->
     </div> <!-- end .container -->
   </div>  <!-- end #page-content -->
+  
 @endsection
 <!-- CONTENT ENDS -->
 
 <!-- SCRIPTS STARTS -->
   @section('scripts')    
-    <script src="{{asset('plugins/bootstrap-3.3.5/js/bootstrap.js')}}"></script>
+   <!-- <script src="{{asset('plugins/bootstrap-3.3.5/js/bootstrap.js')}}"></script> -->
     <script src="{{asset('plugins/datatable/js/datatables.js')}}"></script>
     <script src="{{asset('plugins/bootstrap-editable/bootstrap-editable.min.js')}}"></script>
 
@@ -154,7 +152,8 @@
             $('.featured').editable();
              $(document).on('click','.editable-submit',function(){
               var x = $(this).closest('td').children('span').attr('id');
-              var y = $('.input-sm').val();
+              var y= $("input:text").val();
+           //   var y = $('.input-sm').val();
               var z = $(this).closest('td').children('span');
               $.ajax({
                 url: "{{ URL::to('api/featured')}}?id="+x+"&data="+y,
@@ -180,6 +179,6 @@
             });
           });
     </script>
-    <script src="{{asset('js/scripts.js')}}"></script>
+   <script src="{{asset('js/scripts.js')}}"></script>
   @endsection
 <!-- SCRIPTS ENDS -->

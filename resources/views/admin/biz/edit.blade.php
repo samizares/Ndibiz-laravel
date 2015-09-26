@@ -82,7 +82,8 @@
               <label for="image_class" class="col-md-3 control-label">
                 Business Region/area</label>
                   <div class="col-md-8">
-                    <select id="lga" name="lga" class="form-control"> </select>  
+                    {!!Form::select('lga', $lgaList, $biz->address->lga_id, ['class'=>'form-control',
+                     'id'=>'lga','placeholder'=>'select state']) !!}  
                   </div>
             </div>
 
@@ -90,8 +91,7 @@
              <div class="form-group">
                  <label for="cat" class="col-md-3 control-label">Business Category</label>
                  <div class="col-md-8">
-                  {!!Form::select('cats[]', $catList, $cat, ['class'=>'form-control','id'=>'category',
-                  'multiple']) !!}
+                  {!!Form::select('cats[]', $catList, $cat, ['class'=>'form-control','id'=>'category2', 'multiple']) !!}
                   
                 </div>
             </div>
@@ -99,7 +99,7 @@
               <label for="image_class" class="col-md-3 control-label">
                 Sub categories</label>
                   <div class="col-md-8">
-                    <select id="sub" name="sub[]" class="form-control" multiple="multiple"> </select>  
+                    {!!Form::select('sub[]', $subList, $sub, ['class'=>'form-control','id'=>'sub','multiple']) !!} 
                   </div>
             </div>
             <div class="form-group">
@@ -214,15 +214,15 @@
         })
     });
     $(document).ready(function() {
-      $("#category").select2({
-         placeholder: 'select business category',
+      $("#category2").select2({
+        // tags: true,
       });
 
     });
 
     $(document).ready(function() {
       var y=[];
-     $('#category').change(function(){
+     $('#category2').change(function(){
           if($(this).val() !== "select business category") {
              var model=$('#sub');
             model.empty();
@@ -240,26 +240,15 @@
       $("#stateList").select2({
       });
     });
-
     $(document).ready(function() {
-     $('#stateList').change(function(){
-          if($(this).val() !== "select state") {
-             var model=$('#lga');
-            model.empty();
-           $.get('{{ URL::to('api/lga')}}', {z: $(this).val()}, function(result){       
-             $.each(result.data,function(){
-                              $('#lga').append('<option value="'+this.id+'">'+this.text+'</option>');
-
-                        });
-           });
-         }
+      $("#lga").select2({
       });
     });
 
+
     $(document).ready(function() {
       $("#sub").select2({
-        placeholder: 'select or create subcategories',
-        tags: true,
+      //  tags: true,
       });
     });
 </script>

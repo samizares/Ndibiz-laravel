@@ -47,7 +47,7 @@ class Biz extends Model
     
     public function cats()
     {
-        return $this->BelongsToMany('App\Cat', 'biz_cat_pivot');
+        return $this->BelongsToMany('App\Cat', 'biz_cat_pivot','biz_id','cat_id');
     }
 
     public function state()

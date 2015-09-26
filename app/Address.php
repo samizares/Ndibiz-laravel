@@ -21,7 +21,7 @@ class Address extends Model
 	}
 
 	public function lga(){
- 		return $this->belongsTo('App\Lga');
+ 		return $this->belongsTo('App\Lga','lga_id');
  	}
 
 }

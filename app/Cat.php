@@ -14,7 +14,7 @@ class Cat extends Model
 
 public function biz()
 {
-  return $this->belongsToMany('App\Biz','biz_cat_pivot');
+  return $this->belongsToMany('App\Biz','biz_cat_pivot','cat_id','biz_id');
 }
 
 public function subcats()
