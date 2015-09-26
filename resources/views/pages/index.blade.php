@@ -53,7 +53,7 @@
 @section('content')
   @include('partials.notifications')
   
-  <div id="page-content" class="home-slider-content">
+  <div id="page-content" class="home-slider-content homepage">
     <div class="container">
       <div class="home-with-slide category-listing">
         <div class="row">
