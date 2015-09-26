@@ -61,26 +61,29 @@
           <div class="col-md-9 col-md-push-3">
             <div class="page-content">
               <div class="product-details">
-                <div class="tab-content">                  
-                  <div class="tab-pane active" id="all-categories">                      
-                      <div class="row clearfix">
-                        @unless ( $cats->isEmpty() )
-                        @foreach ($cats as $cat)
+              @unless ( $cats->isEmpty() )
+              @foreach ($cats as $cat)
+                <div class="tab-content">    
+                  @foreach ($cat->biz as $biz)               
+                  <div class="tab-pane" id="<?php echo str_replace(' ', '', $cat->name); ?>">                      
+                      <div class="row clearfix">                        
+                        @foreach($biz->subcats as $sub)
                           <div class="col-md-3 col-sm-4 col-xs-6">
                             <div class="category-item">
-                             <a href="#"><i class="fa fa-{{$cat->image_class}}"></i>{{ $cat->name}} </a>
+                             <a class="btn" href="/biz/subcat/{{$sub->id}}"><i class="fa fa-tags"></i> {{$sub->name}}</a>
                             </div>
                           </div>
-                         @endforeach
-                          @endunless
+                          @endforeach
                           <div class="view-more">
                             <a class="btn btn-default text-center" href="#"><i class="fa fa-plus-square-o"></i>View More</a>
                           </div>
+                        
                       </div> <!-- end .row -->                   
                   </div> <!-- end .tabe-pane -->
-
-
+                  @endforeach
                 </div> <!-- end .tabe-content -->
+              @endforeach
+              @endunless
               </div> <!-- end .product-details -->
             </div> <!-- end .page-content -->
           </div>
@@ -92,33 +95,14 @@
               <div id="categories">
                 <div class="accordion">
                   <ul class="nav nav-tabs home-tab" role="tablist">
-                    <li class="active">
-                      <a href="#all-categories"  role="tab" data-toggle="tab">Nightlife
-                        <span>Clubs, Bars, Comedy clubs</span>
-                      </a>
-                    </li>
-
-                    <li>
-                      <a href="#entertainment" role="tab" data-toggle="tab">Entertainment
-                        <span>Cinemas, Museums, Arcades</span>
-                      </a>
-                    </li>
-
-                    <li>
-                      <a href="#local"  role="tab" data-toggle="tab">Local Services
-                        <span>Car Mechanic, Drycleaners, Phone Repair</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#local"  role="tab" data-toggle="tab">Property
-                        <span>Estate Agents, Shared Office Spaces</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#local"  role="tab" data-toggle="tab">Hospitality & Travel
-                        <span>Airports, Care Hire, Hotels, Travel Agencies</span>
-                      </a>
-                    </li>
+                     @foreach ($cats as $cat)
+                      <li>
+                        <a class="" href="#<?php echo str_replace(' ', '', $cat->name); ?>" 
+                         role="tab" data-toggle="tab"><i class="fa fa-{{$cat->image_class}}"></i>
+                        {{ $cat->name }}</a>
+                      </li>
+                      @endforeach
+                    
                   </ul>
                 </div> <!-- end .accordion -->
               </div> <!-- end #categories -->
@@ -250,7 +234,12 @@
               animationOut: "flipOutY", //css class for exit animation
               speed: 3000 // delay in milliseconds between two words
               });
-          });         
+          });  
+
+          $(document).ready(function() {        
+              $('li:first-child').addClass('active');
+            //  $('.tab-pane:first-child ').addClass('active');
+          });       
     </script>
   @stop
 <!-- SCRIPTS ENDS -->

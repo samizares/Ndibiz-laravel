@@ -861,6 +861,7 @@ th {
   content: " ";
   display: table;
 }
+.clearfix,
 .clearfix:after,
 .container:after,
 .container-fluid:after,
@@ -3403,7 +3404,7 @@ fieldset[disabled] .btn-default.active {
 .btn-default:focus {
   background: #333333 !important;
   color: #fdc600;
-  border: 1px solid #FDC600;
+  /*border: 1px solid #FDC600;*/
 }
 /* HEADER */
 /* --------------------------------------- */

@@ -18,7 +18,7 @@ class HomeController extends Controller
 {
    public function index()
 	{
-		$cats = Cat::all()->take(8);
+		$cats = Cat::all()->take(5);
 		$stateList= State::lists('name','id');
 		$catList   = SubCat::lists('name','id'); 
 	    $featured= Biz::whereFeatured('YES')->get();
