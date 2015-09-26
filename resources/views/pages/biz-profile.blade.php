@@ -4,6 +4,7 @@
 @section('stylesheets')
    <link rel="stylesheet" href="{{asset('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css')}}">
    <link rel="stylesheet" type="text/css" href="{{asset('plugins/nanogallery/css/nanogallery.min.css')}}">
+   <link href="{{asset('plugins/bootstrap-editable/bootstrap-editable.css')}}" rel="stylesheet">
 @endsection
 <!-- HEADER -->
 <!-- search -->
@@ -388,6 +389,7 @@
   <script src="{{asset('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js')}}"></script>
   <script type="text/javascript" src="{{asset('plugins/nanogallery/jquery.nanogallery.min.js')}}"></script>
   <script type="text/javascript" src="{{asset('https://maps.googleapis.com/maps/api/js')}}"></script>
+  <script src="{{asset('plugins/bootstrap-editable/bootstrap-editable.min.js')}}"></script>
     
   <script type="text/javascript">    
 
