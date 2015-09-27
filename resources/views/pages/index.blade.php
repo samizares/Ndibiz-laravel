@@ -32,7 +32,38 @@
         </div> <!-- END .slider-content -->    
 @endsection
 <!-- navigation -->
+@section('header-navbar')
+        <div class="header-nav-bar">
+            <div class="container">
+              <nav class="hidden-lg hidden-md">
+                <button><i class="fa fa-bars"></i></button>
+                <ul class="primary-nav list-unstyled">
+                  @if (Auth::check())
+                    <li class="hidden-lg hidden-md dropdown text-center"> 
+                   
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="menu1">
+                        <i class="fa fa-user"></i> {{Auth::user()->username}} <span class="caret"></span></a>
+                      <ul class="dropdown-menu text-center" role="menu" aria-labelledby="menu1">
+                          <li class=""><a href="#">View Profile</a></li>
+                          <li class="divider"></li>
+                          <li><a class="btn" href="/auth/logout"><i class="fa fa-power-off"></i> Logout</a></li>
+                      </ul>
+                    </li>
+                  @else
+                    <li><a class="btn" href="/auth/login" class=""><i class="fa fa-power-off"></i> <span>Login</span></a></li>
+                  @endif
+                  <!-- HEADER REGISTER -->
+                  @if (Auth::guest())
+                    <li><a class="btn" href="/auth/register" class=""><i class="fa fa-plus-square"></i> <span>Register</span></a></li>
+                  @endif
+                  <li class="text-center"><a href="/biz/create" class=""><i class="fa fa-plus"></i> Add a Business</a></li>
 
+                  <li class="divider"></li>
+                </ul>
+              </nav>
+            </div> <!-- end .container -->
+        </div> <!-- end .header-nav-bar -->   
+@endsection
 <!-- CONTENT -->
 @section('content')
   @include('partials.notifications')
@@ -40,9 +71,9 @@
   <div id="page-content" class="home-slider-content">
     <div class="container">
       <div class="home-with-slide category-listing">
-        <div class="row">
-          <h2><strong>Featured</strong> Directory Categories</h2>
-           <div class="col-md-9 col-md-push-3">
+        <div class="row homepage">
+          <h2><strong>Featured</strong> Business Categories</h2>
+          <div class="col-md-9 col-md-push-3">
             <div class="page-content">
               <div class="product-details">
               
@@ -55,7 +86,11 @@
                         @foreach($biz->subcats as $sub)
                           <div class="col-md-3 col-sm-4 col-xs-6">
                             <div class="category-item">
-                             <a class="btn" href="/biz/subcat/{{$sub->id}}"><span></span>{{$sub->name}}</a>
+                             <a class="btn" href="/biz/subcat/{{$sub->id}}"><span class="">{{$sub->name}}</span>
+                             <p class="biz-counter animated slideIn">
+                                <span class="">286 Businesses</span>
+                             </p>
+                             </a>
                             </div>
                           </div> 
                         @endforeach
@@ -71,7 +106,7 @@
           </div>
 
           <div class="col-md-3 col-md-pull-9 category-toggle">
-            <button><i class="fa fa-briefcase"></i></button>
+            <button><i class="fa fa-bars"></i></button>
             <div class="page-sidebar">
               <!-- Category accordion -->
               <div id="categories">
@@ -185,7 +220,9 @@
 
 
 <!-- FOOTER STARTS -->
-
+  @section('footer')
+    @include('includes.footer')
+  @endsection
 <!-- FOOTER ENDS -->
 
 <!-- SCRIPTS STARTS -->
@@ -218,8 +255,8 @@
           });  
 
           $(document).ready(function() {        
-              $('li:first-child').addClass('active');
-            //  $('.tab-pane:first-child ').addClass('active');
+              $('li:nth-child(3)').addClass('active');
+              $('.tab-pane:nth-child(3) ').addClass('active');
           });       
     </script>
     <script src="{{asset('js/scripts.js') }}"></script>
