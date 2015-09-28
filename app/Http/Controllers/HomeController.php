@@ -18,34 +18,44 @@ class HomeController extends Controller
 {
    public function index()
 	{
-		$cats = Cat::all();
+		$cats = Cat::all()->take(5);
+		$bizs = Biz::orderBy('created_at', 'desc')->take(6);
+		$totalCat=Cat::count();
+		$totalSubCat=subCat::count();
 		$stateList= State::lists('name','id');
-		$catList   = SubCat::lists('name','id'); 
+		$catList   = SubCat::lists('name','id')->take(8); 
 	    $featured= Biz::whereFeatured('YES')->get();
-		return view('pages.index', compact('stateList','catList','cats','featured'));
+		return view('pages.index', compact('stateList','catList','cats','featured', 'totalCat', 'totalSubCat',
+		 'subs'));
 	}
 
 	public function businesses()
 	{
 		$cats = Cat::all();
+		$totalBiz=Biz::count();
+		$totalCat=Cat::count();
 		$bizs = Biz::orderBy('created_at', 'desc')->paginate(6);
 		$stateList= State::lists('name','name');
 		$catList   = Cat::lists('name','name'); 
 		 $featured= Biz::whereFeatured('YES')->paginate(3);
-		 $recent= Biz::orderBy('created_at', 'desc')->paginate(1);
+		 $recent= Biz::orderBy('created_at', 'desc')->paginate(2);
 		// dd($featured);
-		return view('pages.businesses', compact('stateList','catList','cats','bizs','featured','recent'));
+		return view('pages.businesses', compact('stateList','catList','cats','bizs','featured','recent', 'totalBiz', 'totalCat'));
 	}
 
 	public function categories()
 	{
-		$cats = Cat::all();
+
+		$cats=  Cat::all();
+		$totalBiz=Biz::count();
+		$totalCat=Cat::count();
+		$totalSubCat=subCat::count();
 		$stateList= State::lists('name','name');
 		$catList  = Cat::lists('name','name'); 
-		$cats=  Cat::all();
 		$featured= Biz::whereFeatured('YES')->paginate(3);
-		$recent= Biz::orderBy('created_at', 'desc')->paginate(1);
-		return view('pages.categories', compact('stateList','catList','featured','cats','recent'));
+		$recent= Biz::orderBy('created_at', 'desc')->paginate(2);
+		return view('pages.categories', compact('stateList','catList','featured','cats','recent', 'totalBiz', 'totalCat',
+		 'totalSubCat'));
 	}
 
 	public function searchResults()

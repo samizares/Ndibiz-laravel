@@ -12,8 +12,9 @@
 <!-- breadcrumbs -->
 @section('breadcrumb')
       <div class="breadcrumb">
-        <div class="featured-listing" style="margin:0;">
-            <h2 class="page-title" style="margin:0;">Business Listings</h2>
+        <div class="breadcrumb-inner m0">
+            <h2 class="page-title m0 p10-bttm">Business Listings</h2>
+            <p class="animated fadeInRight">View <strong>{{$totalBiz}}</strong> diverse businesses and their reviews.</p>
         </div>
       </div>
 @endsection
@@ -24,6 +25,27 @@
               <nav>
                 <button><i class="fa fa-bars"></i></button>
                 <ul class="primary-nav list-unstyled">
+                  @if (Auth::check())
+                    <li class="hidden-lg hidden-md dropdown text-center"> 
+                   
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="menu1">
+                        <i class="fa fa-user"></i> {{Auth::user()->username}} <span class="caret"></span></a>
+                      <ul class="dropdown-menu text-center" role="menu" aria-labelledby="menu1">
+                          <li class=""><a href="#">View Profile</a></li>
+                          <li class="divider"></li>
+                          <li><a class="btn" href="/auth/logout"><i class="fa fa-power-off"></i> Logout</a></li>
+                      </ul>
+                    </li>
+                  @else
+                    <li class="hidden-lg hidden-md"><a class="btn" href="/auth/login" class=""><i class="fa fa-power-off"></i> <span>Login</span></a></li>
+                  @endif
+                  <!-- HEADER REGISTER -->
+                  @if (Auth::guest())
+                    <li class="hidden-lg hidden-md"><a class="btn" href="/auth/register" class=""><i class="fa fa-plus-square"></i> <span>Register</span></a></li>
+                  @endif
+                  <li class="text-center hidden-lg hidden-md"><a href="/biz/create" class=""><i class="fa fa-plus"></i> Add a Business</a></li>
+
+                  <li class="divider"></li>
                   <li class=""><a href="/">Home<i class="fa fa-home"></i></a></li>
                   <li><a href="/categories">Categories</a></li>
                   <li class="bg-color active"><a href="/businesses">Businesses</a></li>
@@ -41,165 +63,176 @@
 
   <div id="page-content">
     <div class="container">
-    
-    <div class="row">
-      <div class="col-md-9">
-        <div class="row page-title-row">
-          <div class="col-md-6">
-            <h3 class="m0-top"><a href="/"><i class="fa fa-home"></i> </a> » <small>Business Listings</small></h3>
-          </div>
-          <div class="col-md-6 text-right">
-            
-          </div>
-        </div>
+      <div class="home-with-slide category-listing">
         <div class="row">
-          <div class="col-md-9 col-md-push-3">
-            <div class="page-content">
-              <div class="product-details-list view-switch">
-                <div class="tab-content">
-                  @unless ( $cats->isEmpty() )
-                  @foreach ($cats as $cat)
-                  <div class="tab-pane" id="<?php echo str_replace(' ', '', $cat->name); ?>"> 
-                    <div class="change-view">
-                        <button class="grid-view"><i class="fa fa-th"></i></button>
-                        <button class="list-view active"><i class="fa fa-bars"></i></button>
-                    </div>                     
-                      <div class="row clearfix">
-                         <h3>{{$cat->name}} Businesses</h3>
-                          @foreach ($cat->biz as $biz) 
-                          <div class="col-sm-4 col-xs-6">
-                            <div class="single-product">
-                              <figure>
-                                <img src="{{asset('img/content/post-img-10.jpg') }}" alt="">
-                                <div class="rating">
-                                  
-                                </div> <!-- end .rating -->
-                                <figcaption>
-                                  <div class="bookmark">
-                                    <a href="#"><i class="fa fa-bookmark-o"></i> Bookmark</a>
-                                  </div>
-                                  <div class="read-more">
-                                    <a href="#"><i class="fa fa-angle-right"></i> Read More</a>
-                                  </div>
-                                </figcaption>
-                              </figure>
-                              <h4><a href="/review/biz/{{$biz->id}}">
-                                {{$biz->name}}</a></h4>
-                                  <ul class="list-inline m5-bttm p10-left">
-                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-star-half-o"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-star-o"></i></a></li>
-                                    <li>50 reviews</li>
-                                  </ul>
-                              <span class="p0-bttm">@foreach( $biz->subcats as $sub) <span><a class="btn" href="/biz/subcat/{{$sub->id}}"><i class="fa fa-tags"></i> {{$sub->name}}</a></span> @endforeach</span>
-                              <h5 class="p5-top address-preview"><i class="fa fa-map-marker"></i> <span>{{$biz->address->street}}</span>, <span>{{ $biz-> address->state->name}}</span></h5>
-                            </div> <!-- end .single-product -->
-                          </div> <!-- end .col-sm-4 grid layout -->   
-                                                 
-
-                          {!! $cat->biz()->paginate(6)->render() !!} 
-                          @endforeach 
-                      </div> <!-- end .row -->                   
-
-                  </div> <!-- end .tabe-pane -->  
-                  @endforeach
-                  @endunless               
-                </div> <!-- end .tabe-content -->
-              </div> <!-- end .product-details -->
-            </div> <!-- end .page-content -->
-          </div>
-
-          <div class="col-md-3 col-md-pull-9 category-toggle">
-            <button><i class="fa fa-briefcase"></i></button>
-
-            <div class="page-sidebar">
-              <!-- Category accordion -->
-              <div id="categories">
-                <div class="accordion">
-                  <ul class="nav nav-tabs home-tab" role="tablist">
-                     @foreach ($cats as $cat)
-                      <li>
-                        <a class="" href="#<?php echo str_replace(' ', '', $cat->name); ?>" 
-                         role="tab" data-toggle="tab"><i class="fa fa-{{$cat->image_class}}"></i>
-                        {{ $cat->name }}</a>
-                      </li>
-                      @endforeach
-                    
-                  </ul>
-                </div> <!-- end .accordion -->
-              </div> <!-- end #categories -->
-
-            </div> <!-- end .page-sidebar -->
-          </div> <!-- end grid layout-->
-        </div> <!-- end .row -->
-      </div>
-      <!-- SIDEBAR RIGHT -->
-      <div class="col-md-3">
-        <div class="post-sidebar">
-            <div class="recently-added">
-                <h2>Recent Reviews</h2>
-                <div class="single-product"></div>
+          <div class="col-md-9">
+            <!-- inner breadcrumb -->
+            <div class="row page-title-row">
+              <div class="col-md-6">
+                <h3 class="m0-top"><a href="/"><i class="fa fa-home"></i> </a> » <small>Business Listings</small> </h3>
+              </div>
+              <div class="col-md-6 text-right">
                 
+              </div>
             </div>
-           
-            <div class="latest-post-content">
-                <h2>Featured Businesses</h2>
-                @if ( ! $featured-> isEmpty() )
-                       @foreach ($featured as $feature)
-                <div class="latest-post clearfix">
+            <div class="row businesses">
+              <div class="col-md-9 col-md-push-3">
+                <div class="page-content">
+                  <div class="product-details-list view-switch">
+                    <div class="tab-content">
+                      @unless ( $cats->isEmpty() )
+                      @foreach ($cats as $cat)
+                      <div class="tab-pane" id="<?php $find = array(' & ',' And ',' and ',' ');$replace = array('');
+                   echo str_replace($find, $replace, $cat->name); ?>">
+                        <div class="row p0-top">
+                          <div class="col-md-8">
+                            <h3 class="m0-top">{{$cat->name}}</h3>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="change-view">
+                                <button class="grid-view"><i class="fa fa-th"></i></button>
+                                <button class="list-view active"><i class="fa fa-bars"></i></button>
+                            </div> 
+                          </div>
+                        </div>                                         
+                        <div class="row clearfix p5-top">
+                              @foreach ($cat->biz as $biz) 
+                              <div class="col-sm-4 col-xs-6">
+                                <div class="single-product">
+                                  <figure>
+                                    <img src="{{asset('img/content/post-img-10.jpg') }}" alt="">
+                                    <div class="rating">
+                                      
+                                    </div> <!-- end .rating -->
+                                    <figcaption>
+                                      <div class="bookmark">
+                                        <a href="#"><i class="fa fa-bookmark-o"></i> Bookmark</a>
+                                      </div>
+                                      <div class="read-more">
+                                        <a href="#"><i class="fa fa-angle-right"></i> Read More</a>
+                                      </div>
+                                    </figcaption>
+                                  </figure>
+                                  <h4><a href="/review/biz/{{$biz->id}}">
+                                    {{$biz->name}}</a></h4>
+                                      <ul class="list-inline m5-bttm p10-left">
+                                        <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-star-half-o"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                        <li>50 reviews</li>
+                                      </ul>
+                                  <span class="p0-bttm">@foreach( $biz->subcats as $sub) <span><a class="btn btn-border" href="/biz/subcat/{{$sub->id}}"><i class="fa fa-tags"></i> {{$sub->name}}</a></span> @endforeach</span>
+                                  <h5 class="p5-top address-preview"><i class="fa fa-map-marker"></i> <span>{{$biz->address->street}}</span>, <span>{{ $biz-> address->state->name}}</span></h5>
+                                </div> <!-- end .single-product -->
+                              </div> <!-- end .col-sm-4 grid layout -->   
+                                                     
 
-                  <div class="post-image">
-                    <img src="{{asset('img/content/latest_post_1.jpg') }}" alt="">
-                  </div>
+                              {!! $cat->biz()->paginate(6)->render() !!} 
+                              @endforeach 
+                          </div> <!-- end .row -->                   
 
-                  <h4><a href="/review/biz/{{$feature->id}}">{{$feature->name}}</a></h4>
+                      </div> <!-- end .tabe-pane -->  
+                      @endforeach
+                      @endunless               
+                    </div> <!-- end .tabe-content -->
+                  </div> <!-- end .product-details -->
+                </div> <!-- end .page-content -->
+              </div>
 
-                  <p>Check out this great business on Ndibiz.</p>
+              <div class="col-md-3 col-md-pull-9 category-toggle">
+                <button><i class="fa fa-bars"></i></button>
+                <div class="page-sidebar">
+                  <!-- Category accordion -->
+                  <div id="categories">
+                    <div class="accordion">
+                      <ul class="nav nav-tabs home-tab" role="tablist">
+                         @foreach ($cats as $cat)
+                          <li>
+                            <a class="" href="#<?php $find = array(' & ',' And ',' and ',' ');$replace = array('');
+                              echo str_replace($find, $replace, $cat->name); ?>" 
+                             role="tab" data-toggle="tab"><i class="fa fa-{{$cat->image_class}}"></i>
+                            {{ $cat->name }}</a>
+                          </li>
+                          @endforeach
+                        
+                      </ul>
+                    </div> <!-- end .accordion -->
+                  </div> <!-- end #categories -->
 
-                  <a class="read-more" href="/review/biz/{{$feature->id}}"><i class="fa fa-angle-right"></i>Read More</a>
-                </div> <!-- end .latest-post -->
-                @endforeach
-                 @endif
+                </div> <!-- end .page-sidebar -->
+              </div> <!-- end grid layout-->
+            </div> <!-- end .row -->
+          </div>
+          <!-- SIDEBAR RIGHT -->
+          <div class="col-md-3">
+            <div class="post-sidebar">
+                <div class="latest-post-content">
+                    <h2>Featured Businesses</h2>
+                    @if ( ! $featured-> isEmpty() )
+                           @foreach ($featured as $feature)
+                    <div class="latest-post clearfix">
 
+                      <div class="post-image">
+                        <img src="{{asset('img/content/latest_post_1.jpg') }}" alt="">
+                      </div>
 
-            </div>
-            <div class="recently-added">
-                <h2>Recently Added</h2>
-                 @if ( ! $recent-> isEmpty() )
-                       @foreach ($recent as $new)
-                <div class="latest-post clearfix">
+                      <h4><a href="/review/biz/{{$feature->id}}">{{$feature->name}}</a></h4>
 
-                  <div class="post-image">
-                    <img src="{{asset('img/content/latest_post_1.jpg') }}" alt="">
+                      <p>Check out this great business on Ndibiz.</p>
 
-                    <p><span>12</span>Sep</p>
-                  </div>
+                      <a class="read-more" href="/review/biz/{{$feature->id}}"><i class="fa fa-angle-right"></i>Read More</a>
+                    </div> <!-- end .latest-post -->
+                    @endforeach
+                     @endif
+                </div>
+                <div class="recently-added">
+                    <h2>Recently Added</h2>
+                     @if ( ! $recent-> isEmpty() )
+                           @foreach ($recent as $new)
+                    <div class="latest-post clearfix">
 
-                  <h4><a href="/review/biz/{{$new->id}}">{{$new->name}}</a></h4>
+                      <div class="post-image">
+                        <img src="{{asset('img/content/latest_post_1.jpg') }}" alt="">
 
-                  <p>Recent Biz added on Ndibiz</p>
+                        <p><span>12</span>Sep</p>
+                      </div>
 
-                  <a class="read-more" href="/review/biz/{{$new->id}}"><i class="fa fa-angle-right"></i>Read More</a>
-                </div> <!-- end .latest-post -->
-                @endforeach
-                @endif
-            </div>
-            <div class="recently-added">
-                <h2>Advertisement</h2>
-                <div class="category-item">
-                    <a href=""> <i class="fa fa-newspaper-o"></i> Advert Space</a>
+                      <h4><a href="/review/biz/{{$new->id}}">{{$new->name}}</a></h4>
+
+                      <p>Recent Biz added on Ndibiz</p>
+
+                      <a class="read-more" href="/review/biz/{{$new->id}}"><i class="fa fa-angle-right"></i>Read More</a>
+                    </div> <!-- end .latest-post -->
+                    @endforeach
+                    @endif
+                </div>
+                <div class="recently-added box">
+                    <h2>Advertisement</h2>
+                    <div class="category-item">
+                        <a href=""> <i class="fa fa-newspaper-o"></i> Advert Space</a>
+                    </div>
+                </div>
+                <div class="recently-added">
+                    <h2>Recent Reviews</h2>
+                    <div class="single-product"></div>
+                    
                 </div>
             </div>
-            
+          </div>
         </div>
-      </div>
-    </div>
+      </div> <!-- end .home-with-slide -->
     </div> <!-- end .container -->
   </div>  <!-- end #page-content -->
 
 @endsection
+<!-- CONTENT ENDS-->
+<!-- FOOTER STARTS -->
+@section('footer')
+  @include('includes.footer')
+@endsection
+<!-- FOOTER ENDS -->
 
 @section('scripts')
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -207,12 +240,12 @@
   <script type="text/javascript">
     $(document).ready(function() {        
         $('li:first-child').addClass('active');
-      //  $('.tab-pane:first-child ').addClass('active');
+       $('.tab-pane:first-child ').addClass('active');
     });
 
       // style switcr for list-grid view
       //--------------------------------------------------
-    /*  $(document).ready(function() {
+      $(document).ready(function() {
           $('.change-view button').on('click',function(e) {
             
           if ($(this).hasClass('grid-view')) {
@@ -227,7 +260,7 @@
             }
         });
 
-      });  */
+      });
       
   </script>
   <script src="{{asset('js/scripts.js')}}"></script>

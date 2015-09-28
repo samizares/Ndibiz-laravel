@@ -1,12 +1,21 @@
     <div class="header-search map">
       <div class="header-search-bar">
         {!!Form::open(['method'=> 'POST', 'url'=>'/search/business']) !!}
-                <div class="container">                  
+                <div class="container">    
+                  <!-- HEADER-LOG0 -->
+                  <div class="mobile-logo text-center hidden-lg hidden-md m5-bttm">
+                    <h2 class="text-center m0"><a href="/">Beazea</a></h2>
+                    <span> Direct<i class="fa fa-globe"></i>ry</span>
+                  </div>
+                  <!-- END HEADER LOGO -->              
                   <div class="search-value">
                     <!-- <div class="keywords">                       
                       <select class="" id="company" name="company" placeholder="Quick search >> type business/company name"></select>
                     </div> -->
-                    
+                    <!-- HEADER-LOG0 -->
+                    <div class="fixed-header-logo">
+                    </div>
+                    <!-- END HEADER LOGO -->
 
                     <div class="category-search">
                       <select id="category" name="category" placeholder="Search keywords e.g. pizza, bars, restaurants..."></select> 

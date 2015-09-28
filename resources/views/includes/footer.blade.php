@@ -6,14 +6,14 @@
 
           <div class="col-md-3 col-sm-6">
             <div class="about-globo">
-              <h3>About NdiBiz Directory</h3>
-              <p>Ndi Business Directory is a local directory that shows you nearby 
+              <h3 class="p5-bttm">About NdiBiz Directory</h3>
+              <p class="p0-top">Ndi Business Directory is a local directory that shows you nearby 
                 local business just by searching with a keyword.</p>
 
             </div> <!-- End .about-globo -->
           </div> <!-- end Grid layout-->
 
-          <div class="col-md-3 col-sm-6 clearfix">
+          <div class="col-md-3 col-sm-6">
             <div class="popular-categories">
               <h3>Popular Categories</h3>
 
@@ -27,7 +27,7 @@
             </div> <!-- end .popular-categories-->
           </div> <!-- end Grid layout-->
 
-          <div class="col-md-3 col-sm-6 clearfix">
+          <div class="col-md-3 col-sm-6">
             <div class="popular-categories">
               <h3>Business Owners</h3>
 

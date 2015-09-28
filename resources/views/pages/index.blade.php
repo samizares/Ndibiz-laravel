@@ -3,6 +3,7 @@
 @section('title', 'Home')
 @section('stylesheets')
     <link rel="stylesheet" href="{{ asset('plugins/text-rotator/jquery.wordrotator.css')}}">
+    <link href="{{asset('../plugins/Bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet">
 @endsection
 <!-- HEADER -->
 <!-- search -->
@@ -18,8 +19,8 @@
               <div class="slide-content">             
                 <h1><small><i class="fa fa-search"></i> Search for <br><span id="demo"></span> <br>in <br><span id="demo2"></span></small></h1>
                 <h1><small>Connect</small> <span>Businesses</span> <small>To</small> <span>Customers</span></h1>
-                <h1 class="hidden-xs"><a class="btn btn-default btn-lg" href=""><i class="fa fa-plus-square"></i> Add a Business</a> <small>OR</small> 
-                <a class="btn btn-default  btn-lg" href=""><i class="fa fa-plus-square"></i> Claim Your Business</a></h1>
+                <h1 class="hidden-xs"><a class="btn btn-default btn-lg" href="/biz/create"><i class="fa fa-plus-square"></i> Add a Business</a> <small>OR</small> 
+                <a class="btn btn-default  btn-lg" href="/businesses"><i class="fa fa-plus-square"></i> Explore Businesses</a></h1>
               </div>
             </div>
           </div>
@@ -34,16 +35,30 @@
 @section('header-navbar')
         <div class="header-nav-bar">
             <div class="container">
-              <nav>
+              <nav class="hidden-lg hidden-md">
                 <button><i class="fa fa-bars"></i></button>
                 <ul class="primary-nav list-unstyled">
-                  <li class="bg-color active"><a href="/">Home<i class="fa fa-home"></i></a></li>
-                  <li class=""><a href="/categories">Categories</a></li>
-                  <li class=""><a href="/businesses">Businesses</a></li>
-                  <li><a href="#">About Us</a></li>
-                  <li><a href="#">Contact Us</a></li>
-                  <li><a href="/admin">Admin</a></li>
-                  <li><a href="/search-results">Search-results</a></li>
+                  @if (Auth::check())
+                    <li class="hidden-lg hidden-md dropdown text-center"> 
+                   
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="menu1">
+                        <i class="fa fa-user"></i> {{Auth::user()->username}} <span class="caret"></span></a>
+                      <ul class="dropdown-menu text-center" role="menu" aria-labelledby="menu1">
+                          <li class=""><a href="#">View Profile</a></li>
+                          <li class="divider"></li>
+                          <li><a class="btn" href="/auth/logout"><i class="fa fa-power-off"></i> Logout</a></li>
+                      </ul>
+                    </li>
+                  @else
+                    <li><a class="btn" href="/auth/login" class=""><i class="fa fa-power-off"></i> <span>Login</span></a></li>
+                  @endif
+                  <!-- HEADER REGISTER -->
+                  @if (Auth::guest())
+                    <li><a class="btn" href="/auth/register" class=""><i class="fa fa-plus-square"></i> <span>Register</span></a></li>
+                  @endif
+                  <li class="text-center"><a href="/biz/create" class=""><i class="fa fa-plus"></i> Add a Business</a></li>
+
+                  <li class="divider"></li>
                 </ul>
               </nav>
             </div> <!-- end .container -->
@@ -56,12 +71,14 @@
   <div id="page-content" class="home-slider-content">
     <div class="container">
       <div class="home-with-slide category-listing">
-        <div class="row">
-          <h2><strong>Featured</strong> Directory Categories</h2>
+        <div class="row homepage">
+          <h2><strong>Featured</strong> Business Categories</h2>
           <div class="col-md-9 col-md-push-3">
             <div class="page-content">
               <div class="product-details">
-                <div class="tab-content">                  
+
+
+        <!--       <div class="tab-content">                  
                   
                         @unless ( $cats->isEmpty() )
                         @foreach ($cats as $cat)
@@ -76,25 +93,50 @@
                          @endforeach
                           <div class="view-more">
                             <a class="btn btn-default text-center" href="#"><i class="fa fa-plus-square-o"></i>View More</a>
-                          </div>
+                          </div> 
+                      </div> --><!-- end .row                  
+                  </div>--> <!-- end .tabe-pane
+                   @endforeach
+                          @endunless  -->
+              
+                <div class="tab-content">    
+                @unless ( $cats->isEmpty() )
+              @foreach ($cats as $cat)
+                  <div class="tab-pane" id="<?php $find = array(' & ',' And ',' and ',' ');$replace = array('');
+                   echo str_replace($find, $replace, $cat->name); ?>">                      
+                      <div class="row clearfix">    
+                      @foreach ($cat->biz as $biz)
+                        @foreach($biz->subcats as $sub)
+                          <div class="col-md-3 col-sm-4 col-xs-6">
+                            <div class="category-item">
+                             <a class="btn" href="/biz/subcat/{{$sub->id}}"><span class="">{{$sub->name}}</span>
+                             <p class="biz-counter animated slideIn">
+                                <span class="">286 Businesses</span>
+                             </p>
+                             </a>
+                            </div>
+                          </div> 
+                        @endforeach
+                       @endforeach                
                       </div> <!-- end .row -->                   
                   </div> <!-- end .tabe-pane -->
-                   @endforeach
-                          @endunless
-
-
+               @endforeach
+              @endunless
                 </div> <!-- end .tabe-content -->
+             
               </div> <!-- end .product-details -->
             </div> <!-- end .page-content -->
           </div>
 
           <div class="col-md-3 col-md-pull-9 category-toggle">
-            <button><i class="fa fa-briefcase"></i></button>
+            <button><i class="fa fa-bars"></i></button>
             <div class="page-sidebar">
               <!-- Category accordion -->
               <div id="categories">
                 <div class="accordion">
                   <ul class="nav nav-tabs home-tab" role="tablist">
+        <!--
+<<<<<<< HEAD
                     <li class="active">
                       <a href="#Shopping" role="tab" data-toggle="tab">Shopping
                         <span>Mens clothes, Womens Clothes,</span>
@@ -120,7 +162,16 @@
                       <a href="#Cars"  role="tab" data-toggle="tab">Cars
                         <span>car wash, Care Hire, Hotels</span>
                       </a>
-                    </li>
+                    </li>     -->
+                     @foreach ($cats as $cat)
+                      <li>
+                        <a class="" href="#<?php $find = array(' & ',' And ',' and ',' ');$replace = array('');
+                          echo str_replace($find, $replace, $cat->name); ?>" 
+                         role="tab" data-toggle="tab"><i class="fa fa-{{$cat->image_class}}"></i>
+                        {{ $cat->name }}</a>
+                      </li>
+                      @endforeach
+                    
                   </ul>
                 </div> <!-- end .accordion -->
               </div> <!-- end #categories -->
@@ -231,6 +282,7 @@
    <script src="{{asset('plugins/bootstrap-3.3.5/js/bootstrap.js')}}"></script>
     <script src="{{asset('plugins/text-rotator/jquery.wordrotator.min.js') }}"></script>
     <script src="{{asset('plugins/owl-carousel/owl.carousel.js') }}"></script>
+<!--
     <script src="{{asset('js/scripts.js') }}"></script>
     <script type="text/javascript">
        $(document).ready(function() {        
@@ -245,7 +297,10 @@
         
     });
       
-  </script>
+  </script>  -->
+
+    <script src="{{asset('plugins/bootstrap-3.3.5/js/bootstrap.js')}}"></script>
+    
 
     <script>
       //Text rotator
@@ -267,8 +322,14 @@
               animationOut: "flipOutY", //css class for exit animation
               speed: 3000 // delay in milliseconds between two words
               });
-          });         
+          });  
+
+          $(document).ready(function() {        
+              $('li:first-child').addClass('active');
+              $('.tab-pane:first-child ').addClass('active');
+          });       
     </script>
-     <script src="{{asset('js/scripts.js')}}"></script>
+
+    <script src="{{asset('js/scripts.js') }}"></script>
   @stop
 <!-- SCRIPTS ENDS -->
