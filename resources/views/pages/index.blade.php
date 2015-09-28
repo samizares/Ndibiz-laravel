@@ -3,7 +3,7 @@
 @section('title', 'Home')
 @section('stylesheets')
     <link rel="stylesheet" href="{{ asset('plugins/text-rotator/jquery.wordrotator.css')}}">
-    <link href="{{asset('plugins/bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet">
+    <link href="{{asset('../plugins/Bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet">
 @endsection
 <!-- HEADER -->
 <!-- search -->
@@ -19,8 +19,8 @@
               <div class="slide-content">             
                 <h1><small><i class="fa fa-search"></i> Search for <br><span id="demo"></span> <br>in <br><span id="demo2"></span></small></h1>
                 <h1><small>Connect</small> <span>Businesses</span> <small>To</small> <span>Customers</span></h1>
-                <h1 class="hidden-xs"><a class="btn btn-default btn-lg" href=""><i class="fa fa-plus-square"></i> Add a Business</a> <small>OR</small> 
-                <a class="btn btn-default  btn-lg" href=""><i class="fa fa-plus-square"></i> Claim Your Business</a></h1>
+                <h1 class="hidden-xs"><a class="btn btn-default btn-lg" href="/biz/create"><i class="fa fa-plus-square"></i> Add a Business</a> <small>OR</small> 
+                <a class="btn btn-default  btn-lg" href="/businesses"><i class="fa fa-plus-square"></i> Explore Businesses</a></h1>
               </div>
             </div>
           </div>

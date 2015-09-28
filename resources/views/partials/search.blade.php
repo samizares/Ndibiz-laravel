@@ -4,8 +4,8 @@
                 <div class="container">    
                   <!-- HEADER-LOG0 -->
                   <div class="mobile-logo text-center hidden-lg hidden-md m5-bttm">
-                    <h2 class="text-center m0"><a href="/">NdiBiz</a></h2>
-                    <span>Business Direct<i class="fa fa-globe"></i>ry</span>
+                    <h2 class="text-center m0"><a href="/">Beazea</a></h2>
+                    <span> Direct<i class="fa fa-globe"></i>ry</span>
                   </div>
                   <!-- END HEADER LOGO -->              
                   <div class="search-value">

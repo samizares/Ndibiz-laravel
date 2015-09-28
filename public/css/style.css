@@ -3482,6 +3482,10 @@ fieldset[disabled] .btn-default.active {
   opacity: 1;
   transform: translateY(0);
 }
+.navbar-brand {
+    padding: 5px;
+    font-size: 28px;
+}
 #header .header-top-bar .header-logo h2 a span {
   display: block;
   font-size: 10px;
@@ -3492,6 +3496,7 @@ fieldset[disabled] .btn-default.active {
 #header .header-top-bar .header-logo h2 a span {
   font-size: 10px;
   color: #333;
+  text-align: center;
 }
 #header .header-top-bar .header-logo {
   float: left;

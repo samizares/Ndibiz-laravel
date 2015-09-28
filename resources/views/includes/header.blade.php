@@ -4,11 +4,12 @@
       <div class="container">
         <!-- HEADER-LOG0 -->
         <div class="header-logo text-center hidden-xs">
-          <h2 class="text-left m0">
-            <a href="/">Beazea
+          <h2 class="text-left m0 navbar-brand">
+            <a class="" href="/">Beazea
               <span>Direct<i class="fa fa-globe"></i>ry</span>
             </a>
           </h2>
+          <a href="/businesses" class=""><i class="fa fa-building"></i> Explore</a>
         </div>
         <!-- END HEADER LOGO -->
 
