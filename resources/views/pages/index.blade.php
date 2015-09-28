@@ -76,31 +76,28 @@
           <h2><strong>Featured</strong> Business Categories</h2>
           <div class="col-md-9 col-md-push-3">
             <div class="page-content">
-              <div class="product-details">
-              
+              <div class="product-details">              
                 <div class="tab-content">    
                 @unless ( $cats->isEmpty() )
-              @foreach ($cats as $cat)
-                  <div class="tab-pane" id="<?php $find = array(' & ',' And ',' and ',' ');$replace = array('');
-                   echo str_replace($find, $replace, $cat->name); ?>">                      
-                      <div class="row clearfix">    
-                      @foreach ($cat->biz as $biz)
-                        @foreach($biz->subcats as $sub)
-                          <div class="col-md-3 col-sm-4 col-xs-6">
-                            <div class="category-item">
-                             <a class="btn" href="/biz/subcat/{{$sub->id}}"><span class="">{{$sub->name}}</span>
-                             <p class="biz-counter animated slideIn">
-                                <span class="">286 Businesses</span>
-                             </p>
-                             </a>
-                            </div>
-                          </div> 
-                        @endforeach
-                       @endforeach                
-                      </div> <!-- end .row -->                   
-                  </div> <!-- end .tabe-pane -->
-               @endforeach
-              @endunless
+                @foreach ($cats as $cat)
+                    <div class="tab-pane" id="<?php $find = array('&','And','and',' ');$replace = array('');
+                     echo str_replace($find, $replace, $cat->name); ?>">                      
+                        <div class="row clearfix">    
+                        @foreach ($cat->subcats as $sub)
+                            <div class="col-md-3 col-sm-4 col-xs-6">
+                              <div class="category-item">
+                               <a class="btn" href="/biz/subcat/{{$sub->id}}"><span class="">{{$sub->name}}</span>
+                               <p class="biz-counter animated slideIn">
+                                  <span class="">{{$sub->biz->count()}}</span>
+                               </p>
+                               </a>
+                              </div>
+                            </div> 
+                          @endforeach                
+                        </div> <!-- end .row -->                   
+                    </div> <!-- end .tabe-pane -->
+                 @endforeach
+                 @endunless
                 </div> <!-- end .tabe-content -->
              
               </div> <!-- end .product-details -->
@@ -116,13 +113,12 @@
                   <ul class="nav nav-tabs home-tab" role="tablist">
                      @foreach ($cats as $cat)
                       <li>
-                        <a class="" href="#<?php $find = array(' & ',' And ',' and ',' ');$replace = array('');
+                        <a class="" href="#<?php $find = array('&','And','and',' ');$replace = array('');
                           echo str_replace($find, $replace, $cat->name); ?>" 
                          role="tab" data-toggle="tab"><i class="fa fa-{{$cat->image_class}}"></i>
                         {{ $cat->name }}</a>
                       </li>
-                      @endforeach
-                    
+                      @endforeach                    
                   </ul>
                 </div> <!-- end .accordion -->
               </div> <!-- end #categories -->
@@ -254,10 +250,10 @@
 
 <!-- SCRIPTS STARTS -->
   @section('scripts')
+
     <script src="{{asset('../plugins/text-rotator/jquery.wordrotator.min.js') }}"></script>
     <script src="{{asset('../plugins/owl-carousel/owl.carousel.js') }}"></script>
     <script src="{{asset('../plugins/Bootstrap-3.3.5/js/bootstrap.js')}}"></script>
-    
 
     <script>
       //Text rotator
@@ -265,19 +261,19 @@
 
           $(document).ready(function () {
               $("#demo").wordsrotator({
-              words: ['Local Restaurants (Mama Put)','Hotels','Mechanic Workshops'], // Array of words, it may contain HTML values
-              randomize: true, //show random entries from the words array
-              animationIn: "flipInY", //css class for entrace animation
-              animationOut: "flipOutY", //css class for exit animation
-              speed: 3000 // delay in milliseconds between two words
+              words: ['Local Restaurants (Mama Put)','Hotels','Mechanic Workshops'], 
+              randomize: true, 
+              animationIn: "flipInY", 
+              animationOut: "flipOutY", 
+              speed: 3000 
               });
 
                $("#demo2").wordsrotator({
-              words: ['Lagos','Abuja','PortHarcourt'], // Array of words, it may contain HTML values
-              randomize: true, //show random entries from the words array
-              animationIn: "rotateInUpLeft", //css class for entrace animation
-              animationOut: "flipOutY", //css class for exit animation
-              speed: 3000 // delay in milliseconds between two words
+              words: ['Lagos','Abuja','PortHarcourt'], 
+              randomize: true, 
+              animationIn: "rotateInUpLeft", 
+              animationOut: "flipOutY", 
+              speed: 3000 
               });
           });  
 
