@@ -111,7 +111,7 @@
                             <div class="category-item">
                              <a class="btn" href="/biz/subcat/{{$sub->id}}"><span class="">{{$sub->name}}</span>
                              <p class="biz-counter animated slideIn">
-                                <span class="">286 Businesses</span>
+                                <span class="">{{$sub->biz->count()}}</span>
                              </p>
                              </a>
                             </div>
