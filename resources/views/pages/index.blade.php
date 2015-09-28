@@ -62,22 +62,25 @@
             <div class="page-content">
               <div class="product-details">
                 <div class="tab-content">                  
-                  <div class="tab-pane active" id="all-categories">                      
-                      <div class="row clearfix">
+                  
                         @unless ( $cats->isEmpty() )
                         @foreach ($cats as $cat)
+                        <div class="tab-pane" id="<?php echo str_replace(' ', '', $cat->name); ?>">                      
+                           <div class="row clearfix">
+                            @foreach($cat->subcats as $sub)
                           <div class="col-md-3 col-sm-4 col-xs-6">
                             <div class="category-item">
-                             <a href="#"><i class="fa fa-{{$cat->image_class}}"></i>{{ $cat->name}} </a>
+                             <a href="/biz/subcat/{{$sub->id}}"><i class="fa fa-{{$sub->image_class}}"></i>{{ $sub->name}} </a>
                             </div>
                           </div>
                          @endforeach
-                          @endunless
                           <div class="view-more">
                             <a class="btn btn-default text-center" href="#"><i class="fa fa-plus-square-o"></i>View More</a>
                           </div>
                       </div> <!-- end .row -->                   
                   </div> <!-- end .tabe-pane -->
+                   @endforeach
+                          @endunless
 
 
                 </div> <!-- end .tabe-content -->
@@ -93,30 +96,29 @@
                 <div class="accordion">
                   <ul class="nav nav-tabs home-tab" role="tablist">
                     <li class="active">
-                      <a href="#all-categories"  role="tab" data-toggle="tab">Nightlife
+                      <a href="#Shopping" role="tab" data-toggle="tab">Shopping
+                        <span>Mens clothes, Womens Clothes,</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#ArtsAndEntertainment"  role="tab" data-toggle="tab">Arts And Entertainment
                         <span>Clubs, Bars, Comedy clubs</span>
                       </a>
                     </li>
 
                     <li>
-                      <a href="#entertainment" role="tab" data-toggle="tab">Entertainment
-                        <span>Cinemas, Museums, Arcades</span>
-                      </a>
-                    </li>
-
-                    <li>
-                      <a href="#local"  role="tab" data-toggle="tab">Local Services
-                        <span>Car Mechanic, Drycleaners, Phone Repair</span>
+                      <a href="#Bars"  role="tab" data-toggle="tab">Bars
+                        <span>pubs, clubs</span>
                       </a>
                     </li>
                     <li>
-                      <a href="#local"  role="tab" data-toggle="tab">Property
-                        <span>Estate Agents, Shared Office Spaces</span>
+                      <a href="#Education"  role="tab" data-toggle="tab">Education
+                        <span>Computer education, Adult education</span>
                       </a>
                     </li>
                     <li>
-                      <a href="#local"  role="tab" data-toggle="tab">Hospitality & Travel
-                        <span>Airports, Care Hire, Hotels, Travel Agencies</span>
+                      <a href="#Cars"  role="tab" data-toggle="tab">Cars
+                        <span>car wash, Care Hire, Hotels</span>
                       </a>
                     </li>
                   </ul>
@@ -226,9 +228,24 @@
 
 <!-- SCRIPTS STARTS -->
   @section('scripts')
+   <script src="{{asset('plugins/bootstrap-3.3.5/js/bootstrap.js')}}"></script>
     <script src="{{asset('plugins/text-rotator/jquery.wordrotator.min.js') }}"></script>
     <script src="{{asset('plugins/owl-carousel/owl.carousel.js') }}"></script>
     <script src="{{asset('js/scripts.js') }}"></script>
+    <script type="text/javascript">
+       $(document).ready(function() {        
+     //   $('li:first-child').addClass('active');
+        $('.tab-pane:first-child ').addClass('active');
+    
+       
+      //  $('.tab-pane a[href="#fashion"]').tab('show');
+      //  $('#fashion').tab('show');
+        
+       // $('li:first-child').addClass('active');
+        
+    });
+      
+  </script>
 
     <script>
       //Text rotator
@@ -252,5 +269,6 @@
               });
           });         
     </script>
+     <script src="{{asset('js/scripts.js')}}"></script>
   @stop
 <!-- SCRIPTS ENDS -->

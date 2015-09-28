@@ -41,9 +41,9 @@ Route::get('api/subcat', 'ApiController@subcat');
 Route::get('api/featured', 'ApiController@featured');
 
 // Admin area
-get('admin', function () {
-  return redirect('/admin/');
-});
+//get('admin', function () {
+//  return redirect('/admin/');
+//});
 
 $router->group([
   'namespace' => 'Admin',
