@@ -19,13 +19,14 @@ class HomeController extends Controller
    public function index()
 	{
 		$cats = Cat::all()->take(5);
+		$bizs = Biz::orderBy('created_at', 'desc')->take(6);
 		$totalCat=Cat::count();
 		$totalSubCat=subCat::count();
 		$stateList= State::lists('name','id');
-		$catList   = SubCat::lists('name','id'); 
+		$catList   = SubCat::lists('name','id')->take(8); 
 	    $featured= Biz::whereFeatured('YES')->get();
 		return view('pages.index', compact('stateList','catList','cats','featured', 'totalCat', 'totalSubCat',
-		 'sub'));
+		 'subs'));
 	}
 
 	public function businesses()

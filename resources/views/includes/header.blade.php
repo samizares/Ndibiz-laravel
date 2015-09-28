@@ -5,8 +5,8 @@
         <!-- HEADER-LOG0 -->
         <div class="header-logo text-center hidden-xs">
           <h2 class="text-left m0">
-            <a href="/">NdiBiz
-              <span>Business Direct<i class="fa fa-globe"></i>ry</span>
+            <a href="/">Beazea
+              <span>Direct<i class="fa fa-globe"></i>ry</span>
             </a>
           </h2>
         </div>

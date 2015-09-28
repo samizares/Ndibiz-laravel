@@ -82,7 +82,8 @@
                     <div class="tab-content">
                       @unless ( $cats->isEmpty() )
                       @foreach ($cats as $cat)
-                      <div class="tab-pane" id="<?php echo str_replace(' ', '', $cat->name); ?>">
+                      <div class="tab-pane" id="<?php $find = array(' & ',' And ',' and ',' ');$replace = array('');
+                   echo str_replace($find, $replace, $cat->name); ?>">
                         <div class="row p0-top">
                           <div class="col-md-8">
                             <h3 class="m0-top">{{$cat->name}}</h3>
@@ -149,7 +150,8 @@
                       <ul class="nav nav-tabs home-tab" role="tablist">
                          @foreach ($cats as $cat)
                           <li>
-                            <a class="" href="#<?php echo str_replace(' ', '', $cat->name); ?>" 
+                            <a class="" href="#<?php $find = array(' & ',' And ',' and ',' ');$replace = array('');
+                              echo str_replace($find, $replace, $cat->name); ?>" 
                              role="tab" data-toggle="tab"><i class="fa fa-{{$cat->image_class}}"></i>
                             {{ $cat->name }}</a>
                           </li>
