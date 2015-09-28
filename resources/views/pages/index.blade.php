@@ -102,11 +102,10 @@
                 <div class="tab-content">    
                 @unless ( $cats->isEmpty() )
               @foreach ($cats as $cat)
-                  <div class="tab-pane" id="<?php $find = array(' & ',' And ',' and ',' ');$replace = array('');
+                  <div class="tab-pane" id="<?php $find = array('&','And','and',' ');$replace = array('');
                    echo str_replace($find, $replace, $cat->name); ?>">                      
                       <div class="row clearfix">    
-                      @foreach ($cat->biz as $biz)
-                        @foreach($biz->subcats as $sub)
+                      @foreach ($cat->subcats as $sub)
                           <div class="col-md-3 col-sm-4 col-xs-6">
                             <div class="category-item">
                              <a class="btn" href="/biz/subcat/{{$sub->id}}"><span class="">{{$sub->name}}</span>
@@ -116,8 +115,7 @@
                              </a>
                             </div>
                           </div> 
-                        @endforeach
-                       @endforeach                
+                        @endforeach                
                       </div> <!-- end .row -->                   
                   </div> <!-- end .tabe-pane -->
                @endforeach
@@ -136,7 +134,6 @@
                 <div class="accordion">
                   <ul class="nav nav-tabs home-tab" role="tablist">
         <!--
-<<<<<<< HEAD
                     <li class="active">
                       <a href="#Shopping" role="tab" data-toggle="tab">Shopping
                         <span>Mens clothes, Womens Clothes,</span>
@@ -165,7 +162,7 @@
                     </li>     -->
                      @foreach ($cats as $cat)
                       <li>
-                        <a class="" href="#<?php $find = array(' & ',' And ',' and ',' ');$replace = array('');
+                        <a class="" href="#<?php $find = array('&','And','and',' ');$replace = array('');
                           echo str_replace($find, $replace, $cat->name); ?>" 
                          role="tab" data-toggle="tab"><i class="fa fa-{{$cat->image_class}}"></i>
                         {{ $cat->name }}</a>
