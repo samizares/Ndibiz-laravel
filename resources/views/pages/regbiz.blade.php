@@ -8,14 +8,6 @@
 <!-- HEAD ENDS-->
 
 <!-- HEADER STARTS -->
-  <!-- breadcrumbs -->
-  @section('breadcrumb')
-        <div class="breadcrumb">
-          <div class="featured-listing" style="margin:0;">
-              <h2 class="page-title animated fadeInLeft" style="margin:0;">Business Registration</h2>
-          </div>
-        </div>
-  @endsection
  
 <!-- HEADER ENDS -->
 

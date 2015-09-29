@@ -32,42 +32,14 @@
 
 <!-- HEADER STARTS -->
   <header id="header">
-    <div class="header-top-bar hidden-sm hidden-xs p0-top p0-bttm">
+    <div class="header-auth" style="min-height:60px;">
       <div class="container">
-        <!-- HEADER-LOG0 -->
-        
-          <h2 class="header-logo m0 m20-right p0-bttm navbar-brand hidden-xs">
+        <!-- HEADER-LOG0 -->        
+          <h2 class="header-logo navbar-brand">
             <a class="" href="/">Beazea
               <span>Direct<i class="fa fa-globe"></i>ry</span>
             </a>
           </h2>
-      
-        <!-- END HEADER LOGO -->
-        <nav aria-labelledby="user-navigation" class="pull-right" role="navigation">
-          <ul class="nav navbar m0-bttm">          
-              <!-- HEADER-LOGIN -->
-              @if (Auth::check())  
-              <li class="dropdown">           
-                <a class="btn" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                  <span class="fa fa-user fa-fw"></span> {{Auth::user()->username}}<span class="fa fa-angle-down"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a class="btn" href="{{ URL::to('auth/logout') }}"><i class="fa fa-power-off"></i> Logout</a></li>
-                </ul>
-              </li>       
-              @else
-              <li class="active bg-color hidden-xs">
-                <a href="/auth/login" class="">
-                  <i class="fa fa-power-off"></i> <span class="hidden-xs">Login</span></a>
-              </li>
-              @endif
-              <!-- HEADER REGISTER -->
-              @if (Auth::guest())
-              <li class="dropdown">
-                <a href="/auth/register" class="m10-right"><i class="fa fa-plus-square"></i> <span class="hidden-xs">Register</span></a></li> 
-              <!-- END .HEADER-REGISTER -->
-              @endif 
-           </ul>       
-        </nav>
       </div><!-- END .CONTAINER -->
     </div>
     <!-- END .HEADER-TOP-BAR -->
@@ -109,6 +81,7 @@
   <script type="text/javascript">
        
   </script>
+  <script src="{{asset('js/scripts.js')}}"></script>
   @yield('scripts')
 <!-- SCRIPTS ENDS -->
              

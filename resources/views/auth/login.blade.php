@@ -9,8 +9,8 @@
   @include('partials.notifications')
     <div id="page-content" class="home-slider-content">
       <div class="container">
-        <div id="auth-page" class="home-with-slide">
-            <div class="row login">
+        <div id="auth-page">
+            <div class="row">
                 <div class="col-md-6 col-md-offset-3">
                   <div class="panel panel-default">
                     <div class="panel-heading">
@@ -38,8 +38,13 @@
                           <div class="form-group">
                             {!! Form::submit('Login', array('class'=>'btn btn-default')) !!}
                           </div>
-                          <div class="form-group">
-                                <a href="/password/email">Forgot Your Password?</a>
+                          <div class="row">
+                            <div class="col-md-5">
+                              <a class="text-left" href="/password/email">Forgot Your Password?</a>
+                            </div>
+                            <div class="col-md-7">
+                              <p>Not registered? <a class="text-right" href="/auth/register"><strong>Create an account.</strong></a></p>
+                            </div>
                           </div>           
                         {!! Form::close() !!}    
                     </div>

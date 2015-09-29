@@ -2,7 +2,8 @@
 <!-- HEAD -->
 @section('title', 'Subcategory Businesses')
 @section('stylesheets')
-   <link href="{{asset('../plugins/Bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet">
+  <link rel="stylesheet" href="{{ asset('../plugins/text-rotator/jquery.wordrotator.css')}}">
+  <link href="{{asset('../plugins/Bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet">
 @endsection
 <!-- HEADER -->
 <!-- search -->
@@ -16,6 +17,27 @@
               <nav>
                 <button><i class="fa fa-bars"></i></button>
                 <ul class="primary-nav list-unstyled">
+                  @if (Auth::check())
+                    <li class="hidden-lg hidden-md dropdown text-center"> 
+                   
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="menu1">
+                        <i class="fa fa-user"></i> {{Auth::user()->username}} <span class="caret"></span></a>
+                      <ul class="dropdown-menu text-center" role="menu" aria-labelledby="menu1">
+                          <li class=""><a href="#">View Profile</a></li>
+                          <li class="divider"></li>
+                          <li><a class="btn" href="/auth/logout"><i class="fa fa-power-off"></i> Logout</a></li>
+                      </ul>
+                    </li>
+                  @else
+                    <li class="hidden-lg hidden-md"><a class="btn" href="/auth/login" class=""><i class="fa fa-power-off"></i> <span>Login</span></a></li>
+                  @endif
+                  <!-- HEADER REGISTER -->
+                  @if (Auth::guest())
+                    <li class="hidden-lg hidden-md"><a class="btn" href="/auth/register" class=""><i class="fa fa-plus-square"></i> <span>Register</span></a></li>
+                  @endif
+                  <li class="text-center hidden-lg hidden-md"><a href="/biz/create" class=""><i class="fa fa-plus"></i> Add a Business</a></li>
+
+                  <li class="divider"></li>
                   <li class=""><a href="/">Home<i class="fa fa-home"></i></a></li>
                   <li><a href="/categories">Categories</a></li>
                   <li class="bg-color active"><a href="/businesses">Businesses</a></li>
@@ -30,16 +52,15 @@
 <!-- CONTENT -->
 @section('content')
   @include('partials.notifications')
-
   <div id="page-content">
     <div class="container">
     <div class="row">
-      <div class="col-md-9">
+      <div class="col-md-8">
         <div class="row page-title-row">
-          <div class="col-md-8 m5-bttm">
-            <h3 class="m0-top"><a href="/"><i class="fa fa-home"></i> </a> » <a href="/categories">Business Categories </a> » <small>{{$sub->name}} Businesses</small></h3>
+          <div class="col-md-10 m5-bttm">
+            <h3 class="m0-top text-cap"><a href="/"><i class="fa fa-home"></i> </a> » <a href="/categories">Business Categories </a> » <small>{{$sub->name}}</small></h3>
           </div>
-          <div class="col-md-4 text-right">
+          <div class="col-md-2 text-right">
             
           </div>
         </div>
@@ -48,13 +69,19 @@
             <div class="page-content">
               <div class="product-details-list view-switch">
                 <div class="tab-content">
-                  <h3>Showing results for "{{$sub->name}} Businesses"</h3>
-                  <div class="tab-pane active" id=""> 
-                    <div class="change-view">
-                        <button class="grid-view"><i class="fa fa-th"></i></button>
-                        <button class="list-view active"><i class="fa fa-bars"></i></button>
-                    </div> 
-                     <div class="row clearfix">                       
+                  <div class="row p0-top">
+                          <div class="col-md-9">
+                            <h3 class="m0-top">Showing results for "{{$sub->name}}"</h3>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="change-view pull-right">
+                                <button class="grid-view"><i class="fa fa-th"></i></button>
+                                <button class="list-view active"><i class="fa fa-bars"></i></button>
+                            </div> 
+                          </div>
+                  </div>                    
+                  <div class="tab-pane active" id="">  
+                     <div class="row clearfix p5-top">                       
                         @unless ( $bizs->isEmpty() )
                        @foreach ($bizs as $biz) 
                           <div class="col-sm-4 col-xs-6">
@@ -83,7 +110,7 @@
                                     <li><a href="#"><i class="fa fa-star-o"></i></a></li>
                                     <li>50 reviews</li>
                                   </ul>
-                              <span>@foreach( $biz->subcats as $sub) <span><a href="/biz/subcat/{{$sub->id}}"><i class="fa fa-tags"></i> {{$sub->name}}</a></span> @endforeach</span>
+                              <span>@foreach( $biz->subcats as $sub) <span><a class="btn-border" href="/biz/subcat/{{$sub->id}}"><i class="fa fa-tags"></i> {{$sub->name}}</a></span> @endforeach</span>
                               <h5 class="p5-top address-preview"><i class="fa fa-map-marker"></i> <span>{{$biz->address->street}}</span>, <span>{{ $biz-> address->state->name}}</span></h5>
                             </div> <!-- end .single-product -->
                           </div> <!-- end .col-sm-4 grid layout -->   
@@ -111,8 +138,15 @@
         </div> <!-- end .row -->
       </div>
       <!-- SIDEBAR RIGHT -->
-      <div class="col-md-3">
+      <div class="col-md-4">
         <div class="post-sidebar">
+            <!-- AD BAR MINI -->
+            <div class="recently-added ad-mini">
+                <div class="category-item">
+                    <a href=""> <i class="fa fa-newspaper-o"></i> Advert Space (Text) <br><span id="ad1"></span></a>
+                </div>
+            </div>
+            <!-- FEATURED BUSINESSES -->
             <div class="latest-post-content">
                 <h2>Featured Businesses</h2>
                 @if ( ! $featured-> isEmpty() )
@@ -131,9 +165,8 @@
                 </div> <!-- end .latest-post -->
                 @endforeach
                  @endif
-
-
             </div>
+            <!-- RECENTLY ADDED BUSINESSES -->
             <div class="recently-added">
                 <h2>Recently Added</h2>
                  @if ( ! $recent-> isEmpty() )
@@ -155,12 +188,13 @@
                 @endforeach
                 @endif
             </div>
+            <!-- AD BAR MEDIUM -->
             <div class="recently-added">
-                <h2>Advertisement</h2>
-                <div class="category-item">
-                    <a href=""> <i class="fa fa-newspaper-o"></i> Advert Space</a>
-                </div>
+              <div class="ad-box"> 
+                <a href="" class=""><span id="ad2"></span></a>   
+              </div>                           
             </div>
+            <!-- RECENT REVIEWS -->
             <div class="recently-added">
                 <h2>Recent Reviews</h2>
                 <div class="single-product"></div>
@@ -177,6 +211,7 @@
 @endsection
 <!-- FOOTER ENDS -->
 @section('scripts')
+  <script src="{{asset('../plugins/text-rotator/jquery.wordrotator.min.js') }}"></script>
   <script src="{{asset('../plugins/Bootstrap-3.3.5/js/bootstrap.js')}}"></script>    
   <script type="text/javascript">
     $(document).ready(function() {        
@@ -203,9 +238,27 @@
 
       });
 
-      $(function() {
-              
-      });
+      //Text rotator
+      //-------------------------------------------------
+
+          $(document).ready(function () {
+              $("#ad1").wordsrotator({
+                words: ['Local Restaurants (Mama Put)','Hotels','Mechanic Workshops'], 
+                randomize: true, 
+                animationIn: "fadeIn", 
+                animationOut: "fadeOut", 
+                speed: 5000 
+              });
+              $("#ad2").wordsrotator({
+                words: ['<img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=AD1-IMAGE&w=350&h=150">',
+                        '<img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=AD2-IMAGE&w=350&h=140">',
+                        '<img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=AD3-IMAGE&w=350&h=130">'],
+                randomize: true, 
+                animationIn: "fadeIn", 
+                animationOut: "fadeOut", 
+                speed: 5000 
+              });
+          });  
       
   </script>
   <script src="{{asset('js/scripts.js')}}"></script>

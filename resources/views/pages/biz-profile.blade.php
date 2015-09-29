@@ -2,9 +2,9 @@
 <!-- HEAD -->
 @section('title', 'Business Profile')
 @section('stylesheets')
+  <link rel="stylesheet" href="{{ asset('../plugins/text-rotator/jquery.wordrotator.css')}}">
    <link href="{{asset('../plugins/Bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet">
    <link rel="stylesheet" type="text/css" href="{{asset('../plugins/nanogallery/css/nanogallery.min.css')}}">
-   <link href="{{asset('../plugins/bootstrap-editable/bootstrap-editable.css')}}" rel="stylesheet">
 @endsection
 <!-- HEADER -->
 <!-- search -->
@@ -18,6 +18,27 @@
               <nav>
                 <button><i class="fa fa-bars"></i></button>
                 <ul class="primary-nav list-unstyled">
+                  @if (Auth::check())
+                    <li class="hidden-lg hidden-md dropdown text-center"> 
+                   
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="menu1">
+                        <i class="fa fa-user"></i> {{Auth::user()->username}} <span class="caret"></span></a>
+                      <ul class="dropdown-menu text-center" role="menu" aria-labelledby="menu1">
+                          <li class=""><a href="#">View Profile</a></li>
+                          <li class="divider"></li>
+                          <li><a class="btn" href="/auth/logout"><i class="fa fa-power-off"></i> Logout</a></li>
+                      </ul>
+                    </li>
+                  @else
+                    <li class="hidden-lg hidden-md"><a class="btn" href="/auth/login" class=""><i class="fa fa-power-off"></i> <span>Login</span></a></li>
+                  @endif
+                  <!-- HEADER REGISTER -->
+                  @if (Auth::guest())
+                    <li class="hidden-lg hidden-md"><a class="btn" href="/auth/register" class=""><i class="fa fa-plus-square"></i> <span>Register</span></a></li>
+                  @endif
+                  <li class="text-center hidden-lg hidden-md"><a href="/biz/create" class=""><i class="fa fa-plus"></i> Add a Business</a></li>
+
+                  <li class="divider"></li>
                   <li class=""><a href="/">Home<i class="fa fa-home"></i></a></li>
                   <li><a href="/categories">Categories</a></li>
                   <li class="bg-color active"><a href="/businesses">Businesses</a></li>
@@ -87,7 +108,30 @@
           </div>
           <!-- profile tabs -->
           <div class="row">
-            <div class="col-md-9 col-md-push-3">
+            <div class="col-md-3 col-sm-3">
+              
+              <div class="page-sidebar company-sidebar">
+
+                <ul class="company-category nav nav-tabs home-tab" role="tablist">
+                  <li class="active">
+                    <a href="#company-product" role="tab" data-toggle="tab"><i class="fa fa-camera"></i>Gallery</a>
+                  </li>
+
+                  <li>
+                    <a href="#company-contact" role="tab" data-toggle="tab"><i class="fa fa-envelope-o"></i>Contact</a>
+                  </li>
+
+                  <li>
+                    <a href="#company-reviews" role="tab" data-toggle="tab"><i class="fa fa-comments"></i>Reviews</a>
+                  </li>
+                </ul>
+
+                <div class="own-company hidden-xs">
+                  <a href="#">Claim This Company</a>
+                </div>
+              </div> <!-- end .page-sidebar -->
+            </div> <!-- end .main-grid layout -->
+            <div class="col-md-9 col-sm-9">
                 <div class="tab-content">
                   <div class="tab-pane active" id="company-product">
                     <div class="company-product">
@@ -286,103 +330,83 @@
                     </div> <!-- end .company-rating -->
                   </div>
                 </div> <!-- end .tab-content -->
-            </div> <!-- end .main-grid layout -->
-
-            <div class="col-md-3 col-md-pull-9 category-toggle">
-              <button><i class="fa fa-bars"></i></button>
-              <div class="page-sidebar company-sidebar">
-
-                <ul class="company-category nav nav-tabs home-tab" role="tablist">
-                  <li class="active">
-                    <a href="#company-product" role="tab" data-toggle="tab"><i class="fa fa-camera"></i>Gallery</a>
-                  </li>
-
-                  <li>
-                    <a href="#company-contact" role="tab" data-toggle="tab"><i class="fa fa-envelope-o"></i>Contact</a>
-                  </li>
-
-                  <li>
-                    <a href="#company-reviews" role="tab" data-toggle="tab"><i class="fa fa-comments"></i>Reviews</a>
-                  </li>
-                </ul>
-
-                <div class="own-company">
-                  <a href="#">Claim This Company</a>
-                </div>
-              </div> <!-- end .page-sidebar -->
-            </div> <!-- end .main-grid layout -->
+            </div> <!-- end .main-grid layout -->            
           </div> <!-- end .row -->
         </div>
         <!-- SIDEBAR RIGHT -->
-        <div class="col-md-3">
-          <div class="post-sidebar">
-              <div class="recently-added">
-                  <h2>Recent Reviews</h2>
-                  <div class="single-product"></div>
-                  
-              </div>
-             
-              <div class="latest-post-content">
-                  <h2>Featured Businesses</h2>
-                  @if ( ! $featured-> isEmpty() )
-                         @foreach ($featured as $feature)
-                  <div class="latest-post clearfix">
-                    <div class="post-image">
-                      <img src="{{asset('img/content/latest_post_1.jpg') }}" alt="">
+          <div class="col-md-3">
+            <div class="post-sidebar">
+                <!-- AD BAR MINI -->
+                <div class="recently-added ad-mini">
+                    <div class="category-item">
+                        <a href=""> <i class="fa fa-newspaper-o"></i> Advert Space (Text) <br><span id="ad1"></span></a>
                     </div>
+                </div>
+                <!-- FEATURED BUSINESSES -->
+                <div class="latest-post-content">
+                    <h2>Featured Businesses</h2>
+                    @if ( ! $featured-> isEmpty() )
+                           @foreach ($featured as $feature)
+                    <div class="latest-post clearfix">
 
-                    <h4><a href="/review/biz/{{$feature->id}}">{{$feature->name}}</a></h4>
+                      <div class="post-image">
+                        <img src="{{asset('img/content/latest_post_1.jpg') }}" alt="">
+                      </div>
 
-                    <p>Check out this great business on Ndibiz.</p>
+                      <h4><a href="/review/biz/{{$feature->id}}">{{$feature->name}}</a></h4>
 
-                    <a class="read-more" href="/review/biz/{{$feature->id}}"><i class="fa fa-angle-right"></i>Read More</a>
-                  </div> <!-- end .latest-post -->
-                  @endforeach
-                   @endif
+                      <p>Check out this great business on Ndibiz.</p>
 
+                      <a class="read-more" href="/review/biz/{{$feature->id}}"><i class="fa fa-angle-right"></i>Read More</a>
+                    </div> <!-- end .latest-post -->
+                    @endforeach
+                     @endif
+                </div>
+                <!-- RECENTLY ADDED BUSINESSES -->
+                <div class="recently-added">
+                    <h2>Recently Added</h2>
+                     @if ( ! $recent-> isEmpty() )
+                           @foreach ($recent as $new)
+                    <div class="latest-post clearfix">
 
-              </div>
-              <div class="recently-added">
-                  <h2>Recently Added</h2>
-                   @if ( ! $recent-> isEmpty() )
-                         @foreach ($recent as $new)
-                  <div class="latest-post clearfix">
+                      <div class="post-image">
+                        <img src="{{asset('img/content/latest_post_1.jpg') }}" alt="">
 
-                    <div class="post-image">
-                      <img src="{{asset('img/content/latest_post_1.jpg') }}" alt="">
+                        <p><span>12</span>Sep</p>
+                      </div>
 
-                      <p><span>12</span>Sep</p>
-                    </div>
+                      <h4><a href="/review/biz/{{$new->id}}">{{$new->name}}</a></h4>
 
-                    <h4><a href="/review/biz/{{$new->id}}">{{$new->name}}</a></h4>
+                      <p>Recent Biz added on Ndibiz</p>
 
-                    <p>Recent Biz added on Ndibiz</p>
-
-                    <a class="read-more" href="/review/biz/{{$new->id}}"><i class="fa fa-angle-right"></i>Read More</a>
-                  </div> <!-- end .latest-post -->
-                  @endforeach
-                  @endif
-              </div>
-              <div class="recently-added">
-                  <h2>Advertisement</h2>
-                  <div class="category-item">
-                      <a href=""> <i class="fa fa-newspaper-o"></i> Advert Space</a>
-                  </div>
-              </div>
-              
+                      <a class="read-more" href="/review/biz/{{$new->id}}"><i class="fa fa-angle-right"></i>Read More</a>
+                    </div> <!-- end .latest-post -->
+                    @endforeach
+                    @endif
+                </div>
+                <!-- AD BAR MEDIUM -->
+                <div class="recently-added">
+                  <div class="ad-box"> 
+                    <a href="" class=""><span id="ad2"></span></a>   
+                  </div>                           
+                </div>
+                <!-- RECENT REVIEWS -->
+                <div class="recently-added">
+                    <h2>Recent Reviews</h2>
+                    <div class="single-product"></div>
+                </div>
+            </div>
           </div>
-        </div>
        </div>
     </div> <!-- end .container -->
   </div> <!-- end #page-content -->
 @endsection
 
 @section('scripts')
+  <script src="{{asset('../plugins/text-rotator/jquery.wordrotator.min.js') }}"></script>
   <script src="{{asset('../plugins/Bootstrap-3.3.5/js/bootstrap.js')}}"></script> 
   <script type="text/javascript" src="{{asset('../plugins/nanogallery/jquery.nanogallery.min.js')}}"></script>
-  <script type="text/javascript" src="{{asset('https://maps.googleapis.com/maps/api/js')}}"></script>
-  <script src="{{asset('../plugins/bootstrap-editable/bootstrap-editable.min.js')}}"></script>
-    
+  <script type="text/javascript" src="{{asset('https://maps.googleapis.com/maps/api/js')}}"></script>    
   <script type="text/javascript">    
 
     function initialize() {
@@ -409,6 +433,28 @@
             thumbnailWidth: 150
         });
     });
+
+    //Text rotator
+      //-------------------------------------------------
+
+          $(document).ready(function () {
+              $("#ad1").wordsrotator({
+                words: ['Local Restaurants (Mama Put)','Hotels','Mechanic Workshops'], 
+                randomize: true, 
+                animationIn: "fadeIn", 
+                animationOut: "fadeOut", 
+                speed: 5000 
+              });
+              $("#ad2").wordsrotator({
+                words: ['<img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=AD1-IMAGE&w=350&h=150">',
+                        '<img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=AD2-IMAGE&w=350&h=140">',
+                        '<img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=AD3-IMAGE&w=350&h=130">'],
+                randomize: true, 
+                animationIn: "fadeIn", 
+                animationOut: "fadeOut", 
+                speed: 5000 
+              });
+          });  
       
   </script>
   <script src="{{asset('js/scripts.js')}}"></script>

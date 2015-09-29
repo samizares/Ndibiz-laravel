@@ -950,6 +950,9 @@ th {
 .m20-right { margin-right: 20px !important; }
 .m20-left { margin-left: 20px !important; }
 
+.text-cap {text-transform: capitalize;}
+.text-upper {text-transform: uppercase;}
+
 .dataTables_filter {
   float: right;
 }
@@ -3365,6 +3368,9 @@ fieldset[disabled] .btn-default-inverse.active {
   margin-right: 3px;
   margin-bottom: 3px;
 }
+.btn-border:hover{
+  border: solid 1px #FFD231;
+}
 .btn-default:hover,
 .btn-default:focus,
 .btn-default.focus,
@@ -3415,6 +3421,7 @@ fieldset[disabled] .btn-default.active {
 /* --------------------------------------- */
 /* Header Top Bar */
 /* ---------------------------------------------- */
+#header .header-auth,
 #header .header-top-bar {
   width: 100%;
   padding: 10px 0;
@@ -3519,6 +3526,7 @@ fieldset[disabled] .btn-default.active {
     font-size: 28px;
     line-height: 21px;
 }
+#header .header-auth h2.header-logo a span,
 #header .header-top-bar h2.header-logo a span {
   display: block;
   font-size: 10px;
@@ -3546,12 +3554,14 @@ fieldset[disabled] .btn-default.active {
   color: #333;
   text-transform: uppercase;
 }
+#header .header-auth h2.header-logo,
 #header .header-top-bar h2.header-logo {
   margin: 0;
   font-family: 'Raleway', sans-serif;
   font-weight: 800;
   text-transform: uppercase;
 }
+#header .header-auth .header-logo a .fa,
 #header .header-top-bar .header-logo a .fa {
   color: #fdc600;
 }
@@ -3689,10 +3699,13 @@ fieldset[disabled] .btn-default.active {
     top: 80px;
   }
   #header .header-top-bar .header-logo {
-    position: absolute;
     top: 10px;
     left: 6%;
     width: 100%;
+  }
+  #header .header-auth .header-logo {
+    width: 100%;
+    text-align: center;
   }
 }
 @media (max-width: 992px) and (max-width: 480px) {
@@ -5775,7 +5788,7 @@ fieldset[disabled] .btn-default.active {
 }
 .product-details-list .tab-pane .col-sm-4 {
   float: none;
-  width: 80%;
+  width: 100%;
 }
 @media (max-width: 992px) {
   .product-details-list .tab-pane .col-sm-4 {
@@ -5944,7 +5957,10 @@ fieldset[disabled] .btn-default.active {
   text-align: center;
   transition: all .3s ease;
 }
-.category-item a {display: block;}
+.ad-mini .category-item a,
+.category-item a {
+  display: block;
+}
 
 .category-item a .sub-counter span {
   top: 35px;
@@ -5962,6 +5978,29 @@ fieldset[disabled] .btn-default.active {
   font-size: 15px;
   font-weight: bold;
   text-transform: capitalize;
+}
+.ad-mini .category-item a {
+
+}
+.ad-mini .category-item {
+  margin-bottom: 0px;
+}
+.ad-mini .category-item a {
+  position: relative;  
+  height: 100%;
+  padding: 30px 10px;
+  font-size: 15px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+.post-sidebar .ad-box {
+  padding: 10px;
+  overflow: hidden;
+  height: 150px;
+}
+.post-sidebar .ad-box a img {
+  width: 100%;
+  height: auto;
 }
 /*.category-item a .fa {
   display: block;
