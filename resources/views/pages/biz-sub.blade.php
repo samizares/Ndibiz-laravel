@@ -2,20 +2,12 @@
 <!-- HEAD -->
 @section('title', 'Subcategory Businesses')
 @section('stylesheets')
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+   <link href="{{asset('../plugins/Bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet">
 @endsection
 <!-- HEADER -->
 <!-- search -->
 @section('search')
   @include('partials.search')
-@endsection
-<!-- breadcrumbs -->
-@section('breadcrumb')
-      <div class="breadcrumb">
-        <div class="featured-listing" style="margin:0;">
-            <h2 class="page-title" style="margin:0;">Showing results for "{{$sub->name}} Businesses"</h2>
-        </div>
-      </div>
 @endsection
 <!-- navigation -->
 @section('header-navbar')
@@ -178,18 +170,16 @@
     </div>
     </div> <!-- end .container -->
   </div>  <!-- end #page-content -->
-
 @endsection
-
+<!-- FOOTER STARTS -->
+@section('footer')
+  @include('includes.footer')
+@endsection
+<!-- FOOTER ENDS -->
 @section('scripts')
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    
+  <script src="{{asset('../plugins/Bootstrap-3.3.5/js/bootstrap.js')}}"></script>    
   <script type="text/javascript">
-    $(document).ready(function() {
-       
-       // $('.tab-pane a[href="#fashion"]').tab('show');
-       // $('#fashion').tab('show');
-        
+    $(document).ready(function() {        
         $('li:first-child').addClass('active');
         $('.tab-pane:first-child ').addClass('active');
     });

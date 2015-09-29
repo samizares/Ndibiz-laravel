@@ -2,22 +2,14 @@
 <!-- HEAD -->
 @section('title', 'Business Profile')
 @section('stylesheets')
-   <link rel="stylesheet" href="{{asset('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css')}}">
-   <link rel="stylesheet" type="text/css" href="{{asset('plugins/nanogallery/css/nanogallery.min.css')}}">
-   <link href="{{asset('plugins/bootstrap-editable/bootstrap-editable.css')}}" rel="stylesheet">
+   <link href="{{asset('../plugins/Bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet">
+   <link rel="stylesheet" type="text/css" href="{{asset('../plugins/nanogallery/css/nanogallery.min.css')}}">
+   <link href="{{asset('../plugins/bootstrap-editable/bootstrap-editable.css')}}" rel="stylesheet">
 @endsection
 <!-- HEADER -->
 <!-- search -->
 @section('search')
   @include('partials.search')
-@endsection
-<!-- breadcrumbs -->
-@section('breadcrumb')
-      <div class="breadcrumb">
-        <div class="featured-listing" style="margin:0;">
-            <h2 class="page-title" style="margin:0;">{{$biz->name}} Profile</h2>
-        </div>
-      </div>
 @endsection
 <!-- navigation -->
 @section('header-navbar')
@@ -58,15 +50,15 @@
           </div>
           <!-- profile overview -->
           <div class="row p20-bttm p20-top profile-overview">
-            <div class="col-md-3">
+            <div class="col-md-3 col-sm-3">
               <figure class="center-block">
                   <img class="center-block" src="{{asset('img/content/post-img-10.jpg') }}" alt="">
               </figure>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-9 col-sm-9 col-xs-12">
                 <h2>{{$biz->name}}</h2>
                 <div class="row">
-                    <div class="col-md-9">              
+                    <div class="col-md-8 p20-bttm">              
                         <p class="m5-bttm"><i class="fa fa-tags" style="margin-top:2px;"></i> @foreach($biz->cats as $cat)<span><a class="btn btn-border" href="#">{{$cat->name}}</a></span> @endforeach                      
                         @foreach($biz->subcats as $sub)<span><a class="btn btn-border" href="#">{{$sub->name}}</a></span>@endforeach</p>
                         <p class="m5-bttm address-preview"><i class="fa fa-map-marker"></i> <span>{{$biz->address->street}}</span>, <span>{{$biz->address->lga->name}}</span>, <span>{{ $biz-> address->state->name}}</span>, Nigeria.</p>
@@ -74,10 +66,10 @@
                         <p class="m5-bttm"> <i class="fa fa-phone"></i> (+234)-{{$biz->phone2}}</p>
                         <p><span><i class="fa fa-external-link"></i>  {{$biz->website}}</span></p>
                     </div>
-                    <div class="col-md-3">
-                            <div class="opening-hours">
-                              <h5><i class="fa fa-clock-o"></i> Opening Hours</h5>
-                              <table>
+                    <div class="col-md-4">
+                            <div class="opening-hours table-responsive">
+                              <h5 class="m0 p0"><i class="fa fa-clock-o"></i> Opening Hours</h5>                              
+                              <table class="table">
                                 <tbody>
                                   <tr><th>Mon:</th>  <td>9AM-5PM</td></tr>
                                   <tr><th>Tues:</th> <td>9AM-5PM</td></tr>
@@ -386,10 +378,10 @@
 @endsection
 
 @section('scripts')
-  <script src="{{asset('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js')}}"></script>
-  <script type="text/javascript" src="{{asset('plugins/nanogallery/jquery.nanogallery.min.js')}}"></script>
+  <script src="{{asset('../plugins/Bootstrap-3.3.5/js/bootstrap.js')}}"></script> 
+  <script type="text/javascript" src="{{asset('../plugins/nanogallery/jquery.nanogallery.min.js')}}"></script>
   <script type="text/javascript" src="{{asset('https://maps.googleapis.com/maps/api/js')}}"></script>
-  <script src="{{asset('plugins/bootstrap-editable/bootstrap-editable.min.js')}}"></script>
+  <script src="{{asset('../plugins/bootstrap-editable/bootstrap-editable.min.js')}}"></script>
     
   <script type="text/javascript">    
 

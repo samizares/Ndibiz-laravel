@@ -2,21 +2,12 @@
 <!-- HEAD -->
 @section('title', 'Businesses')
 @section('stylesheets')
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+   <link href="{{asset('../plugins/Bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet">
 @endsection
 <!-- HEADER -->
 <!-- search -->
 @section('search')
   @include('partials.search')
-@endsection
-<!-- breadcrumbs -->
-@section('breadcrumb')
-      <div class="breadcrumb">
-        <div class="breadcrumb-inner m0">
-            <h2 class="page-title m0 p10-bttm">Business Listings</h2>
-            <p class="animated fadeInRight">View <strong>{{$totalBiz}}</strong> diverse businesses and their reviews.</p>
-        </div>
-      </div>
 @endsection
 <!-- navigation -->
 @section('header-navbar')
@@ -60,7 +51,6 @@
 <!-- CONTENT -->
 @section('content')
   @include('partials.notifications')
-
   <div id="page-content">
     <div class="container">
       <div class="home-with-slide category-listing">
@@ -225,7 +215,6 @@
       </div> <!-- end .home-with-slide -->
     </div> <!-- end .container -->
   </div>  <!-- end #page-content -->
-
 @endsection
 <!-- CONTENT ENDS-->
 <!-- FOOTER STARTS -->
@@ -235,8 +224,7 @@
 <!-- FOOTER ENDS -->
 
 @section('scripts')
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    
+  <script src="{{asset('../plugins/Bootstrap-3.3.5/js/bootstrap.js')}}"></script>    
   <script type="text/javascript">
     $(document).ready(function() {        
         $('li:first-child').addClass('active');
@@ -260,8 +248,7 @@
             }
         });
 
-      });
-      
+      });      
   </script>
-  <script src="{{asset('js/scripts.js')}}"></script>
+  <script src="{{asset('../js/scripts.js')}}"></script>
 @endsection

@@ -87,8 +87,9 @@
                             <div class="col-md-3 col-sm-4 col-xs-6">
                               <div class="category-item">
                                <a class="btn" href="/biz/subcat/{{$sub->id}}"><span class="">{{$sub->name}}</span>
-                               <p class="biz-counter animated slideIn">
-                                  <span class="">{{$sub->biz->count()}}</span>
+                               <p class="sub-counter animated slideIn">
+                                  <span>{{$sub->name}}</span>
+                                  <span class="biz-counter">{{$sub->biz->count()}} businesses <i class="fa fa-building"></i></span>
                                </p>
                                </a>
                               </div>
