@@ -15,7 +15,7 @@
   @section('breadcrumb')
         <div class="breadcrumb">
           <div class="featured-listing" style="margin:0;">
-              <h2 class="page-title animated fadeInLeft" style="margin:0;">Admin >> Business Listings</h2>
+              <h2 class="page-title animated fadeInLeft" style="margin:0;">Admin >> User Listings</h2>
           </div>
         </div>
   @endsection
@@ -41,49 +41,39 @@
       @include('admin.partials.success')
       <div class="row page-title-row">
         <div class="col-md-6">
-          <h3><a href="/admin">Admin</a> <small>» Business Listings({{ $totalBiz}})</small></h3>
-        </div>
-        <div class="col-md-6 text-right">
-          <a href="/admin/biz/create" class="btn btn-default-inverse btn-md">
-            <i class="fa fa-plus-circle"></i> New Business
-          </a>
+          <h3><a href="/admin">Admin</a> <small>» User Listings({{ $totalUser}})</small></h3>
         </div>
       </div>
       <div class="row">
         <div class="col-md-9 col-md-push-3">
 
-          <table id="biz-table" class="table table-striped table-bordered">
+          <table id="user-table" class="table table-striped table-bordered">
             <thead>
               <tr>
-                <th>Business name</th>
-                <th>Featured</th>
-                <th>category</th>
-                <th>Sub-Category</th>
-                <th>State</th>
+                <th>User Name</th>
+                <th>Email</th>
+                <th>Confirmed </th>
+                <th>Notify</th>
+                <th>Admin</th>
                 <th data-sortable="false">Actions</th>
               </tr>
             </thead>
             <tbody>
-              @foreach ($bizs as $biz)
+              @foreach ($users as $user)
                 <tr>
-                  <td>{{ $biz-> name }}</td>
+                  <td>{{ $user-> username }}</td>
+                   <td>{{ $user-> email }}</td>
+                   <td>{{ $user-> confirmed }}</td>
+                   <td>{{ $user-> notify }}</td>
                   <td> 
-                    <span class="featured" id="{{$biz->id}}">{{ $biz->featured }}</span></td>
-                  <td>@foreach($biz->cats as $cat)
-                   <li>{{ $cat->name }} </li> @endforeach</td> 
-
-                   <td>@foreach($biz->subcats as $sub)
-                   <li>{{ $sub->name }} </li> @endforeach</td>
-                  <td>{{ $biz-> address->state->name}}</td>
-                  <td>
-                     <a href="/review/biz/{{$biz->id}}"
-                               class="btn btn-xs btn-default-inverse animated fadeInLeft" data-toggle="tooltip" data-placement="top" title="View Business Info">
+                    <span class="admin" id="{{$user->id}}">{{ $user->admin }}</span></td>
+                
+                  <td> @if(Auth::user()->id == $user->id)  <a href="/admin/user/{{$user->id}}/edit"
+                               class="btn btn-xs btn-default-inverse animated fadeInLeft" data-toggle="tooltip" data-placement="top" title="View User Info">
                               <i class="fa fa-eye"></i>
                             </a>
-                            <a href="/admin/biz/{{$biz->id}}/edit"
-                               class="btn btn-xs btn-default-inverse animated fadeIn" data-toggle="tooltip" data-placement="top" title="Edit Business Info">
-                              <i class="fa fa-edit"></i>
-                            </a>
+
+                            @endif
               
                   </td>
                 </tr>
@@ -95,7 +85,7 @@
             <button><i class="fa fa-briefcase"></i></button>
             <div class="post-sidebar">
                   <div class="latest-post-content">
-                      <h2>Admin Biz Panel</h2>
+                      <h2>Admin User Panel</h2>
                       <div class="single-product"></div>
                   </div>
             </div>
@@ -117,7 +107,8 @@
     <script type="text/javascript">
         // Datatables
         //-----------------------------------------------------
-          
+        
+
           $(document).ready(function () {
               $('.bizpop').popover({
                   content: function () {
@@ -130,7 +121,7 @@
           });
 
           $(function() {
-              $("#biz-table").DataTable({
+              $("#user-table").DataTable({
                 order: [[0, "desc"]]
               });
             });
@@ -146,14 +137,14 @@
                 params._token = $("meta[name=token]").attr("content");
                 return params;
             };
-            $('.featured').editable();
+            $('.admin').editable();
              $(document).on('click','.editable-submit',function(){
               var x = $(this).closest('td').children('span').attr('id');
               var y= $("input:text").val();
            //   var y = $('.input-sm').val();
               var z = $(this).closest('td').children('span');
               $.ajax({
-                url: "{{ URL::to('api/featured')}}?id="+x+"&data="+y,
+                url: "{{ URL::to('api/admin')}}?id="+x+"&data="+y,
                 type: 'GET',
                 success: function(s){
                   if(s == 'status'){
@@ -165,13 +156,7 @@
                   alert('Error Processing your Request!!');
                 }
               });
-            /*  type:'text',
-              title:'Edit Featured',
-              url: '{{ URL::to('api/featured')}}',
-              pk: '{{$biz->id}}',
-              ajaxOptions: {
-                dataType: 'json'
-                }  */
+           
                   
             });
           });

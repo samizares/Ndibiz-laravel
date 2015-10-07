@@ -144,6 +144,8 @@ return [
         App\Providers\AppServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\NewsletterListServiceProvider::class,
+        App\Providers\NotificationsServiceProvider::class
 
     ],
 

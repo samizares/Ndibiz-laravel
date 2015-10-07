@@ -13,11 +13,11 @@
 
 
 Route::get('/', 'HomeController@index');
-Route::get('/home', 'HomeController@index');
+Route::get('home', 'HomeController@home');
 Route::post('search/business', 'HomeController@searchResult');
-Route::get('/categories', 'HomeController@categories');
-Route::get('/businesses', 'HomeController@businesses');
-Route::get('/search-results', 'HomeController@searchResults');
+Route::get('categories', 'HomeController@categories');
+Route::get('businesses', 'HomeController@businesses');
+Route::get('search-results', 'HomeController@searchResults');
 //Route::get('bizreg', 'HomeController@regbiz');
 Route::get('review/biz/{id}', 'HomeController@getBizreview');
 Route::post('review/biz/{id}', 'HomeController@postReview');
@@ -39,6 +39,7 @@ Route::get('api/company', 'ApiController@company');
 Route::get('api/lga', 'ApiController@lga');
 Route::get('api/subcat', 'ApiController@subcat');
 Route::get('api/featured', 'ApiController@featured');
+Route::get('api/admin', 'ApiController@admin');
 
 // Admin area
 //get('admin', function () {
@@ -47,11 +48,12 @@ Route::get('api/featured', 'ApiController@featured');
 
 $router->group([
   'namespace' => 'Admin',
-  'middleware' => 'auth',
+  'middleware' => 'admin',
 ], function () {
-  resource('admin/', 'AdminController@index');
+  get('admin/', 'AdminController@index');
   resource('admin/biz', 'BizController');
   resource('admin/cat', 'CatController');
+  resource('admin/user','UsersController');
   resource('admin/location', 'LocationController');
   get('admin/upload', 'UploadController@index');
   post('admin/sub', 'SubCatController@deleteSub');

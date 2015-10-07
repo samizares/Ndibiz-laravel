@@ -16,7 +16,26 @@ use App\Review;
 
 class HomeController extends Controller
 {
+
+	public function __construct()
+    {
+        $this->middleware('auth',['only'=>'home']);
+    }
+
    public function index()
+	{
+		$cats = Cat::all()->take(5);
+		$bizs = Biz::orderBy('created_at', 'desc')->take(6);
+		$totalCat=Cat::count();
+		$totalSubCat=subCat::count();
+		$stateList= State::lists('name','id');
+		$catList   = SubCat::lists('name','id')->take(8); 
+	    $featured= Biz::whereFeatured('YES')->get();
+		return view('pages.index', compact('stateList','catList','cats','featured', 'totalCat', 'totalSubCat',
+		 'subs'));
+	}
+
+	public function home()
 	{
 		$cats = Cat::all()->take(5);
 		$bizs = Biz::orderBy('created_at', 'desc')->take(6);
@@ -167,14 +186,25 @@ class HomeController extends Controller
 	 	$stateList= State::lists('name','name');
 		$catList   = Cat::lists('name','name');
 	 	  $biz = Biz::findOrFail($id);
+	 	  $hours=$biz->hours;
+	 	  $mon=$biz->hours->where('day','MON')->first();
+	 	  $tue=$biz->hours->where('day','TUE')->first();
+	 	  $wed=$biz->hours->where('day','WED')->first();
+	 	  $thu=$biz->hours->where('day','THU')->first();
+	 	  $fri=$biz->hours->where('day','FRI')->first();
+	 	  $sat=$biz->hours->where('day','SAT')->first();
+	 	  $sun=$biz->hours->where('day','SUN')->first();
+	 	  //dd($mon->open_time);
+	 	 
+	 	 // $mon=\App\BusinessHour::all();
         // Get all reviews that are not spam for the business and paginate them
         $reviews = $biz->reviews()->with('user')->approved()->notSpam()
         ->orderBy('created_at','desc')->paginate(50);
         $featured= Biz::whereFeatured('YES')->paginate(3);
 		$recent= Biz::orderBy('created_at', 'desc')->paginate(1);
 
-         return view('pages.biz-profile', array('biz'=>$biz,'reviews'=>$reviews,
-         		'stateList'=>$stateList,'catList'=>$catList), compact('featured','recent'));
+         return view('pages.biz-profile', array('biz'=>$biz,'reviews'=>$reviews,'stateList'=>$stateList,
+         	'catList'=>$catList), compact('featured','recent','mon','tue','wed','thu','fri','sat','sun'));
 	 }
 
 	 public function bizSub($id)

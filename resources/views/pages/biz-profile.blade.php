@@ -79,13 +79,29 @@
                               <h5><i class="fa fa-clock-o"></i> Opening Hours</h5>
                               <table>
                                 <tbody>
-                                  <tr><th>Mon:</th>  <td>9AM-5PM</td></tr>
-                                  <tr><th>Tues:</th> <td>9AM-5PM</td></tr>
-                                  <tr><th>Wed:</th> <td>9AM-5PM</td></tr>
-                                  <tr><th>Thurs:</th>  <td>9AM-5PM</td></tr>
-                                  <tr><th>Fri:</th> <td>9AM-5PM</td></tr>
-                                  <tr><th>Sat:</th> <td>9AM-5PM</td></tr>
-                                  <tr><th>Sun:</th> <td>9AM-5PM</td></tr>
+                                  <tr><th>Mon:</th>  
+                                    <td> <span class="mon_from" id="{{$mon->id}}">{{$mon->open_time}}</span>AM-</td>
+                                    <td> <span class="mon_to" id="{{$mon->id}}">{{$mon->close_time}}</span>PM</td></tr>
+
+                                  <tr><th>Tues:</th>
+                                    <td> <span class="tue_from" id="{{$tue->id}}">{{$tue->open_time}}</span>AM-</td>
+                                    <td> <span class="tue_to" id="{{$tue->id}}">{{$tue->close_time}}</span>PM</tyd></tr>
+
+                                  <tr><th>Wed:</th> 
+                                    <td> <span class="wed_from" id="{{$wed->id}}">{{$wed->open_time}}</span>AM-</td>
+                                    <td> <span class="wed_to" id="{{$wed->id}}">{{$wed->close_time}}</span>PM</td></tr>
+
+                                  <tr><th>Thurs:</th>
+                                     <td> <span class="thu_from" id="{{$thu->id}}">{{$thu->open_time}}</span>AM-</td>
+                                     <td> <span class="thu_to" id="{{$thu->id}}">{{$thu->close_time}}</span>PM</td></tr>
+
+                                  <tr><th>Fri:</th>
+                                    <td> <span class="fri_from" id="{{$fri->id}}">{{$fri->open_time}}</span>AM-</td>
+                                    <td> <span class="fri_to" id="{{$fri->id}}">{{$fri->close_time}}</span>PM</td></tr>
+
+                                  <tr><th>Sat:</th> 
+                                    <td> <span class="sat_from" id="{{$sat->id}}">{{$sat->open_time}}</span>AM-</td>
+                                    <td> <span class="sat_to" id="{{$sat->id}}">{{$sat->close_time}}</span>PM</td></tr>
                                 </tbody>
                               </table>
                             </div>
@@ -419,5 +435,6 @@
     });
       
   </script>
+  <script src="{{asset('js/xeditable.js')}}"></script>
   <script src="{{asset('js/scripts.js')}}"></script>
 @endsection

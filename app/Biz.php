@@ -14,6 +14,10 @@ class Biz extends Model
     {
       return $this->hasOne('App\Address');
     }
+    public function hours()
+    {
+      return $this->hasMany('App\BusinessHour');
+    }
 
    public function ownerbiz()
     {

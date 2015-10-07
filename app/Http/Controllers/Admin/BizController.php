@@ -77,6 +77,15 @@ class BizController extends Controller
 
         $subs= $request->input('sub');
         $biz->subcats()->sync($subs);
+
+        $mon = App\BusinessHour::create(['day' => 'MON','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
+        $tue = App\BusinessHour::create(['day' => 'TUE','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
+        $wed = App\BusinessHour::create(['day' => 'WED','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
+        $thu = App\BusinessHour::create(['day' => 'THU','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
+        $fri = App\BusinessHour::create(['day' => 'FRI','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
+        $sat = App\BusinessHour::create(['day' => 'SAT','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
+        $sun = App\BusinessHour::create(['day' => 'SUN','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
+
        
         return redirect('/admin/biz')
          ->withSuccess("The business '$biz->name' has been created.");

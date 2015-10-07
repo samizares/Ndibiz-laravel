@@ -106,9 +106,7 @@ class ApiController extends Controller
       } else {
         $data[]= array('id'=>'0','text'=>'No Subcategories found');
         }
-      }
-
-      
+      }    
     
       return \Response::json(['data'=>$data]);
 
@@ -146,6 +144,48 @@ class ApiController extends Controller
       $biz->featured = $newValue;
 
      if($biz->save()) 
+        return \Response::json(array('status'=>1));
+    else 
+        return \Response::json(array('status'=>'error','msg'=>'could not be updated'));
+    }
+
+     public function admin()
+    {
+      $user_id=\Input::get('id');
+      $newValue=\Input::get('data');
+
+      $user=\App\User::whereId($user_id)->first();
+      $user->admin = $newValue;
+
+     if($user->save()) 
+        return \Response::json(array('status'=>1));
+    else 
+        return \Response::json(array('status'=>'error','msg'=>'could not be updated'));
+    }
+
+    public function opened()
+    {
+      $bh_id=\Input::get('id');
+      $newValue=\Input::get('data');
+
+      $bh=\App\BusinessHour::whereId($bh_id)->first();
+      $bh->open_time = $newValue;
+
+     if($bh->save()) 
+        return \Response::json(array('status'=>1));
+    else 
+        return \Response::json(array('status'=>'error','msg'=>'could not be updated'));
+    }
+
+    public function closed()
+    {
+      $bh_id=\Input::get('id');
+      $newValue=\Input::get('data');
+
+      $bh=\App\BusinessHour::whereId($bh_id)->first();
+      $bh->close_time = $newValue;
+
+     if($bh->save()) 
         return \Response::json(array('status'=>1));
     else 
         return \Response::json(array('status'=>'error','msg'=>'could not be updated'));

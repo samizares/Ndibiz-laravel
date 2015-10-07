@@ -12,6 +12,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 {
     use Authenticatable, CanResetPassword;
 
+    public function updateCredentials($input)
+    {
+        $this->notify = isset($input['notify']) ? 1 : 0;
+        $this->save();
+    }
+
     /**
      * The database table used by the model.
      *
