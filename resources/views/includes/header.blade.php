@@ -14,6 +14,14 @@
               <li><a href="/businesses" class=""><i class="fa fa-building"></i> Explore</a></li>
               <li><a href="/biz/create" class="btn btn-default p5 p10-left p10-right"><i class="fa fa-plus"></i> Add a Business</a></li>
             </ul>
+            <div class="header-search-bar hidden">
+              {!!Form::open(['method'=> 'POST', 'url'=>'/search/business']) !!}
+              <div class="category-search">
+                <select id="category2" name="category" placeholder="Search keywords e.g. pizza, bars, restaurants..."></select> 
+              </div>
+              <button class="search-btn" type="submit"><i class="fa fa-search"></i> <span class="hidden-lg hidden-md hidden-sm">Search</span></button>
+              {!!Form::close() !!}
+            </div> <!-- END .header-search-bar -->
           </nav>
       
         <!-- END HEADER LOGO -->
@@ -25,7 +33,8 @@
                 <a class="btn" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                   <span class="fa fa-user fa-fw"></span> {{Auth::user()->username}}<span class="fa fa-angle-down"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a class="btn" href="{{ URL::to('auth/logout') }}"><i class="fa fa-power-off"></i> Logout</a></li>
+                    <li><a href="/user-profile"><i class="fa fa-user"></i> View Profile</a></li>
+                    <li><a href="{{ URL::to('auth/logout') }}"><i class="fa fa-power-off"></i> Logout</a></li>
                 </ul>
               </li>       
               @else

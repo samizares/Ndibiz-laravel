@@ -17,6 +17,7 @@ Route::get('/home', 'HomeController@index');
 Route::post('search/business', 'HomeController@searchResult');
 Route::get('/categories', 'HomeController@categories');
 Route::get('/businesses', 'HomeController@businesses');
+Route::get('/user-profile', 'HomeController@userProfile');
 Route::get('/search-results', 'HomeController@searchResults');
 //Route::get('bizreg', 'HomeController@regbiz');
 Route::get('review/biz/{id}', 'HomeController@getBizreview');

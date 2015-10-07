@@ -43,6 +43,18 @@ class HomeController extends Controller
 		return view('pages.businesses', compact('stateList','catList','cats','bizs','featured','recent', 'totalBiz', 'totalCat'));
 	}
 
+	public function userProfile()
+	{
+		$cats = Cat::all();
+		$bizs = Biz::orderBy('created_at', 'desc')->paginate(6);
+		$stateList= State::lists('name','name');
+		$catList   = Cat::lists('name','name'); 
+		 $featured= Biz::whereFeatured('YES')->paginate(3);
+		 $recent= Biz::orderBy('created_at', 'desc')->paginate(2);
+		// dd($featured);
+		return view('pages.user-profile', compact('stateList','catList','cats','bizs','featured','recent', 'totalBiz', 'totalCat'));
+	}
+
 	public function categories()
 	{
 
