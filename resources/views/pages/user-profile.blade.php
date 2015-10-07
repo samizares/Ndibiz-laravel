@@ -103,13 +103,11 @@
               <div class="page-sidebar company-sidebar">
                 <ul class="company-category nav nav-tabs home-tab" role="tablist">
                     <li class="active">
-                      <a href="#company-product" role="tab" data-toggle="tab"><i class="fa fa-camera"></i> Gallery</a>
+                      <a href="#biz-photos" role="tab" data-toggle="tab"><i class="fa fa-camera"></i> Gallery</a>
                     </li>
-
                     <li>
-                      <a href="#fav" role="tab" data-toggle="tab"><i class="fa fa-envelope-o"></i> Favourites</a>
+                      <a href="#fav" role="tab" data-toggle="tab"><i class="fa fa-heart"></i> Favourites</a>
                     </li>
-
                     <li>
                       <a href="#company-reviews" role="tab" data-toggle="tab"><i class="fa fa-comments"></i> Reviews</a>
                     </li>
@@ -118,12 +116,13 @@
               </div> <!-- end .main-grid layout -->
               <div class="col-md-9 col-sm-9">
               <div class="tab-content">
-                  <div class="tab-pane active" id="company-product">
+                  <div class="tab-pane active" id="biz-photos">
                     <div class="company-product">
                       <h3 class="text-uppercase m10-top">Gallery</h3>
                       <div class="row">
                             <div id="nanoGallery3">
-                                <a href="post-img-2.jpg" data-ngthumb="post-img-2.jpg" data-ngdesc="Description1">Title Image1</a>
+                                <a href="post-img-2.jpg" data-ngthumb="post-img-2.jpg" data-ngdesc="Description1">
+                                  <span>Title Image1</span> <span class="text-right"><i class="fa fa-trash"></i></span></a>
                                 <a href="post-img-2.jpg" data-ngthumb="post-img-2.jpg" data-ngdesc="Description1">Title Image1</a>
                                 <a href="post-img-2.jpg" data-ngthumb="post-img-2.jpg" data-ngdesc="Description1">Title Image1</a>
                                 <a href="post-img-2.jpg" data-ngthumb="post-img-2.jpg" data-ngdesc="Description1">Title Image1</a>
@@ -158,7 +157,8 @@
                                     </ul>
                                   </div> <!-- end .rating --></a>
                                 </figure>
-                                <h5>{{$feature->name}}</h5>
+                                <h5 class="m5-bttm">{{$feature->name}}</h5>
+                                <p class="m5-bttm"><span data-toggle="tooltip" title="Remove from favourites"><a href=""><i class="fa fa-trash"></i></a></span></p>
                               </div> <!-- end .single-product -->
                             </div>
                             @endforeach
@@ -347,7 +347,7 @@
             itemsBaseURL:"{{asset('../img/content/')}}",
             thumbnailHoverEffect:'imageScale150',
             thumbnailHeight:100,
-            thumbnailWidth: 150
+            thumbnailWidth: 200
         });
     });
 
