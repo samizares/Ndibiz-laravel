@@ -89,9 +89,10 @@
                     </div>
                     <div class="col-md-4">
                         <div class="btn-group">
-                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Edit Profile"><i class="fa fa-cog"></i>Edit Profile</button>
-                        <!-- <button type="button" class="btn btn-default" data-toggle="tooltip" title="Like User"><i class="fa fa-heart"></i></button>
-                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Share"><i class="fa fa-share-alt"></i></button> -->
+                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Edit Profile"><i class="fa fa-cog"></i></button>
+                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Add Photo"><i class="fa fa-camera"></i></button>
+                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Add Review"><i class="fa fa-comment"></i></button>
+                        <!-- <button type="button" class="btn btn-default" data-toggle="tooltip" title="Share"><i class="fa fa-share-alt"></i></button> -->
                        </div>
                     </div>
                 </div>
