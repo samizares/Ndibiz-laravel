@@ -86,7 +86,7 @@
               });
 
               // Enable category search
-              $('#category').selectize({
+              $('#category, #category2').selectize({
                 valueField: 'name',
                 labelField: 'name',
                 searchField: ['name'],

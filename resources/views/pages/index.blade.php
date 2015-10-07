@@ -2,7 +2,7 @@
 <!-- HEAD -->
 @section('title', 'Home')
 @section('stylesheets')
-    <link rel="stylesheet" href="{{ asset('plugins/text-rotator/jquery.wordrotator.css')}}">
+    <link rel="stylesheet" href="{{ asset('../plugins/text-rotator/jquery.wordrotator.css')}}">
     <link href="{{asset('../plugins/Bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet">
 @endsection
 <!-- HEADER -->
@@ -18,7 +18,7 @@
               <img src="{{asset('img/content/home-slide-img.jpg')}}" alt="">
               <div class="slide-content">             
                 <h1><small><i class="fa fa-search"></i> Search for <br><span id="demo"></span> <br>in <br><span id="demo2"></span></small></h1>
-                <h1><small>Connect</small> <span>Businesses</span> <small>To</small> <span>Customers</span></h1>
+                <h1><small>Connect your</small> <span>Brand <small>or</small> Service</span> <small>to</small> <span>Customers</span></h1>
                 <h1 class="hidden-xs"><a class="btn btn-default btn-lg" href="/biz/create"><i class="fa fa-plus-square"></i> Add a Business</a> <small>OR</small> 
                 <a class="btn btn-default  btn-lg" href="/businesses"><i class="fa fa-plus-square"></i> Explore Businesses</a></h1>
               </div>
@@ -56,6 +56,7 @@
                   @if (Auth::guest())
                     <li><a class="btn" href="/auth/register" class=""><i class="fa fa-plus-square"></i> <span>Register</span></a></li>
                   @endif
+                  <li class="text-center"><a href="/businesses" class=""><i class="fa fa-building"></i> Explore</a></li>
                   <li class="text-center"><a href="/biz/create" class=""><i class="fa fa-plus"></i> Add a Business</a></li>
 
                   <li class="divider"></li>
@@ -75,51 +76,29 @@
           <h2><strong>Featured</strong> Business Categories</h2>
           <div class="col-md-9 col-md-push-3">
             <div class="page-content">
-              <div class="product-details">
-
-
-        <!--       <div class="tab-content">                  
-                  
-                        @unless ( $cats->isEmpty() )
-                        @foreach ($cats as $cat)
-                        <div class="tab-pane" id="<?php echo str_replace(' ', '', $cat->name); ?>">                      
-                           <div class="row clearfix">
-                            @foreach($cat->subcats as $sub)
-                          <div class="col-md-3 col-sm-4 col-xs-6">
-                            <div class="category-item">
-                             <a href="/biz/subcat/{{$sub->id}}"><i class="fa fa-{{$sub->image_class}}"></i>{{ $sub->name}} </a>
-                            </div>
-                          </div>
-                         @endforeach
-                          <div class="view-more">
-                            <a class="btn btn-default text-center" href="#"><i class="fa fa-plus-square-o"></i>View More</a>
-                          </div> 
-                      </div> --><!-- end .row                  
-                  </div>--> <!-- end .tabe-pane
-                   @endforeach
-                          @endunless  -->
-              
+              <div class="product-details">              
                 <div class="tab-content">    
                 @unless ( $cats->isEmpty() )
-              @foreach ($cats as $cat)
-                  <div class="tab-pane" id="<?php $find = array('&','And','and',' ');$replace = array('');
-                   echo str_replace($find, $replace, $cat->name); ?>">                      
-                      <div class="row clearfix">    
-                      @foreach ($cat->subcats as $sub)
-                          <div class="col-md-3 col-sm-4 col-xs-6">
-                            <div class="category-item">
-                             <a class="btn" href="/biz/subcat/{{$sub->id}}"><span class="">{{$sub->name}}</span>
-                             <p class="biz-counter animated slideIn">
-                                <span class="">{{$sub->biz->count()}}</span>
-                             </p>
-                             </a>
-                            </div>
-                          </div> 
-                        @endforeach                
-                      </div> <!-- end .row -->                   
-                  </div> <!-- end .tabe-pane -->
-               @endforeach
-              @endunless
+                @foreach ($cats as $cat)
+                    <div class="tab-pane" id="<?php $find = array('&','And','and',' ');$replace = array('');
+                     echo str_replace($find, $replace, $cat->name); ?>">                      
+                        <div class="row clearfix">    
+                        @foreach ($cat->subcats as $sub)
+                            <div class="col-md-3 col-sm-4 col-xs-6">
+                              <div class="category-item">
+                               <a class="btn" href="/biz/subcat/{{$sub->id}}"><span class="">{{$sub->name}}</span>
+                               <p class="sub-counter animated slideIn">
+                                  <span>{{$sub->name}}</span>
+                                  <span class="biz-counter">{{$sub->biz->count()}} businesses <i class="fa fa-building"></i></span>
+                               </p>
+                               </a>
+                              </div>
+                            </div> 
+                          @endforeach                
+                        </div> <!-- end .row -->                   
+                    </div> <!-- end .tabe-pane -->
+                 @endforeach
+                 @endunless
                 </div> <!-- end .tabe-content -->
              
               </div> <!-- end .product-details -->
@@ -133,33 +112,6 @@
               <div id="categories">
                 <div class="accordion">
                   <ul class="nav nav-tabs home-tab" role="tablist">
-        <!--
-                    <li class="active">
-                      <a href="#Shopping" role="tab" data-toggle="tab">Shopping
-                        <span>Mens clothes, Womens Clothes,</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#ArtsAndEntertainment"  role="tab" data-toggle="tab">Arts And Entertainment
-                        <span>Clubs, Bars, Comedy clubs</span>
-                      </a>
-                    </li>
-
-                    <li>
-                      <a href="#Bars"  role="tab" data-toggle="tab">Bars
-                        <span>pubs, clubs</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#Education"  role="tab" data-toggle="tab">Education
-                        <span>Computer education, Adult education</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#Cars"  role="tab" data-toggle="tab">Cars
-                        <span>car wash, Care Hire, Hotels</span>
-                      </a>
-                    </li>     -->
                      @foreach ($cats as $cat)
                       <li>
                         <a class="" href="#<?php $find = array('&','And','and',' ');$replace = array('');
@@ -167,8 +119,7 @@
                          role="tab" data-toggle="tab"><i class="fa fa-{{$cat->image_class}}"></i>
                         {{ $cat->name }}</a>
                       </li>
-                      @endforeach
-                    
+                      @endforeach                    
                   </ul>
                 </div> <!-- end .accordion -->
               </div> <!-- end #categories -->
@@ -205,7 +156,7 @@
 
               <figcaption>
                 <div class="bookmark">
-                  <a href="#"><i class="fa fa-heart-o fa-fw"></i> Bookmark</a>
+                  <a href="#"><i class="fa fa-heart-o"></i> Bookmark</a>
                 </div>
                 <div class="read-more">
                   <a href="/review/biz/{{$feature->id}}"><i class="fa fa-angle-right"></i> Read More</a>
@@ -214,32 +165,33 @@
               </figcaption>
             </figure>
             <h4><a href="/review/biz/{{$feature->id}}">{{$feature->name}}</a></h4>
-            <h5 class="fa fa-tags"> @foreach($feature->subcats as $sub)
-                  <a href="/biz/subcat/{{$sub->id}}">{{ $sub->name }}</a>,@endforeach</h5> <br>
+            <h5 class=""> @foreach($feature->subcats as $sub)
+                  <a class="btn btn-border" href="/biz/subcat/{{$sub->id}}">{{ $sub->name }}</a>@endforeach</h5>
           </div> <!-- end .single-product -->
         </div>
         @endforeach
         @endunless
       </div>  <!-- end .row -->
       <div class="discover-more">
-        <a class="btn btn-default text-center" href="#"><i class="fa fa-plus-square-o"></i>Discover More</a>
+        <a class="btn btn-default text-center" href="/businesses"><i class="fa fa-plus-square-o"></i>Discover More Businesses</a>
       </div>
     </div>  <!-- end .container -->
   </div>  <!-- end .featured-listing -->
   
   <div class="register-content">
     <div class="reg-heading">
-      <h1><strong>Register</strong> now</h1>
+      <h1>List your business for <strong style="color:#FFD231;">Free</strong> now <span class="btn btn-default"><a href="/biz/create"><i class="fa fa-plus"></i> Add Business</a></span></h1>
     </div>
 
     <div class="registration-details">
       <div class="container">
+        <h2>Registration Benefits</h2>
         <div class="box regular-member">
           <h2><strong>Registered</strong> Users</h2>
 
-          <p><i class="fa fa-check-circle-o"></i> Search for local business</p>
-          <p><i class="fa fa-check-circle-o"></i> Review service quality of patronised businesses</p>
-          <p><i class="fa fa-check-circle-o"></i> Upload pictures showing your service experience with the business</p>
+          <p><i class="fa fa-check-circle-o"></i> Find local businesses nearby and afar</p>
+          <p><i class="fa fa-check-circle-o"></i> View peoples' reviews of businesses service quality</p>
+          <p><i class="fa fa-check-circle-o"></i> View uploaded pictures of businesses posted by business owners and customers</p>
 
           <a href="#" class="btn btn-default-inverse"><i class="fa fa-plus"></i> Register Now</a>
         </div>
@@ -265,6 +217,29 @@
   </div>
   <!-- END REGISTER-CONTENT -->
 
+  <!-- OUR PARTNER SLIDER BEGIN -->
+    <div class="our-partners">
+      <div class="container">
+        <h2>Our Partners</h2>
+
+        <div id="partners-slider" class="owl-carousel owl-theme">
+          <div class="item"><a href="#"><img src="img/content/partner1.png" alt=""></a></div>
+          <div class="item"><a href="#"><img src="img/content/partner2.png" alt=""></a></div>
+          <div class="item"><a href="#"><img src="img/content/partner3.png" alt=""></a></div>
+          <div class="item"><a href="#"><img src="img/content/partner4.png" alt=""></a></div>
+          <div class="item"><a href="#"><img src="img/content/partner5.png" alt=""></a></div>
+          <div class="item"><a href="#"><img src="img/content/partner6.png" alt=""></a></div>
+          <div class="item"><a href="#"><img src="img/content/partner1.png" alt=""></a></div>
+          <div class="item"><a href="#"><img src="img/content/partner2.png" alt=""></a></div>
+          <div class="item"><a href="#"><img src="img/content/partner3.png" alt=""></a></div>
+          <div class="item"><a href="#"><img src="img/content/partner4.png" alt=""></a></div>
+          <div class="item"><a href="#"><img src="img/content/partner5.png" alt=""></a></div>
+          <div class="item"><a href="#"><img src="img/content/partner6.png" alt=""></a></div>
+        </div>
+      </div>
+    </div>
+    <!-- END OUR PARTNER SLIDER -->
+
 @endsection
 
 
@@ -276,28 +251,10 @@
 
 <!-- SCRIPTS STARTS -->
   @section('scripts')
-   <script src="{{asset('plugins/bootstrap-3.3.5/js/bootstrap.js')}}"></script>
-    <script src="{{asset('plugins/text-rotator/jquery.wordrotator.min.js') }}"></script>
-    <script src="{{asset('plugins/owl-carousel/owl.carousel.js') }}"></script>
-<!--
-    <script src="{{asset('js/scripts.js') }}"></script>
-    <script type="text/javascript">
-       $(document).ready(function() {        
-     //   $('li:first-child').addClass('active');
-        $('.tab-pane:first-child ').addClass('active');
-    
-       
-      //  $('.tab-pane a[href="#fashion"]').tab('show');
-      //  $('#fashion').tab('show');
-        
-       // $('li:first-child').addClass('active');
-        
-    });
-      
-  </script>  -->
 
-    <script src="{{asset('plugins/bootstrap-3.3.5/js/bootstrap.js')}}"></script>
-    
+    <script src="{{asset('../plugins/text-rotator/jquery.wordrotator.min.js') }}"></script>
+    <script src="{{asset('../plugins/owl-carousel/owl.carousel.js') }}"></script>
+    <script src="{{asset('../plugins/Bootstrap-3.3.5/js/bootstrap.js')}}"></script>
 
     <script>
       //Text rotator
@@ -305,19 +262,19 @@
 
           $(document).ready(function () {
               $("#demo").wordsrotator({
-              words: ['Local Restaurants (Mama Put)','Hotels','Mechanic Workshops'], // Array of words, it may contain HTML values
-              randomize: true, //show random entries from the words array
-              animationIn: "flipInY", //css class for entrace animation
-              animationOut: "flipOutY", //css class for exit animation
-              speed: 3000 // delay in milliseconds between two words
+              words: ['Local Restaurants (Mama Put)','Hotels','Mechanic Workshops'], 
+              randomize: true, 
+              animationIn: "flipInY", 
+              animationOut: "flipOutY", 
+              speed: 3000 
               });
 
                $("#demo2").wordsrotator({
-              words: ['Lagos','Abuja','PortHarcourt'], // Array of words, it may contain HTML values
-              randomize: true, //show random entries from the words array
-              animationIn: "rotateInUpLeft", //css class for entrace animation
-              animationOut: "flipOutY", //css class for exit animation
-              speed: 3000 // delay in milliseconds between two words
+              words: ['Lagos','Abuja','PortHarcourt'], 
+              randomize: true, 
+              animationIn: "rotateInUpLeft", 
+              animationOut: "flipOutY", 
+              speed: 3000 
               });
           });  
 
@@ -326,7 +283,6 @@
               $('.tab-pane:first-child ').addClass('active');
           });       
     </script>
-
     <script src="{{asset('js/scripts.js') }}"></script>
   @stop
 <!-- SCRIPTS ENDS -->

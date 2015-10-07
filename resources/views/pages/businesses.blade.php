@@ -2,21 +2,13 @@
 <!-- HEAD -->
 @section('title', 'Businesses')
 @section('stylesheets')
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ asset('../plugins/text-rotator/jquery.wordrotator.css')}}">
+  <link href="{{asset('../plugins/Bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet">
 @endsection
 <!-- HEADER -->
 <!-- search -->
 @section('search')
   @include('partials.search')
-@endsection
-<!-- breadcrumbs -->
-@section('breadcrumb')
-      <div class="breadcrumb">
-        <div class="breadcrumb-inner m0">
-            <h2 class="page-title m0 p10-bttm">Business Listings</h2>
-            <p class="animated fadeInRight">View <strong>{{$totalBiz}}</strong> diverse businesses and their reviews.</p>
-        </div>
-      </div>
 @endsection
 <!-- navigation -->
 @section('header-navbar')
@@ -60,18 +52,17 @@
 <!-- CONTENT -->
 @section('content')
   @include('partials.notifications')
-
   <div id="page-content">
     <div class="container">
       <div class="home-with-slide category-listing">
         <div class="row">
-          <div class="col-md-9">
+          <div class="col-md-8">
             <!-- inner breadcrumb -->
             <div class="row page-title-row">
-              <div class="col-md-6">
+              <div class="col-md-8">
                 <h3 class="m0-top"><a href="/"><i class="fa fa-home"></i> </a> » <small>Business Listings</small> </h3>
               </div>
-              <div class="col-md-6 text-right">
+              <div class="col-md-4 text-right">
                 
               </div>
             </div>
@@ -89,7 +80,7 @@
                             <h3 class="m0-top">{{$cat->name}}</h3>
                           </div>
                           <div class="col-md-4">
-                            <div class="change-view">
+                            <div class="change-view pull-right">
                                 <button class="grid-view"><i class="fa fa-th"></i></button>
                                 <button class="list-view active"><i class="fa fa-bars"></i></button>
                             </div> 
@@ -166,8 +157,15 @@
             </div> <!-- end .row -->
           </div>
           <!-- SIDEBAR RIGHT -->
-          <div class="col-md-3">
+          <div class="col-md-4">
             <div class="post-sidebar">
+                <!-- AD BAR MINI -->
+                <div class="recently-added ad-mini">
+                    <div class="category-item">
+                        <a href=""> <i class="fa fa-newspaper-o"></i> Advert Space (Text) <br><span id="ad1"></span></a>
+                    </div>
+                </div>
+                <!-- FEATURED BUSINESSES -->
                 <div class="latest-post-content">
                     <h2>Featured Businesses</h2>
                     @if ( ! $featured-> isEmpty() )
@@ -187,6 +185,7 @@
                     @endforeach
                      @endif
                 </div>
+                <!-- RECENTLY ADDED BUSINESSES -->
                 <div class="recently-added">
                     <h2>Recently Added</h2>
                      @if ( ! $recent-> isEmpty() )
@@ -208,16 +207,16 @@
                     @endforeach
                     @endif
                 </div>
-                <div class="recently-added box">
-                    <h2>Advertisement</h2>
-                    <div class="category-item">
-                        <a href=""> <i class="fa fa-newspaper-o"></i> Advert Space</a>
-                    </div>
+                <!-- AD BAR MEDIUM -->
+                <div class="recently-added">
+                  <div class="ad-box"> 
+                    <a href="" class=""><span id="ad2"></span></a>   
+                  </div>                           
                 </div>
+                <!-- RECENT REVIEWS -->
                 <div class="recently-added">
                     <h2>Recent Reviews</h2>
                     <div class="single-product"></div>
-                    
                 </div>
             </div>
           </div>
@@ -225,7 +224,6 @@
       </div> <!-- end .home-with-slide -->
     </div> <!-- end .container -->
   </div>  <!-- end #page-content -->
-
 @endsection
 <!-- CONTENT ENDS-->
 <!-- FOOTER STARTS -->
@@ -235,12 +233,12 @@
 <!-- FOOTER ENDS -->
 
 @section('scripts')
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    
+  <script src="{{asset('../plugins/text-rotator/jquery.wordrotator.min.js') }}"></script>
+  <script src="{{asset('../plugins/Bootstrap-3.3.5/js/bootstrap.js')}}"></script>    
   <script type="text/javascript">
     $(document).ready(function() {        
         $('li:first-child').addClass('active');
-       $('.tab-pane:first-child ').addClass('active');
+        $('.tab-pane:first-child ').addClass('active');
     });
 
       // style switcr for list-grid view
@@ -261,6 +259,28 @@
         });
 
       });
+
+      //Text rotator
+      //-------------------------------------------------
+
+          $(document).ready(function () {
+              $("#ad1").wordsrotator({
+                words: ['Local Restaurants (Mama Put)','Hotels','Mechanic Workshops'], 
+                randomize: true, 
+                animationIn: "fadeIn", 
+                animationOut: "fadeOut", 
+                speed: 5000 
+              });
+              $("#ad2").wordsrotator({
+                words: ['<img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=AD1-IMAGE&w=350&h=150">',
+                        '<img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=AD2-IMAGE&w=350&h=140">',
+                        '<img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=AD3-IMAGE&w=350&h=130">'],
+                randomize: true, 
+                animationIn: "fadeIn", 
+                animationOut: "fadeOut", 
+                speed: 5000 
+              });
+          });  
       
   </script>
   <script src="{{asset('js/scripts.js')}}"></script>

@@ -1,7 +1,7 @@
 
   //  scrollspy fixed searchbar
     $(document).ready(function(){
-        var nav = $('.header-search-bar');
+        var nav = $('.header-top-bar');
 
         $(window).scroll(function () {
           if ($(this).scrollTop() > 60) {

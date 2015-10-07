@@ -1,29 +1,9 @@
-@extends('master')
+@extends('admin.layout')
 <!-- HEAD -->
-@section('title', 'Password Reset')
+@section('title', 'Register')
+
 <!-- HEADER -->
-<!-- breadcrumbs -->
-@section('breadcrumb')
-      <div class="breadcrumb">
-        <div class="featured-listing" style="margin:0;">
-            <h2 class="page-title" style="margin:0;">Password Reset</h2>
-        </div>
-      </div>
-@endsection
-<!-- navigation -->
-@section('header-navbar')
-  <div class="header-nav-bar">
-      <div class="container">
-        <nav>
-          <button><i class="fa fa-bars"></i></button>
-          <ul class="nav navbar-nav primary-nav list-unstyled">
-            <li class="bg-color active"><a href="/auth/login">Login<i class="fa fa-power-off"></i></a></li>
-            <li><a href="/auth/register">Register<i class="fa fa-plus-square"></i></a></li>
-          </ul>
-        </nav>
-      </div> <!-- end .container -->
-    </div> <!-- end .header-nav-bar -->
-@endsection
+
 <!-- CONTENT -->
 @section('content')
 

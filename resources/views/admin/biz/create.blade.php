@@ -25,134 +25,134 @@
 <!-- CONTENT STARTS -->
 @section('content')
   <div id="page-content" class="home-slider-content">
-  <div class="container">
-    @include('admin.partials.errors')
-    <div class="row page-title-row">
-      <div class="col-md-12">
-        <h3><a href="/admin">Admin</a> » <a href="/admin/biz">Businesses</a> » <small> Add New Business</small></h3>
+    <div class="container">
+      @include('admin.partials.errors')
+      <div class="row page-title-row">
+        <div class="col-md-12">
+          <h3><a href="/admin">Admin</a> » <a href="/admin/biz">Businesses</a> » <small> Add New Business</small></h3>
+        </div>
       </div>
-    </div>
 
-    <div class="row">
-      <div class="col-md-9 col-md-push-3">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title">New Business form</h3>
-          </div>
-          <div class="panel-body">
+      <div class="row">
+        <div class="col-md-9 col-md-push-3">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">New Business form</h3>
+            </div>
+            <div class="panel-body">
 
-            @include('admin.partials.errors')
+              @include('admin.partials.errors')
 
-            <form class="form-horizontal" role="form" method="POST"  action="/admin/biz">
-              <input type="hidden" name="_token" value="{{ csrf_token() }}">
+              <form class="form-horizontal" role="form" method="POST"  action="/admin/biz">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-              <div class="form-group">
-                 <label for="cat" class="col-md-3 control-label">Business Name</label>
-                  <div class="col-md-8">
-                   <input required type="text" id="name" name="name" class="form-control" placeholder="Patt's Bar" value="{{ old('name')}}">                  
-                  </div>
-            </div>
-             <div class="form-group">
-                 <label for="cat" class="col-md-3 control-label">Business Address</label>
-                 <div class="col-md-8">
-                 <input required type="text" id="address" name="address" class="form-control" placeholder="Ajose Adeogun street" value="{{ old('address')}}">
-                  
-                </div>
-            </div>
-            <div class="form-group">
-                 <label for="cat" class="col-md-3 control-label">Business state</label>
-                 <div class="col-md-8">
-                     {!!Form::select('state', $stateList, Input::old('state'), ['class'=>'form-control','id'=>'stateList',
-                    'placeholder'=>'select state']) !!}
-                  
-                </div>
-            </div>
-            <div class="form-group">
-              <label for="image_class" class="col-md-3 control-label">
-                Business Region/area</label>
-                  <div class="col-md-8">
-                    <select id="lga" name="lga" value="{{ old('lga')}}" class="form-control"> </select>  
-                  </div>
-            </div>
-
-            
-             <div class="form-group">
-                 <label for="cat" class="col-md-3 control-label">Business Category</label>
-                 <div class="col-md-8">
-                  {!!Form::select('cats[]', $catList,Input::old('cats[]') , ['class'=>'form-control','id'=>'category3',
-                  'multiple']) !!}
-                  
-                </div>
-            </div>
-            <div class="form-group">
-              <label for="image_class" class="col-md-3 control-label">
-                Sub categories</label>
-                  <div class="col-md-8">
-                    <select id="sub" name="sub[]" value="{{ old('sub[]')}}" class="form-control" multiple="multiple"> </select>  
-                  </div>
-            </div>
-            <div class="form-group">
-                 <label for="cat" class="col-md-3 control-label">Business website</label>
-                 <div class="col-md-8">
-                 <input type="text" id="website" name="website" value="{{ old('website')}}" class="form-control" placeholder="www.pattsbar.com.ng">
-                  
-                </div>
-            </div>
-            <div class="form-group">
-                 <label for="cat" class="col-md-3 control-label">Business Email Address</label>
-                 <div class="col-md-8">
-                  <input type="email" id="email" name="email" value="{{ old('email')}}" class="form-control" placeholder="info@pattsbar.com.ng">
-                  
-                </div>
-            </div>
-            <div class="form-group">
-                 <label for="cat" class="col-md-3 control-label">Contact Name</label>
-                 <div class="col-md-8">
-                 <input type="text" id="contactname" name=" contactname" value="{{ old('contactname')}}" class="form-control" placeholder="Mr Patt" required>
-                  
-                </div>
-            </div>
-            <div class="form-group">
-                 <label for="cat" class="col-md-3 control-label">Phone number 1</label>
-                 <div class="col-md-8">
-                <input type="text" id="contact" name="phone1" value="{{ old('phone1')}}" class="form-control" placeholder="Phone number 1">
-                  
-                </div>
-            </div>
-            <div class="form-group">
-                 <label for="cat" class="col-md-3 control-label">Phone number 2</label>
+                <div class="form-group">
+                   <label for="cat" class="col-md-3 control-label">Business Name</label>
                     <div class="col-md-8">
-                       <input type="text" id="contact" name="phone2" value="{{ old('phone2')}}" class="form-control" placeholder="Phone number 2">                
+                     <input required type="text" id="name" name="name" class="form-control" placeholder="Patt's Bar" value="{{ old('name')}}">                  
                     </div>
-            </div>
+                  </div>
+                   <div class="form-group">
+                       <label for="cat" class="col-md-3 control-label">Business Address</label>
+                       <div class="col-md-8">
+                       <input required type="text" id="address" name="address" class="form-control" placeholder="Ajose Adeogun street" value="{{ old('address')}}">
+                        
+                      </div>
+                  </div>
+                  <div class="form-group">
+                       <label for="cat" class="col-md-3 control-label">Business state</label>
+                       <div class="col-md-8">
+                           {!!Form::select('state', $stateList, Input::old('state'), ['class'=>'form-control','id'=>'stateList',
+                          'placeholder'=>'select state']) !!}
+                        
+                      </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="image_class" class="col-md-3 control-label">
+                      Business Region/area</label>
+                        <div class="col-md-8">
+                          <select id="lga" name="lga" value="{{ old('lga')}}" class="form-control"> </select>  
+                        </div>
+                  </div>
+
+                  
+                   <div class="form-group">
+                       <label for="cat" class="col-md-3 control-label">Business Category</label>
+                       <div class="col-md-8">
+                        {!!Form::select('cats[]', $catList,Input::old('cats[]') , ['class'=>'form-control','id'=>'category3',
+                        'multiple']) !!}
+                        
+                      </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="image_class" class="col-md-3 control-label">
+                      Sub categories</label>
+                        <div class="col-md-8">
+                          <select id="sub" name="sub[]" value="{{ old('sub[]')}}" class="form-control" multiple="multiple"> </select>  
+                        </div>
+                  </div>
+                  <div class="form-group">
+                       <label for="cat" class="col-md-3 control-label">Business website</label>
+                       <div class="col-md-8">
+                       <input type="text" id="website" name="website" value="{{ old('website')}}" class="form-control" placeholder="www.pattsbar.com.ng">
+                        
+                      </div>
+                  </div>
+                  <div class="form-group">
+                       <label for="cat" class="col-md-3 control-label">Business Email Address</label>
+                       <div class="col-md-8">
+                        <input type="email" id="email" name="email" value="{{ old('email')}}" class="form-control" placeholder="info@pattsbar.com.ng">
+                        
+                      </div>
+                  </div>
+                  <div class="form-group">
+                       <label for="cat" class="col-md-3 control-label">Contact Name</label>
+                       <div class="col-md-8">
+                       <input type="text" id="contactname" name=" contactname" value="{{ old('contactname')}}" class="form-control" placeholder="Mr Patt" required>
+                        
+                      </div>
+                  </div>
+                  <div class="form-group">
+                       <label for="cat" class="col-md-3 control-label">Phone number 1</label>
+                       <div class="col-md-8">
+                      <input type="text" id="contact" name="phone1" value="{{ old('phone1')}}" class="form-control" placeholder="Phone number 1">
+                        
+                      </div>
+                  </div>
+                  <div class="form-group">
+                       <label for="cat" class="col-md-3 control-label">Phone number 2</label>
+                          <div class="col-md-8">
+                             <input type="text" id="contact" name="phone2" value="{{ old('phone2')}}" class="form-control" placeholder="Phone number 2">                
+                          </div>
+                  </div>
 
 
-              <div class="form-group">
-                <div class="col-md-7 col-md-offset-3">
-                  <button type="submit" class="btn btn-primary btn-md">
-                    <i class="fa fa-plus-circle"></i>
-                      Add New Business
-                  </button>
+                    <div class="form-group">
+                      <div class="col-md-7 col-md-offset-3">
+                        <button type="submit" class="btn btn-primary btn-md">
+                          <i class="fa fa-plus-circle"></i>
+                            Add New Business
+                        </button>
+                      </div>
+                    </div>
+
+                  </form>
+
                 </div>
               </div>
-
-            </form>
-
+            </div>
+            <div class="col-md-3 col-md-pull-9 category-toggle">
+                  <button><i class="fa fa-briefcase"></i></button>
+                  <div class="post-sidebar">
+                        <div class="latest-post-content">
+                            <h2>Admin Panel</h2>
+                            <div class="single-product"></div>
+                        </div>
+                  </div>
+              </div> <!-- end .page-sidebar -->
           </div>
         </div>
       </div>
-      <div class="col-md-3 col-md-pull-9 category-toggle">
-            <button><i class="fa fa-briefcase"></i></button>
-            <div class="post-sidebar">
-                  <div class="latest-post-content">
-                      <h2>Admin Panel</h2>
-                      <div class="single-product"></div>
-                  </div>
-            </div>
-        </div> <!-- end .page-sidebar -->
-    </div>
-  </div>
-</div>
 @endsection
 <!-- CONTENT ENDS -->
 
