@@ -7,6 +7,9 @@
     <li @if (Request::is('admin/user*')) @endif>
       <a href="/admin/user"><i class="fa fa-user"></i> User</a>
     </li>
+    <li @if (Request::is('admin/message*')) @endif>
+      <a href="/admin/message"><i class="fa fa-user"></i> Messages</a>
+    </li>
     <li @if (Request::is('admin/biz*')) @endif>
       <a href="/admin/biz">Businesses</a>
     </li>

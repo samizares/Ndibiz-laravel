@@ -100,14 +100,14 @@
                               </figure>
                               <h4><a href="/review/biz/{{$biz->id}}">
                                 {{$biz->name}}</a></h4>
-                              <ul class="list-inline m5-bttm p10-left">
-                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-star-half-o"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-star-o"></i></a></li>
-                                    <li>50 reviews</li>
-                              </ul>
+                              <div class="ratings">
+                        <p class="pull-right">{{$biz->rating_count}} {{ Str::plural('review', $biz->rating_count)}}</p>
+                        <p>
+                            @for ($i=1; $i <= 5 ; $i++)
+                                <span class="glyphicon glyphicon-star{{ ($i <= $biz->rating_cache) ? '' : '-empty'}}"></span>
+                            @endfor
+                        </p>
+                    </div>
                               <span>@foreach( $biz->subcats as $sub) <span><a class="btn-border" href="/biz/subcat/{{$sub->id}}"><i class="fa fa-tags"></i> {{$sub->name}}</a></span> @endforeach</span>
                               <h5 class="p5-top address-preview"><i class="fa fa-map-marker"></i> <span>{{$biz->address->street}}</span>, <span>{{ $biz-> address->state->name}}</span></h5>
                             </div> <!-- end .single-product -->

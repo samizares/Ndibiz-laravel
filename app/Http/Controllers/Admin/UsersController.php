@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
 use App\Newsletters\NewsletterList;
 use Illuminate\Http\Request;
 use App\User;

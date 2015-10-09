@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Http\Requests\ReviewRequest;
 use App\Http\Controllers\Controller;
 use App\State;
 use App\Lga;
@@ -195,8 +196,9 @@ class HomeController extends Controller
 	 
 	 public function getBizreview($id)
 	 {
-	 	$stateList= State::lists('name','name');
-		$catList   = Cat::lists('name','name');
+	 	
+	 	  $stateList= State::lists('name','name');
+		  $catList   = Cat::lists('name','name');
 	 	  $biz = Biz::findOrFail($id);
 	 	  $hours=$biz->hours;
 	 	  $mon=$biz->hours->where('day','MON')->first();
@@ -219,6 +221,33 @@ class HomeController extends Controller
          	'catList'=>$catList), compact('featured','recent','mon','tue','wed','thu','fri','sat','sun'));
 	 }
 
+	 public function postReview($id)
+	 {  
+	 	$input = array(
+		'comment' => \Input::get('comment'),
+		'rating'  => \Input::get('rating')
+	   );
+
+	 	$review = new Review();
+	 	$validator = \Validator::make( $input, $review->getCreateRules());
+
+	 	if ($validator->passes()) {
+	 		$review->storeReviewForBiz($id, $input['comment'], $input['rating']);
+				return redirect('review/biz/'.$id.'#company-reviews')->with('success','Review Submitted successfully');
+	         		  }
+
+	       		return redirect('review/biz/'.$id.'#company-reviews')->with('errors', $validator->messages())->withInput();
+	 }
+
+	 public function postMessage(MessageRequest $request, $id)
+	 {
+	 	$review = new Review();
+	 	$review->storeReviewForBiz($id, $request->comment, $request->rating);
+		return redirect('review/biz/'.$id.'#company-reviews')->with('success','Review Submitted successfully');
+
+	 }
+
+
 	 public function bizSub($id)
 	 {
 	 	$sub= SubCat::findOrFail($id);
@@ -232,6 +261,7 @@ class HomeController extends Controller
 
 		return view('pages.biz-sub',compact('bizs','stateList','catList','loc','cats','featured','recent','sub'));
 	 }
+
 	  public function bizCat($id)
 	 {
 	 	$cat= Cat::findOrFail($id);
@@ -243,26 +273,5 @@ class HomeController extends Controller
 		$recent= Biz::orderBy('created_at', 'desc')->paginate(1);
 
 		return view('pages.biz-sub',compact('bizs','stateList','catList','cats','featured','recent','cat'));
-	 }
-
-	 public function postReview()
-	 {
-	 	$input = array(
-			'comment' => \Input::get('comment'),
-			'rating'  => \Input::get('rating')
- 			 );
- 			 // instantiate Rating model
- 			 $review = new Review;
-
-  			// Validate that the user's input corresponds to the rules specified in the review model
-  		$validator = \Validator::make( $input, $review->getCreateRules());
-
-  		// If input passes validation - store the review in DB, otherwise return to product page with error message 
-  		if ($validator->passes()) {
-			$review->storeReviewForBiz($id, $input['comment'], $input['rating']);
-			return redirect('review/biz'.$id.'#reviews-anchor')->with('review_posted',true);
-  					}		
-
-  		return redirect('review/biz/'.$id.'#reviews-anchor')->withErrors($validator)->withInput();
 	 }
 }

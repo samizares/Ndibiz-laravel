@@ -8,12 +8,18 @@ class Biz extends Model
 {
       protected $table = 'biz';
 
-      protected $fillable = ['name', 'adress', 'contactname', 'email','website', 'phone1', 'phone2'];
+      protected $fillable = ['name', 'address', 'contactname', 'email','website', 'phone1', 'phone2'];
 
    public function address()
     {
       return $this->hasOne('App\Address');
     }
+
+     public function reviews()
+    {
+      return $this->hasMany('App\Review');
+    }
+    
     public function hours()
     {
       return $this->hasMany('App\BusinessHour');
@@ -57,11 +63,6 @@ class Biz extends Model
     public function state()
     {
       return $this->belongsToMany('App\State','biz_state_pivot');
-    }
-
-    public function reviews()
-    {
-      return $this->hasMany('App\Review');
     }
 
     public function recalculateRating()

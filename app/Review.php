@@ -3,11 +3,14 @@
 namespace App;
 
 use App\Biz;
-use Carbon\Carbon;
+//use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Review extends Model
 {
+    protected $table = 'reviews';
+     protected $fillable = ['biz_id', 'rating', 'comment', 'user_id'];
+
     public function user()
     {
     	return $this->belongsTo('App\User');
@@ -35,19 +38,22 @@ class Review extends Model
 
     public function getTimeagoAttribute()
 	{
- 		 $date = \CarbonCarbon::createFromTimeStamp(strtotime($this->created_at))->diffForHumans();
+ 		// $date = \Carbon::createFromTimeStamp(strtotime($this->created_at))->diffForHumans();
+        $stt=strtotime($this->created_at);
+
+        $date= $this->created_at->createFromTimeStamp($stt)->diffForHumans();
   		return $date;
 	}
 
 	 public function getCreateRules()
     {
         return array(
-            'comment'=>'required|min:10',
+            'comment'=>'required|min:5',
             'rating'=>'required|integer|between:1,5'
         );
     }
 
-	public function storeReviewForBix($bizID, $comment, $rating)
+	public function storeReviewForBiz($bizID, $comment, $rating)
 	{
  		 $biz = Biz::find($bizID);
 
