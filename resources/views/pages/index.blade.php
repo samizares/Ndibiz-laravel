@@ -19,7 +19,7 @@
               <div class="slide-content">             
                 <h1><small><i class="fa fa-search"></i> Search for <br><span id="demo"></span> <br>in <br><span id="demo2"></span></small></h1>
                 <h1><small>Connect your</small> <span>Brand <small>or</small> Service</span> <small>to</small> <span>Customers</span></h1>
-                <h1 class="hidden-xs"><a class="btn btn-default btn-lg" href="/biz/create"><i class="fa fa-plus-square"></i> Add a Business</a> <small>OR</small> 
+                <h1 class="hidden-xs"><a class="btn btn-default btn-lg" href="/biz/create"><i class="fa fa-plus-square"></i> Add Business</a> <small>OR</small> 
                 <a class="btn btn-default  btn-lg" href="/businesses"><i class="fa fa-plus-square"></i> Explore Businesses</a></h1>
               </div>
             </div>
