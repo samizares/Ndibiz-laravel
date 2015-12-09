@@ -6402,6 +6402,9 @@ span.section-subtitle {
 .featured-listing .single-product h4,
 .featured-listing .single-product p {
     padding:0 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .featured-listing .single-product h4 {
   padding-top: 15px;
@@ -6554,12 +6557,14 @@ span.section-subtitle {
   padding: 40px 0;
   background: #333333;
   text-transform: uppercase;
+    line-height: 1.5;
 }
 /*.register-content h3 span {*/
     /*display: block;*/
 /*}*/
 .registration-details {
     padding:20px 0;
+    background: #fff;
 }
 .register-content .registration-details h3{
   /*position: relative;*/
@@ -6600,20 +6605,23 @@ span.section-subtitle {
   position: relative;
   width: 100%;
   padding: 30px;
-  text-align: left;
+  text-align: center;
   border: 3px solid #333333;
   border-radius: 3px;
 }
-.register-content .registration-details .box h2 {
+.register-content .registration-details .box .fa {
+    font-size:200px;
+}
+.register-content .registration-details .box h4 {
   margin: 0;
   text-transform: uppercase;
-  font-size: 26px;
+  font-size: 20px;
   padding-bottom: 20px;
   font-weight: 400;
 }
 .register-content .registration-details .box p {
   margin-bottom: 10px;
-  font-weight: 700;
+  font-weight: normal;
 }
 .register-content .registration-details .box p .fa {
   padding-right: 6px;

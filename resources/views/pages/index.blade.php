@@ -188,22 +188,34 @@
   
   <div class="register-content">
     <div class="reg-heading">
-      <h3>List your business for <strong class="text-color-yellowFFD231">Free</strong> now <br> <span class="btn btn-default"><a href="/biz/create"><i class="fa fa-plus"></i> Add a Business</a></span></h3>
+      <h3>List a business for <strong class="text-color-yellowFFD231">Free</strong> now <br> <span class="btn btn-default"><a href="/biz/create"><i class="fa fa-plus"></i> Add a Business</a></span></h3>
     </div>
 
     <div class="registration-details">
       <div class="container">
-          <h3 class="section-title"><strong>Registration Benefits</strong></h3>
-          <span class="section-subtitle text-color-grey222 text-center">Explore top rated businesses based on customers' ratings.</span>
+          <h3 class="section-title"><strong>See How It Works</strong></h3>
+          <span class="section-subtitle text-color-grey222 text-center">Discover how easy our directory can help you connect with businesses around you.</span>
           <div class="row m20-top m20-bttm">
               <div class="col-md-4 m20-bttm">
-                  <div class="box regular-member"></div>
+                  <div class="box regular-member">
+                      <i class="fa fa-user m10-bttm"></i>
+                      <h4 class="p5-bttm">Choose What To Do</h4>
+                      <p>Lorem ipsum dolor sit amet, wisi constituto vim in. An eum audire verterem, an rebum adipiscing has. </p>
+                  </div>
               </div>
               <div class="col-md-4 m20-bttm">
-                  <div class="box business-member"></div>
+                  <div class="box business-member">
+                      <i class="fa fa-search m10-bttm"></i>
+                      <h4 class="p5-bttm">Find What You Want</h4>
+                      <p>Lorem ipsum dolor sit amet, wisi constituto vim in. An eum audire verterem, an rebum adipiscing has. </p>
+                  </div>
               </div>
               <div class="col-md-4 m20-bttm">
-                  <div class="box business-member"></div>
+                  <div class="box business-member">
+                      <i class="fa fa-building m10-bttm"></i>
+                      <h4 class="p5-bttm">Explore local businesses</h4>
+                      <p>Lorem ipsum dolor sit amet, wisi constituto vim in. An eum audire verterem, an rebum adipiscing has. </p>
+                  </div>
               </div>
           </div>
       </div>
@@ -212,30 +224,6 @@
     <!-- END .REGISTRATION-DETAILS -->
   </div>
   <!-- END REGISTER-CONTENT -->
-
-  <!-- OUR PARTNER SLIDER BEGIN -->
-    <div class="our-partners">
-      <div class="container">
-        <h2>Our Partners</h2>
-
-        <div id="partners-slider" class="owl-carousel owl-theme">
-          <div class="item"><a href="#"><img src="img/content/partner1.png" alt=""></a></div>
-          <div class="item"><a href="#"><img src="img/content/partner2.png" alt=""></a></div>
-          <div class="item"><a href="#"><img src="img/content/partner3.png" alt=""></a></div>
-          <div class="item"><a href="#"><img src="img/content/partner4.png" alt=""></a></div>
-          <div class="item"><a href="#"><img src="img/content/partner5.png" alt=""></a></div>
-          <div class="item"><a href="#"><img src="img/content/partner6.png" alt=""></a></div>
-          <div class="item"><a href="#"><img src="img/content/partner1.png" alt=""></a></div>
-          <div class="item"><a href="#"><img src="img/content/partner2.png" alt=""></a></div>
-          <div class="item"><a href="#"><img src="img/content/partner3.png" alt=""></a></div>
-          <div class="item"><a href="#"><img src="img/content/partner4.png" alt=""></a></div>
-          <div class="item"><a href="#"><img src="img/content/partner5.png" alt=""></a></div>
-          <div class="item"><a href="#"><img src="img/content/partner6.png" alt=""></a></div>
-        </div>
-      </div>
-    </div>
-    <!-- END OUR PARTNER SLIDER -->
-
 @endsection
 
 
