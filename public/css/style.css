@@ -2864,7 +2864,7 @@ th {
   box-sizing: border-box;
 }
 body {
-  font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Roboto", Lato, "Open Sans", sans-serif;
   font-size: 14px;
   line-height: 1.42857143;
   color: #333333;
@@ -3421,8 +3421,7 @@ fieldset[disabled] .btn-default.active {
 /* --------------------------------------- */
 /* Header Top Bar */
 /* ---------------------------------------------- */
-#header .header-auth,
-#header .header-top-bar {
+#header .header-auth {
   width: 100%;
   padding: 10px 0;
   border-bottom: solid 1px #ddd;
@@ -3570,12 +3569,12 @@ fieldset[disabled] .btn-default.active {
 }
 @media (max-width: 1200px) {
   #header .header-top-bar .header-logo {
-    width: 60%;
+    /*width: 60%;*/
   }
 }
 @media (max-width: 768px) {
   #header .header-search-bar {
-    padding-top: 5px;
+    padding: 5px 0;
   }
 }
 #header .header-search .header-search-bar .mobile-logo h2 {
@@ -4002,7 +4001,8 @@ fieldset[disabled] .btn-default.active {
   left: 0;
   top: 0;
   z-index: 9995!important;
-  background-color: #ddd !important;
+  background-color: #333 !important;
+  padding: 10px;
 }
 /* header map section */
 /* ---------------------------------------- */
@@ -4334,7 +4334,7 @@ fieldset[disabled] .btn-default.active {
 }
 @media (max-width: 480px) {
   .slider-content {
-    height: 320px;
+    height: 350px;
   }
 }
 .slider-content #home-slider {
@@ -4405,29 +4405,41 @@ fieldset[disabled] .btn-default.active {
     width: 185px;
   }
 }
-.slider-content #home-slider .item .slide-content h1 {
-  position: relative;
+.slider-content  .slide-content .lp-content {
+  padding:56px 10px;
+}
+h1.page-title, h3.page-subtitle {
+    font-weight: normal;
+}
+.slider-content #home-slider .item .slide-content h1.page-title {
   top: 20px;
-  text-transform: uppercase;
+  text-transform: capitalize;
   color: #fff;
-  font-size: 50px;
-  font-family: 'Raleway', sans-serif;
-  font-weight: 800;
+  font-size: 48px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: normal;
 }
-.slider-content #home-slider .item .slide-content h1 span {
-  color: #fdc600;
-  font-weight: 600;
+.slider-content #home-slider .item .slide-content h3.page-subtitle {
+    color: #fff !important;
 }
+/*.slider-content #home-slider .item .slide-content h1 span {*/
+  /*color: #fdc600;*/
+  /*font-weight: 600;*/
+/*}*/
 @media (max-width: 768px) {
-  .slider-content #home-slider .item .slide-content h1 {
+  .slider-content #home-slider .item .slide-content h1.page-title {
     font-size: 41px;
     top: 48px;
   }
 }
 @media (max-width: 480px) {
-  .slider-content #home-slider .item .slide-content h1 {
-    font-size: 25px;
+  .slider-content #home-slider .item .slide-content h1.page-title {
+    font-size: 36px;
     top: 39px;
+  }
+  .slider-content #home-slider .item .slide-content h3.page-subtitle {
+    font-size:20px;
+    padding:0 11px;
   }
 }
 .slider-content #home-slider .item .slide-content h2 {
@@ -4529,7 +4541,7 @@ fieldset[disabled] .btn-default.active {
 .breadcrumb h2,
 .breadcrumb p {
   color: #fff;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 /*PAge contents*/
@@ -4957,7 +4969,7 @@ fieldset[disabled] .btn-default.active {
   font-weight: 800;
   background: #fdc600;
   color: #333333;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
   text-transform: uppercase;
   text-align: center;
 }
@@ -5019,7 +5031,7 @@ fieldset[disabled] .btn-default.active {
   padding: 9px 5px 2px 7px;
   font-weight: 700;
   background-color: #1a1a1a;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
   border-radius: 3px;
 }
 .post-sidebar .latest-post .post-image p span {
@@ -5621,7 +5633,7 @@ fieldset[disabled] .btn-default.active {
   padding: 0 3px;
   margin: 0;
   font-size: 12px;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: 700;
   background: #fdc600;
   color: #333333;
@@ -6044,7 +6056,7 @@ fieldset[disabled] .btn-default.active {
 }
 #page-content {
   position: relative;
-  padding: 30px 0 50px 0;
+  padding: 0px 0 50px 0;
 }
 .page-content {
   position: relative;
@@ -6241,7 +6253,7 @@ fieldset[disabled] .btn-default.active {
   text-transform: uppercase;
   text-align: center;
   font-weight: 400;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 .featured-listing h2 {
   margin: 0;
@@ -6249,7 +6261,7 @@ fieldset[disabled] .btn-default.active {
   color: #fff;
   text-transform: uppercase;
   font-weight: 400;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 .featured-listing .single-product {
   position: relative;
@@ -6302,7 +6314,7 @@ fieldset[disabled] .btn-default.active {
   padding: 0 3px;
   margin: 0;
   font-size: 12px;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: 700;
   background: #fdc600;
   color: #333333;
@@ -6513,7 +6525,7 @@ fieldset[disabled] .btn-default.active {
   color: #fff;
   font-weight: 400;
   font-size: 30px;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
   padding: 40px 0;
   background: #333333;
   text-transform: uppercase;
@@ -6688,7 +6700,7 @@ fieldset[disabled] .btn-default.active {
   position: relative;
   top: 60px;
   color: #fff;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 56px;
   text-transform: uppercase;
   font-weight: 800;
@@ -6983,7 +6995,7 @@ fieldset[disabled] .btn-default.active {
   position: relative;
   top: 180px;
   color: #fff;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 76px;
   text-transform: uppercase;
   font-weight: 800;
@@ -7027,7 +7039,7 @@ fieldset[disabled] .btn-default.active {
 }
 .price-listing .pricing-table {
   position: relative;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
   text-align: center;
   border: 2px solid #dddddd;
   border-radius: 3px;
@@ -7116,7 +7128,7 @@ fieldset[disabled] .btn-default.active {
   position: relative;
   top: 180px;
   color: #fff;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 76px;
   text-transform: uppercase;
   font-weight: 800;
@@ -7185,7 +7197,7 @@ fieldset[disabled] .btn-default.active {
 .blog-list .date-month {
   width: 70px;
   height: 90px;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 .blog-list .date-month a:hover {
   color: inherit;
@@ -7414,7 +7426,7 @@ fieldset[disabled] .btn-default.active {
 }
 .comments-section h4 {
   text-transform: uppercase;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: 800;
 }
 .comments-section .comments {
@@ -7656,7 +7668,7 @@ fieldset[disabled] .btn-default.active {
   color: #fff;
   text-transform: uppercase;
   font-weight: 800;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 @media (max-width: 768px) {
   .company-heading-view .company-slider-content .general-view h1 {
@@ -7712,7 +7724,7 @@ fieldset[disabled] .btn-default.active {
 .company-profile h4 {
   margin-bottom: 30px;
   text-transform: uppercase;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: 800;
 }
 .company-profile h4 span {
@@ -7722,7 +7734,7 @@ fieldset[disabled] .btn-default.active {
   /*margin: 0;*/
   padding-top: 5px;
   text-transform: uppercase;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 .company-profile h5 a {
   color: #d0d0d0;
@@ -7834,7 +7846,7 @@ fieldset[disabled] .btn-default.active {
 }
 .company-profile .company-ratings .company-rating-box h6 {
   margin: 0;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: 800;
   font-size: 14px;
 }
@@ -7877,7 +7889,7 @@ fieldset[disabled] .btn-default.active {
 }
 .company-profile .company-ratings .rating-with-details .single-content .meta a {
   color: inherit;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 .company-profile .company-ratings .rating-with-details .single-content p {
   margin: 0;
@@ -7901,7 +7913,7 @@ fieldset[disabled] .btn-default.active {
 .company-events .date-month {
   width: 70px;
   height: 90px;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 .company-events .date-month a:hover {
   color: inherit;
@@ -8257,7 +8269,7 @@ fieldset[disabled] .btn-default.active {
   padding: 5px 5px 0 7px;
   font-weight: 700;
   background-color: #1a1a1a;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
   border-radius: 3px;
 }
 #footer .main-footer .latest-post .post-image p span {
@@ -8345,7 +8357,7 @@ fieldset[disabled] .btn-default.active {
   position: relative;
   padding: 30px 0;
   background-color: #1a1a1a;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 13px;
   font-weight: 600;
   color: #818181;
@@ -8407,7 +8419,7 @@ fieldset[disabled] .btn-default.active {
 .shortcodes .heading h2,
 .shortcodes .heading h5,
 .shortcodes .heading h6 {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 .shortcodes .heading h1 {
   font-size: 46px;

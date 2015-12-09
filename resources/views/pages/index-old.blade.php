@@ -12,27 +12,32 @@
 @endsection
 <!-- slider -->
 @section('slider')
-        <div id="homepage" class="slider-content">
+        <div class="slider-content">
           <div id="home-slider" class="">
             <div class="item">
-              <img src="{{asset('img/content/lagosnight.jpg')}}" alt="">
-              <div class="slide-content">
-                <div class="lp-content">
-                  <h1 class="text-center page-title hidden-xs"> Discover
-                    <span class="rotate">
-                        <span>Businesses in your city</span>
-                        <span>Restaurants in Lagos</span>
-                        <span>Hotels in Abuja</span>
-                        <span>Clubs in Victoria Island</span>
-                        <span>Banks in Ikeja</span>
-                    </span>
-                  </h1>
-                    <h1 class="page-title hidden-lg hidden-md hidden-sm m5-bttm">Discover your city</h1>
-                  <h3 class="page-subtitle">Find great places to stay, eat, shop, or visit from local experts.</h3>
-                  <h1><a class="btn btn-default btn-lg" href="/businesses"><i class="fa fa-plus-square"></i> Explore Businesses</a></h1>
-                </div>
+              <img src="{{asset('img/content/home-slide-img.jpg')}}" alt="">
+              <div class="slide-content">             
+                {{--<h1><small><i class="fa fa-search"></i> Search for <br><span id="demo"></span> <br>in <br><span id="demo2"></span></small></h1>--}}
+                {{--<h1><small>Connect your</small> <span>Brand <small>or</small> Service</span> <small>to</small> <span>Customers</span></h1>--}}
+                <h1 class="text-center page-title"> Discover
+                  <span class="rotate">
+                    <span>Businesses in your city</span>
+                    <span>Local Restaurants(MamaPut) in Lagos</span>
+                    <span>Hotels in Abuja</span>
+                    <span>Bars & Clubs in Victoria Island</span>
+                  </span>
+                </h1>
+                {{--<h1><small>Connect your</small> <span>Brand <small>or</small> Service</span> <small>to</small> <span>Customers</span></h1>--}}
+                {{--<h3 class="page-subtitle">Connect your Brand or Service to Customers</h3>--}}
+                <h3 class="page-subtitle">Find great places to stay, eat, shop, or visit from local experts.</h3>
+                <h1 class="hidden-xs"><a class="btn btn-default btn-lg" href="/businesses"><i class="fa fa-plus-square"></i> Explore Businesses</a></h1>
               </div>
             </div>
+          </div>
+
+          <div class="customNavigation hidden">
+            <a class="btn prev"><i class="fa fa-angle-left"></i></a>
+            <a class="btn next"><i class="fa fa-angle-right"></i></a>
           </div>
         </div> <!-- END .slider-content -->    
 @endsection

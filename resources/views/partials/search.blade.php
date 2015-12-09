@@ -8,7 +8,7 @@
                     <span> Direct<i class="fa fa-globe"></i>ry</span>
                   </div>
                   <!-- END HEADER LOGO -->              
-                  <div class="search-value">
+                  <div class="search-value hidden-xs">
                     <!-- <div class="keywords">                       
                       <select class="" id="company" name="company" placeholder="Quick search >> type business/company name"></select>
                     </div> -->
