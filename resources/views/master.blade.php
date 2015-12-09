@@ -25,6 +25,8 @@
 
   <!-- GOOGLE FONTS -->
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,700|Open+Sans:400,600|Lato:400,700' rel='stylesheet' type='text/css'>
+
+    <link rel="icon" href="{{ asset('img/content/favicon.ico')}}" sizes="16x16 32x32" type="image/ico">
   <!--[if IE 9]>
     <script src="{{asset('js/media.match.min.js')}}"></script>
   <![endif]-->

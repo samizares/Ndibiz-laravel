@@ -7,9 +7,9 @@
 @endsection
 <!-- HEADER -->
 <!-- search -->
-@section('search')
-  @include('partials.search')
-@endsection
+{{--@section('search')--}}
+  {{--@include('partials.search')--}}
+{{--@endsection--}}
 <!-- slider -->
 @section('slider')
         <div id="homepage" class="slider-content">
@@ -77,8 +77,9 @@
   <div id="page-content" class="home-slider-content">
     <div class="container">
       <div class="home-with-slide category-listing">
+          <h3 class="section-title"><strong>Featured</strong> Categories</h3>
+          <span class="section-subtitle text-color-grey444">Explore our most popular business categories.</span>
         <div class="row homepage">
-          <h2><strong>Featured</strong> Business Categories</h2>
           <div class="col-md-9 col-md-push-3">
             <div class="page-content">
               <div class="product-details">              
@@ -99,11 +100,14 @@
                                </a>
                               </div>
                             </div> 
-                          @endforeach                
+                          @endforeach
                         </div> <!-- end .row -->                   
                     </div> <!-- end .tabe-pane -->
                  @endforeach
                  @endunless
+                    <div class="discover-more">
+                        <a class="btn btn-default text-center" href="/categories">Discover More Categories</a>
+                    </div>
                 </div> <!-- end .tabe-content -->
              
               </div> <!-- end .product-details -->
@@ -138,47 +142,46 @@
   
   <div class="featured-listing" id= "featured-list">
     <div class="container">
-      <h2><strong>Featured</strong> Businesses</h2>
-      <div id="businesses-slider" class="owl-carousel owl-theme clearfix">
+        <h3 class="section-title"><strong>Featured</strong> Businesses</h3>
+        <span class="section-subtitle text-color-greyddd">Explore top rated businesses based on customers' ratings.</span>
+      <div id="businesses-slider" class="owl-carousel owl-theme clearfix p20-top">
         @unless ( $featured->isEmpty() )
                   @foreach ($featured as $feature)
         <div class="item">
           <div class="single-product">
+              <a href="/review/biz/{{$feature->id}}">
             <figure>
               <img src="{{asset('img/content/post-img-1.jpg')}}" alt="">
               <div class="rating">
                 <ul class="list-inline">
-                  <li><a href="#"><i class="fa fa-star"></i></a></li>
-                  <li><a href="#"><i class="fa fa-star"></i></a></li>
-                  <li><a href="#"><i class="fa fa-star"></i></a></li>
-                  <li><a href="#"><i class="fa fa-star-half-o"></i></a></li>
-                  <li><a href="#"><i class="fa fa-star-o"></i></a></li>
+                    <li><i class="fa fa-star"></i></li>
+                    <li><i class="fa fa-star"></i></li>
+                    <li><i class="fa fa-star"></i></li>
+                  <li><i class="fa fa-star-half-o"></i></li>
+                  <li><i class="fa fa-star-o"></i></li>
                 </ul>
-
-                <p>Featured</p>
-
-              </div> <!-- end .rating -->
-
-              <figcaption>
-                <div class="bookmark">
-                  <a href="#"><i class="fa fa-heart-o"></i> Bookmark</a>
-                </div>
-                <div class="read-more">
-                  <a href="/review/biz/{{$feature->id}}"><i class="fa fa-angle-right"></i> Read More</a>
-                </div>
-
-              </figcaption>
+                <p>
+                    @foreach($feature->cats as $cat)
+                        {{ $cat->name }}
+                    @endforeach
+                </p>
+              </div>
             </figure>
-            <h4><a href="/review/biz/{{$feature->id}}">{{$feature->name}}</a></h4>
-            <h5 class=""> @foreach($feature->subcats as $sub)
-                  <a class="btn btn-border" href="/biz/subcat/{{$sub->id}}">{{ $sub->name }}</a>@endforeach</h5>
+            <h4 class="text-left">{{$feature->name}}</h4>
+              <p class="biz-tagline m20-bttm text-left">Business tagline goes here...</p>
+              <p class="text-left m0-bttm">
+                  @foreach($feature->subcats as $sub)
+                  <span class="btn btn-border btn-xs btn-tags" role="button"><i class="fa fa-tags"></i> {{$sub->name}}</span>
+                  @endforeach
+              </p>
+              </a>
           </div> <!-- end .single-product -->
         </div>
         @endforeach
         @endunless
       </div>  <!-- end .row -->
-      <div class="discover-more">
-        <a class="btn btn-default text-center" href="/businesses"><i class="fa fa-plus-square-o"></i>Discover More Businesses</a>
+      <div class="discover-more m20-bttm">
+        <a class="btn btn-default text-center" href="/businesses">Discover More Businesses</a>
       </div>
     </div>  <!-- end .container -->
   </div>  <!-- end .featured-listing -->
