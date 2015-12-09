@@ -957,6 +957,8 @@ th {
 .text-color-greyddd {color:#ddd;}
 .text-color-grey444 {color:#444;}
 .text-color-grey333 {color:#333;}
+.text-color-yellowFFD231 {color:#FFD231;}
+
 
 .dataTables_filter {
   float: right;
@@ -4427,6 +4429,7 @@ fieldset[disabled] .btn-default.active {
 }
 h1.page-title, h3.page-subtitle {
     font-weight: normal;
+    text-align: center;
 }
 .slider-content #home-slider .item .slide-content h1.page-title {
   top: 20px;
@@ -6538,36 +6541,45 @@ span.section-subtitle {
   text-align: center;
   width: 100%;
 }
-.reg-heading h1 span.btn-default:hover {
+.reg-heading h3 span.btn-default:hover {
   border: solid 1px #FFD231;
   color: #FFD231 !important;
 }
-.register-content h1 {
+.register-content .reg-heading h3 {
   margin: 0;
   color: #fff;
   font-weight: 400;
-  font-size: 30px;
+  font-size: 24px;
   font-family: 'Roboto', sans-serif;
   padding: 40px 0;
   background: #333333;
   text-transform: uppercase;
 }
-.register-content .registration-details {
-  position: relative;
-  padding: 50px 0;
-  background-color: rgba(253, 198, 0, 0.75);
-  text-align: center;
-  width: 100%;
+/*.register-content h3 span {*/
+    /*display: block;*/
+/*}*/
+.registration-details {
+    padding:20px 0;
+}
+.register-content .registration-details h3{
+  /*position: relative;*/
+  /*padding: 50px 0;*/
+  /*background-color: rgba(253, 198, 0, 0.75);*/
+  /*text-align: center;*/
+  /*width: 100%;*/
+    margin: 0px;
+    padding: 10px 0px 0px;
+    text-transform: uppercase;
 }
 
-.register-content .registration-details h2 {
+.register-content .registration-details h4 {
   margin-bottom: 50px;
   text-transform: uppercase;
   font-weight: 400;
 }
 .register-content .registration-details .regular-member {
-  float: left;
-  margin-left: 50px;
+  /*float: left;*/
+  /*margin-left: 50px;*/
 }
 @media (max-width: 1200px) {
   .register-content .registration-details .regular-member {
@@ -6586,7 +6598,7 @@ span.section-subtitle {
 }
 .register-content .registration-details .box {
   position: relative;
-  width: 35%;
+  width: 100%;
   padding: 30px;
   text-align: left;
   border: 3px solid #333333;
@@ -6639,7 +6651,7 @@ span.section-subtitle {
 }
 @media (max-width: 1200px) {
   .register-content .registration-details {
-    padding: 50px 0;
+    padding: 20px 0;
   }
 }
 @media (max-width: 768px) {

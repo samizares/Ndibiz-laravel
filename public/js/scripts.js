@@ -93,7 +93,8 @@
             items : 6,
             itemsDesktop : [1199,4],
             itemsDesktopSmall : [979,3],
-            itemsTablet: [600,2]
+            itemsTablet: [600,2],
+              stopOnHover : true
           });
 
           // featured businesses slider customize
@@ -104,8 +105,8 @@
             itemsDesktop : [1199,4],
             itemsDesktopSmall : [979,3],
             itemsTablet: [600,2],
-            paginationNumbers: true,
-            paginationSpeed : 400
+            pagination: true,
+              stopOnHover : true
           });
 
           // featured businesses slider customize

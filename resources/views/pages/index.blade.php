@@ -188,36 +188,24 @@
   
   <div class="register-content">
     <div class="reg-heading">
-      <h1>List your business for <strong style="color:#FFD231;">Free</strong> now <span class="btn btn-default"><a href="/biz/create"><i class="fa fa-plus"></i> Add Business</a></span></h1>
+      <h3>List your business for <strong class="text-color-yellowFFD231">Free</strong> now <br> <span class="btn btn-default"><a href="/biz/create"><i class="fa fa-plus"></i> Add a Business</a></span></h3>
     </div>
 
     <div class="registration-details">
       <div class="container">
-        <h2>Registration Benefits</h2>
-        <div class="box regular-member">
-          <h2><strong>Registered</strong> Users</h2>
-
-          <p><i class="fa fa-check-circle-o"></i> Find local businesses nearby and afar</p>
-          <p><i class="fa fa-check-circle-o"></i> View peoples' reviews of businesses service quality</p>
-          <p><i class="fa fa-check-circle-o"></i> View uploaded pictures of businesses posted by business owners and customers</p>
-
-          <a href="#" class="btn btn-default-inverse"><i class="fa fa-plus"></i> Register Now</a>
-        </div>
-
-        <div class="alternate">
-          <h2>OR</h2>
-        </div>
-
-        <div class="box business-member">
-          <h2><strong>Business</strong> Owners</h2>
-
-          <p><i class="fa fa-check-circle-o"></i> Claim your business page</p>
-          <p><i class="fa fa-check-circle-o"></i> Upload pictures of your products and/or services</p>
-          <p><i class="fa fa-check-circle-o"></i> Advertise your business to potential and existing customers</p>
-
-          <a href="#" class="btn btn-default-inverse"><i class="fa fa-plus"></i> Register Now</a>
-        </div>
-
+          <h3 class="section-title"><strong>Registration Benefits</strong></h3>
+          <span class="section-subtitle text-color-grey222 text-center">Explore top rated businesses based on customers' ratings.</span>
+          <div class="row m20-top m20-bttm">
+              <div class="col-md-4 m20-bttm">
+                  <div class="box regular-member"></div>
+              </div>
+              <div class="col-md-4 m20-bttm">
+                  <div class="box business-member"></div>
+              </div>
+              <div class="col-md-4 m20-bttm">
+                  <div class="box business-member"></div>
+              </div>
+          </div>
       </div>
       <!-- END .CONTAINER -->
     </div>
