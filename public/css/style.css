@@ -2946,7 +2946,7 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 700;
   line-height: 1.1;
   color: #333333;
@@ -2967,7 +2967,7 @@ h6 a:hover,
 }
 h3,
 .h3 {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 h1,
 .h1,
@@ -4022,6 +4022,7 @@ fieldset[disabled] .btn-default.active {
   z-index: 9995!important;
   background-color: #fff;
   padding: 10px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 /* header map section */
 /* ---------------------------------------- */
@@ -4426,6 +4427,11 @@ fieldset[disabled] .btn-default.active {
 }
 .slider-content  .slide-content .lp-content {
   padding:56px 10px;
+}
+@media (min-width: 768px) {
+    .slider-content  .slide-content .lp-content {
+        padding: 120px 10px;
+    }
 }
 h1.page-title, h3.page-subtitle {
     font-weight: normal;
@@ -4878,7 +4884,7 @@ h1.page-title, h3.page-subtitle {
     height: 40px;
     width: 40px;
     line-height: 37px;
-    background-color: rgba(26, 26, 26, 0.53);
+    background-color: rgba(253, 198, 0, 0.76);
     color: #fff;
     font-size: 20px;
     font-weight: bold;
@@ -6655,7 +6661,7 @@ span.section-subtitle {
   border-radius: 50%;
 }
 .register-content .registration-details .business-member {
-  float: left;
+  float: none;
 }
 @media (max-width: 1200px) {
   .register-content .registration-details {
@@ -6667,7 +6673,7 @@ span.section-subtitle {
     margin: 100px 20px;
   }
   .register-content .registration-details .box {
-    width: 40%;
+    width: 100%;
   }
 }
 @media (max-width: 700px) {
