@@ -4430,7 +4430,7 @@ fieldset[disabled] .btn-default.active {
 }
 @media (min-width: 768px) {
     .slider-content  .slide-content .lp-content {
-        padding: 120px 10px;
+        padding: 175px 10px;
     }
 }
 h1.page-title, h3.page-subtitle {
@@ -6594,7 +6594,7 @@ span.section-subtitle {
 }
 @media (max-width: 1200px) {
   .register-content .registration-details .regular-member {
-    margin-left: 30px;
+    /*margin-left: 30px;*/
   }
 }
 @media (max-width: 992px) {
@@ -6610,7 +6610,7 @@ span.section-subtitle {
 .register-content .registration-details .box {
   position: relative;
   width: 100%;
-  padding: 30px;
+  padding: 30px 5px;
   text-align: center;
   border: 3px solid #333333;
   border-radius: 3px;
