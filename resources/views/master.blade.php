@@ -12,16 +12,21 @@
   <meta name="description" content="@yield('description')" />
 
   <!-- Stylesheets -->  
-  @yield('stylesheets')
-  
-   <link rel="stylesheet" href="{{ asset('css/style.css') }}"> 
-  <link rel="stylesheet" href="{{ asset('plugins/animate.css')}}">
-  <link rel="stylesheet" href="{{ asset('plugins/selectize/selectize.default.css')}}">
-  <link href="{{asset('plugins/select2/select2.min.css')}}" rel="stylesheet">
+      @yield('stylesheets')
+
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style-480.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style-768.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style-992.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style-1200.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/animate.css')}}">
+    <link rel="stylesheet" href="{{ asset('plugins/selectize/selectize.default.css')}}">
+    <link href="{{asset('plugins/select2/select2.min.css')}}" rel="stylesheet">
 
   <!-- GOOGLE FONTS -->
-  <link href='http://fonts.googleapis.com/css?family=Raleway:400,700,600,800%7COpen+Sans:400italic,400,600,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,700|Open+Sans:400,600|Lato:400,700' rel='stylesheet' type='text/css'>
 
+    <link rel="icon" href="{{ asset('img/content/favicon.ico')}}" sizes="16x16 32x32" type="image/ico">
   <!--[if IE 9]>
     <script src="{{asset('js/media.match.min.js')}}"></script>
   <![endif]-->

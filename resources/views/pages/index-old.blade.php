@@ -7,32 +7,37 @@
 @endsection
 <!-- HEADER -->
 <!-- search -->
-{{--@section('search')--}}
-  {{--@include('partials.search')--}}
-{{--@endsection--}}
+@section('search')
+  @include('partials.search')
+@endsection
 <!-- slider -->
 @section('slider')
-        <div id="homepage" class="slider-content">
+        <div class="slider-content">
           <div id="home-slider" class="">
             <div class="item">
-              <img src="{{asset('img/content/lagosnight.jpg')}}" alt="">
-              <div class="slide-content">
-                <div class="lp-content">
-                  <h1 class="text-center page-title hidden-xs"> Discover
-                    <span class="rotate">
-                        <span>Businesses in your city</span>
-                        <span>Restaurants in Lagos</span>
-                        <span>Hotels in Abuja</span>
-                        <span>Clubs in Victoria Island</span>
-                        <span>Banks in Ikeja</span>
-                    </span>
-                  </h1>
-                    <h1 class="page-title hidden-lg hidden-md hidden-sm m5-bttm">Discover your city</h1>
-                  <h3 class="page-subtitle">Find great places to stay, eat, shop, or visit from local experts.</h3>
-                  <h1><a class="btn btn-default btn-lg" href="/businesses"><i class="fa fa-plus-square"></i> Explore Businesses</a></h1>
-                </div>
+              <img src="{{asset('img/content/home-slide-img.jpg')}}" alt="">
+              <div class="slide-content">             
+                {{--<h1><small><i class="fa fa-search"></i> Search for <br><span id="demo"></span> <br>in <br><span id="demo2"></span></small></h1>--}}
+                {{--<h1><small>Connect your</small> <span>Brand <small>or</small> Service</span> <small>to</small> <span>Customers</span></h1>--}}
+                <h1 class="text-center page-title"> Discover
+                  <span class="rotate">
+                    <span>Businesses in your city</span>
+                    <span>Local Restaurants(MamaPut) in Lagos</span>
+                    <span>Hotels in Abuja</span>
+                    <span>Bars & Clubs in Victoria Island</span>
+                  </span>
+                </h1>
+                {{--<h1><small>Connect your</small> <span>Brand <small>or</small> Service</span> <small>to</small> <span>Customers</span></h1>--}}
+                {{--<h3 class="page-subtitle">Connect your Brand or Service to Customers</h3>--}}
+                <h3 class="page-subtitle">Find great places to stay, eat, shop, or visit from local experts.</h3>
+                <h1 class="hidden-xs"><a class="btn btn-default btn-lg" href="/businesses"><i class="fa fa-plus-square"></i> Explore Businesses</a></h1>
               </div>
             </div>
+          </div>
+
+          <div class="customNavigation hidden">
+            <a class="btn prev"><i class="fa fa-angle-left"></i></a>
+            <a class="btn next"><i class="fa fa-angle-right"></i></a>
           </div>
         </div> <!-- END .slider-content -->    
 @endsection
@@ -77,9 +82,8 @@
   <div id="page-content" class="home-slider-content">
     <div class="container">
       <div class="home-with-slide category-listing">
-          <h3 class="section-title"><strong>Featured</strong> Categories</h3>
-          <span class="section-subtitle text-color-grey444">Explore our most popular business categories.</span>
         <div class="row homepage">
+          <h2><strong>Featured</strong> Business Categories</h2>
           <div class="col-md-9 col-md-push-3">
             <div class="page-content">
               <div class="product-details">              
@@ -100,14 +104,11 @@
                                </a>
                               </div>
                             </div> 
-                          @endforeach
+                          @endforeach                
                         </div> <!-- end .row -->                   
                     </div> <!-- end .tabe-pane -->
                  @endforeach
                  @endunless
-                    <div class="discover-more">
-                        <a class="btn btn-default text-center" href="/categories">Discover More Categories</a>
-                    </div>
                 </div> <!-- end .tabe-content -->
              
               </div> <!-- end .product-details -->
@@ -142,88 +143,113 @@
   
   <div class="featured-listing" id= "featured-list">
     <div class="container">
-        <h3 class="section-title"><strong>Featured</strong> Businesses</h3>
-        <span class="section-subtitle text-color-greyddd">Explore top rated businesses based on customers' ratings.</span>
-      <div id="businesses-slider" class="owl-carousel owl-theme clearfix p20-top">
+      <h2><strong>Featured</strong> Businesses</h2>
+      <div id="businesses-slider" class="owl-carousel owl-theme clearfix">
         @unless ( $featured->isEmpty() )
                   @foreach ($featured as $feature)
         <div class="item">
           <div class="single-product">
-              <a href="/review/biz/{{$feature->id}}">
             <figure>
               <img src="{{asset('img/content/post-img-1.jpg')}}" alt="">
               <div class="rating">
                 <ul class="list-inline">
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                  <li><i class="fa fa-star-half-o"></i></li>
-                  <li><i class="fa fa-star-o"></i></li>
+                  <li><a href="#"><i class="fa fa-star"></i></a></li>
+                  <li><a href="#"><i class="fa fa-star"></i></a></li>
+                  <li><a href="#"><i class="fa fa-star"></i></a></li>
+                  <li><a href="#"><i class="fa fa-star-half-o"></i></a></li>
+                  <li><a href="#"><i class="fa fa-star-o"></i></a></li>
                 </ul>
-                <p>
-                    @foreach($feature->cats as $cat)
-                        {{ $cat->name }}
-                    @endforeach
-                </p>
-              </div>
+
+                <p>Featured</p>
+
+              </div> <!-- end .rating -->
+
+              <figcaption>
+                <div class="bookmark">
+                  <a href="#"><i class="fa fa-heart-o"></i> Bookmark</a>
+                </div>
+                <div class="read-more">
+                  <a href="/review/biz/{{$feature->id}}"><i class="fa fa-angle-right"></i> Read More</a>
+                </div>
+
+              </figcaption>
             </figure>
-            <h4 class="text-left">{{$feature->name}}</h4>
-              <p class="biz-tagline m20-bttm text-left">Business tagline goes here...</p>
-              <p class="text-left m0-bttm">
-                  @foreach($feature->subcats as $sub)
-                  <span class="btn btn-border btn-xs btn-tags" role="button"><i class="fa fa-tags"></i> {{$sub->name}}</span>
-                  @endforeach
-              </p>
-              </a>
+            <h4><a href="/review/biz/{{$feature->id}}">{{$feature->name}}</a></h4>
+            <h5 class=""> @foreach($feature->subcats as $sub)
+                  <a class="btn btn-border" href="/biz/subcat/{{$sub->id}}">{{ $sub->name }}</a>@endforeach</h5>
           </div> <!-- end .single-product -->
         </div>
         @endforeach
         @endunless
       </div>  <!-- end .row -->
-      <div class="discover-more m20-bttm">
-        <a class="btn btn-default text-center" href="/businesses">Discover More Businesses</a>
+      <div class="discover-more">
+        <a class="btn btn-default text-center" href="/businesses"><i class="fa fa-plus-square-o"></i>Discover More Businesses</a>
       </div>
     </div>  <!-- end .container -->
   </div>  <!-- end .featured-listing -->
   
   <div class="register-content">
     <div class="reg-heading">
-      <h3>List a business for <strong class="text-color-yellowFFD231">Free</strong> now <br> <span class="btn btn-default"><a href="/biz/create"><i class="fa fa-plus"></i> Add a Business</a></span></h3>
+      <h1>List your business for <strong style="color:#FFD231;">Free</strong> now <span class="btn btn-default"><a href="/biz/create"><i class="fa fa-plus"></i> Add Business</a></span></h1>
     </div>
 
     <div class="registration-details">
       <div class="container">
-          <h3 class="section-title"><strong>See How It Works</strong></h3>
-          <span class="section-subtitle text-color-grey222 text-center">Discover how easy our directory can help you connect with businesses around you.</span>
-          <div class="row m20-top m20-bttm">
-              <div class="col-md-4 m20-bttm">
-                  <div class="box regular-member">
-                      <i class="fa fa-user m10-bttm"></i>
-                      <h4 class="p5-bttm">Choose What To Do</h4>
-                      <p>Lorem ipsum dolor sit amet, wisi constituto vim in. An eum audire verterem, an rebum adipiscing has. </p>
-                  </div>
-              </div>
-              <div class="col-md-4 m20-bttm">
-                  <div class="box business-member">
-                      <i class="fa fa-search m10-bttm"></i>
-                      <h4 class="p5-bttm">Find What You Want</h4>
-                      <p>Lorem ipsum dolor sit amet, wisi constituto vim in. An eum audire verterem, an rebum adipiscing has. </p>
-                  </div>
-              </div>
-              <div class="col-md-4 m20-bttm">
-                  <div class="box business-member">
-                      <i class="fa fa-building m10-bttm"></i>
-                      <h4 class="p5-bttm">Explore local businesses</h4>
-                      <p>Lorem ipsum dolor sit amet, wisi constituto vim in. An eum audire verterem, an rebum adipiscing has. </p>
-                  </div>
-              </div>
-          </div>
+        <h2>Registration Benefits</h2>
+        <div class="box regular-member">
+          <h2><strong>Registered</strong> Users</h2>
+
+          <p><i class="fa fa-check-circle-o"></i> Find local businesses nearby and afar</p>
+          <p><i class="fa fa-check-circle-o"></i> View peoples' reviews of businesses service quality</p>
+          <p><i class="fa fa-check-circle-o"></i> View uploaded pictures of businesses posted by business owners and customers</p>
+
+          <a href="#" class="btn btn-default-inverse"><i class="fa fa-plus"></i> Register Now</a>
+        </div>
+
+        <div class="alternate">
+          <h2>OR</h2>
+        </div>
+
+        <div class="box business-member">
+          <h2><strong>Business</strong> Owners</h2>
+
+          <p><i class="fa fa-check-circle-o"></i> Claim your business page</p>
+          <p><i class="fa fa-check-circle-o"></i> Upload pictures of your products and/or services</p>
+          <p><i class="fa fa-check-circle-o"></i> Advertise your business to potential and existing customers</p>
+
+          <a href="#" class="btn btn-default-inverse"><i class="fa fa-plus"></i> Register Now</a>
+        </div>
+
       </div>
       <!-- END .CONTAINER -->
     </div>
     <!-- END .REGISTRATION-DETAILS -->
   </div>
   <!-- END REGISTER-CONTENT -->
+
+  <!-- OUR PARTNER SLIDER BEGIN -->
+    <div class="our-partners">
+      <div class="container">
+        <h2>Our Partners</h2>
+
+        <div id="partners-slider" class="owl-carousel owl-theme">
+          <div class="item"><a href="#"><img src="img/content/partner1.png" alt=""></a></div>
+          <div class="item"><a href="#"><img src="img/content/partner2.png" alt=""></a></div>
+          <div class="item"><a href="#"><img src="img/content/partner3.png" alt=""></a></div>
+          <div class="item"><a href="#"><img src="img/content/partner4.png" alt=""></a></div>
+          <div class="item"><a href="#"><img src="img/content/partner5.png" alt=""></a></div>
+          <div class="item"><a href="#"><img src="img/content/partner6.png" alt=""></a></div>
+          <div class="item"><a href="#"><img src="img/content/partner1.png" alt=""></a></div>
+          <div class="item"><a href="#"><img src="img/content/partner2.png" alt=""></a></div>
+          <div class="item"><a href="#"><img src="img/content/partner3.png" alt=""></a></div>
+          <div class="item"><a href="#"><img src="img/content/partner4.png" alt=""></a></div>
+          <div class="item"><a href="#"><img src="img/content/partner5.png" alt=""></a></div>
+          <div class="item"><a href="#"><img src="img/content/partner6.png" alt=""></a></div>
+        </div>
+      </div>
+    </div>
+    <!-- END OUR PARTNER SLIDER -->
+
 @endsection
 
 
