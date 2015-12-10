@@ -15,10 +15,10 @@
       @yield('stylesheets')
 
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/style-480.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/style-768.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/style-992.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/style-1200.css') }}">
+    {{--<link rel="stylesheet" href="{{ asset('css/style-480.css') }}">--}}
+    {{--<link rel="stylesheet" href="{{ asset('css/style-768.css') }}">--}}
+    {{--<link rel="stylesheet" href="{{ asset('css/style-992.css') }}">--}}
+    {{--<link rel="stylesheet" href="{{ asset('css/style-1200.css') }}">--}}
     <link rel="stylesheet" href="{{ asset('plugins/animate.css')}}">
     <link rel="stylesheet" href="{{ asset('plugins/selectize/selectize.default.css')}}">
     <link href="{{asset('plugins/select2/select2.min.css')}}" rel="stylesheet">

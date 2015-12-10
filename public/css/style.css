@@ -4426,9 +4426,19 @@ fieldset[disabled] .btn-default.active {
   }
 }
 .slider-content  .slide-content .lp-content {
-  padding:56px 10px;
+  padding: 76px 10px;
+}
+@media (min-width: 480px) {
+    .slider-content  .slide-content .lp-content {
+        padding: 116px 10px;
+    }
 }
 @media (min-width: 768px) {
+    .slider-content  .slide-content .lp-content {
+        padding: 128px 10px;
+    }
+}
+@media (min-width: 992px) {
     .slider-content  .slide-content .lp-content {
         padding: 175px 10px;
     }
@@ -4439,7 +4449,7 @@ h1.page-title, h3.page-subtitle {
 }
 .slider-content #home-slider .item .slide-content h1.page-title {
   top: 20px;
-  text-transform: capitalize;
+  text-transform: none;
   color: #fff;
   font-size: 48px;
   font-family: 'Roboto', sans-serif;

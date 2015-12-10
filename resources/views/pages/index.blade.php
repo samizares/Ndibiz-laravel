@@ -20,7 +20,7 @@
                 <div class="lp-content">
                   <h1 class="text-center page-title hidden-xs m5-bttm"> Discover
                     <span class="rotate">
-                        <span>Businesses in your city</span>
+                        <span>Businesses in Your City</span>
                         <span>Restaurants in Lagos</span>
                         <span>Hotels in Abuja</span>
                         <span>Clubs in Victoria Island</span>
