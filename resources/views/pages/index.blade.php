@@ -18,7 +18,7 @@
               <img src="{{asset('img/content/lagosnight.jpg')}}" alt="">
               <div class="slide-content">
                 <div class="lp-content">
-                  <h1 class="text-center page-title hidden-xs"> Discover
+                  <h1 class="text-center page-title hidden-xs m5-bttm"> Discover
                     <span class="rotate">
                         <span>Businesses in your city</span>
                         <span>Restaurants in Lagos</span>
@@ -28,7 +28,7 @@
                     </span>
                   </h1>
                     <h1 class="page-title hidden-lg hidden-md hidden-sm m5-bttm">Discover your city</h1>
-                  <h3 class="page-subtitle">Find great places to stay, eat, shop, or visit from local experts.</h3>
+                  <h3 class="page-subtitle m5-top">Find great places to stay, eat, shop, or visit from local experts.</h3>
                   <h1><a class="btn btn-default btn-lg" href="/businesses"><i class="fa fa-plus-square"></i> Explore Businesses</a></h1>
                 </div>
               </div>
