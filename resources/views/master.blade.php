@@ -56,10 +56,12 @@
 <!-- SCRIPTS STARTS -->
   <!-- Core Scripts -->
   <script src="{{asset('js/jquery-2.1.3.min.js') }}"></script>
-  <script src="{{asset('js/jquery-ui.js') }}"></script>
+<script src="{{asset('plugins/Bootstrap-3.3.5/js/bootstrap.js')}}"></script>
+{{--<script src="{{asset('js/jquery-ui.js') }}"></script>--}}
   <script src="{{asset('js/jquery.ba-outside-events.min.js') }}"></script>
   <script src="{{asset('plugins/selectize/selectize.min.js')}}" type="text/javascript"></script>
   <script src="{{asset('plugins/select2/select2.min.js')}}"></script>
+
   <!-- Page Scripts -->
   <script type="text/javascript">
 

@@ -3458,14 +3458,26 @@ fieldset[disabled] .btn-default.active {
 #header .header-top-bar nav ul.dropdown-menu li a {
   color: #FFD231;
 }
-#auth-page .login {
-  padding: 70px;
-  min-height: 250px;
+.forms header .navbar-brand {
+    height:100px;
+    width:100%;
 }
-@media (max-width: 992px) {
-  #auth-page .login {
-    padding: 0 !important;
-  }
+.forms header .navbar-brand a img {
+    width:auto;
+    height:100%;
+}
+.forms .form-content {
+    margin: 60px 10px;
+    height:100%;
+}
+.forms .form-content .panel .panel-footer span {
+    padding:10px 0;
+}
+.forms .form-content .panel .panel-footer span.pwd {
+    text-align: left;
+}
+.forms .form-content .panel .panel-footer span.reg {
+    text-align: right;
 }
 .check-box input[type="checkbox"] {
   width: 0;
@@ -8265,7 +8277,7 @@ span.section-subtitle {
   font-size: 17px;
 }
 #footer .main-footer p {
-  color: #818181;
+  color: #ddd;
   padding-top: 20px;
   font-size: 15px;
 }

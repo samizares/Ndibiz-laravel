@@ -2,7 +2,6 @@
 <!-- HEAD -->
 @section('title', 'Home')
 @section('stylesheets')
-    <link rel="stylesheet" href="{{ asset('../plugins/text-rotator/jquery.wordrotator.css')}}">
     <link href="{{asset('../plugins/Bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet">
 @endsection
 <!-- HEADER -->
@@ -236,7 +235,6 @@
 <!-- SCRIPTS STARTS -->
   @section('scripts')
 
-    <script src="{{asset('../plugins/text-rotator/jquery.wordrotator.min.js') }}"></script>
     <script src="{{asset('../plugins/owl-carousel/owl.carousel.js') }}"></script>
     <script src="{{asset('../plugins/Bootstrap-3.3.5/js/bootstrap.js')}}"></script>
 
