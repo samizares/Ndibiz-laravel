@@ -6,11 +6,11 @@
 
 <!-- CONTENT -->
 @section('content')
-  @include('partials.notifications')
     <div class="form-content">
       <div class="container">
             <div class="row">
                 <div class="col-md-6 col-md-offset-3">
+                    @include('partials.notifications')
                   {!! Form::open(array('url' => '/auth/login', 'class' => 'form')) !!}
                   <div class="panel panel-default">
                     <div class="panel-heading">
@@ -19,13 +19,11 @@
                     <div class="panel-body">
                           <div class="form-group">
                             {!! Form::label('email', 'Your E-mail Address') !!}
-                            {!! Form::text('email', null,
-                             array('class'=>'form-control', 'placeholder'=>'E-mail')) !!}
+                            {!! Form::text('email', null,array('class'=>'form-control', 'placeholder'=>'E-mail', 'required'=>'required')) !!}
                           </div>
                           <div class="form-group">
                             {!! Form::label('password', 'Your Password') !!}
-                            {!! Form::password('password',
-                            array('class'=>'form-control', 'placeholder'=>'Password')) !!}
+                            {!! Form::password('password',array('class'=>'form-control', 'placeholder'=>'Password', 'required'=>'required')) !!}
                           </div>
                           <div class="">
                             <div class="checkbox">
@@ -39,8 +37,8 @@
                           </div>
                     </div>
                     <div class="panel-footer">
-                      <span class="pwd"><a class="text-left" href="/password/email"><strong>Forgot Your Password?</strong></a></span>
-                      <span class="reg">Not registered? <a href="/auth/register"><strong>Create an account.</strong></a></span>
+                      <span class="pwd"><a class="text-left form-links" href="/password/email"><strong>Forgot Your Password?</strong></a></span>
+                      <span class="reg">Not registered? <a class="form-links" href="/auth/register"><strong>Create an account.</strong></a></span>
                     </div>
                   </div>
                   {!! Form::close() !!}

@@ -23,7 +23,7 @@ class AuthController extends Controller
     */
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
-	//protected $redirectPath = '/home';
+    //protected $redirectPath = '/home';
     //protected $loginPath = '/auth/login';
 
     /**
@@ -33,9 +33,9 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-       
+
         $this->middleware('guest', ['except' => 'getLogout']);
-    
+
     }
 
     /**
@@ -78,40 +78,40 @@ class AuthController extends Controller
             );
         }
 
-            $confirmation_code = str_random(30) . $request->input('email');
-            $user = new User;
-            $user->username = $request->input('username');
-            $user->email = $request->input('email');
-            $user->password = bcrypt($request->input('password'));
-            $user->confirmation_code = $confirmation_code;
+        $confirmation_code = str_random(30) . $request->input('email');
+        $user = new User;
+        $user->username = $request->input('username');
+        $user->email = $request->input('email');
+        $user->password = bcrypt($request->input('password'));
+        $user->confirmation_code = $confirmation_code;
 
-                if ($user->save()) {
-                    $data = array(
-                    'username' => $user->username,
-                    'email'     => $user->email,
-                    );
-                \Mail::queue('emails.activate', ['confirmation_code' => $confirmation_code], function($message) use ($user) {
+        if ($user->save()) {
+            $data = array(
+                'username' => $user->username,
+                'email'     => $user->email,
+            );
+            \Mail::queue('emails.activate', ['confirmation_code' => $confirmation_code], function($message) use ($user) {
                 $message->to($user->email, $user->username)
-                ->subject('Ndibiz: Verify your email address');
-                        });
-                return view('pages.activate');
-                    }
-                    else {
-                        \Session::flash('message', 'Your account couldn\'t be created please try again');
-                    return redirect()->back()->withInput();
-                    }
+                    ->subject('Ndibiz: Verify your email address');
+            });
+            return view('pages.activate');
+        }
+        else {
+            \Session::flash('message', 'Your account couldn\'t be created please try again');
+            return redirect()->back()->withInput();
+        }
 
-         }
+    }
 
-  public function activateAccount($code, User $user)
+    public function activateAccount($code, User $user)
     {
 
         if($user->accountIsActive($code)) {
 
             \Session::flash('message', 'Success, your account has been activated.');
             return redirect('/');
-           
-            } 
+
+        }
 
         \Session::flash('message', 'Your account couldn\'t be activated, please try again');
         return redirect('home');

@@ -3459,7 +3459,7 @@ fieldset[disabled] .btn-default.active {
   color: #FFD231;
 }
 .forms header .navbar-brand {
-    height:100px;
+    height:70px;
     width:100%;
 }
 .forms header .navbar-brand a img {
@@ -3478,6 +3478,9 @@ fieldset[disabled] .btn-default.active {
 }
 .forms .form-content .panel .panel-footer span.reg {
     text-align: right;
+}
+.form-links {
+    text-decoration: underline;
 }
 .check-box input[type="checkbox"] {
   width: 0;
@@ -4035,6 +4038,10 @@ fieldset[disabled] .btn-default.active {
   background-color: #fff;
   padding: 10px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+header.header {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  margin-bottom: 50px;
 }
 /* header map section */
 /* ---------------------------------------- */
@@ -6292,7 +6299,7 @@ h1.page-title, h3.page-subtitle {
   }
 }
 .category-listing {
-  text-align: center;
+  text-align: left;
 }
 
 .category-listing h3.section-title {
@@ -6305,8 +6312,10 @@ h1.page-title, h3.page-subtitle {
   font-family: 'Roboto', sans-serif;
     padding:10px 0 0 0;
 }
-span.section-subtitle {
+span.section-subtitle,
+p.section-subtitle {
     font-size:14px;
+    text-align: center;
 }
 .featured-listing h3 {
   margin: 0;

@@ -77,7 +77,7 @@
     <div class="container">
       <div class="home-with-slide category-listing">
           <h3 class="section-title"><strong>Featured</strong> Categories</h3>
-          <span class="section-subtitle text-color-grey444">Explore our most popular business categories.</span>
+          <p class="section-subtitle text-color-grey444 m0-bttm">Explore our most popular business categories.</p>
         <div class="row homepage">
           <div class="col-md-9 col-md-push-3">
             <div class="page-content">
