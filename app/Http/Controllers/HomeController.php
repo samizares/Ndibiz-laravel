@@ -20,12 +20,13 @@ class HomeController extends Controller
 
 	public function __construct()
     {
-        $this->middleware('auth',['only'=>'home']);
+        $this->middleware('auth',['only'=>['home','businesses','profile','getBizreview']]);
+        $this->middleware('confirm',['only'=>['home','profile','getBizreview']]);
     }
 
    public function index()
 	{
-		$cats = Cat::all()->take(5);
+		$cats = Cat::all()->take(15);
 		$bizs = Biz::orderBy('created_at', 'desc')->take(6);
 		$totalCat=Cat::count();
 		$totalSubCat=subCat::count();
@@ -61,18 +62,6 @@ class HomeController extends Controller
 		 $recent= Biz::orderBy('created_at', 'desc')->paginate(2);
 		// dd($featured);
 		return view('pages.businesses', compact('stateList','catList','cats','bizs','featured','recent', 'totalBiz', 'totalCat'));
-	}
-
-	public function userProfile()
-	{
-		$cats = Cat::all();
-		$bizs = Biz::orderBy('created_at', 'desc')->paginate(6);
-		$stateList= State::lists('name','name');
-		$catList   = Cat::lists('name','name'); 
-		 $featured= Biz::whereFeatured('YES')->paginate(3);
-		 $recent= Biz::orderBy('created_at', 'desc')->paginate(2);
-		// dd($featured);
-		return view('pages.user-profile', compact('stateList','catList','cats','bizs','featured','recent', 'totalBiz', 'totalCat'));
 	}
 
 	public function categories()
@@ -200,6 +189,8 @@ class HomeController extends Controller
 	 	  $stateList= State::lists('name','name');
 		  $catList   = Cat::lists('name','name');
 	 	  $biz = Biz::findOrFail($id);
+	 	  $favourites= \DB::table('favourites')->where('user_id', \Auth::user()->id)->lists('biz_id');
+	 	  //dd($favourites);
 	 	  $hours=$biz->hours;
 	 	  $mon=$biz->hours->where('day','MON')->first();
 	 	  $tue=$biz->hours->where('day','TUE')->first();
@@ -218,7 +209,7 @@ class HomeController extends Controller
 		$recent= Biz::orderBy('created_at', 'desc')->paginate(1);
 
          return view('pages.biz-profile', array('biz'=>$biz,'reviews'=>$reviews,'stateList'=>$stateList,
-         	'catList'=>$catList), compact('featured','recent','mon','tue','wed','thu','fri','sat','sun'));
+         	'catList'=>$catList,'favourites'=>$favourites), compact('featured','recent','mon','tue','wed','thu','fri','sat','sun'));
 	 }
 
 	 public function postReview($id)
@@ -274,4 +265,119 @@ class HomeController extends Controller
 
 		return view('pages.biz-sub',compact('bizs','stateList','catList','cats','featured','recent','cat'));
 	 }
+
+	 public function profile($userId)
+	{
+		$cats = Cat::all();
+		$user= \App\User::findOrFail($userId);
+		$bizs= $user->favours;
+		$favourites=\DB::table('favourites')->whereUserId(\Auth::user()->id)->lists('biz_id');
+		//$bizs = Biz::orderBy('created_at', 'desc')->paginate(6);
+		$stateList= State::lists('name','name');
+		$catList   = Cat::lists('name','name'); 
+		 $featured= Biz::whereFeatured('YES')->paginate(3);
+		 $recent= Biz::orderBy('created_at', 'desc')->paginate(2);
+		// dd($featured);
+		return view('pages.user-profile', compact('stateList','catList','cats',
+			'bizs','user','favourites','featured','recent', 'totalBiz', 'totalCat'));
+	}
+
+	 public function favoured()
+	 {
+	 
+  		 \Auth::user()->favours()->attach(\Input::get('biz_id'));
+    		 return \Redirect::back();
+	 }
+
+	 public function unfavoured($biz_id)
+	 {
+	 	 
+  		 \Auth::user()->favours()->detach($biz_id);
+    		 return \Redirect::back();
+	 }
+
+	 public function userphotos(Request $request,$id)
+	 {
+	 	$file= $request->file('file');
+	 	$name= time(). $file->getClientOriginalName();
+	 	$file->move('users/photos', $name);
+	 	$user= \App\User::findOrFail($id);
+	 	$user->photos()->create(['path'=>"/users/photos/{$name}"]);
+	 	return 'Done';
+	 }
+	 public function bizphotos(Request $request,$id)
+	 {
+	 	$file= $request->file('file');
+	 	$name= time(). $file->getClientOriginalName();
+	 	$file->move('biz/photos', $name);
+	 	$biz= \App\Biz::findOrFail($id);
+	 	$biz->photos()->create(['path'=>"/biz/photos/{$name}"]);
+	 	return 'Done';
+	 }
+
+	 public function userprofilephoto(Request $request,$id)
+	 {
+	 	//$file= $request->file('file');
+	 	//$name= time(). $file->getClientOriginalName();
+	 	//$file->move('biz/profile/photos', $name);
+	 	//$biz= \App\Biz::findOrFail($id);
+	 	//$biz->photos()->create(['path'=>"/biz/photos/{$name}"]);
+	 	//return 'Done';
+
+      $picture = [
+           'image' => $request->file('image'),
+        ];
+
+        $rules = [
+             'image'=> 'required|image|mimes:jpeg,jpg,bmp,png,gif',
+        ];
+
+        $validator = \Validator::make($picture, $rules);
+        if ($validator->passes())
+         {
+
+          $user_id= $request->get('id');
+          $user= \App\User::findorFail($user_id);
+          $profilePhoto = $user->profilePhoto; 
+
+           $image= $request->file('image');
+           $name= time(). $image->getClientOriginalName();
+           $image->move('biz/profile', $name);
+
+          if (! isset($profilePhoto->image))
+          {
+          $pic= new \App\ProfilePhoto;
+          $pic->image ='biz/profile/'.$name;
+          $user->profilePhoto()->save($pic);
+
+             return \Redirect::back()
+            ->with('message', 'profile photo added!!!');
+          }
+          if(isset($profilePhoto->image))
+           { 
+                  
+           $profilePhoto->image ='biz/profile/'.$name;
+            
+           $user->profilePhoto()->save( $profilePhoto);
+           return \Redirect::back()
+            ->with('message', ' profile photo updated!');
+           }
+    
+        }
+         return \Redirect::back()
+        ->with('errors', $validator->messages());
+      
+        
+
+    }  
+    
+
+	 
+
+
+	 public function favourites()
+	 {
+
+	 }
+
 }

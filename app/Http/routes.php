@@ -14,11 +14,30 @@
 
 Route::get('/', 'HomeController@index');
 Route::get('home', 'HomeController@home');
+Route::get('profile/{id}', 'HomeController@profile');
 Route::post('search/business', 'HomeController@searchResult');
+
+
+Route::get('testing1', function () {
+return response()->json(['name' => 'Sanjib', 'location' => 'Pluto']);
+});
+Route::resource('people', 'PeopleController');
+Route::bind('people', function ($id){
+return App\User::where('id', $id)->first();
+});
+
+
+Route::post('profile/{id}/upload','HomeController@userphotos');
+Route::post('biz/{id}/upload','HomeController@bizphotos');
+Route::post('profile/{id}/photo', 'HomeController@userprofilephoto');
 
 Route::get('categories', 'HomeController@categories');
 Route::get('businesses', 'HomeController@businesses');
 Route::get('search-results', 'HomeController@searchResults');
+
+Route::post('favourites', 'HomeController@favoured');
+Route::delete('favourites/{biz_id}', 'HomeController@unfavoured');
+Route::get('users/{userId}/favourites', 'HomeController@favourites');
 
 //Route::get('bizreg', 'HomeController@regbiz');
 Route::get('review/biz/{id}', 'HomeController@getBizreview');
@@ -26,7 +45,7 @@ Route::post('review/biz/{id}', 'HomeController@postReview');
 Route::get('biz/subcat/{id}', 'HomeController@bizSub');
 Route::get('biz/cat/{id}', 'HomeController@bizCat');
 Route::resource('biz', 'BizController');
-Route::get('search', 'HomeController@search');
+//Route::get('search', 'HomeController@search');
 Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
 Route::get('auth/login', 'Auth\AuthController@getLogin');
@@ -52,7 +71,7 @@ $router->group([
   'namespace' => 'Admin',
   'middleware' => 'admin',
 ], function () {
-  get('admin/', 'AdminController@index');
+  get('admin', 'AdminController@index');
   resource('admin/biz', 'BizController');
   resource('admin/cat', 'CatController');
   resource('admin/user','UsersController');

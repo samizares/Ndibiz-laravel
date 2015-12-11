@@ -16,6 +16,7 @@ class BizController extends Controller
      public function __construct()
     {
         $this->middleware('auth',['except'=>'index','show']);
+        $this->middleware('confirm',['except'=>'index','show']);
     }
 
     /**

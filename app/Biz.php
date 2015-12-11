@@ -25,9 +25,13 @@ class Biz extends Model
       return $this->hasMany('App\BusinessHour');
     }
 
+    public function favoured()
+    {
+        return $this->belongsToMany('App\User','favourites');
+    }
    public function ownerbiz()
     {
-        return $this->BelongsTo('App\User');
+        return $this->belongsTo('App\User');
     }
     public function subcats()
   {
@@ -96,5 +100,10 @@ class Biz extends Model
           $q->where('lga_id', $areaID);
         });
     } 
+
+    public function photos()
+    {
+      return $this->hasMany('App\BizPhoto');
+    }
 }
 

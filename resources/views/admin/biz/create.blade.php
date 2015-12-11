@@ -223,7 +223,7 @@
 
     $(document).ready(function() {
       $("#sub").select2({
-        placeholder: 'select or create subcategories',
+        placeholder: 'select subcategories',
        // tags: true,
       });
     });

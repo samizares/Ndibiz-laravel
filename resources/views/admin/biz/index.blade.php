@@ -110,7 +110,7 @@
 
 <!-- SCRIPTS STARTS -->
   @section('scripts')    
-   <!-- <script src="{{asset('plugins/bootstrap-3.3.5/js/bootstrap.js')}}"></script> -->
+  <!-- <script src="{{asset('plugins/bootstrap-3.3.5/js/bootstrap.js')}}"></script> -->
     <script src="{{asset('plugins/datatable/js/datatables.js')}}"></script>
     <script src="{{asset('plugins/bootstrap-editable/bootstrap-editable.min.js')}}"></script>
 
@@ -176,6 +176,6 @@
             });
           });
     </script>
-   <script src="{{asset('js/scripts.js')}}"></script>
+   <script src="{{asset('js/scripts.js')}}"></script> 
   @endsection
 <!-- SCRIPTS ENDS -->

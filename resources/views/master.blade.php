@@ -50,7 +50,7 @@
 
 <!-- SCRIPTS STARTS -->
   <!-- Core Scripts -->
-  <script src="{{asset('js/jquery-2.1.3.min.js') }}"></script>
+  <script src="{{asset('js/jquery-2.1.3.min.js') }}"></script> 
   <script src="{{asset('js/jquery-ui.js') }}"></script>
   <script src="{{asset('js/jquery.ba-outside-events.min.js') }}"></script>
   <script src="{{asset('plugins/selectize/selectize.min.js')}}" type="text/javascript"></script>

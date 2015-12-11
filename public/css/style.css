@@ -8550,3 +8550,15 @@ fieldset[disabled] .btn-default.active {
   float: none;
   margin-bottom: -1px;
 }
+
+.btn-naked{
+  backgroud:none;
+  border:none;
+}
+ .not-favorited,.favorited:hover{
+  color:black;
+}
+
+.not-favorited:hover, .favorited{
+  color:red;
+}

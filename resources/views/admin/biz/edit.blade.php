@@ -91,7 +91,7 @@
              <div class="form-group">
                  <label for="cat" class="col-md-3 control-label">Business Category</label>
                  <div class="col-md-8">
-                  {!!Form::select('cats[]', $catList, $cat, ['class'=>'form-control','id'=>'category2', 'multiple']) !!}
+                  {!!Form::select('cats[]', $catList, $cat, ['class'=>'form-control','id'=>'category_edit', 'multiple']) !!}
                   
                 </div>
             </div>
@@ -99,7 +99,7 @@
               <label for="image_class" class="col-md-3 control-label">
                 Sub categories</label>
                   <div class="col-md-8">
-                    {!!Form::select('sub[]', $subList, $sub, ['class'=>'form-control','id'=>'sub','multiple']) !!} 
+                    {!!Form::select('sub[]', $subList, $sub, ['class'=>'form-control','id'=>'sub_edit','multiple']) !!} 
                   </div>
             </div>
             <div class="form-group">
@@ -214,7 +214,7 @@
         })
     });
     $(document).ready(function() {
-      $("#category2").select2({
+      $("#category_edit").select2({
         // tags: true,
       });
 
@@ -222,13 +222,13 @@
 
     $(document).ready(function() {
       var y=[];
-     $('#category2').change(function(){
+     $('#category_edit').change(function(){
           if($(this).val() !== "select business category") {
-             var model=$('#sub');
+             var model=$('#sub_edit');
             model.empty();
            $.get('{{ URL::to('api/subcat') }}', {y: $(this).val()}, function(result){
              $.each(result.data,function(){
-                              $('#sub').append('<option value="'+this.id+'">'+this.text+'</option>');
+                              $('#sub_edit').append('<option value="'+this.id+'">'+this.text+'</option>');
 
                         });
            });
@@ -247,7 +247,7 @@
 
 
     $(document).ready(function() {
-      $("#sub").select2({
+      $("#sub_edit").select2({
       //  tags: true,
       });
     });

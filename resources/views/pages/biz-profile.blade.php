@@ -4,6 +4,7 @@
 @section('stylesheets')
   <link rel="stylesheet" href="{{ asset('../plugins/text-rotator/jquery.wordrotator.css')}}">
    <link href="{{asset('../plugins/Bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet">
+    <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/dropzone.css">
    <link rel="stylesheet" type="text/css" href="{{asset('../plugins/nanogallery/css/nanogallery.min.css')}}">
    <style type="text/css">
      /* Enhance the look of the textarea expanding animation */
@@ -76,9 +77,25 @@
               <h3 class="m0-top"><a href="/"><i class="fa fa-home"></i> </a> » <a href="/businesses">Business Listings </a> » <small>{{$biz->name}} Profile</small></h3>
             </div>
             <div class="col-md-4 text-right social-link">
+
                       <div class="btn-group">
-                        <button type="button" class="btn btn-default"><i class="fa fa-heart"></i> Like</button>
-                        <button type="button" class="btn btn-default"><i class="fa fa-share-alt"></i> Share</button>
+                        @if($favourited=in_array($biz->id, $favourites))
+  <form method="POST" action ="/favourites/{{ $biz->id}}">
+  {!! csrf_field() !!}
+  <input type="hidden" name="_method" value="DELETE">
+@else
+
+<form method="POST" action="/favourites">
+   {!! csrf_field() !!}
+  <input type="hidden" name="biz_id" value="{{$biz->id}}">
+@endif
+<button type="submit" class="btn-naked {{ $favourited ? 'favorited' : 'not-
+
+favorited' }}"><i class="fa fa-heart"></i> {{ $favourited ? 'Unfavourite' : 
+
+'Favorite' }}</button>
+  </form>
+             <button type="button" class="btn btn-default"><i class="fa fa-share-alt"></i> Share</button>
                        </div>
             </div>
           </div>
@@ -99,19 +116,37 @@
                         <p class="m5-bttm"><i class="fa fa-phone"></i> (+234)-{{$biz->phone1}}</p>
                         <p class="m5-bttm"> <i class="fa fa-phone"></i> (+234)-{{$biz->phone2}}</p>
                         <p><span><i class="fa fa-external-link"></i>  {{$biz->website}}</span></p>
+                        @if(! $biz->claimed)
+                        <p class="m5-bttm"><button type="button" class="btn btn-default" data-toggle="modal" 
+                          data-target="#myClaim">Claim Business</button></p>
+                        @endif
+
+                        @if(Auth::check() && (Auth::user()->id == $biz->owner))
+                          <div class="col-md-4">
+                            <div class="btn-group">
+                             <button type="button" class="btn btn-default" data-toggle="tooltip" title="Edit Profile"><i class="fa fa-cog"></i></button>
+                             <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal" title="Add Photo"><i class="fa fa-camera"></i></button>
+                           </div>
+                         </div>
+                         @endif
+
+                    
+                          
                     </div>
                     <div class="col-md-4">
                             <div class="opening-hours table-responsive">
-                              <h5 class="m0 p0"><i class="fa fa-clock-o"></i> Opening Hours</h5>                              
-                              <table class="table">
-                                <tbody>
-                                  <tr><th>Mon:</th>  
-                                    <td> <a class="mon_from" id="{{$mon->id}}">{{$mon->open_time}}</a>AM</td>-
-                                    <td> <a class="mon_to" id="{{$mon->id}}">{{$mon->close_time}}</a>PM</td></tr>
+                                <h5 class="m0 p0"><i class="fa fa-clock-o"></i> Opening Hours</h5>                              
+                                  <table class="table">
+                                     <tbody>
+                                       <tr><th>Mon:</th>  
+                                          <td> <a class="mon_from" id="{{$mon->id}}">{{$mon->open_time}}</a>AM</td>-
+                                          <td> <a class="mon_to" id="{{$mon->id}}">{{$mon->close_time}}</a>PM</td>
+                                       </tr>
 
-                                  <tr><th>Tues:</th>
-                                    <td> <span class="tue_from" id="{{$tue->id}}">{{$tue->open_time}}</span>AM-</td>
-                                    <td> <span class="tue_to" id="{{$tue->id}}">{{$tue->close_time}}</span>PM</tyd></tr>
+                                      <tr><th>Tues:</th>
+                                          <td> <span class="tue_from" id="{{$tue->id}}">{{$tue->open_time}}</span>AM-</td>
+                                          <td> <span class="tue_to" id="{{$tue->id}}">{{$tue->close_time}}</span>PM</td>
+                                      </tr>
 
                                   <tr><th>Wed:</th> 
                                     <td> <span class="wed_from" id="{{$wed->id}}">{{$wed->open_time}}</span>AM-</td>
@@ -164,15 +199,10 @@
 
                       <div class="row">
                             <div id="nanoGallery3">
-                                <a href="post-img-2.jpg" data-ngthumb="post-img-2.jpg" data-ngdesc="Description1">Title Image1</a>
-                                <a href="post-img-2.jpg" data-ngthumb="post-img-2.jpg" data-ngdesc="Description1">Title Image1</a>
-                                <a href="post-img-2.jpg" data-ngthumb="post-img-2.jpg" data-ngdesc="Description1">Title Image1</a>
-                                <a href="post-img-2.jpg" data-ngthumb="post-img-2.jpg" data-ngdesc="Description1">Title Image1</a>
-                                <a href="post-img-2.jpg" data-ngthumb="post-img-2.jpg" data-ngdesc="Description1">Title Image1</a>
-                                <a href="post-img-2.jpg" data-ngthumb="post-img-2.jpg" data-ngdesc="Description1">Title Image1</a>
-                                <a href="post-img-2.jpg" data-ngthumb="post-img-2.jpg" data-ngdesc="Description1">Title Image1</a>
-                                <a href="post-img-2.jpg" data-ngthumb="post-img-2.jpg" data-ngdesc="Description1">Title Image1</a>
-                            
+                                 @foreach($biz->photos as $photo)
+                                <a href="{{$photo->path}}" data-ngthumb="{{$photo->path}}" 
+                                data-ngdesc="Description1">Title Image1</a>
+                              @endforeach
                             </div>
                       </div> <!-- end .row -->
                     </div> <!-- end .company-product -->
@@ -279,7 +309,7 @@
                       <div class="rating-with-details">
 
                         <div class="ratings">
-                  <p class="pull-right">{{$biz->rating_count}} {!! Str::plural('review', $biz->rating_count)!!}</p>
+                  <p class="pull-right">{{$ratingCount=$biz->rating_count}} {{ Str::plural('Review', $ratingCount)}}</p>
                   <p>
                     @for ($i=1; $i <= 5 ; $i++)
                       <span class="glyphicon glyphicon-star{{ ($i <= $biz->rating_cache) ? '' : '-empty'}}"></span>
@@ -298,9 +328,9 @@
         
                                 <div class="row" id="post-review-box" style="display:none;">
                                   <div class="col-md-12">
-                                     <form accept-charset="UTF-8"  method="POST" action="/review/biz/{{$biz->id}}">
+                                     <form accept-charset="UTF-8" method="POST" action="/review/biz/{{$biz->id}}">
                                       <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                     <!-- <input type="hidden" name="user" value="{{ Auth::user()->id }}">  -->
+    
                                         <input id="ratings-hidden" name="rating" type="hidden" value="{{old('rating')}}"> 
                                         <textarea class="form-control animated" cols="50" id="new-review" name="comment" value="{{old('comment')}}" placeholder="Enter your review here..." rows="5"></textarea>
         
@@ -321,17 +351,24 @@
                         @include('admin.partials.success')
                      @foreach($reviews as $review)
                         <hr>
-                           <div class="row">
-                             <div class="col-md-12">
-                                 @for ($i=1; $i <= 5 ; $i++)
-                                   <span class="glyphicon glyphicon-star{{ ($i <= $review->rating) ? '' : '-empty'}}"></span>
-                                @endfor
-
-                                 {{ $review->user ? $review->user->username : 'Anonymous'}} <span class="pull-right">{{$review->timeago}}</span> 
-                    
-                                   <p>{{{$review->comment}}}</p>
-                              </div>
+                            <div class="single-content">
+                          <div class="company-rating-box">
+                            <ul class="list-inline">
+                               @for ($i=1; $i <= 5 ; $i++)
+                              <li><a href="#"><i class="fa fa-star{{ ($i <= $review->rating) ? '' : '-o'}}"></i></a></li>
+                              @endfor
+                            </ul>
+                          </div>
+                          <div class="rating-details">
+                            <div class="meta">
+                              <a href="#"><strong>{{$review->user->username  }}</strong></a>
+                              - {{ $review->timeago}}
                             </div>
+                            <div class="content">
+                              <p>{{$review->comment}}</p>
+                            </div>
+                          </div>
+                        </div> <!-- end .single-content -->
                       @endforeach
                        {!! $reviews->render() !!}
 
@@ -410,15 +447,139 @@
        </div>
     </div> <!-- end .container -->
   </div> <!-- end #page-content -->
+
+  <div class = "modal fade" id = "myClaim" tabindex = "-1" role = "dialog" 
+                      aria-labelledby = "myModalLabel" aria-hidden = "true">
+   
+                    <div class = "modal-dialog">
+                        <div class = "modal-content">
+         
+                           <div class = "modal-header">
+                              <button type = "button" class = "close" data-dismiss = "modal" aria-hidden = "true">
+                                  &times;
+                              </button>
+            
+                              <h4 class = "modal-title" id = "myModalLabel">
+                                 <h3> Claim this business to Manage it</h3>
+                              </h4>
+                           </div>
+         
+                           <div class = "modal-body">
+                               <p>Enter your details below(You must be the business owner or staff of the company to own this business)</p>
+                               <form id="uploadFile" action"" method="POST">
+                                    {{csrf_field()}}
+                                   <div class="form-group">
+                                      <div class="col-md-5">Full Name</div>
+                                      <div class="col-md-7">
+                                         <input required type="text" id="name" name="name" class="form-control" 
+                                         placeholder="Full name" value="{{ old('name')}}">                  
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <div class="col-md-5">
+                                      Email Address
+                                      </div>
+                                      <div class="col-md-7">
+                                         <input required type="text" id="address" name="address" class="form-control"
+                                          placeholder="Email" value="{{ old('address')}}">
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                      <div class="col-md-5">Are you the owner of this business?</div>
+                                      <div class="col-md-7"><input type="checkbox">Yes
+                                        <input type="checkbox">NO
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <div class="col-md-5">If Owner, can you please upload a document showing evidences of your
+                                    ownership</div>
+                                    <div class="col-md-5">
+                                      <input name="file" type="file" multiple />
+
+                                    </div>
+                                  </div>
+
+
+
+                               </form>
+                           </div>
+         
+                           <div class = "modal-footer">
+                             <button type = "button" class = "btn btn-default" data-dismiss = "modal">
+                                Close
+                             </button>
+            
+                              <button type = "button" class = "btn btn-primary">
+                                 Submit changes
+                              </button>
+                           </div>
+         
+                        </div><!-- /.modal-content -->
+                   </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+
+                <div class = "modal fade" id = "myModal" tabindex = "-1" role = "dialog" 
+                      aria-labelledby = "myModalLabel" aria-hidden = "true">
+   
+                    <div class = "modal-dialog">
+                        <div class = "modal-content">
+         
+                           <div class = "modal-header">
+                              <button type = "button" class = "close" data-dismiss = "modal" aria-hidden = "true">
+                                  &times;
+                              </button>
+            
+                              <h4 class = "modal-title" id = "myModalLabel">
+                                  Uploaded Business Profile Photos
+                              </h4>
+                           </div>
+         
+                           <div class = "modal-body">
+                               <h3>Add new Photos</h3>
+                               <form id="uploadFile2" action"" method="POST" class="dropzone">
+                                {{csrf_field()}}
+                               </form>
+                           </div>
+         
+                           <div class = "modal-footer">
+                             <button type = "button" class = "btn btn-default" data-dismiss = "modal">
+                                Close
+                             </button>
+            
+                           </div>
+         
+                        </div><!-- /.modal-content -->
+                   </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
 @endsection
 
 @section('scripts')
   <script src="{{asset('../plugins/text-rotator/jquery.wordrotator.min.js') }}"></script>
   <script src="{{asset('../plugins/Bootstrap-3.3.5/js/bootstrap.js')}}"></script> 
   <script type="text/javascript" src="{{asset('../plugins/nanogallery/jquery.nanogallery.min.js')}}"></script>
-  <script type="text/javascript" src="{{asset('https://maps.googleapis.com/maps/api/js')}}"></script>    
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/dropzone.js"></script>
+  <script type="text/javascript" src="{{asset('https://maps.googleapis.com/maps/api/js')}}"></script>
+   <script>
+
+    Dropzone.autoDiscover = false;
+
+    $(document).on('click','#myClaim',function(){
+        var myDropzone = new Dropzone("form#uploadFile", { url: "/profile/upload", autoProcessQueue: true});
+        });
+
+
+
+    $(document).on('click','#myModal',function(){
+        var myDropzone = new Dropzone("form#uploadFile2", { url: "/biz/{{$biz->id}}/upload", autoProcessQueue: true});
+        });
+
+
+</script>
+
+    </script>  
+
   <script type="text/javascript">    
-$(document).ready(function() {
+   $(document).ready(function() {
     // show active tab on reload
     if (location.hash !== '') $('a[href="' + location.hash + '"]').tab('show');
 
@@ -490,7 +651,7 @@ $(function(){
 
     $(document).ready(function () {
         $("#nanoGallery3").nanoGallery({
-            itemsBaseURL:"{{asset('../img/content/')}}",
+            itemsBaseURL:"{{asset('/')}}",
             thumbnailHoverEffect:'imageScale150',
             thumbnailHeight:100,
             thumbnailWidth: 150

@@ -1,7 +1,8 @@
-@extends('master')
+@extends('master-light')
 <!-- HEAD -->
-@section('title', 'Admin')
+@section('title', 'Thanks')
 <!-- HEADER -->
+
 <!-- breadcrumbs -->
 @section('breadcrumb')
       <div class="breadcrumb">
@@ -10,17 +11,7 @@
         </div>
       </div>
 @endsection
-<!-- navigation -->
-@section('header-navbar')
-        <div class="header-nav-bar">
-            <div class="container">
-              <nav>
-                <button><i class="fa fa-bars"></i></button>
-                @include('admin.partials.navbar')
-              </nav>
-            </div> <!-- end .container -->
-        </div> <!-- end .header-nav-bar -->   
-@endsection
+
 <!-- CONTENT -->
 @section('content')
 <div id="page-content" class="home-slider-content">

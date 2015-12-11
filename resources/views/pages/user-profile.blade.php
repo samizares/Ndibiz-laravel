@@ -2,8 +2,11 @@
 <!-- HEAD -->
 @section('title', 'User Profile')
 @section('stylesheets')
-  <link rel="stylesheet" href="{{ asset('../plugins/text-rotator/jquery.wordrotator.css')}}">
+   <link rel="stylesheet" href="{{ asset('../plugins/text-rotator/jquery.wordrotator.css')}}">
    <link href="{{asset('../plugins/Bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet">
+   <link  rel="stylesheet" href="{{asset('css/dropzone.css')}}">
+   <link  rel="stylesheet" href="{{asset('plugins/jasny-bootstrap/css/jasny-bootstrap.min.css')}}">
+
    <link rel="stylesheet" type="text/css" href="{{asset('../plugins/nanogallery/css/nanogallery.min.css')}}">
 @endsection
 <!-- HEADER -->
@@ -62,11 +65,13 @@
             <div class="row p20-bttm p20-top profile-overview">
               <div class="col-md-3 col-sm-3">
                 <figure class="center-block">
-                    <div class="profile-pic"><a href="">
-                      <img class="img-responsive center-block" src="{{asset('img/content/post-img-10.jpg') }}">
+                    <div class="profile-pic"><a href="" data-toggle="modal" data-target="#myProfile">
+                      {!!Html::image(isset($user->profilePhoto->image) ? $user->profilePhoto->image : 'img/content/post-img-10.jpg', 
+                        'Profile Image', array('class'=>'img-responsive center-block'))!!}
+                     
                       <p class="pic-edit">
                         <i class="mdi-image-camera-alt"></i> 
-                        <span>Update Profile Picture</span>
+                         <span>Update Profile Picture</span>
                       </p></a>
                     </div>
                 </figure>
@@ -74,12 +79,15 @@
               <div class="col-md-9 col-sm-9 col-xs-12">
                 <div class="row">
                     <div class="col-md-8 p20-bttm">      
-                      <h2 class="text-left">{{Auth::user()->username}}</h2>        
+                      <h2 class="text-left">{{$user->username}}</h2>        
                       <p class="m5-bttm"><i class="fa fa-map-marker"></i> Lagos, Nigeria.</p>   
                       <ul class="list-inline m5-bttm">
-                        <li><i class="fa fa-heart"></i> 20 Favourites</li>
-                        <li><i class="fa fa-comments"></i> 50 Reviews</li>
-                        <li><i class="fa fa-camera"></i> 13 Photos</li>
+                        <li><i class="fa fa-heart"></i> {{$favCount= $user->favours->count()}}
+                          {{str_plural('Favourite', $favCount) }}</li>
+                        <li><i class="fa fa-comments"></i>{{$revCount= $user->reviews->count()}}
+                          {{ str_plural('Review', $revCount)}}</li>
+                        <li><i class="fa fa-camera"></i>{{$photosCount=$user->photos->count()}}
+                          {{ str_plural('Photo', $photosCount)}} </li>
                       </ul>
                       <div class="checkbox m0">
                         <label>
@@ -87,15 +95,18 @@
                         </label>
                       </div>
                     </div>
+                    @if(Auth::check() && (Auth::user()->id == $user->id))
                     <div class="col-md-4">
                         <div class="btn-group">
                         <button type="button" class="btn btn-default" data-toggle="tooltip" title="Edit Profile"><i class="fa fa-cog"></i></button>
-                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Add Photo"><i class="fa fa-camera"></i></button>
+                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal" title="Add Photo"><i class="fa fa-camera"></i></button>
                         <button type="button" class="btn btn-default" data-toggle="tooltip" title="Add Review"><i class="fa fa-comment"></i></button>
                         <!-- <button type="button" class="btn btn-default" data-toggle="tooltip" title="Share"><i class="fa fa-share-alt"></i></button> -->
                        </div>
                     </div>
+                    @endif
                 </div>
+                 
               </div>
             </div>
             <div class="row businesses">
@@ -121,15 +132,11 @@
                       <h3 class="text-uppercase m10-top">Gallery</h3>
                       <div class="row">
                             <div id="nanoGallery3">
-                                <a href="post-img-2.jpg" data-ngthumb="post-img-2.jpg" data-ngdesc="Description1">
-                                  <span>Title Image1</span> <span class="text-right"><i class="fa fa-trash"></i></span></a>
-                                <a href="post-img-2.jpg" data-ngthumb="post-img-2.jpg" data-ngdesc="Description1">Title Image1</a>
-                                <a href="post-img-2.jpg" data-ngthumb="post-img-2.jpg" data-ngdesc="Description1">Title Image1</a>
-                                <a href="post-img-2.jpg" data-ngthumb="post-img-2.jpg" data-ngdesc="Description1">Title Image1</a>
-                                <a href="post-img-2.jpg" data-ngthumb="post-img-2.jpg" data-ngdesc="Description1">Title Image1</a>
-                                <a href="post-img-2.jpg" data-ngthumb="post-img-2.jpg" data-ngdesc="Description1">Title Image1</a>
-                                <a href="post-img-2.jpg" data-ngthumb="post-img-2.jpg" data-ngdesc="Description1">Title Image1</a>
-                                <a href="post-img-2.jpg" data-ngthumb="post-img-2.jpg" data-ngdesc="Description1">Title Image1</a>
+                              @foreach($user->photos as $photo)
+                                <a href="{{$photo->path}}" data-ngthumb="{{$photo->path}}" 
+                                data-ngdesc="Description1">Title Image1</a>
+                              @endforeach
+                                                              
                             </div>
                       </div> <!-- end .row -->
                     </div> <!-- end .company-product -->
@@ -141,11 +148,11 @@
                         <div class="favourite-biz">
                           <h3 class="text-uppercase m10-top">Favourite Businesses</h3>
                           <div id="" class="row clearfix">
-                            @unless ( $featured->isEmpty() )
-                            @foreach ($featured as $feature)
+                            @unless ( $bizs->isEmpty() )
+                            @foreach ($bizs as $biz)
                             <div class="col-md-4">
                               <div class="single-product">
-                                <figure><a href="/review/biz/{{$feature->id}}">
+                                <figure><a href="/review/biz/{{$biz->id}}">
                                   <img src="{{asset('img/content/post-img-1.jpg')}}" alt="">
                                   <div class="rating">
                                     <ul class="list-inline">
@@ -157,7 +164,7 @@
                                     </ul>
                                   </div> <!-- end .rating --></a>
                                 </figure>
-                                <h5 class="m5-bttm">{{$feature->name}}</h5>
+                                <h5 class="m5-bttm">{{$biz->name}}</h5>
                                 <p class="m5-bttm"><span data-toggle="tooltip" title="Remove from favourites"><a href=""><i class="fa fa-trash"></i></a></span></p>
                               </div> <!-- end .single-product -->
                             </div>
@@ -173,69 +180,30 @@
                      <div class="company-ratings">
                       <h3 class="text-uppercase m10-top">Rating <span>(5 Ratings)</span></h3>
                       <div class="rating-with-details">
+                        @unless ( $user->reviews->isEmpty() )
+                        @foreach($user->reviews as $review)
                         <div class="single-content">
                           <div class="company-rating-box">
                             <ul class="list-inline">
-                              <li><a href="#"><i class="fa fa-star"></i></a></li>
-                              <li><a href="#"><i class="fa fa-star"></i></a></li>
-                              <li><a href="#"><i class="fa fa-star"></i></a></li>
-                              <li><a href="#"><i class="fa fa-star-half-o"></i></a></li>
-                              <li><a href="#"><i class="fa fa-star-o"></i></a></li>
+                               @for ($i=1; $i <= 5 ; $i++)
+                              <li><a href="#"><i class="fa fa-star{{ ($i <= $review->rating) ? '' : '-o'}}"></i></a></li>
+                              @endfor
                             </ul>
                           </div>
                           <div class="rating-details">
                             <div class="meta">
-                              <a href="#"><strong>John Snow</strong></a>
-                              -12 sep, 2015 - 9:14 Am
+                              <a href="#"><strong>{{$review->biz->name  }}</strong></a>
+                              - {{ $review->timeago}}
                             </div>
                             <div class="content">
-                              <p>I loved the services. The staff members where really helpful. Will definitely recommend to others.
-                              </p>
+                              <p>{{$review->comment}}</p>
                             </div>
                           </div>
                         </div> <!-- end .single-content -->
-                        <div class="single-content">
-                          <div class="company-rating-box">
-                            <ul class="list-inline">
-                              <li><a href="#"><i class="fa fa-star"></i></a></li>
-                              <li><a href="#"><i class="fa fa-star"></i></a></li>
-                              <li><a href="#"><i class="fa fa-star"></i></a></li>
-                              <li><a href="#"><i class="fa fa-star-half-o"></i></a></li>
-                              <li><a href="#"><i class="fa fa-star-o"></i></a></li>
-                            </ul>
-                          </div>
-                          <div class="rating-details">
-                            <div class="meta">
-                              <a href="#"><strong>John Snow</strong></a>
-                              -12 sep, 2015 - 9:14 Am
-                            </div>
-                            <div class="content">
-                              <p>I loved the services. The staff members where really helpful. Will definitely recommend to others.
-                              </p>
-                            </div>
-                          </div>
-                        </div> <!-- end .single-content -->
-                        <div class="single-content">
-                          <div class="company-rating-box">
-                            <ul class="list-inline">
-                              <li><a href="#"><i class="fa fa-star"></i></a></li>
-                              <li><a href="#"><i class="fa fa-star"></i></a></li>
-                              <li><a href="#"><i class="fa fa-star"></i></a></li>
-                              <li><a href="#"><i class="fa fa-star-half-o"></i></a></li>
-                              <li><a href="#"><i class="fa fa-star-o"></i></a></li>
-                            </ul>
-                          </div>
-                          <div class="rating-details">
-                            <div class="meta">
-                              <a href="#"><strong>John Snow</strong></a>
-                              -12 sep, 2015 - 9:14 Am
-                            </div>
-                            <div class="content">
-                              <p>I loved the services. The staff members where really helpful. Will definitely recommend to others.
-                              </p>
-                            </div>
-                          </div>
-                        </div> <!-- end .single-content -->
+                        @endforeach
+                        @endunless
+                        
+              
                       </div> <!-- end .rating-with-details -->
                     </div> <!-- end .company-rating -->
                   </div>
@@ -311,6 +279,102 @@
       </div> <!-- end .home-with-slide -->
     </div> <!-- end .container -->
   </div>  <!-- end #page-content -->
+
+  <div class = "modal fade" id = "myModal" tabindex = "-1" role = "dialog" 
+                      aria-labelledby = "myModalLabel" aria-hidden = "true">
+   
+                    <div class = "modal-dialog">
+                        <div class = "modal-content">
+         
+                           <div class = "modal-header">
+                              <button type = "button" class = "close" data-dismiss = "modal" aria-hidden = "true">
+                                  &times;
+                              </button>
+            
+                              <h4 class = "modal-title" id = "myModalLabel">
+                                  Uploaded Photos
+                              </h4>
+                           </div>
+         
+                           <div class = "modal-body">
+                               <h3>Add new Photos</h3>
+                               <form id="uploadFile" action"" method="POST" class="dropzone">
+                                {{csrf_field()}}
+                               </form>
+                           </div>
+         
+                           <div class = "modal-footer">
+                             <button type = "button" class = "btn btn-default" data-dismiss = "modal">
+                                Close
+                             </button>
+            
+                           </div>
+         
+                        </div><!-- /.modal-content -->
+                   </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+
+          <div class = "modal fade" id = "myProfile" tabindex = "-1" role = "dialog" 
+                      aria-labelledby = "myModalLabel" aria-hidden = "true">
+   
+                    <div class = "modal-dialog">
+                        <div class = "modal-content">
+         
+                           <div class = "modal-header">
+                              <button type = "button" class = "close" data-dismiss = "modal" aria-hidden = "true">
+                                  &times;
+                              </button>
+            
+                              <h3 class = "modal-title" id = "myModalLabel">
+                                  Upload Profile Photo
+                              </h3>
+                           </div>
+         
+                           <div class = "modal-body">
+                  
+                               <div class="container-fluid">
+           
+            {!! Form::open( array('url' =>'/profile/'.$user->id.'/photo', 'files'=> true, 'method'=>'post')) !!}
+            {!!Form::hidden('id', $user->id)!!}
+                <div class="panel panel-default text-center">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Add Profile Photo</h2>
+                        @if (Session::get('errors'))
+                        <div class="alert alert-error alert-danger"><a name="error">{{{ Session::get('errors') }}}</a></div>
+                        @endif
+                        @if (Session::get('notices'))
+                        <div class="alert"><a name="notice">{{{ Session::get('notices') }}}</a></div>
+                        @endif
+                    </div>
+                    <div class="panel-body">
+                       
+                        <div class="fileinput fileinput-new" data-provides="fileinput">
+  <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+    <img src="{{asset('img/user.jpg')}}" alt="...">
+  </div>
+  <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
+  <div>
+    <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span>
+    <span class="fileinput-exists">Change</span><input type="file" name="image"></span>
+    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+  </div>
+</div>
+                    </div>
+                    <div class="panel-footer">
+                        <span>{!!Form::submit('Submit', array('class' => 'btn btn-primary btn-sm') ) !!}</span>
+                    
+                    </div>
+                </div>
+            {!!Form::close() !!}
+            
+        </div>
+                           </div>
+         
+                           
+         
+                        </div><!-- /.modal-content -->
+                   </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
 @endsection
 <!-- CONTENT ENDS-->
 <!-- FOOTER STARTS -->
@@ -323,7 +387,54 @@
   <script src="{{asset('../plugins/text-rotator/jquery.wordrotator.min.js') }}"></script>
   <script src="{{asset('../plugins/Bootstrap-3.3.5/js/bootstrap.js')}}"></script> 
   <script type="text/javascript" src="{{asset('../plugins/nanogallery/jquery.nanogallery.min.js')}}"></script>
-  <script type="text/javascript" src="{{asset('https://maps.googleapis.com/maps/api/js')}}"></script>    
+  <script src="{{asset('js/dropzone.js')}}"></script>
+  <script src="{{ asset('plugins/jasny-bootstrap/js/jasny-bootstrap.min.js') }}"></script>
+  <script type="text/javascript" src="{{asset('https://maps.googleapis.com/maps/api/js')}}"></script>   
+   <script>
+
+ // $.fn.modal.Constructor.prototype.enforceFocus = function() {};
+    Dropzone.autoDiscover = false;
+    var url1= '../profile/{{$user->id}}';
+
+    $(document).on('click','#myModal',function(){
+   //     var myDropzone = new Dropzone("form#uploadFile", { url: "/profile/{{$user->id}}/upload", 
+   // autoProcessQueue: true});
+     $("form#uploadFile").dropzone({ url: "/profile/{{$user->id}}/upload" });
+        });
+
+   
+
+    $(function () { $('#myModal').on('hide.bs.modal', function () {
+      window.location.replace(url1);
+    //  $('#biz-photos').load(document.URL +  ' #biz-photos');
+       })
+     
+        });
+
+   //  $(document).on('click','#myProfile',function(){
+   //     var myDropzone = new Dropzone("form#uploadFile", { url: "/profile/{{$user->id}}/upload", 
+   // autoProcessQueue: true});
+    //  $('.fileupload').fileupload();
+     //   });
+
+
+    // $('#myProfile').on('shown', function(){
+
+       //    $('.fileupload').fileupload();
+
+     //   }); 
+   /** $('#submitFile').click(function(){
+        var form = $(this).closest('#uploadFile');
+                    if (form.valid() == true) { 
+                        if (myDropzone.getQueuedFiles().length > 0) {                        
+                            myDropzone.processQueue();  
+                        } else {                       
+                            myDropzone.uploadFiles([]); //send empty 
+                        }                                    
+                    }               
+    });  */
+
+</script>
   <script type="text/javascript">    
 
     function initialize() {
@@ -344,7 +455,7 @@
 
     $(document).ready(function () {
         $("#nanoGallery3").nanoGallery({
-            itemsBaseURL:"{{asset('../img/content/')}}",
+            itemsBaseURL:"{{asset('/')}}",
             thumbnailHoverEffect:'imageScale150',
             thumbnailHeight:100,
             thumbnailWidth: 200
