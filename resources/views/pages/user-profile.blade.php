@@ -6,8 +6,7 @@
    <link href="{{asset('../plugins/Bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet">
    <link  rel="stylesheet" href="{{asset('css/dropzone.css')}}">
    <link  rel="stylesheet" href="{{asset('plugins/jasny-bootstrap/css/jasny-bootstrap.min.css')}}">
-
-   <link rel="stylesheet" type="text/css" href="{{asset('../plugins/nanogallery/css/nanogallery.min.css')}}">
+   <link rel="stylesheet" type="text/css" href="{{asset('plugins/nanogallery/css/nanogallery.min.css')}}">
 @endsection
 <!-- HEADER -->
 <!-- search -->
@@ -386,7 +385,7 @@
 @section('scripts')
   <script src="{{asset('../plugins/text-rotator/jquery.wordrotator.min.js') }}"></script>
   <script src="{{asset('../plugins/Bootstrap-3.3.5/js/bootstrap.js')}}"></script> 
-  <script type="text/javascript" src="{{asset('../plugins/nanogallery/jquery.nanogallery.min.js')}}"></script>
+  <script src="{{asset('plugins/nanogallery/jquery.nanogallery.min.js')}}"></script>
   <script src="{{asset('js/dropzone.js')}}"></script>
   <script src="{{ asset('plugins/jasny-bootstrap/js/jasny-bootstrap.min.js') }}"></script>
   <script type="text/javascript" src="{{asset('https://maps.googleapis.com/maps/api/js')}}"></script>   
@@ -411,28 +410,6 @@
      
         });
 
-   //  $(document).on('click','#myProfile',function(){
-   //     var myDropzone = new Dropzone("form#uploadFile", { url: "/profile/{{$user->id}}/upload", 
-   // autoProcessQueue: true});
-    //  $('.fileupload').fileupload();
-     //   });
-
-
-    // $('#myProfile').on('shown', function(){
-
-       //    $('.fileupload').fileupload();
-
-     //   }); 
-   /** $('#submitFile').click(function(){
-        var form = $(this).closest('#uploadFile');
-                    if (form.valid() == true) { 
-                        if (myDropzone.getQueuedFiles().length > 0) {                        
-                            myDropzone.processQueue();  
-                        } else {                       
-                            myDropzone.uploadFiles([]); //send empty 
-                        }                                    
-                    }               
-    });  */
 
 </script>
   <script type="text/javascript">    

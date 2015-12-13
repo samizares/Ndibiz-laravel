@@ -4,7 +4,8 @@
 @section('stylesheets')
   <link rel="stylesheet" href="{{ asset('../plugins/text-rotator/jquery.wordrotator.css')}}">
    <link href="{{asset('../plugins/Bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet">
-    <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/dropzone.css">
+   <link  rel="stylesheet" href="{{asset('css/dropzone.css')}}">
+    <link  rel="stylesheet" href="{{asset('plugins/jasny-bootstrap/css/jasny-bootstrap.min.css')}}">
    <link rel="stylesheet" type="text/css" href="{{asset('../plugins/nanogallery/css/nanogallery.min.css')}}">
    <style type="text/css">
      /* Enhance the look of the textarea expanding animation */
@@ -101,10 +102,19 @@ favorited' }}"><i class="fa fa-heart"></i> {{ $favourited ? 'Unfavourite' :
           </div>
           <!-- profile overview -->
           <div class="row p20-bttm p20-top profile-overview">
+             @include('partials.notifications')
             <div class="col-md-3 col-sm-3">
               <figure class="center-block">
-                  <img class="center-block" src="{{asset('img/content/post-img-10.jpg') }}" alt="">
-              </figure>
+                    <div class="profile-pic"><a href="" data-toggle="modal" data-target="#myBizProfile">
+                      {!!Html::image(isset($biz->profilePhoto->image) ? $biz->profilePhoto->image : 'img/content/post-img-10.jpg', 
+                        'Profile Image', array('class'=>'img-responsive center-block'))!!}
+                     
+                      <p class="pic-edit">
+                        <i class="mdi-image-camera-alt"></i> 
+                         <span>Update Biz Profile Photo</span>
+                      </p></a>
+                    </div>
+                </figure>
             </div>
             <div class="col-md-9 col-sm-9 col-xs-12">
                 <h2>{{$biz->name}}</h2>
@@ -551,13 +561,76 @@ favorited' }}"><i class="fa fa-heart"></i> {{ $favourited ? 'Unfavourite' :
                         </div><!-- /.modal-content -->
                    </div><!-- /.modal-dialog -->
                 </div><!-- /.modal -->
+
+                <div class = "modal fade" id = "myBizProfile" tabindex = "-1" role = "dialog" 
+                      aria-labelledby = "myModalLabel" aria-hidden = "true">
+   
+                    <div class = "modal-dialog">
+                        <div class = "modal-content">
+         
+                           <div class = "modal-header">
+                              <button type = "button" class = "close" data-dismiss = "modal" aria-hidden = "true">
+                                  &times;
+                              </button>
+            
+                              <h3 class = "modal-title" id = "myModalLabel">
+                                  Upload Biz Profile Photo
+                              </h3>
+                           </div>
+         
+                           <div class = "modal-body">
+                  
+                               <div class="container-fluid">
+           
+            {!! Form::open( array('url' =>'/bizprofile/'.$biz->id.'/photo', 'files'=> true, 'method'=>'post')) !!}
+            {!!Form::hidden('id', $biz->id)!!}
+                <div class="panel panel-default text-center">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Add Biz Profile Photo</h2>
+                        @if (Session::get('errors'))
+                        <div class="alert alert-error alert-danger"><a name="error">{{{ Session::get('errors') }}}</a></div>
+                        @endif
+                        @if (Session::get('notices'))
+                        <div class="alert"><a name="notice">{{{ Session::get('notices') }}}</a></div>
+                        @endif
+                    </div>
+                    <div class="panel-body">
+                       
+                        <div class="fileinput fileinput-new" data-provides="fileinput">
+  <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+    <img src="{{asset('img/user.jpg')}}" alt="...">
+  </div>
+  <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
+  <div>
+    <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span>
+    <span class="fileinput-exists">Change</span><input type="file" name="image"></span>
+    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+  </div>
+</div>
+                    </div>
+                    <div class="panel-footer">
+                        <span>{!!Form::submit('Submit', array('class' => 'btn btn-primary btn-sm') ) !!}</span>
+                    
+                    </div>
+                </div>
+            {!!Form::close() !!}
+            
+        </div>
+                           </div>
+         
+                           
+         
+                        </div><!-- /.modal-content -->
+                   </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
 @endsection
 
 @section('scripts')
   <script src="{{asset('../plugins/text-rotator/jquery.wordrotator.min.js') }}"></script>
   <script src="{{asset('../plugins/Bootstrap-3.3.5/js/bootstrap.js')}}"></script> 
   <script type="text/javascript" src="{{asset('../plugins/nanogallery/jquery.nanogallery.min.js')}}"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/dropzone.js"></script>
+    <script src="{{asset('js/dropzone.js')}}"></script>
+   <script src="{{ asset('plugins/jasny-bootstrap/js/jasny-bootstrap.min.js') }}"></script>
   <script type="text/javascript" src="{{asset('https://maps.googleapis.com/maps/api/js')}}"></script>
    <script>
 

@@ -1,30 +1,23 @@
 <header id="header">
-    <div class="header-top-bar hidden-sm hidden-xs p0-top p0-bttm">
+    <div class="header-top-bar p0-top p0-bttm">
       <div class="container">
         <!-- HEADER-LOG0 -->
-        
-          <h2 class="header-logo m0 m20-right p0-bttm navbar-brand hidden-xs">
-            <a class="" href="/">Beazea
-              <span>Direct<i class="fa fa-globe"></i>ry</span>
-            </a>
-          </h2>
-          <nav ari-labelledby="navigation" role="navigation" class="pull-left">
+
+          <!-- HEADER-LOG0 -->
+          <div class="header-logo navbar-brand">
+              <a href="/"><img src="{{ asset ('img/logo.png') }}" alt="Logo"></a>
+          </div>
+          <!-- END HEADER LOGO -->
+
+          <nav ari-labelledby="navigation" role="navigation" class="pull-left hidden-sm hidden-xs">
             <ul class="nav navbar m0-bttm">
               <li><a href="/businesses" class=""><i class="fa fa-building"></i> Explore</a></li>
               <li><a href="/biz/create" class="btn btn-default p5 p10-left p10-right"><i class="fa fa-plus"></i> Add a Business</a></li>
             </ul>
-            <div class="header-search-bar hidden">
-              {!!Form::open(['method'=> 'POST', 'url'=>'/search/business']) !!}
-              <div class="category-search">
-                <select id="category2" name="category" placeholder="Search keywords e.g. pizza, bars, restaurants..."></select> 
-              </div>
-              <button class="search-btn" type="submit"><i class="fa fa-search"></i> <span class="hidden-lg hidden-md hidden-sm">Search</span></button>
-              {!!Form::close() !!}
-            </div> <!-- END .header-search-bar -->
           </nav>
       
         <!-- END HEADER LOGO -->
-        <nav aria-labelledby="user-navigation" class="pull-right" role="navigation">
+        <nav aria-labelledby="user-navigation" class="pull-right hidden-sm hidden-xs" role="navigation">
           <ul class="nav navbar m0-bttm">          
               <!-- HEADER-LOGIN -->
              @if(Auth::check())

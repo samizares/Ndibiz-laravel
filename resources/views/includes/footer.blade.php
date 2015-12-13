@@ -6,9 +6,9 @@
 
           <div class="col-md-3 col-sm-6">
             <div class="about-globo">
-              <h3 class="p5-bttm">About NdiBiz Directory</h3>
-              <p class="p0-top">Ndi Business Directory is a local directory that shows you nearby 
-                local business just by searching with a keyword.</p>
+              <h3 class="p5-bttm">About</h3>
+              <p class="p0-top">BEAZEA Directory is a local business listing that shows you nearby
+                brands and businesses to visit, shop, eat and play.</p>
 
             </div> <!-- End .about-globo -->
           </div> <!-- end Grid layout-->
@@ -75,7 +75,6 @@
                             NdiBiz Directory - All Rights Reserved. 
                             </p>
         <p class="pull-right">Powered by  <a href="#">CuriouzMind Tech</a></p>
-
       </div> <!-- END .container -->
     </div> <!-- end .copyright-->
 </footer> <!-- end #footer --> 

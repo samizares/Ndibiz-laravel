@@ -953,6 +953,13 @@ th {
 .text-cap {text-transform: capitalize;}
 .text-upper {text-transform: uppercase;}
 
+.text-color-white {color:#fff;}
+.text-color-greyddd {color:#ddd;}
+.text-color-grey444 {color:#444;}
+.text-color-grey333 {color:#333;}
+.text-color-yellowFFD231 {color:#FFD231;}
+
+
 .dataTables_filter {
   float: right;
 }
@@ -2864,7 +2871,7 @@ th {
   box-sizing: border-box;
 }
 body {
-  font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Roboto", Lato, "Open Sans", sans-serif;
   font-size: 14px;
   line-height: 1.42857143;
   color: #333333;
@@ -2939,7 +2946,7 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 700;
   line-height: 1.1;
   color: #333333;
@@ -2960,7 +2967,7 @@ h6 a:hover,
 }
 h3,
 .h3 {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 h1,
 .h1,
@@ -3362,8 +3369,11 @@ fieldset[disabled] .btn-default-inverse.active {
   color: #333333;
   background-color: #fdc600;
 }
+.btn-tags {
+    font-size:10px;
+}
 .btn-border {
-  border: solid 1px #ddd;
+  border: solid 1px #333;
   padding: 0px 3px;
   margin-right: 3px;
   margin-bottom: 3px;
@@ -3421,8 +3431,7 @@ fieldset[disabled] .btn-default.active {
 /* --------------------------------------- */
 /* Header Top Bar */
 /* ---------------------------------------------- */
-#header .header-auth,
-#header .header-top-bar {
+#header .header-auth {
   width: 100%;
   padding: 10px 0;
   border-bottom: solid 1px #ddd;
@@ -3449,14 +3458,26 @@ fieldset[disabled] .btn-default.active {
 #header .header-top-bar nav ul.dropdown-menu li a {
   color: #FFD231;
 }
-#auth-page .login {
-  padding: 70px;
-  min-height: 250px;
+.forms header .navbar-brand {
+    height:100px;
+    width:100%;
 }
-@media (max-width: 992px) {
-  #auth-page .login {
-    padding: 0 !important;
-  }
+.forms header .navbar-brand a img {
+    width:auto;
+    height:100%;
+}
+.forms .form-content {
+    margin: 60px 10px;
+    height:100%;
+}
+.forms .form-content .panel .panel-footer span {
+    padding:10px 0;
+}
+.forms .form-content .panel .panel-footer span.pwd {
+    text-align: left;
+}
+.forms .form-content .panel .panel-footer span.reg {
+    text-align: right;
 }
 .check-box input[type="checkbox"] {
   width: 0;
@@ -3555,11 +3576,13 @@ fieldset[disabled] .btn-default.active {
   text-transform: uppercase;
 }
 #header .header-auth h2.header-logo,
-#header .header-top-bar h2.header-logo {
-  margin: 0;
-  font-family: 'Raleway', sans-serif;
-  font-weight: 800;
-  text-transform: uppercase;
+#header .header-top-bar .header-logo {
+    width:120px;
+    height:50px;
+}
+#header .header-top-bar .header-logo img {
+    width:100%;
+    height:auto;
 }
 #header .header-auth .header-logo a .fa,
 #header .header-top-bar .header-logo a .fa {
@@ -3570,12 +3593,12 @@ fieldset[disabled] .btn-default.active {
 }
 @media (max-width: 1200px) {
   #header .header-top-bar .header-logo {
-    width: 60%;
+    /*width: 60%;*/
   }
 }
 @media (max-width: 768px) {
   #header .header-search-bar {
-    padding-top: 5px;
+    padding: 5px 0;
   }
 }
 #header .header-search .header-search-bar .mobile-logo h2 {
@@ -3702,10 +3725,17 @@ fieldset[disabled] .btn-default.active {
     top: 10px;
     left: 6%;
     width: 100%;
+      height:auto;
   }
+    #header .header-top-bar .header-logo img {
+        width:120px;
+        height:100%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
   #header .header-auth .header-logo {
     width: 100%;
-    text-align: center;
   }
 }
 @media (max-width: 992px) and (max-width: 480px) {
@@ -4002,7 +4032,9 @@ fieldset[disabled] .btn-default.active {
   left: 0;
   top: 0;
   z-index: 9995!important;
-  background-color: #ddd !important;
+  background-color: #fff;
+  padding: 10px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 /* header map section */
 /* ---------------------------------------- */
@@ -4083,7 +4115,7 @@ fieldset[disabled] .btn-default.active {
     display: block;
     position: absolute;
     left: -35px;
-    top: 15px;
+    top: 8px;
     z-index: 9999;
     height: 40px;
     width: 35px;
@@ -4334,7 +4366,7 @@ fieldset[disabled] .btn-default.active {
 }
 @media (max-width: 480px) {
   .slider-content {
-    height: 320px;
+    height: 350px;
   }
 }
 .slider-content #home-slider {
@@ -4405,29 +4437,57 @@ fieldset[disabled] .btn-default.active {
     width: 185px;
   }
 }
-.slider-content #home-slider .item .slide-content h1 {
-  position: relative;
+.slider-content  .slide-content .lp-content {
+  padding: 76px 10px;
+}
+@media (min-width: 480px) {
+    .slider-content  .slide-content .lp-content {
+        padding: 116px 10px;
+    }
+}
+@media (min-width: 768px) {
+    .slider-content  .slide-content .lp-content {
+        padding: 128px 10px;
+    }
+}
+@media (min-width: 992px) {
+    .slider-content  .slide-content .lp-content {
+        padding: 175px 10px;
+    }
+}
+h1.page-title, h3.page-subtitle {
+    font-weight: normal;
+    text-align: center;
+}
+.slider-content #home-slider .item .slide-content h1.page-title {
   top: 20px;
-  text-transform: uppercase;
+  text-transform: none;
   color: #fff;
-  font-size: 50px;
-  font-family: 'Raleway', sans-serif;
-  font-weight: 800;
+  font-size: 48px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: normal;
 }
-.slider-content #home-slider .item .slide-content h1 span {
-  color: #fdc600;
-  font-weight: 600;
+.slider-content #home-slider .item .slide-content h3.page-subtitle {
+    color: #fff !important;
 }
+/*.slider-content #home-slider .item .slide-content h1 span {*/
+  /*color: #fdc600;*/
+  /*font-weight: 600;*/
+/*}*/
 @media (max-width: 768px) {
-  .slider-content #home-slider .item .slide-content h1 {
+  .slider-content #home-slider .item .slide-content h1.page-title {
     font-size: 41px;
     top: 48px;
   }
 }
 @media (max-width: 480px) {
-  .slider-content #home-slider .item .slide-content h1 {
-    font-size: 25px;
+  .slider-content #home-slider .item .slide-content h1.page-title {
+    font-size: 36px;
     top: 39px;
+  }
+  .slider-content #home-slider .item .slide-content h3.page-subtitle {
+    font-size:20px;
+    padding:0 11px;
   }
 }
 .slider-content #home-slider .item .slide-content h2 {
@@ -4474,13 +4534,13 @@ fieldset[disabled] .btn-default.active {
   position: relative;
   z-index: 100;
   background: #fff;
-  padding-right: 30px;
+  /*padding-right: 30px;*/
 }
 @media (max-width: 992px) {
   .home-with-slide {
     border-radius: 3px 3px 0 0;
-    padding-left: 30px;
-    padding-top: 30px;
+    /*padding-left: 30px;*/
+    /*padding-top: 30px;*/
   }
   .home-with-slide .change-view .filter-input input {
     top: -60px;
@@ -4529,7 +4589,7 @@ fieldset[disabled] .btn-default.active {
 .breadcrumb h2,
 .breadcrumb p {
   color: #fff;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 /*PAge contents*/
@@ -4829,7 +4889,7 @@ fieldset[disabled] .btn-default.active {
   }
   .homepage .category-toggle button {
     right: -23px;
-    top: -39px;
+    top: 35px;
   }
   .categories .category-toggle button {
     right: -23px;
@@ -4846,7 +4906,7 @@ fieldset[disabled] .btn-default.active {
     height: 40px;
     width: 40px;
     line-height: 37px;
-    background-color: rgba(26, 26, 26, 0.53);
+    background-color: rgba(253, 198, 0, 0.76);
     color: #fff;
     font-size: 20px;
     font-weight: bold;
@@ -4957,7 +5017,7 @@ fieldset[disabled] .btn-default.active {
   font-weight: 800;
   background: #fdc600;
   color: #333333;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
   text-transform: uppercase;
   text-align: center;
 }
@@ -5019,7 +5079,7 @@ fieldset[disabled] .btn-default.active {
   padding: 9px 5px 2px 7px;
   font-weight: 700;
   background-color: #1a1a1a;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
   border-radius: 3px;
 }
 .post-sidebar .latest-post .post-image p span {
@@ -5621,7 +5681,7 @@ fieldset[disabled] .btn-default.active {
   padding: 0 3px;
   margin: 0;
   font-size: 12px;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: 700;
   background: #fdc600;
   color: #333333;
@@ -6044,13 +6104,14 @@ fieldset[disabled] .btn-default.active {
 }
 #page-content {
   position: relative;
-  padding: 30px 0 50px 0;
+  padding: 0;
 }
 .page-content {
   position: relative;
+    margin:20px 0;
 }
 .home-with-slide {
-  margin-top: 0px !important;
+  margin: 20px 0;
 }
 /* single product style */
 /* --------------------------------------- */
@@ -6218,8 +6279,8 @@ fieldset[disabled] .btn-default.active {
 /* --------------------------------------- */
 .featured-listing {
   position: relative;
-  margin-top: 40px;
-  padding: 50px 0;
+  /*margin-top: 40px;*/
+  padding: 20px 0;
   background: url('../img/content/feature-bg.jpg') top center no-repeat;
   background-size: cover;
   background-attachment: fixed;
@@ -6231,25 +6292,30 @@ fieldset[disabled] .btn-default.active {
   }
 }
 .category-listing {
-  text-align: left;
+  text-align: center;
 }
 
-.category-listing h2 {
-  margin: 0;
-  padding-bottom: 30px;
+.category-listing h3.section-title {
+  margin: 5px;
+  /*padding-bottom: 30px;*/
   color: inherit;
   text-transform: uppercase;
   text-align: center;
   font-weight: 400;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
+    padding:10px 0 0 0;
 }
-.featured-listing h2 {
+span.section-subtitle {
+    font-size:14px;
+}
+.featured-listing h3 {
   margin: 0;
-  padding-bottom: 30px;
+  /*padding-bottom: 30px;*/
   color: #fff;
   text-transform: uppercase;
   font-weight: 400;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
+    padding: 10px 0px 0px;
 }
 .featured-listing .single-product {
   position: relative;
@@ -6290,19 +6356,14 @@ fieldset[disabled] .btn-default.active {
   padding: 5px 10px;
 }
 .featured-listing .single-product figure .rating li {
-  padding: 0;
-}
-.featured-listing .single-product figure .rating li a {
   color: #fff;
-}
-.featured-listing .single-product figure .rating li a:hover {
-  color: #fdc600;
+    padding: 0;
 }
 .featured-listing .single-product figure .rating p {
   padding: 0 3px;
   margin: 0;
   font-size: 12px;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: 700;
   background: #fdc600;
   color: #333333;
@@ -6365,6 +6426,13 @@ fieldset[disabled] .btn-default.active {
 .featured-listing .single-product h4 a:hover,
 .featured-listing .single-product h5 a:hover {
   color: #666666;
+}
+.featured-listing .single-product h4,
+.featured-listing .single-product p {
+    padding:0 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .featured-listing .single-product h4 {
   padding-top: 15px;
@@ -6504,40 +6572,51 @@ fieldset[disabled] .btn-default.active {
   text-align: center;
   width: 100%;
 }
-.reg-heading h1 span.btn-default:hover {
+.reg-heading h3 span.btn-default:hover {
   border: solid 1px #FFD231;
   color: #FFD231 !important;
 }
-.register-content h1 {
+.register-content .reg-heading h3 {
   margin: 0;
   color: #fff;
   font-weight: 400;
-  font-size: 30px;
-  font-family: 'Raleway', sans-serif;
-  padding: 40px 0;
+  font-size: 24px;
+  font-family: 'Roboto', sans-serif;
+  padding: 40px 20px;
   background: #333333;
   text-transform: uppercase;
+    line-height: 1.5;
 }
-.register-content .registration-details {
-  position: relative;
-  padding: 50px 0;
-  background-color: rgba(253, 198, 0, 0.75);
-  text-align: center;
-  width: 100%;
+/*.register-content h3 span {*/
+    /*display: block;*/
+/*}*/
+.registration-details {
+    padding:20px 0;
+    background: #fff;
+}
+.register-content .registration-details h3{
+  /*position: relative;*/
+  /*padding: 50px 0;*/
+  /*background-color: rgba(253, 198, 0, 0.75);*/
+  /*text-align: center;*/
+  /*width: 100%;*/
+    margin: 0px;
+    padding: 10px 0px 0px;
+    text-transform: uppercase;
 }
 
-.register-content .registration-details h2 {
+.register-content .registration-details h4 {
   margin-bottom: 50px;
   text-transform: uppercase;
   font-weight: 400;
 }
 .register-content .registration-details .regular-member {
-  float: left;
-  margin-left: 50px;
+  /*float: left;*/
+  /*margin-left: 50px;*/
 }
 @media (max-width: 1200px) {
   .register-content .registration-details .regular-member {
-    margin-left: 30px;
+    /*margin-left: 30px;*/
   }
 }
 @media (max-width: 992px) {
@@ -6552,22 +6631,25 @@ fieldset[disabled] .btn-default.active {
 }
 .register-content .registration-details .box {
   position: relative;
-  width: 35%;
-  padding: 30px;
-  text-align: left;
+  width: 100%;
+  padding: 30px 5px;
+  text-align: center;
   border: 3px solid #333333;
   border-radius: 3px;
 }
-.register-content .registration-details .box h2 {
+.register-content .registration-details .box .fa {
+    font-size:200px;
+}
+.register-content .registration-details .box h4 {
   margin: 0;
   text-transform: uppercase;
-  font-size: 26px;
+  font-size: 20px;
   padding-bottom: 20px;
   font-weight: 400;
 }
 .register-content .registration-details .box p {
   margin-bottom: 10px;
-  font-weight: 700;
+  font-weight: normal;
 }
 .register-content .registration-details .box p .fa {
   padding-right: 6px;
@@ -6601,11 +6683,11 @@ fieldset[disabled] .btn-default.active {
   border-radius: 50%;
 }
 .register-content .registration-details .business-member {
-  float: left;
+  float: none;
 }
 @media (max-width: 1200px) {
   .register-content .registration-details {
-    padding: 50px 0;
+    padding: 20px 0;
   }
 }
 @media (max-width: 768px) {
@@ -6613,7 +6695,7 @@ fieldset[disabled] .btn-default.active {
     margin: 100px 20px;
   }
   .register-content .registration-details .box {
-    width: 40%;
+    width: 100%;
   }
 }
 @media (max-width: 700px) {
@@ -6688,7 +6770,7 @@ fieldset[disabled] .btn-default.active {
   position: relative;
   top: 60px;
   color: #fff;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 56px;
   text-transform: uppercase;
   font-weight: 800;
@@ -6983,7 +7065,7 @@ fieldset[disabled] .btn-default.active {
   position: relative;
   top: 180px;
   color: #fff;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 76px;
   text-transform: uppercase;
   font-weight: 800;
@@ -7027,7 +7109,7 @@ fieldset[disabled] .btn-default.active {
 }
 .price-listing .pricing-table {
   position: relative;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
   text-align: center;
   border: 2px solid #dddddd;
   border-radius: 3px;
@@ -7116,7 +7198,7 @@ fieldset[disabled] .btn-default.active {
   position: relative;
   top: 180px;
   color: #fff;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 76px;
   text-transform: uppercase;
   font-weight: 800;
@@ -7185,7 +7267,7 @@ fieldset[disabled] .btn-default.active {
 .blog-list .date-month {
   width: 70px;
   height: 90px;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 .blog-list .date-month a:hover {
   color: inherit;
@@ -7414,7 +7496,7 @@ fieldset[disabled] .btn-default.active {
 }
 .comments-section h4 {
   text-transform: uppercase;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: 800;
 }
 .comments-section .comments {
@@ -7656,7 +7738,7 @@ fieldset[disabled] .btn-default.active {
   color: #fff;
   text-transform: uppercase;
   font-weight: 800;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 @media (max-width: 768px) {
   .company-heading-view .company-slider-content .general-view h1 {
@@ -7712,7 +7794,7 @@ fieldset[disabled] .btn-default.active {
 .company-profile h4 {
   margin-bottom: 30px;
   text-transform: uppercase;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: 800;
 }
 .company-profile h4 span {
@@ -7722,7 +7804,7 @@ fieldset[disabled] .btn-default.active {
   /*margin: 0;*/
   padding-top: 5px;
   text-transform: uppercase;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 .company-profile h5 a {
   color: #d0d0d0;
@@ -7834,7 +7916,7 @@ fieldset[disabled] .btn-default.active {
 }
 .company-profile .company-ratings .company-rating-box h6 {
   margin: 0;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: 800;
   font-size: 14px;
 }
@@ -7877,7 +7959,7 @@ fieldset[disabled] .btn-default.active {
 }
 .company-profile .company-ratings .rating-with-details .single-content .meta a {
   color: inherit;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 .company-profile .company-ratings .rating-with-details .single-content p {
   margin: 0;
@@ -7901,7 +7983,7 @@ fieldset[disabled] .btn-default.active {
 .company-events .date-month {
   width: 70px;
   height: 90px;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 .company-events .date-month a:hover {
   color: inherit;
@@ -8195,7 +8277,7 @@ fieldset[disabled] .btn-default.active {
   font-size: 17px;
 }
 #footer .main-footer p {
-  color: #818181;
+  color: #ddd;
   padding-top: 20px;
   font-size: 15px;
 }
@@ -8257,7 +8339,7 @@ fieldset[disabled] .btn-default.active {
   padding: 5px 5px 0 7px;
   font-weight: 700;
   background-color: #1a1a1a;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
   border-radius: 3px;
 }
 #footer .main-footer .latest-post .post-image p span {
@@ -8345,7 +8427,7 @@ fieldset[disabled] .btn-default.active {
   position: relative;
   padding: 30px 0;
   background-color: #1a1a1a;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 13px;
   font-weight: 600;
   color: #818181;
@@ -8407,7 +8489,7 @@ fieldset[disabled] .btn-default.active {
 .shortcodes .heading h2,
 .shortcodes .heading h5,
 .shortcodes .heading h6 {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 .shortcodes .heading h1 {
   font-size: 46px;

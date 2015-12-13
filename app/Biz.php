@@ -105,5 +105,10 @@ class Biz extends Model
     {
       return $this->hasMany('App\BizPhoto');
     }
+
+    public function profilePhoto()
+    {
+        return $this->hasOne('App\BizProfilePhoto');
+    }
 }
 

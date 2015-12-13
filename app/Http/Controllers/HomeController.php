@@ -342,12 +342,12 @@ class HomeController extends Controller
 
            $image= $request->file('image');
            $name= time(). $image->getClientOriginalName();
-           $image->move('biz/profile', $name);
+           $image->move('user/profile', $name);
 
           if (! isset($profilePhoto->image))
           {
           $pic= new \App\ProfilePhoto;
-          $pic->image ='biz/profile/'.$name;
+          $pic->image ='user/profile/'.$name;
           $user->profilePhoto()->save($pic);
 
              return \Redirect::back()
@@ -356,7 +356,7 @@ class HomeController extends Controller
           if(isset($profilePhoto->image))
            { 
                   
-           $profilePhoto->image ='biz/profile/'.$name;
+           $profilePhoto->image ='user/profile/'.$name;
             
            $user->profilePhoto()->save( $profilePhoto);
            return \Redirect::back()
@@ -371,9 +371,57 @@ class HomeController extends Controller
 
     }  
     
+    public function bizprofilephoto(Request $request,$id)
+	 {
+	 
+      $picture = [
+           'image' => $request->file('image'),
+        ];
+
+        $rules = [
+             'image'=> 'required|image|mimes:jpeg,jpg,bmp,png,gif',
+        ];
+
+        $validator = \Validator::make($picture, $rules);
+        if ($validator->passes())
+         {
+
+          $biz_id= $request->get('id');
+          $biz= \App\Biz::findorFail($biz_id);
+          $profilePhoto = $biz->profilePhoto; 
+
+           $image= $request->file('image');
+           $name= time(). $image->getClientOriginalName();
+           $image->move('biz/profile', $name);
+
+          if (! isset($profilePhoto->image))
+          {
+          $pic= new \App\BizProfilePhoto;
+          $pic->image ='biz/profile/'.$name;
+          $biz->profilePhoto()->save($pic);
+
+             return \Redirect::back()
+            ->with('message', 'Biz profile photo added!!!');
+          }
+          if(isset($profilePhoto->image))
+           { 
+                  
+           $profilePhoto->image ='biz/profile/'.$name;
+            
+           $biz->profilePhoto()->save( $profilePhoto);
+           return \Redirect::back()
+            ->with('message', ' profile photo updated!');
+           }
+    
+        }
+         return \Redirect::back()
+        ->with('errors', $validator->messages());
+      
+        
+
+    } 
 
 	 
-
 
 	 public function favourites()
 	 {
