@@ -14,6 +14,8 @@
   <!-- Stylesheets -->  
       @yield('stylesheets')
 
+
+    <link href="{{asset('../plugins/Bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     {{--<link rel="stylesheet" href="{{ asset('css/style-480.css') }}">--}}
     {{--<link rel="stylesheet" href="{{ asset('css/style-768.css') }}">--}}
@@ -64,7 +66,9 @@
 
   <!-- Page Scripts -->
   <script type="text/javascript">
-
+      $(document).ready(function () {
+          $('.carousel').carousel();
+      });
       $(document).ready(function() {
             // Enable location search
             $('#location').selectize({

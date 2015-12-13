@@ -2,7 +2,6 @@
       //  scrollspy fixed searchbar
         $(document).ready(function(){
             var nav = $('.header-top-bar');
-
             $(window).scroll(function () {
               if ($(this).scrollTop() > 60) {
                   nav.addClass("sticky").fadeIn(2000);
@@ -11,7 +10,6 @@
                   nav.removeClass("sticky");
                   nav.addClass("scroll-btn");
               }
-
             });
         });
 

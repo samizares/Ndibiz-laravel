@@ -3225,6 +3225,9 @@ button {
   -ms-user-select: none;
   user-select: none;
 }
+.btn-xs {
+    font-size:12px;
+}
 .btn:focus,
 .btn:active:focus,
 .btn.active:focus,
@@ -4013,6 +4016,7 @@ fieldset[disabled] .btn-default.active {
 }
 .map .header-search-bar {
   background-color: #333333;
+  background: url('../img/content/lagosnight.jpg') 51% 7%;
 }
 @media (max-width: 480px) {
   .header-search.slider-home {
@@ -4903,25 +4907,25 @@ h1.page-title, h3.page-subtitle {
     top: -39px;
   }
   .businesses .category-toggle button {
-    right: -8px;
-    top: -40px;
+    right: -186px;
+    top: -20px;
   }
   .category-toggle button {
     display: block;
     position: absolute;
     z-index: 999;
     height: 40px;
-    width: 40px;
+    width: auto;
     line-height: 37px;
     background-color: rgba(253, 198, 0, 0.76);
-    color: #fff;
+    color: #333;
     font-size: 20px;
-    font-weight: bold;
+    font-weight: normal;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
   }
   .category-toggle.active {
-    left: -35px;
+    left: -20px;
   }
 }
 @media (max-width: 992px) {
@@ -5634,7 +5638,7 @@ h1.page-title, h3.page-subtitle {
   }
 }
 .product-details .tab-pane .single-product span {
-  display: none;
+  /*display: none;*/
 }
 .product-details .tab-pane .single-product {
   position: relative;
@@ -5646,7 +5650,6 @@ h1.page-title, h3.page-subtitle {
   overflow: hidden;
   box-shadow: 0 2px #dddddd;
 }
-.product-details .tab-pane .single-product > p,
 .product-details .tab-pane .single-product > .address-preview,
 .product-details .tab-pane .single-product > .read-more {
   display: none !important;
@@ -5751,13 +5754,18 @@ h1.page-title, h3.page-subtitle {
 .product-details .tab-pane .single-product h5 a:hover {
   color: #666666;
 }
+.product-details .tab-pane .single-product p,
+.product-details .tab-pane .single-product p.address-preview,
 .product-details .tab-pane .single-product h4 {
-  padding-top: 15px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+    padding:0 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
-.product-details .tab-pane .single-product h5 {
+.product-details .tab-pane .single-product h4 {
+    padding-top: 15px;
+}
+.product-details .tab-pane .single-product p.address-preview {
   padding-bottom: 10px;
 }
 @media (max-width: 480px) {
@@ -5888,6 +5896,8 @@ h1.page-title, h3.page-subtitle {
   position: relative;
   width: 120px;
   height: 120px;
+    /*width:100%;*/
+    /*height:auto;*/
   margin: 0;
   margin-right: 20px;
   margin-bottom: 5px;
@@ -5944,20 +5954,21 @@ h1.page-title, h3.page-subtitle {
   display: none;
 }
 .product-details-list .tab-pane .single-product h4,
-.product-details-list .tab-pane .single-product h5 {
+.product-details-list .tab-pane .single-product p.address-preview {
   margin: 0;
   padding-bottom: 5px;
   text-transform: capitalize;
 }
 .product-details-list .tab-pane .single-product h4 a:hover,
-.product-details-list .tab-pane .single-product h5 a:hover {
+.product-details-list .tab-pane .single-product p.address-preview a:hover {
   color: #666666;
 }
-.product-details-list .tab-pane .single-product h5 {
+.product-details-list .tab-pane .single-product p.address-preview {
   padding-bottom: 10px;
   color: #999999;
+    font-size:14px;
 }
-.product-details-list .tab-pane .single-product h5 a {
+.product-details-list .tab-pane .single-product p.address-preview a {
   color: #999999;
 }
 .product-details-list .tab-pane .single-product > p {
@@ -6024,7 +6035,7 @@ h1.page-title, h3.page-subtitle {
   text-align: center;
   transition: all .3s ease;
 }
-.ad-mini .category-item a,
+.ad-mini .category-item h1,
 .category-item a {
   display: block;
 }
@@ -6046,29 +6057,78 @@ h1.page-title, h3.page-subtitle {
   font-weight: bold;
   text-transform: capitalize;
 }
-.ad-mini .category-item a {
-
-}
 .ad-mini .category-item {
   margin-bottom: 0px;
 }
-.ad-mini .category-item a {
+.ad-mini .category-item h1 {
   position: relative;  
   height: 100%;
-  padding: 30px 10px;
-  font-size: 15px;
-  font-weight: bold;
+  padding: 10px 10px;
+  font-size: 20px;
+  font-weight: normal;
   text-transform: capitalize;
 }
-.post-sidebar .ad-box {
+.ad-midi h1 small,
+.ad-mini h1 small {
+    color: #777;
+    padding-bottom: 10px;
+}
+@media (min-width: 768px) {
+    .ad-mini .category-item h1 {
+        font-size: 25px;
+    }
+}
+.post-sidebar .ad-midi {
   padding: 10px;
-  overflow: hidden;
   height: 150px;
+    overflow: hidden;
+    margin-bottom:20px;
 }
 .post-sidebar .ad-box a img {
   width: 100%;
   height: auto;
 }
+.carousel-fade .carousel-inner .item {
+    -webkit-transition-property: opacity;
+    transition-property: opacity;
+}
+.carousel-fade .carousel-inner .item,
+.carousel-fade .carousel-inner .active.left,
+.carousel-fade .carousel-inner .active.right {
+    opacity: 0;
+}
+.carousel-fade .carousel-inner .active,
+.carousel-fade .carousel-inner .next.left,
+.carousel-fade .carousel-inner .prev.right {
+    opacity: 1;
+}
+.carousel-fade .carousel-inner .next,
+.carousel-fade .carousel-inner .prev,
+.carousel-fade .carousel-inner .active.left,
+.carousel-fade .carousel-inner .active.right {
+    left: 0;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+}
+.carousel-fade .carousel-control {
+    z-index: 2;
+}
+
+.carousel,
+.carousel-inner,
+.carousel-inner .item {
+    height: 100%;
+}
+.item:nth-child(1) {
+    background: #74C390;
+}
+.item:nth-child(2) {
+    background: #51BCE8;
+}
+.item:nth-child(3) {
+    background: #E46653;
+}
+
 /*.category-item a .fa {
   display: block;
   padding-bottom: 20px;
@@ -6119,6 +6179,11 @@ h1.page-title, h3.page-subtitle {
 }
 .home-with-slide {
   margin: 20px 0;
+}
+@media (max-width: 768px) {
+    .page-content {
+        margin-top:50px;
+    }
 }
 /* single product style */
 /* --------------------------------------- */
@@ -6364,6 +6429,7 @@ p.section-subtitle {
   margin: 0;
   padding: 5px 10px;
 }
+.single-product figure .rating li,
 .featured-listing .single-product figure .rating li {
   color: #fff;
     padding: 0;
