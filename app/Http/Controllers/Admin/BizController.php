@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+
 use App\Http\Requests\BusinessRegRequest;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Biz;
+use App\Lga;
 use App\State;
 use App\Address;
 use App\SubCat;
@@ -23,9 +25,11 @@ class BizController extends Controller
     public function index()
     {
         $bizs= Biz::all();
+        $totalBiz=Biz::count();
+      //  dd($totalBiz);
      //  foreach( $bizs as $biz)             
      
-       return view('admin.biz.index', compact('bizs'));
+       return view('admin.biz.index', compact('bizs','totalBiz'));
     }
 
     /**
@@ -73,6 +77,15 @@ class BizController extends Controller
 
         $subs= $request->input('sub');
         $biz->subcats()->sync($subs);
+
+        $mon = App\BusinessHour::create(['day' => 'MON','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
+        $tue = App\BusinessHour::create(['day' => 'TUE','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
+        $wed = App\BusinessHour::create(['day' => 'WED','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
+        $thu = App\BusinessHour::create(['day' => 'THU','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
+        $fri = App\BusinessHour::create(['day' => 'FRI','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
+        $sat = App\BusinessHour::create(['day' => 'SAT','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
+        $sun = App\BusinessHour::create(['day' => 'SUN','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
+
        
         return redirect('/admin/biz')
          ->withSuccess("The business '$biz->name' has been created.");
@@ -99,22 +112,26 @@ class BizController extends Controller
     {
         $biz= Biz::findorFail($id);
         $cat= $biz->cats->lists('id')->all();
+        $sub= $biz->subcats->lists('id')->all();
+       // dd($sub);
         $catList= Cat::lists('name', 'id');
         $subList= SubCat::lists('name','id');
+       // dd($subList);
         $stateList= State::lists('name','id');
+        $lgaList= Lga::lists('name','id');
         //$area= Address::lists
 
         //dd($biz->address->state->name);
             
-            foreach ($biz->subcats as $sub) {
-                $currentSubs[] = $sub->id;
-            }
+          //  foreach ($biz->subcats as $sub) {
+          //      $currentSubs[] = $sub->id;
+          //  }
  
-             if(empty($currentSubs)){
-                $currentSubs = '';
-            }
+          //   if(empty($currentSubs)){
+          //      $currentSubs = '';
+          //  }
 
-        return view('admin/biz/edit',compact('biz','catList','subList','stateList','cat','currentSubs'));
+        return view('admin/biz/edit',compact('biz','catList','subList','stateList','cat','currentSubs','lgaList','sub'));
     }
 
     /**
@@ -143,11 +160,40 @@ class BizController extends Controller
         $add->save();
 
         $category=$request->input('cats');
+       // $catNames= [];
+        // $biz->cats()->delete();
+        /*  foreach ($category as $cat) {
+            if( $existingCat = Cat::where('name', $cat)->first()) {
+                 $catNames[]= $existingCat;
+                }
+                 else{
+                     $newCat = new Cat();
+                     $newCat ->name  = $cat;
+                     $newCat->save();
+                 $catNames[]=$newCat;
+                 }
+            }  
+                $biz->cats()->saveMany($catNames); */
        
         $biz->cats()->sync($category);
 
         $subs= $request->input('sub');
-        $biz->subcats()->sync($subs);
+        // $real= [];
+
+        // $biz->subcats()->delete();
+         /* foreach ($subs as $sub) {
+            if( $existingSub = SubCat::where('name', $sub)->first()) {
+                 $real[]= $existingSub;
+                }
+                 else{
+                     $newSub = new SubCat();
+                     $newSub ->name  = $sub;
+                     $newCat->save();
+                 $real[]=$newSub;
+                 }
+            }
+                $biz->subcats()->saveMany($real);  */
+       $biz->subcats()->sync($subs);
 
         return redirect("/admin/biz/")
         ->withSuccess("Changes Updated");
@@ -161,6 +207,16 @@ class BizController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $biz = Biz::findOrFail($id);
+        $cat= $biz->cats->lists('id')->all();
+       // dd($cat);
+        $sub= $biz->subcats->lists('id')->all();
+        $biz->cats()->detach($cat);
+        $biz->subcats()->detach($sub);
+        $biz->address()->delete();
+        $biz->delete();
+
+    return redirect('/admin/biz')
+        ->withSuccess("The business '$biz->name' has been deleted.");
     }
 }

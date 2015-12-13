@@ -23,11 +23,11 @@
         <div class="modal-footer">
           <div class="btn-group btn-group-justified" role="group" aria-label="...">
                 <div class="btn-group" role="group">
-                  <button type="button" class="btn btn-default-inverse" data-dismiss="modal">
+                  <button type="button" class="btn" data-dismiss="modal">
                     Cancel
                   </button></div>
                 <div class="btn-group" role="group">
-                  <button type="submit" class="btn">
+                  <button type="submit" class="btn btn-default-inverse">
                     Create Folder
                   </button></div>
           </div>
@@ -61,12 +61,16 @@
           <input type="hidden" name="_method" value="DELETE">
           <input type="hidden" name="folder" value="{{ $folder }}">
           <input type="hidden" name="del_file" id="delete-file-name2">
-          <button type="button" class="btn btn-default" data-dismiss="modal">
-            Cancel
-          </button>
-          <button type="submit" class="btn btn-danger">
-            Delete File
-          </button>
+          <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                <div class="btn-group" role="group">
+                  <button type="button" class="btn" data-dismiss="modal">
+                    Cancel
+                  </button></div>
+                <div class="btn-group" role="group">
+                  <button type="submit" class="btn btn-danger">
+                     Delete File
+                  </button></div>
+          </div>
         </form>
       </div>
     </div>
@@ -97,12 +101,17 @@
           <input type="hidden" name="_method" value="DELETE">
           <input type="hidden" name="folder" value="{{ $folder }}">
           <input type="hidden" name="del_folder" id="delete-folder-name2">
-          <button type="button" class="btn btn-default" data-dismiss="modal">
-            Cancel
-          </button>
-          <button type="submit" class="btn btn-danger">
-            Delete Folder
-          </button>
+          
+          <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                <div class="btn-group" role="group">
+                  <button type="button" class="btn" data-dismiss="modal">
+                    Cancel
+                  </button></div>
+                <div class="btn-group" role="group">
+                  <button type="submit" class="btn btn-danger">
+                     Delete Folder
+                  </button></div>
+          </div>
         </form>
       </div>
     </div>
@@ -142,11 +151,11 @@
         <div class="modal-footer">
           <div class="btn-group btn-group-justified" role="group" aria-label="...">
                 <div class="btn-group" role="group">
-                  <button type="button" class="btn btn-default-inverse" data-dismiss="modal">
+                  <button type="button" class="btn" data-dismiss="modal">
                     Cancel
                   </button></div>
                 <div class="btn-group" role="group">
-                  <button type="submit" class="btn">
+                  <button type="submit" class="btn btn-default-inverse">
                     Upload File
                   </button></div>
           </div>

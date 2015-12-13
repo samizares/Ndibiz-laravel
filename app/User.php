@@ -12,6 +12,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 {
     use Authenticatable, CanResetPassword;
 
+    public function updateCredentials($input)
+    {
+        $this->notify = isset($input['notify']) ? 1 : 0;
+        $this->save();
+    }
+
     /**
      * The database table used by the model.
      *
@@ -47,5 +53,15 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function biz()
     {
         return $this->hasMany('App\Biz');
+    }
+
+    public function review()
+    {
+        return $this->hasOne('App\Review');
+    }
+
+    public function messages()
+    {
+        return $this->hasMany('App\Message');
     }
 }

@@ -18,12 +18,12 @@ class ApiController extends Controller
           return \Response::json(['data'=> []], 200);
 
         
-      $cats = \App\Cat::where('name','like','%'.$query.'%')
+      $cats = \App\Cat::has('biz')->where('name','like','%'.$query.'%')
     	->orderBy('name','asc')
     	->take(10)
-    	->get(['id','name','image_class'])->toArray();
+    	->get(['id','name','image_class'])->toArray();  
 
-    $subcats = \App\SubCat::where('name','like','%'.$query.'%')
+      $subcats = \App\SubCat::has('biz')->where('name','like','%'.$query.'%')
    		 ->orderBy('name','asc')
    		 ->take(10)
    		 ->get(['id','name'])->toArray();
@@ -56,10 +56,18 @@ class ApiController extends Controller
     	 if(trim(urldecode($query))=='')
           return \Response::json(['data'=> []], 200);
 
-       $data=\App\State::where('name','like', '%'.$query.'%')
+       $lga=\App\Lga::where('name','like', '%'.$query.'%')
        ->orderBy('name', 'asc')
        ->take(10)
        ->get(['id','name'])->toArray();
+
+       $state= \App\State::where('name','like', '%'.$query.'%')
+       ->orderBy('name', 'asc')
+       ->take(5)
+       ->get(['id','name'])->toArray();
+
+        $data = array_merge($lga, $state);
+
         return \Response::json(['data'=>$data]);
 
     }
@@ -83,6 +91,28 @@ class ApiController extends Controller
     }
 
     public function subcat() {
+
+      $query=\Input::get('y');
+
+       foreach($query as $q){
+     // $catId=\App\Cat::whereId($q)->first();
+     // $desc=$catId->meta_description
+      $list=\App\SubCat::where('cat_id', '=', $q)
+      ->lists('name','id')->all();
+      if(count($list) > 0) {
+          foreach( $list as $key => $value) {
+           $data[]=array('id' => $key, 'text'=>$value);
+        }
+      } else {
+        $data[]= array('id'=>'0','text'=>'No Subcategories found');
+        }
+      }    
+    
+      return \Response::json(['data'=>$data]);
+
+    }
+
+    public function subcat2() {
 
       $query=\Input::get('y');
 
@@ -117,6 +147,55 @@ class ApiController extends Controller
         return \Response::json(array('status'=>1));
     else 
         return \Response::json(array('status'=>'error','msg'=>'could not be updated'));
+    }
+
+     public function admin()
+    {
+      $user_id=\Input::get('id');
+      $newValue=\Input::get('data');
+
+      $user=\App\User::whereId($user_id)->first();
+      $user->admin = $newValue;
+
+     if($user->save()) 
+        return \Response::json(array('status'=>1));
+    else 
+        return \Response::json(array('status'=>'error','msg'=>'could not be updated'));
+    }
+
+    public function opened()
+    {
+      $bh_id=\Input::get('id');
+      $newValue=\Input::get('data');
+
+      $bh=\App\BusinessHour::whereId($bh_id)->first();
+      $bh->open_time = $newValue;
+
+     if($bh->save()) 
+        return \Response::json(array('status'=>1));
+    else 
+        return \Response::json(array('status'=>'error','msg'=>'could not be updated'));
+    }
+
+    public function closed()
+    {
+      $bh_id=\Input::get('id');
+      $newValue=\Input::get('data');
+
+      $bh=\App\BusinessHour::whereId($bh_id)->first();
+      $bh->close_time = $newValue;
+
+     if($bh->save()) 
+        return \Response::json(array('status'=>1));
+    else 
+        return \Response::json(array('status'=>'error','msg'=>'could not be updated'));
+    }
+
+    public function searchCat()
+    {
+        $sub= \Input::get('sub');
+        $loc= \Input::get('loc');
+        $business= \DB::table('biz_subcat_pivot')->whereSubcat_id('query');
     }
 
 

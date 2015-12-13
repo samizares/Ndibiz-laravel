@@ -1,6 +1,6 @@
 <div class="form-group">
   <label for="name" class="col-md-3 control-label">
-   Sub Categories(Readonly )
+   Sub Categories
   </label>
   <div class="col-md-8">
      {!!Form::select('sub_cats[]', $subcats,$list,['class'=>'form-control', 'multiple'=>'multiple','id'=>'sub_cat']) !!}

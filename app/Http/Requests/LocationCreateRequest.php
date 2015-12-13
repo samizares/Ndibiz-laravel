@@ -22,11 +22,27 @@ class LocationCreateRequest extends Request
      * @return array
      */
     public function rules()
-    {
-        return [
-            'state'        => 'required',
-            'lga'          => 'required',
+        {
 
-     ];
+                $rules=[
+                     'state' => 'required| unique:states,id',
+                    ];
+                 foreach($this->request->get('lga') as $key => $val)
+                    {
+                         $rules['lga.'.$key] = 'unique:lgas,id';
+                    }
+                return $rules;
+         }
+
+          public function messages()
+    {
+        $messages = [];
+          foreach($this->request->get('lga') as $key => $val)
+              {
+                
+                 $messages['lga.'.$key.'.unique'] = 
+                 'The area already exist in the database';
+                }
+                return $messages;
     }
 }

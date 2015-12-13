@@ -6,14 +6,14 @@
 
           <div class="col-md-3 col-sm-6">
             <div class="about-globo">
-              <h3>About NdiBiz Directory</h3>
-              <p>Ndi Business Directory is a local directory that shows you nearby 
-                local business just by searching with a keyword.</p>
+              <h3 class="p5-bttm">About</h3>
+              <p class="p0-top">BEAZEA Directory is a local business listing that shows you nearby
+                brands and businesses to visit, shop, eat and play.</p>
 
             </div> <!-- End .about-globo -->
           </div> <!-- end Grid layout-->
 
-          <div class="col-md-3 col-sm-6 clearfix">
+          <div class="col-md-3 col-sm-6">
             <div class="popular-categories">
               <h3>Popular Categories</h3>
 
@@ -27,7 +27,7 @@
             </div> <!-- end .popular-categories-->
           </div> <!-- end Grid layout-->
 
-          <div class="col-md-3 col-sm-6 clearfix">
+          <div class="col-md-3 col-sm-6">
             <div class="popular-categories">
               <h3>Business Owners</h3>
 
@@ -75,27 +75,9 @@
                             NdiBiz Directory - All Rights Reserved. 
                             </p>
         <p class="pull-right">Powered by  <a href="#">CuriouzMind Tech</a></p>
-
       </div> <!-- END .container -->
     </div> <!-- end .copyright-->
-  </footer> <!-- end #footer --> 
-  </div> <!-- end #main-wrapper -->
+</footer> <!-- end #footer --> 
 
-<!-- Scripts -->
-<script src="{{asset('js/jquery-2.1.3.min.js') }}"></script>
-<script src="{{asset('js/select22.min.js')}}"></script>
-<script src="{{asset('js/jquery-ui.js') }}"></script>
-<script src="{{asset('js/jquery.ba-outside-events.min.js') }}"></script>
-<!--<script type="text/javascript" src="//maps.google.com/maps/api/js?sensor=true"></script> -->
-<script type="text/javascript" src="{{asset('js/gomap.js') }}"></script>
-<script type="text/javascript" src="{{asset('js/gmaps.js') }}"></script>
-<script src="{{asset('js/bootstrap.min.js') }}"></script>
-<script src="{{asset('js/owl.carousel.js') }}"></script>
-<script src="{{asset('js/selectize.min.js')}}"></script>
-<script src="{{asset('js/datatable.js')}}"></script>
-<script src="{{asset('js/scripts.js') }}"></script>
 
-@yield('scripts')
 
-</body>
-</html>

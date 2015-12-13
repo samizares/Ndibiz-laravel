@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\LocationCreateRequest;
+use App\Http\Requests\LocationUpdateRequest;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Biz;
@@ -22,9 +23,9 @@ class LocationController extends Controller
     public function index()
     {
         $states= State::all();
-     // foreach ($states as $state)          
+        $totalState=State::count();          
      //  dd($state->name);
-       return view('admin.location.index', compact('states'));
+       return view('admin.location.index', compact('states','totalState'));
     }
 
     /**
@@ -48,20 +49,26 @@ class LocationController extends Controller
      */
     public function store(LocationCreateRequest $request)
     {     
-        $state_id= $request->input('state');
-       // $state= State::where('id', $state_id)->first();
+         $state= $request->input('state');
+         if(! $existingState= State::where('id', $state)->first()) {
+                 
+                     $newState= new State();
+                     $newState->name=$state;
+                     $newState->save();
+            }
+       
         $locs= $request->input('lga');
 
         foreach ($locs as $loc) {
 
             $area = new Lga();
             $area ->name = $loc;
-            $area ->state_id = $state_id; 
+            $area ->state_id = $newState->id; 
             $area->save();
          }
                     
        
-        return redirect('/admin/location/create')
+        return redirect('/admin/location')
          ->withSuccess("Area created.");
     }
 
@@ -83,25 +90,12 @@ class LocationController extends Controller
      * @return Response
      */
     public function edit($id)
-    {
-        $biz= Biz::findorFail($id);
-        $cat= $biz->cats->lists('id')->all();
-        $catList= Cat::lists('name', 'id');
-        $subList= SubCat::lists('name','id');
-        $stateList= State::lists('name','id');
-        //$area= Address::lists
+    {   $stateList= State::lists('name','name');
+        $lgaList   = lga::lists('name','name');
+        $state= State::findorFail($id);
+        $areas= $state->lgas->lists('name')->all();
 
-        //dd($biz->address->state->name);
-            
-            foreach ($biz->subcats as $sub) {
-                $currentSubs[] = $sub->id;
-            }
- 
-             if(empty($currentSubs)){
-                $currentSubs = '';
-            }
-
-        return view('admin/biz/edit',compact('biz','catList','subList','stateList','cat','currentSubs'));
+        return view('admin/location/edit',compact('state','areas','stateList','lgaList'));
     }
 
     /**
@@ -111,33 +105,32 @@ class LocationController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(BusinessRegRequest $request, $id)
+    public function update(LocationUpdateRequest $request, $id)
     {
-        $biz= Biz::findorFail($id);
-        $biz->name =         $request->input('name');
-        $biz->contactname=   $request->input('contactname');
-        $biz->email=         $request->input('email');
-        $biz->website=       $request->input('website');
-        $biz->phone1=        $request->input('phone1');
-        $biz->phone2=        $request->input('phone2');
-        $biz->user_id=       \Auth::id();
-        $biz->save();
+        $state = State::findOrFail($id);
+        $state->name=$request->input('state');
+        $state->save();
 
-        $add= Address::where('biz_id', $biz->id)->first();
-        $add->street= $request->input('address');
-        $add->region= $request->input('lga');
-        $add->state_id=$request->input('state');
-        $add->save();
+        $lgas= $request->input('lga');
+         $real= [];
 
-        $category=$request->input('cats');
-       
-        $biz->cats()->sync($category);
+         $state->lgas()->delete();
+          foreach ($lgas as $lga) {
+            if( $existingArea = Lga::where('name', $lga)->first()) {
+                 $real[]= $existingArea;
+                }
+                 else{
+                     $newArea = new Lga();
+                     $newArea ->name  = $lga;
+                     $newArea->save();
+                 $real[]=$newArea;
+                 }
+            }
+                $state->lgas()->saveMany($real); 
 
-        $subs= $request->input('sub');
-        $biz->subcats()->sync($subs);
 
-        return redirect("/admin/biz/")
-        ->withSuccess("Changes Updated");
+    return redirect("/admin/location/")
+        ->withSuccess("Changes saved.");
     }
 
     /**
@@ -148,6 +141,10 @@ class LocationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $state = State::findOrFail($id);
+        $state->lgas()->delete();
+        $state->delete();
+        return redirect('/admin/location')
+        ->withSuccess("The location '$state->name' has been deleted.");
     }
 }

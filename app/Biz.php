@@ -8,11 +8,21 @@ class Biz extends Model
 {
       protected $table = 'biz';
 
-      protected $fillable = ['name', 'adress', 'contactname', 'email','website', 'phone1', 'phone2'];
+      protected $fillable = ['name', 'address', 'contactname', 'email','website', 'phone1', 'phone2'];
 
    public function address()
     {
       return $this->hasOne('App\Address');
+    }
+
+     public function reviews()
+    {
+      return $this->hasMany('App\Review');
+    }
+    
+    public function hours()
+    {
+      return $this->hasMany('App\BusinessHour');
     }
 
    public function ownerbiz()
@@ -47,17 +57,12 @@ class Biz extends Model
     
     public function cats()
     {
-        return $this->BelongsToMany('App\Cat', 'biz_cat_pivot');
+        return $this->BelongsToMany('App\Cat', 'biz_cat_pivot','biz_id','cat_id');
     }
 
     public function state()
     {
       return $this->belongsToMany('App\State','biz_state_pivot');
-    }
-
-    public function reviews()
-    {
-      return $this->hasMany('App\Review');
     }
 
     public function recalculateRating()
@@ -68,5 +73,28 @@ class Biz extends Model
       $this->rating_count = $reviews->count();
       $this->save();
   }
+  
+  public function scopeByState($query, $stateID){
+    return $query->whereHas('address', function($q) use ($stateID){
+        $q->where('state_id', $stateID);
+      });
+    }
+
+    public function scopeBySub($query, $subID){
+     return $query->whereHas('subcats', function($q) use ($subID){
+        $q->where('subcat_id', $subID);
+      });
+    }
+    public function scopeByCat($query,$catID){
+       return $query->whereHas('cats', function($q) use ($catID){
+         $q->where('cat_id', $catID);
+      });
+    }
+
+    public function scopeByArea($query, $areaID){
+      return $query->whereHas('address', function($q) use ($areaID){
+          $q->where('lga_id', $areaID);
+        });
+    } 
 }
 

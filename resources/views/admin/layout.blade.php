@@ -1,59 +1,80 @@
-<!DOCTYPE html>
-<html lang="en">
+<!-- HEAD STARTS-->
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="csrf-token" content="{{ csrf_token() }}"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--  <meta name="_token" content="{!! csrf_token() !!}"/> -->
 
-  <title>Ndibiz Admin</title>
+    <title> @yield('title') | NdiBiz Directory</title>
+    <meta name="description" content="@yield('description')" />
 
-  <link href="{{asset('css/bootstrap3-3-4.min.css')}}"
-        rel="stylesheet">
-  <link href="{{asset('css/datatable.min.css')}}" 
-        rel="stylesheet">
-  <link href="{{asset('css/font-awesome.min.css')}}"
-        rel="stylesheet">
-  <link href="{{asset('css/select2.min.css')}}"
-       rel="stylesheet">
-  <link href="{{asset('css/bootstrap-editable.css')}}"
-        rel="stylesheet">
-  @yield('styles')
+    <!-- Stylesheets -->
+    @yield('stylesheets')
+    <link href="{{asset('../plugins/Bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <!-- GOOGLE FONTS -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,700|Open+Sans:400,600|Lato:400,700' rel='stylesheet' type='text/css'>
 
-  <!--[if lt IE 9]>
-    <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
+    <link rel="icon" href="{{ asset('img/content/favicon.ico')}}" sizes="16x16 32x32" type="image/ico">
+    <!--[if IE 9]>
+    <script src="{{asset('js/media.match.min.js')}}"></script>
+    <![endif]-->
 </head>
+<!-- HEAD ENDS-->
+
 <body>
+<div id="main-wrapper" class="forms">
 
-{{-- Navigation Bar --}}
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed"
-        data-toggle="collapse" data-target="#navbar-menu">
-        <span class="sr-only">Toggle Navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        </button><a class="navbar-brand" href="#">Ndibiz Admin</a>
-      </div>
-        <div class="collapse navbar-collapse" id="navbar-menu">
-        @include('admin.partials.navbar')
+<!-- HEADER STARTS -->
+  <header class="header">
+      <div class="container">
+          <!-- HEADER-LOG0 -->
+          <div class="header-logo navbar-brand">
+              <a href="/"><img class="center-block" src="{{ asset ('img/logo.png') }}" alt="Logo"></a>
+          </div>
+          <!-- END HEADER LOGO -->
+      </div><!-- END .CONTAINER -->
+  </header> <!-- end #header -->
+<!-- HEADER ENDS -->
+
+<!-- CONTENT STARTS -->
+        <div class="content">
+            @yield('content')
         </div>
-   </div>
-</nav>
+<!-- CONTENT ENDS -->
 
-@yield('content')
+<!-- FOOTER STARTS -->
+<footer id="footer">
+    <div class="copyright">
+        <div class="container">
+            <p class="pull-left">Copyright &copy;
+                <script type="text/javascript">
+                    var currentYr = new Date();
+                    var insertYr = currentYr.getFullYear();
+                    document.write(insertYr);
+                </script>
+                NdiBiz Directory - All Rights Reserved.
+            </p>
+            <p class="pull-right">Powered by  <a href="#">CuriouzMind Tech</a></p>
+        </div> <!-- END .container -->
+    </div> <!-- end .copyright-->
+</footer>
+<!-- FOOTER ENDS -->
+</div> <!-- end #main-wrapper -->
 
-<script src="{{asset('js/jquery-2.1.3.min.js')}}"></script>
-<script src="{{asset('js/bootstrap.min.js')}}"></script>
-<script src="{{asset('js/datatable.js')}}"></script>
-<script src="{{asset('js/select22.min.js')}}"></script>
-<script src="{{asset('js/bootstrap-editable.min.js')}}"></script>
-
-@yield('scripts')
-
+<!-- SCRIPTS STARTS -->
+  <!-- Core Scripts -->
+  <script src="{{asset('../js/jquery-2.1.3.min.js') }}"></script>
+  <script src="{{asset('../plugins/Bootstrap-3.3.5/js/bootstrap.js')}}"></script>
+  @yield('scripts')
+<!-- SCRIPTS ENDS -->
+             
 </body>
 </html>
+
+
+
+   
+
+
+
