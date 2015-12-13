@@ -121,7 +121,6 @@ return [
     | your application but you are free to change this when necessary.
     |
     */
-
     'path' => '/',
 
     /*

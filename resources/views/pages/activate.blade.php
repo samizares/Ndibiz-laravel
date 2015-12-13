@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 @extends('master-light')
+=======
+@extends('admin.layout')
+>>>>>>> origin/master
 <!-- HEAD -->
 @section('title', 'Thanks')
 <!-- HEADER -->
@@ -27,3 +31,5 @@
   </div> <!-- end .container -->
 </div>  <!-- end #page-content -->
 @endsection
+
+

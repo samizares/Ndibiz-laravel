@@ -2,7 +2,6 @@
 <!-- HEAD -->
 @section('title', 'Home')
 @section('stylesheets')
-    <link href="{{asset('../plugins/Bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet">
 @endsection
 <!-- HEADER -->
 <!-- search -->
@@ -60,8 +59,16 @@
                   @if (Auth::guest())
                     <li><a class="btn" href="/auth/register" class=""><i class="fa fa-plus-square"></i> <span>Register</span></a></li>
                   @endif
-                  <li class="text-center"><a href="/businesses" class=""><i class="fa fa-building"></i> Explore</a></li>
-                  <li class="text-center"><a href="/biz/create" class=""><i class="fa fa-plus"></i> Add a Business</a></li>
+                  {{--<li class="text-center"><a href="/businesses" class=""><i class="fa fa-building"></i> Explore</a></li>--}}
+                    <li class="dropdown text-center">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-building-o"></i> Explore</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/businesses" class=""><i class="fa fa-building"></i> Businesses</a></li>
+                            <li><a href="/categories" class=""><i class="fa fa-sort"></i> Categories</a></li>
+                            <li><a href="/locations" class=""><i class="fa fa-map-marker"></i> Locations</a></li>
+                        </ul>
+                    </li>
+                    <li class="text-center"><a href="/biz/create" class=""><i class="fa fa-plus"></i> Add a Business</a></li>
 
                   <li class="divider"></li>
                 </ul>
@@ -72,12 +79,11 @@
 <!-- CONTENT -->
 @section('content')
   @include('partials.notifications')
-  
   <div id="page-content" class="home-slider-content">
     <div class="container">
       <div class="home-with-slide category-listing">
           <h3 class="section-title"><strong>Featured</strong> Categories</h3>
-          <span class="section-subtitle text-color-grey444">Explore our most popular business categories.</span>
+          <p class="section-subtitle text-color-grey444 m0-bttm">Explore our most popular business categories.</p>
         <div class="row homepage">
           <div class="col-md-9 col-md-push-3">
             <div class="page-content">
@@ -153,11 +159,11 @@
               <img src="{{asset('img/content/post-img-1.jpg')}}" alt="">
               <div class="rating">
                 <ul class="list-inline">
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                  <li><i class="fa fa-star-half-o"></i></li>
-                  <li><i class="fa fa-star-o"></i></li>
+                    <li>
+                        @for ($i=1; $i <= 5 ; $i++)
+                            <span class="glyphicon glyphicon-star{{ ($i <= $feature->rating_cache) ? '' : '-empty'}}"></span>
+                        @endfor
+                    </li>
                 </ul>
                 <p>
                     @foreach($feature->cats as $cat)
@@ -234,22 +240,14 @@
 
 <!-- SCRIPTS STARTS -->
   @section('scripts')
-
+    <script src="{{asset('js/scripts.js')}}"></script>
     <script src="{{asset('../plugins/owl-carousel/owl.carousel.js') }}"></script>
-    <script src="{{asset('../plugins/Bootstrap-3.3.5/js/bootstrap.js')}}"></script>
-
     <script>
       //Text rotator
       //-------------------------------------------------
       $(document).ready(function() {
           $('.rotate').rotaterator({fadeSpeed:2000, pauseSpeed:80});
       });
-
-          $(document).ready(function() {        
-              $('li:first-child').addClass('active');
-              $('.tab-pane:first-child ').addClass('active');
-          });       
     </script>
-    <script src="{{asset('js/scripts.js') }}"></script>
   @stop
 <!-- SCRIPTS ENDS -->
