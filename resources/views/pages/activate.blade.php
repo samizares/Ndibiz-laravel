@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-@extends('master-light')
-=======
 @extends('admin.layout')
->>>>>>> origin/master
 <!-- HEAD -->
 @section('title', 'Thanks')
 <!-- HEADER -->

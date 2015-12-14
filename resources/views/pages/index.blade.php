@@ -84,63 +84,27 @@
       <div class="home-with-slide category-listing">
           <h3 class="section-title"><strong>Featured</strong> Categories</h3>
           <p class="section-subtitle text-color-grey444 m0-bttm">Explore our most popular business categories.</p>
-        <div class="row homepage">
-          <div class="col-md-9 col-md-push-3">
-            <div class="page-content">
-              <div class="product-details">              
-                <div class="tab-content">    
-                @unless ( $cats->isEmpty() )
-                @foreach ($cats as $cat)
-                    <div class="tab-pane" id="<?php $find = array('&','And','and',' ');$replace = array('');
-                     echo str_replace($find, $replace, $cat->name); ?>">                      
-                        <div class="row clearfix">    
-                        @foreach ($cat->subcats as $sub)
-                            <div class="col-md-3 col-sm-4 col-xs-6">
-                              <div class="category-item">
-                               <a class="btn" href="/biz/subcat/{{$sub->id}}"><span class="">{{$sub->name}}</span>
-                               <p class="sub-counter animated slideIn">
-                                  <span>{{$sub->name}}</span>
-                                  <span class="biz-counter">{{$sub->biz->count()}} businesses <i class="fa fa-building"></i></span>
-                               </p>
-                               </a>
-                              </div>
-                            </div> 
-                          @endforeach
-                        </div> <!-- end .row -->                   
-                    </div> <!-- end .tabe-pane -->
-                 @endforeach
-                 @endunless
-                    <div class="discover-more">
-                        <a class="btn btn-default text-center" href="/categories">Discover More Categories</a>
-                    </div>
-                </div> <!-- end .tabe-content -->
-             
-              </div> <!-- end .product-details -->
-            </div> <!-- end .page-content -->
+          <div class="row featured-category">
+              @unless ( $featured->isEmpty() )
+              @foreach($featured as $feature)
+                      @foreach ($feature->cats as $cat)
+              <div class="col-md-3">
+                  <div class="category-item">
+                      <a class="btn" href="/biz/cat/{{$cat->id}}"><span class=""><i class="fa fa-{{$cat->image_class}}"></i> <br>{{$cat->name}}</span>
+                          {{--<p class="sub-counter animated slideIn">--}}
+                              {{--<span>{{$cat->name}}</span>--}}
+                              {{--<span class="biz-counter">{{$cat->biz->count()}} businesses <i class="fa fa-building"></i></span>--}}
+                          {{--</p>--}}
+                      </a>
+                  </div>
+              </div>
+                      @endforeach
+                @endforeach
+              @endunless
           </div>
+          <div class="discover-more text-center"><a class="btn btn-default" href="/categories">Discover More Categories</a>
+      </div>
 
-          <div class="col-md-3 col-md-pull-9 category-toggle">
-            <button><i class="fa fa-bars"></i></button>
-            <div class="page-sidebar">
-              <!-- Category accordion -->
-              <div id="categories">
-                <div class="accordion">
-                  <ul class="nav nav-tabs home-tab" role="tablist">
-                     @foreach ($cats as $cat)
-                      <li>
-                        <a class="" href="#<?php $find = array('&','And','and',' ');$replace = array('');
-                          echo str_replace($find, $replace, $cat->name); ?>" 
-                         role="tab" data-toggle="tab"><i class="fa fa-{{$cat->image_class}}"></i>
-                        {{ $cat->name }}</a>
-                      </li>
-                      @endforeach                    
-                  </ul>
-                </div> <!-- end .accordion -->
-              </div> <!-- end #categories -->
-
-            </div> <!-- end .page-sidebar -->
-          </div> <!-- end grid layout-->
-        </div> <!-- end .row -->
       </div> <!-- end .home-with-slide -->
     </div> <!-- end .container -->
   </div>  <!-- end #page-content -->

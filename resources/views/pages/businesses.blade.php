@@ -1,6 +1,6 @@
 @extends('master')
 <!-- HEAD -->
-@section('title', 'Businesses')
+@section('title', 'Business Listings')
 @section('stylesheets')
 @endsection
 <!-- HEADER -->
@@ -49,20 +49,18 @@
 @endsection
 <!-- CONTENT -->
 @section('content')
-  @include('partials.notifications')
   <div id="page-content">
     <div class="container">
+        @include('partials.notifications')
       <div class="home-with-slide category-listing">
         <div class="row">
           <div class="col-md-8">
             <!-- inner breadcrumb -->
             <div class="row p10-bttm page-title-row">
               <div class="col-md-8">
-                <h3 class="m0-top"><a href="/"><i class="fa fa-home"></i> </a> » <small>Business Listings</small> </h3>
+                <h3 class="m0-top"><a href="/"><i class="fa fa-home"></i> </a> » <small>Business Listings</small></h3>
               </div>
-              <div class="col-md-4 text-right">
-                
-              </div>
+              <div class="col-md-4 text-right"></div>
             </div>
             <div class="row businesses">
               <div class="col-md-8 col-md-push-4">
@@ -119,7 +117,7 @@
               </div>
 
               <div class="col-md-4 col-md-pull-8 category-toggle">
-                <button><i class="fa fa-filter"></i> Filter <span class="">Businesses</span></button>
+                <button><i class="fa fa-filter"></i> Filter </button>
                 <div class="page-sidebar">
                   <!-- Category accordion -->
                   <div id="categories">
@@ -245,12 +243,6 @@
             }
         });
       });
-
-      //Text rotator
-      //-------------------------------------------------
-        $(document).ready(function() {
-            $('.rotate').rotaterator({fadeSpeed:2000, pauseSpeed:80});
-        });
     </script>
     <script src="{{asset('js/scripts.js')}}"></script>
 @endsection

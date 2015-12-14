@@ -15,15 +15,16 @@
       @yield('stylesheets')
 
 
-    <link href="{{asset('../plugins/Bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet">
+    {{--<link href="{{asset('../plugins/Bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet">--}}
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    {{--<link rel="stylesheet" href="{{ asset('css/style-480.css') }}">--}}
-    {{--<link rel="stylesheet" href="{{ asset('css/style-768.css') }}">--}}
-    {{--<link rel="stylesheet" href="{{ asset('css/style-992.css') }}">--}}
-    {{--<link rel="stylesheet" href="{{ asset('css/style-1200.css') }}">--}}
     <link rel="stylesheet" href="{{ asset('plugins/animate.css')}}">
     <link rel="stylesheet" href="{{ asset('plugins/selectize/selectize.default.css')}}">
     <link href="{{asset('plugins/select2/select2.min.css')}}" rel="stylesheet">
+
+    {{--FONT AWESOME--}}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
   <!-- GOOGLE FONTS -->
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,700|Open+Sans:400,600|Lato:400,700' rel='stylesheet' type='text/css'>
@@ -32,13 +33,10 @@
   <!--[if IE 9]>
     <script src="{{asset('js/media.match.min.js')}}"></script>
   <![endif]-->
-
 </head>
 <!-- HEAD ENDS-->
-
 <body>
 <div id="main-wrapper">
-
 <!-- HEADER STARTS -->
         @include('includes.header')  
 <!-- HEADER ENDS -->
@@ -59,8 +57,8 @@
   <!-- Core Scripts -->
 
   <script src="{{asset('js/jquery-2.1.3.min.js') }}"></script>
-{{--<script src="{{asset('js/jquery-ui.js') }}"></script>--}}
-
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   <script src="{{asset('js/jquery.ba-outside-events.min.js') }}"></script>
   <script src="{{asset('plugins/selectize/selectize.min.js')}}" type="text/javascript"></script>
   <script src="{{asset('plugins/select2/select2.min.js')}}"></script>
@@ -69,6 +67,11 @@
   <script type="text/javascript">
       $(document).ready(function () {
           $('.carousel').carousel();
+      });
+      //Text rotator
+      //-------------------------------------------------
+      $(document).ready(function() {
+          $('.rotate').rotaterator({fadeSpeed:2000, pauseSpeed:80});
       });
       $(document).ready(function() {
             // Enable location search

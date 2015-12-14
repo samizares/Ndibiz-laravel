@@ -26,13 +26,13 @@ class HomeController extends Controller
 
    public function index()
 	{
-		$cats = Cat::all()->take(15);
+		$cats = Cat::all()->take(5);
 		$bizs = Biz::orderBy('created_at', 'desc')->take(6);
 		$totalCat=Cat::count();
 		$totalSubCat=subCat::count();
 		$stateList= State::lists('name','id');
-		$catList   = SubCat::lists('name','id')->take(8); 
-	    $featured= Biz::whereFeatured('YES')->get();
+		$catList   = SubCat::lists('name','id')->take(8);
+        $featured= Biz::whereFeatured('YES')->get();
 		return view('pages.index', compact('stateList','catList','cats','featured', 'totalCat', 'totalSubCat',
 		 'subs'));
 	}
@@ -44,8 +44,8 @@ class HomeController extends Controller
 		$totalCat=Cat::count();
 		$totalSubCat=subCat::count();
 		$stateList= State::lists('name','id');
-		$catList   = SubCat::lists('name','id')->take(8); 
-	    $featured= Biz::whereFeatured('YES')->get();
+		$catList   = SubCat::lists('name','id')->take(8);
+	    $featured= Biz::whereFeatured('YES')->take(5)->get();
 		return view('pages.index', compact('stateList','catList','cats','featured', 'totalCat', 'totalSubCat',
 		 'subs'));
 	}
@@ -263,7 +263,7 @@ class HomeController extends Controller
 		$featured= Biz::whereFeatured('YES')->paginate(3);
 		$recent= Biz::orderBy('created_at', 'desc')->paginate(1);
 
-		return view('pages.biz-sub',compact('bizs','stateList','catList','cats','featured','recent','cat'));
+		return view('pages.biz-cat',compact('bizs','stateList','catList','cats','featured','recent','cat'));
 	 }
 
 	 public function profile($userId)
