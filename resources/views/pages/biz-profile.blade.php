@@ -108,11 +108,13 @@ favorited' }}"><i class="fa fa-heart"></i> {{ $favourited ? 'Unfavourite' :
                     <div class="profile-pic"><a href="" data-toggle="modal" data-target="#myBizProfile">
                       {!!Html::image(isset($biz->profilePhoto->image) ? $biz->profilePhoto->image : 'img/content/post-img-10.jpg', 
                         'Profile Image', array('class'=>'img-responsive center-block'))!!}
-                     
+                     @if(Auth::check() && (Auth::user()->id == $biz->owner))
                       <p class="pic-edit">
                         <i class="mdi-image-camera-alt"></i> 
                          <span>Update Biz Profile Photo</span>
-                      </p></a>
+                      </p>
+                      @endif
+                    </a>
                     </div>
                 </figure>
             </div>
