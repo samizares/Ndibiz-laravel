@@ -30,6 +30,8 @@ return App\User::where('id', $id)->first();
 Route::post('profile/{id}/upload','HomeController@userphotos');
 Route::post('biz/{id}/upload','HomeController@bizphotos');
 Route::post('bizprofile/{id}/photo', 'HomeController@bizprofilephoto');
+Route::post('claimbiz/{id}', 'HomeController@claimbiz');
+
 Route::post('profile/{id}/photo', 'HomeController@userprofilephoto');
 
 Route::get('categories', 'HomeController@categories');

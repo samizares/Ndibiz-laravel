@@ -420,7 +420,10 @@ class HomeController extends Controller
         
 
     } 
-
+public function claimbiz(Request $request)
+{
+	dd($request->all());
+}
 	 
 
 	 public function favourites()

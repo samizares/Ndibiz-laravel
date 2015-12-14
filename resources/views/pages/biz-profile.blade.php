@@ -478,8 +478,8 @@ favorited' }}"><i class="fa fa-heart"></i> {{ $favourited ? 'Unfavourite' :
          
                            <div class = "modal-body">
                                <p>Enter your details below(You must be the business owner or staff of the company to own this business)</p>
-                               <form id="uploadFile" action"" method="POST">
-                                    {{csrf_field()}}
+                               {!! Form::open( array('url' =>'/claimbiz/'.$biz->id, 'files'=> true, 'method'=>'post')) !!}
+                                {!!Form::hidden('id', $biz->id)!!}
                                    <div class="form-group">
                                       <div class="col-md-5">Full Name</div>
                                       <div class="col-md-7">
@@ -498,32 +498,43 @@ favorited' }}"><i class="fa fa-heart"></i> {{ $favourited ? 'Unfavourite' :
                                   </div>
                                   <div class="form-group">
                                       <div class="col-md-5">Are you the owner of this business?</div>
-                                      <div class="col-md-7"><input type="checkbox">Yes
-                                        <input type="checkbox">NO
+                                      <div class="col-md-7"><input type="radio" name="owner" value="YES">YES
+                                        <input type="radio" name="owner" value="NO">NO
                                       </div>
                                   </div>
                                   <div class="form-group">
                                     <div class="col-md-5">If Owner, can you please upload a document showing evidences of your
                                     ownership</div>
                                     <div class="col-md-5">
-                                      <input name="file" type="file" multiple />
+                                     <div class="panel-body">
+                       
+                        <div class="fileinput fileinput-new" data-provides="fileinput">
+  <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+    <img src="{{asset('img/user.jpg')}}" alt="...">
+  </div>
+  <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
+  <div>
+    <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span>
+    <span class="fileinput-exists">Change</span><input type="file" name="image"></span>
+    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+  </div>
+</div>
+                    </div>
 
                                     </div>
                                   </div>
 
 
-
+<button type = "button" class = "btn btn-default" data-dismiss = "modal">
+                                Close
+                             </button>
+            
+                              {!!Form::submit('Submit', array('class' => 'btn btn-primary btn-sm') ) !!}
                                </form>
                            </div>
          
                            <div class = "modal-footer">
-                             <button type = "button" class = "btn btn-default" data-dismiss = "modal">
-                                Close
-                             </button>
-            
-                              <button type = "button" class = "btn btn-primary">
-                                 Submit changes
-                              </button>
+                             
                            </div>
          
                         </div><!-- /.modal-content -->

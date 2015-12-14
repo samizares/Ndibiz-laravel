@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 11, 2015 at 10:49 AM
+-- Generation Time: Dec 14, 2015 at 06:35 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -191,7 +191,7 @@ CREATE TABLE IF NOT EXISTS `biz_photos` (
   `created_at` datetime NOT NULL,
   `updated_at` timestamp NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `biz_photos`
@@ -201,7 +201,30 @@ INSERT INTO `biz_photos` (`id`, `biz_id`, `path`, `created_at`, `updated_at`) VA
 (1, 1, '/biz/photos/144977163120110516_025.jpg', '2015-12-10 19:20:31', '2015-12-10 18:20:31'),
 (2, 1, '/biz/photos/144977163220110526_008.jpg', '2015-12-10 19:20:33', '2015-12-10 18:20:33'),
 (3, 1, '/biz/photos/144977163420110611_006.jpg', '2015-12-10 19:20:34', '2015-12-10 18:20:34'),
-(4, 1, '/biz/photos/144977163420110621_006.jpg', '2015-12-10 19:20:34', '2015-12-10 18:20:34');
+(4, 1, '/biz/photos/144977163420110621_006.jpg', '2015-12-10 19:20:34', '2015-12-10 18:20:34'),
+(5, 1, '/biz/photos/1449961207(4).jpg', '2015-12-13 00:00:07', '2015-12-12 23:00:07');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `biz_profile_photos`
+--
+
+CREATE TABLE IF NOT EXISTS `biz_profile_photos` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `image` varchar(100) NOT NULL,
+  `biz_id` int(10) unsigned NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` timestamp NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `biz_profile_photos`
+--
+
+INSERT INTO `biz_profile_photos` (`id`, `image`, `biz_id`, `created_at`, `updated_at`) VALUES
+(1, 'biz/profile/1449961110fountain.jpg', 1, '2015-12-12 23:52:09', '2015-12-12 22:58:30');
 
 -- --------------------------------------------------------
 
@@ -1155,7 +1178,7 @@ CREATE TABLE IF NOT EXISTS `favourites` (
   `biz_id` int(10) unsigned NOT NULL,
   `user_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
 
 --
 -- Dumping data for table `favourites`
@@ -1163,7 +1186,6 @@ CREATE TABLE IF NOT EXISTS `favourites` (
 
 INSERT INTO `favourites` (`id`, `biz_id`, `user_id`) VALUES
 (9, 3, 7),
-(10, 1, 7),
 (11, 8, 7),
 (12, 20, 7),
 (14, 3, 10),
@@ -1171,7 +1193,8 @@ INSERT INTO `favourites` (`id`, `biz_id`, `user_id`) VALUES
 (17, 22, 10),
 (19, 9, 10),
 (20, 12, 10),
-(21, 1, 10);
+(21, 1, 10),
+(22, 1, 7);
 
 -- --------------------------------------------------------
 
@@ -1333,6 +1356,23 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 ('2014_10_12_000000_create_users_table', 1),
 ('2014_10_12_100000_create_password_resets_table', 1),
 ('2015_07_31_225910_create_businessprofile_table', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `owner_details`
+--
+
+CREATE TABLE IF NOT EXISTS `owner_details` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned NOT NULL,
+  `biz_id` int(10) unsigned NOT NULL,
+  `status` tinyint(2) NOT NULL DEFAULT '0',
+  `created_at` datetime NOT NULL,
+  `updated_at` timestamp NOT NULL,
+  `ownership` tinyint(4) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
