@@ -8353,7 +8353,7 @@ p.section-subtitle {
     font-size: 15px;
 }
 .profile-overview .action-btns ul li a .fa {
-    margin-right:4px;
+    margin-right:0;
     background: inherit;
 }
 @media(min-width: 768px){
