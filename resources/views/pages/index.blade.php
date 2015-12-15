@@ -47,8 +47,7 @@
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="menu1">
                         <i class="fa fa-user"></i> {{Auth::user()->username}} <span class="caret"></span></a>
                       <ul class="dropdown-menu text-center" role="menu" aria-labelledby="menu1">
-                          <li class=""><a href="#">View Profile</a></li>
-                          <li class="divider"></li>
+                          <li><a href="/profile/{{Auth::user()->id}}">View Profile</a></li>
                           <li><a class="btn" href="/auth/logout"><i class="fa fa-power-off"></i> Logout</a></li>
                       </ul>
                     </li>
