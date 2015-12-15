@@ -8345,7 +8345,9 @@ p.section-subtitle {
   font-size: 25px;
     margin-bottom: 10px;
 }
-.profile-overview p.address,
+.profile-overview p.address {
+    font-size: 20px;
+}
 .profile-overview ul.user-counter li {
   font-size: 15px;
 }
