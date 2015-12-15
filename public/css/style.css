@@ -8347,7 +8347,7 @@ p.section-subtitle {
 }
 .profile-overview p.address,
 .profile-overview ul.user-counter li {
-  font-size: 20px;
+  font-size: 18px;
 }
 .profile-overview p.check-box label {
     font-size: 15px;
@@ -8411,7 +8411,7 @@ p.section-subtitle {
     padding: 5px;
     text-align: center;
     position: relative;
-    bottom: 268px;
+    bottom: 261px;
     color: rgb(255, 255, 255);
     width: 100%;
     display: block;
