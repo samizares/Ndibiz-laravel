@@ -183,7 +183,7 @@
                       </div> <!-- end .tab-pane -->
                       <div class="tab-pane" id="company-reviews">
                          <div class="company-ratings">
-                          <h3 class="text-uppercase m10-top">Rating <span>(5 Ratings)</span></h3>
+                          <h3 class="text-uppercase m10-top">Reviews (5 star ratings)</h3>
                           <div class="rating-with-details">
                             @unless ( $user->reviews->isEmpty() )
                             @foreach($user->reviews as $review)
