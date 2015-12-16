@@ -953,6 +953,8 @@ th {
 .text-cap {text-transform: capitalize;}
 .text-upper {text-transform: uppercase;}
 
+.link {text-decoration: underline;}
+
 .text-color-white {color:#fff;}
 .text-color-greyddd {color:#ddd;}
 .text-color-grey444 {color:#444;}
@@ -5301,7 +5303,7 @@ h1.page-title, h3.page-subtitle {
 }
 .company-sidebar .company-category li a {
   display: block;
-  padding: 15px 20px;
+  padding: 10px 20px;
   color: #fdc600;
   font-size: 15px;
   font-weight: bold;
@@ -5311,7 +5313,7 @@ h1.page-title, h3.page-subtitle {
 .company-sidebar .company-category li a .fa {
     color: #fff;
     padding-right: 10px;
-    display: block;
+    /*display: block;*/
     font-size: 20px;
     margin-bottom:10px;
 }
@@ -7732,6 +7734,16 @@ p.section-subtitle {
 }
 /* Compnay profile style begin */
 /* --------------------------------------- */
+.animated {
+    -webkit-transition: height 0.2s;
+    -moz-transition: height 0.2s;
+    transition: height 0.2s;
+}
+.stars {
+    margin: 20px 0;
+    font-size: 24px;
+    color: #d17581;
+}
 .header-search.company-profile-height {
   height: 570px;
 }
@@ -7987,9 +7999,24 @@ p.section-subtitle {
   padding: 5px;
   background-color: transparent;
 }
-@media (max-width: 600px) {
+@media (min-width: 480px) {
+  .company-profile .social-link ul li {
+    /*display: none;*/
+  }
+}
+@media (min-width: 768px) {
   .company-profile .social-link {
-    display: none;
+    /*display: none;*/
+  }
+}
+@media (min-width: 992px) {
+  .company-profile .social-link {
+    /*display: none;*/
+  }
+}
+@media (min-width: 1200px) {
+  .company-profile .social-link {
+    /*display: none;*/
   }
 }
 .company-profile .company-text {
@@ -8312,7 +8339,8 @@ p.section-subtitle {
 }
 .company-contact .address-details {
   position: relative;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
+  padding-top: 10px;
   width: 280px;
 }
 
@@ -8343,10 +8371,15 @@ p.section-subtitle {
 .profile-overview h2.username {
   text-align: center;
   font-size: 25px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
+.profile-overview p.biz-profile-address,
+.profile-overview p.biz-profile-phone1,
+.profile-overview p.biz-profile-phone2,
+.profile-overview p.biz-profile-site,
 .profile-overview p.address {
-    font-size: 20px;
+    font-size: 19px;
+  margin-bottom:5px;
 }
 .profile-overview ul.user-counter li {
   font-size: 15px;
@@ -8357,6 +8390,9 @@ p.section-subtitle {
 .profile-overview .action-btns ul li a .fa {
     margin-right:0;
     background: inherit;
+}
+.profile-overview .action-btns ul li a {
+  width:100%;
 }
 @media(min-width: 768px){
     .profile-overview h2.username {
@@ -8369,7 +8405,7 @@ p.section-subtitle {
     }
     .profile-overview p.address,
     .profile-overview ul.user-counter li {
-        font-size: 19px;
+        font-size: 18px;
     }
 }
 @media(min-width: 992px){
@@ -8882,9 +8918,11 @@ p.section-subtitle {
   border:none;
 }
  .not-favorited,.favorited:hover{
-  color:black;
+  color:#333;
+  background: #fdc600;
 }
 
 .not-favorited:hover, .favorited{
-  color:red;
+  color:#fdc600;
+  background: #333;
 }

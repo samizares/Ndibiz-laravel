@@ -59,8 +59,9 @@
     @include('partials.notifications')
       <div class="home-with-slide">
         <div class="row">
+            {{--MAIN CONTENT--}}
           <div class="col-md-8">
-                <!-- profile overview -->
+              {{--PROFILE OVERVIEW--}}
             <div class="row profile-overview">
               <div class="col-md-3 col-sm-3 ">
                   <ul class="list-inline user-counter hidden-md hidden-lg hidden-sm">
@@ -85,7 +86,7 @@
               </div>
               <div class="col-md-9 col-sm-9 col-xs-12">
                 <div class="row">
-                    <div class="col-md-8 p10-bttm">
+                    <div class="col-md-8">
                       <h2 class="username hidden-xs">{{$user->username}}</h2>
                         <p class="m5-bttm address"><i class="fa fa-map-marker"></i> Lagos, Nigeria.</p>
                         <p class="checkbox">
@@ -102,9 +103,11 @@
                           {{ str_plural('Photo', $photosCount)}} </li>
                       </ul>
                     </div>
+                    <hr class="hidden-lg hidden-md hidden-sm">
+                    {{--ACTION BUTTONS--}}
                     @if(Auth::check() && (Auth::user()->id == $user->id))
                     <div class="col-md-4 action-btns">
-                        <ul class="list-inline">
+                        <ul class="list-inline m0-bttm">
                             <li><a href="#" type="button" class="btn btn-border" data-toggle="tooltip" title="Edit Profile"><i class="fa fa-pencil"></i> Edit profile</a></li>
                             <li><a href="#" type="button" class="btn btn-border" data-toggle="modal" data-target="#myModal" title="Add Photo"><i class="fa fa-camera"></i>
                                     Add photo</a></li>
@@ -113,28 +116,29 @@
                     </div>
                     @endif
                 </div>
-                 
               </div>
             </div>
+              <hr>
+              {{--TABS CONTENT--}}
             <div class="row businesses profile-tabs">
                 {{--TABS SIDEBAR LEFT--}}
-              <div class="col-md-3 col-sm-3 col-xs-3">
+              <div class="col-md-3 col-sm-3 col-xs-12">
                   <div class="page-sidebar company-sidebar">
                     <ul class="company-category nav nav-tabs home-tab" role="tablist">
                         <li class="active">
-                          <a href="#biz-photos" role="tab" data-toggle="tab"><i class="fa fa-camera"></i> <span class="hidden-xs">Gallery</span></a>
+                          <a href="#biz-photos" role="tab" data-toggle="tab"><i class="fa fa-camera"></i> <span class="">Gallery</span></a>
                         </li>
                         <li>
-                          <a href="#fav" role="tab" data-toggle="tab"><i class="fa fa-heart"></i> <span class="hidden-xs">Favourites</span></a>
+                          <a href="#fav" role="tab" data-toggle="tab"><i class="fa fa-heart"></i> <span class="">Favourites</span></a>
                         </li>
                         <li>
-                          <a href="#company-reviews" role="tab" data-toggle="tab"><i class="fa fa-comments"></i> <span class="hidden-xs">Reviews</span></a>
+                          <a href="#company-reviews" role="tab" data-toggle="tab"><i class="fa fa-comments"></i> <span class="">Reviews</span></a>
                         </li>
                     </ul>
                   </div> <!-- end .page-sidebar -->
               </div>
                 {{--TAB CONTENT RIGHT--}}
-              <div class="col-md-9 col-sm-9 col-xs-9">
+              <div class="col-md-9 col-sm-9 col-xs-12">
                   <div class="tab-content">
                       {{--GALLERY--}}
                       <div class="tab-pane active" id="biz-photos">
@@ -216,7 +220,7 @@
               </div> <!-- end .main-grid layout -->            
             </div> <!-- end .row -->
           </div>
-          <!-- SIDEBAR RIGHT -->
+            {{--SIDEBAR RIGHT--}}
             <div class="col-md-4">
                 <div class="post-sidebar">
                     <!-- AD BAR MINI -->
