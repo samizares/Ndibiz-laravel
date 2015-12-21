@@ -953,6 +953,8 @@ th {
 .text-cap {text-transform: capitalize;}
 .text-upper {text-transform: uppercase;}
 
+.link {text-decoration: underline;}
+
 .text-color-white {color:#fff;}
 .text-color-greyddd {color:#ddd;}
 .text-color-grey444 {color:#444;}
@@ -5301,15 +5303,27 @@ h1.page-title, h3.page-subtitle {
 }
 .company-sidebar .company-category li a {
   display: block;
-  padding: 15px 20px;
+  padding: 10px 20px;
   color: #fdc600;
   font-size: 15px;
   font-weight: bold;
   text-transform: uppercase;
+    text-align: center;
 }
 .company-sidebar .company-category li a .fa {
-  color: #fff;
-  padding-right: 10px;
+    color: #fff;
+    padding-right: 10px;
+    /*display: block;*/
+    font-size: 20px;
+    margin-bottom:10px;
+}
+@media (min-width: 768px) {
+    .company-sidebar .company-category li a .fa {
+        color: #fff;
+        padding-right: 10px;
+        display: block;
+        font-size: 35px;
+    }
 }
 .company-sidebar .own-company {
   margin: 30px 0;
@@ -5637,9 +5651,11 @@ h1.page-title, h3.page-subtitle {
     padding-top: 80px;
   }
 }
+.single-product span,
 .product-details .single-product span {
   /*display: none;*/
 }
+.single-product,
 .product-details .single-product {
   position: relative;
   height: auto;
@@ -5650,10 +5666,13 @@ h1.page-title, h3.page-subtitle {
   overflow: hidden;
   box-shadow: 0 2px #dddddd;
 }
+.single-product > .address-preview,
+.single-product > .read-more,
 .product-details .single-product > .address-preview,
 .product-details .single-product > .read-more {
   display: none !important;
 }
+.single-product > figure,
 .product-details .single-product figure {
   position: relative;
   margin: 0;
@@ -5662,10 +5681,12 @@ h1.page-title, h3.page-subtitle {
   height: 160px;
   border-bottom: 1px solid #dddddd;
 }
+.single-product > figure img,
 .product-details .single-product figure img {
   width: 100%;
   height: 100%;
 }
+.single-product figure .rating,
 .product-details .single-product figure .rating {
   margin: 1px;
   position: absolute;
@@ -5674,19 +5695,24 @@ h1.page-title, h3.page-subtitle {
   z-index: 30;
   background-color: rgba(0, 0, 0, 0.5);
 }
+.single-product figure .rating ul,
 .product-details .single-product figure .rating ul {
   margin: 0;
   padding: 5px 10px;
 }
+.single-product figure .rating li,
 .product-details .single-product figure .rating li {
   padding: 0;
 }
+.single-product figure .rating li a,
 .product-details .single-product figure .rating li a {
   color: #fff;
 }
+.single-product figure .rating li a:hover,
 .product-details .single-product figure .rating li a:hover {
   color: #fdc600;
 }
+.single-product figure .rating p,
 .product-details .single-product figure .rating p {
   padding: 0 3px;
   margin: 0;
@@ -5697,6 +5723,7 @@ h1.page-title, h3.page-subtitle {
   color: #333333;
   text-transform: uppercase;
 }
+.single-product figure figcaption,
 .product-details .single-product figure figcaption {
   display: none;
   position: absolute;
@@ -5708,6 +5735,7 @@ h1.page-title, h3.page-subtitle {
   text-align: center;
   background-color: rgba(253, 198, 0, 0.8);
 }
+.single-product figure figcaption a,
 .product-details .single-product figure figcaption a {
   position: relative;
   padding: 6px 10px 6px 33px;
@@ -5715,6 +5743,7 @@ h1.page-title, h3.page-subtitle {
   border-radius: 3px;
   font-weight: bold;
 }
+.single-product figure figcaption a .fa,
 .product-details .single-product figure figcaption a .fa {
   position: absolute;
   left: 0;
@@ -5723,37 +5752,50 @@ h1.page-title, h3.page-subtitle {
   font-weight: bold;
   border-right: 1px solid #333333;
 }
+.single-product figure figcaption a:hover,
 .product-details .single-product figure figcaption a:hover {
   background: #333333;
   color: #fdc600;
 }
+.single-product figure figcaption .bookmark,
 .product-details .single-product figure figcaption .bookmark {
   position: relative;
   top: 45px;
 }
+.single-product figure figcaption .bookmark .fa,
 .product-details .single-product figure figcaption .bookmark .fa {
   padding: 7px 9px;
 }
+.single-product figure figcaption .read-more,
 .product-details .single-product figure figcaption .read-more {
   position: relative;
   top: 65px;
 }
+.single-product figure figcaption .read-more .fa,
 .product-details .single-product figure figcaption .read-more .fa {
   padding: 7px 11px;
 }
+.single-product:hover figure figcaption,
 .product-details .single-product:hover figure figcaption {
   display: block;
 }
+.single-product h4,
+.single-product h5,
 .product-details .single-product h4,
 .product-details .single-product h5 {
   margin: 0;
   padding: 5px 10px 0;
   text-transform: capitalize;
 }
+.single-product h4 a:hover,
+.single-product h5 a:hover,
 .product-details .single-product h4 a:hover,
 .product-details .single-product h5 a:hover {
   color: #666666;
 }
+.single-product p,
+.single-product p.address-preview,
+.single-product h4,
 .product-details .single-product p,
 .product-details .single-product p.address-preview,
 .product-details .single-product h4 {
@@ -5762,9 +5804,11 @@ h1.page-title, h3.page-subtitle {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.single-product h4,
 .product-details .single-product h4 {
     padding-top: 15px;
 }
+.single-product p.address-preview,
 .product-details .single-product p.address-preview {
   padding-bottom: 10px;
 }
@@ -5877,21 +5921,44 @@ h1.page-title, h3.page-subtitle {
   border-bottom: 1px solid #dddddd;
   overflow: hidden;
 }
-.company-profile figure img {
+.company-profile .profile-overview figure img {
   width: 100%;
   height: 100%;
+  -webkit-border-radius:20px;
+  -moz-border-radius:20px;
+  border-radius:20px;
 }
-.company-profile figure {
+.company-profile .profile-overview figure {
   position: relative;
-  width: auto;
-  height: 150px;
+  width: 100%;
+  height: auto;
   margin: 0;
-  margin-right: 20px;
   margin-bottom: 5px;
   float: left;
   border-radius: 4px;
   overflow: hidden;
+    padding: 10px 40px;
 }
+@media(min-width: 480px) {
+  .company-profile .profile-overview figure {
+    position: relative;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    padding:10px 186px;
+  }
+}
+@media(min-width: 768px) {
+  .company-profile .profile-overview figure {
+    position: relative;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    padding:0;
+  }
+}
+@media(min-width: 992px) {}
+@media(min-width: 1200px) {}
 .product-details-list .single-product figure {
   position: relative;
   width: 120px;
@@ -7667,6 +7734,16 @@ p.section-subtitle {
 }
 /* Compnay profile style begin */
 /* --------------------------------------- */
+.animated {
+    -webkit-transition: height 0.2s;
+    -moz-transition: height 0.2s;
+    transition: height 0.2s;
+}
+.stars {
+    margin: 20px 0;
+    font-size: 24px;
+    color: #d17581;
+}
 .header-search.company-profile-height {
   height: 570px;
 }
@@ -7877,7 +7954,7 @@ p.section-subtitle {
   margin: 0;
 }
 .company-profile h4 {
-  margin-bottom: 30px;
+  /*margin-bottom: 30px;*/
   text-transform: uppercase;
   font-family: 'Roboto', sans-serif;
   font-weight: 800;
@@ -7922,9 +7999,24 @@ p.section-subtitle {
   padding: 5px;
   background-color: transparent;
 }
-@media (max-width: 600px) {
+@media (min-width: 480px) {
+  .company-profile .social-link ul li {
+    /*display: none;*/
+  }
+}
+@media (min-width: 768px) {
   .company-profile .social-link {
-    display: none;
+    /*display: none;*/
+  }
+}
+@media (min-width: 992px) {
+  .company-profile .social-link {
+    /*display: none;*/
+  }
+}
+@media (min-width: 1200px) {
+  .company-profile .social-link {
+    /*display: none;*/
   }
 }
 .company-profile .company-text {
@@ -8247,7 +8339,8 @@ p.section-subtitle {
 }
 .company-contact .address-details {
   position: relative;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
+  padding-top: 10px;
   width: 280px;
 }
 
@@ -8261,6 +8354,92 @@ p.section-subtitle {
   text-align: center;
   margin-right: 7px;
 }
+.profile-overview ul.user-counter li .fa {
+  float: none;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px;
+  height: 40px;
+  width: 40px;
+}
+.profile-overview ul.user-counter {
+    padding: 0 24px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+.profile-overview h2.username {
+  text-align: center;
+  font-size: 25px;
+    margin-bottom: 5px;
+}
+.profile-overview p.biz-profile-address,
+.profile-overview p.biz-profile-phone1,
+.profile-overview p.biz-profile-phone2,
+.profile-overview p.biz-profile-site,
+.profile-overview p.address {
+    font-size: 19px;
+  margin-bottom:5px;
+}
+.profile-overview ul.user-counter li {
+  font-size: 15px;
+}
+.profile-overview p.check-box label {
+    font-size: 15px;
+}
+.profile-overview .action-btns ul li a .fa {
+    margin-right:0;
+    background: inherit;
+}
+.profile-overview .action-btns ul li a {
+  width:100%;
+}
+@media(min-width: 768px){
+    .profile-overview h2.username {
+        text-align: left;
+    }
+    .profile-overview ul.user-counter {
+        padding: 0;
+        margin-bottom: 10px;
+        text-align: left;
+    }
+    .profile-overview p.address,
+    .profile-overview ul.user-counter li {
+        font-size: 18px;
+    }
+}
+@media(min-width: 992px){
+  .profile-overview h3.username {
+    text-align: center;
+  }
+}
+@media(min-width: 1200px){
+  .profile-overview h3.username {
+    text-align: left;
+  }
+}
+.profile-tabs .tab-content .tab-pane h3 {
+    text-align: center;
+}
+@media(min-width: 768px){
+    .profile-overview h3.username {
+        text-align: center;
+    }
+}
+@media(min-width: 992px){
+    .profile-overview h3.username {
+        text-align: center;
+    }
+}
+@media(min-width: 1200px){
+    .profile-overview h3.username {
+        text-align: left;
+    }
+}
+/*MODAL STYLES*/
+.modal.in .modal-dialog {
+    margin-top:80px;
+}
 .profile-pic {
   height: 100%;
   width: 100%;
@@ -8269,17 +8448,33 @@ p.section-subtitle {
     background-color: rgba(0, 0, 0, 0.59);
     padding: 5px;
     text-align: center;
-    position: absolute;
-    top: 0px;
+    position: relative;
+    bottom: 261px;
     color: rgb(255, 255, 255);
     width: 100%;
-    display: none;
+    display: block;
+}
+
+@media (min-width: 768px) {
+    .profile-pic a .pic-edit {
+        bottom: 155px;
+    }
+}
+@media (min-width: 992px) {
+    .profile-pic a .pic-edit {
+        bottom: 132px;
+    }
+}
+@media (min-width: 1200px) {
+    .profile-pic a .pic-edit {
+        bottom: 168px;
+    }
 }
 .profile-pic a:hover .pic-edit {
-    display: block;
-    transition: 2s ease;
-    -moz-transition: 2s ease;
-    -webkit-transition: 100s ease;
+    /*display: block;*/
+    /*transition: 2s ease;*/
+    /*-moz-transition: 2s ease;*/
+    /*-webkit-transition: 100s ease;*/
 }
 .company-contact .address-details .fa {
   float: left;
@@ -8723,9 +8918,11 @@ p.section-subtitle {
   border:none;
 }
  .not-favorited,.favorited:hover{
-  color:black;
+  color:#333;
+  background: #fdc600;
 }
 
 .not-favorited:hover, .favorited{
-  color:red;
+  color:#fdc600;
+  background: #333;
 }
