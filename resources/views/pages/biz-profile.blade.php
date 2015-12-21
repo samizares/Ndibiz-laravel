@@ -146,39 +146,21 @@ favorited' }}"><i class="fa fa-heart"></i> {{ $favourited ? 'Unfavourite' :
                           
                     </div>
                     <div class="col-md-4">
-                            <div class="opening-hours table-responsive">
-                                <h5 class="m0 p0"><i class="fa fa-clock-o"></i> Opening Hours</h5>                              
-                                  <table class="table">
-                                     <tbody>
-                                       <tr><th>Mon:</th>  
-                                          <td> <a class="mon_from" id="{{$mon->id}}">{{$mon->open_time}}</a>AM</td>-
-                                          <td> <a class="mon_to" id="{{$mon->id}}">{{$mon->close_time}}</a>PM</td>
-                                       </tr>
-
-                                      <tr><th>Tues:</th>
-                                          <td> <span class="tue_from" id="{{$tue->id}}">{{$tue->open_time}}</span>AM-</td>
-                                          <td> <span class="tue_to" id="{{$tue->id}}">{{$tue->close_time}}</span>PM</td>
-                                      </tr>
-
-                                  <tr><th>Wed:</th> 
-                                    <td> <span class="wed_from" id="{{$wed->id}}">{{$wed->open_time}}</span>AM-</td>
-                                    <td> <span class="wed_to" id="{{$wed->id}}">{{$wed->close_time}}</span>PM</td></tr>
-
-                                  <tr><th>Thurs:</th>
-                                     <td> <span class="thu_from" id="{{$thu->id}}">{{$thu->open_time}}</span>AM-</td>
-                                     <td> <span class="thu_to" id="{{$thu->id}}">{{$thu->close_time}}</span>PM</td></tr>
-
-                                  <tr><th>Fri:</th>
-                                    <td> <span class="fri_from" id="{{$fri->id}}">{{$fri->open_time}}</span>AM-</td>
-                                    <td> <span class="fri_to" id="{{$fri->id}}">{{$fri->close_time}}</span>PM</td></tr>
-
-                                  <tr><th>Sat:</th> 
-                                    <td> <span class="sat_from" id="{{$sat->id}}">{{$sat->open_time}}</span>AM-</td>
-                                    <td> <span class="sat_to" id="{{$sat->id}}">{{$sat->close_time}}</span>PM</td></tr>
-                                </tbody>
-                              </table>
+                              <div class="opening-hours">
+                                <h4><i class="fa fa-clock-o"></i> Opening Hours</h4>
+                                <table>
+                                  <tbody>
+                                    <tr><th>Mon:</th>  <td>9AM-5PM</td></tr>
+                                    <tr><th>Tues:</th> <td>9AM-5PM</td></tr>
+                                    <tr><th>Wed:</th> <td>9AM-5PM</td></tr>
+                                    <tr><th>Thurs:</th>  <td>9AM-5PM</td></tr>
+                                    <tr><th>Fri:</th> <td>9AM-5PM</td></tr>
+                                    <tr><th>Sat:</th> <td>9AM-5PM</td></tr>
+                                    <tr><th>Sun:</th> <td>9AM-5PM</td></tr>
+                                  </tbody>
+                                </table>
+                              </div>
                             </div>
-                    </div>
                 </div>
             </div>
           </div>
@@ -197,9 +179,11 @@ favorited' }}"><i class="fa fa-heart"></i> {{ $favourited ? 'Unfavourite' :
                     <a href="#company-reviews" role="tab" data-toggle="tab"><i class="fa fa-comments"></i>Reviews</a>
                   </li>
                 </ul>
+                @if(! $biz->claimed)
                 <div class="own-company hidden-xs">
                   <a href="#">Claim This Company</a>
                 </div>
+                @endif
               </div> <!-- end .page-sidebar -->
             </div> <!-- end .main-grid layout -->
             <div class="col-md-9 col-sm-9">
