@@ -32,7 +32,7 @@ class HomeController extends Controller
 		$totalSubCat=subCat::count();
 		$stateList= State::lists('name','id');
 		$catList   = SubCat::lists('name','id')->take(8);
-        $featured= Biz::whereFeatured('YES')->get();
+        $featured= Biz::whereFeatured('YES')->take(12)->get();
 		return view('pages.index', compact('stateList','catList','cats','featured', 'totalCat', 'totalSubCat',
 		 'subs'));
 	}
@@ -45,7 +45,7 @@ class HomeController extends Controller
 		$totalSubCat=subCat::count();
 		$stateList= State::lists('name','id');
 		$catList   = SubCat::lists('name','id')->take(8);
-	    $featured= Biz::whereFeatured('YES')->take(5)->get();
+	    $featured= Biz::whereFeatured('YES')->take(8)->get();
 		return view('pages.index', compact('stateList','catList','cats','featured', 'totalCat', 'totalSubCat',
 		 'subs'));
 	}
@@ -66,7 +66,6 @@ class HomeController extends Controller
 
 	public function categories()
 	{
-
 		$cats=  Cat::all();
 		$totalBiz=Biz::count();
 		$totalCat=Cat::count();
@@ -77,6 +76,15 @@ class HomeController extends Controller
 		$recent= Biz::orderBy('created_at', 'desc')->paginate(2);
 		return view('pages.categories', compact('stateList','catList','featured','cats','recent', 'totalBiz', 'totalCat',
 		 'totalSubCat'));
+	}
+
+	public function locations()
+	{
+		$states = State::all();
+        $totalState = State::count();
+        $totalBiz=Biz::count();
+        $stateList= State::lists('name','name');
+		return view('pages.locations', compact('states','totalState','stateList','totalBiz'));
 	}
 
 	public function searchResults()

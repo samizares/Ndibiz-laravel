@@ -20,7 +20,6 @@
                 <ul class="primary-nav list-unstyled">
                     @if (Auth::check())
                         <li class="hidden-lg hidden-md dropdown text-center">
-
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="menu1">
                                 <i class="fa fa-user"></i> {{Auth::user()->username}} <span class="caret"></span></a>
                             <ul class="dropdown-menu text-center" role="menu" aria-labelledby="menu1">
@@ -67,8 +66,6 @@
                   <ul class="list-inline user-counter hidden-md hidden-lg hidden-sm">
                       <li><i class="fa fa-heart"></i> {{$favCount= $user->favours->count()}}
                           {{str_plural('Favourite', $favCount) }}</li>
-                      <li><i class="fa fa-comments"></i>{{$revCount= $user->reviews->count()}}
-                          {{ str_plural('Review', $revCount)}}</li>
                       <li><i class="fa fa-camera"></i>{{$photosCount=$user->photos->count()}}
                           {{ str_plural('Photo', $photosCount)}} </li>
                   </ul>
@@ -97,8 +94,6 @@
                       <ul class="list-inline user-counter hidden-xs">
                         <li><i class="fa fa-heart"></i> {{$favCount= $user->favours->count()}}
                           {{str_plural('Favourite', $favCount) }}</li>
-                        <li><i class="fa fa-comments"></i>{{$revCount= $user->reviews->count()}}
-                          {{ str_plural('Review', $revCount)}}</li>
                         <li><i class="fa fa-camera"></i>{{$photosCount=$user->photos->count()}}
                           {{ str_plural('Photo', $photosCount)}} </li>
                       </ul>
@@ -111,7 +106,6 @@
                             <li><a href="#" type="button" class="btn btn-border" data-toggle="tooltip" title="Edit Profile"><i class="fa fa-pencil"></i> Edit profile</a></li>
                             <li><a href="#" type="button" class="btn btn-border" data-toggle="modal" data-target="#myModal" title="Add Photo"><i class="fa fa-camera"></i>
                                     Add photo</a></li>
-                            <li><a href="#" type="button" class="btn btn-border" data-toggle="tooltip" title="Add Review"><i class="fa fa-star"></i> Add review</a></li>
                         </ul>
                     </div>
                     @endif
