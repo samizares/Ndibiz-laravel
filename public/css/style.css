@@ -3443,6 +3443,10 @@ fieldset[disabled] .btn-default.active {
   padding: 10px 0;
   border-bottom: solid 1px #ddd;
 }
+#header .header-top-bar nav ul.dropdown-menu>.active>a {
+    background-color: #FFD231;
+    color: #333;
+}
 #header .header-top-bar nav ul.dropdown-menu {
   border-radius: 0px !important;
   background: rgba(0, 0, 0, 0.8) none repeat scroll 0% 0%;
@@ -3450,9 +3454,12 @@ fieldset[disabled] .btn-default.active {
   transition: all 0.4s ease 0s;
   width: auto;
   margin: auto;
+    border: none;
+    box-shadow: none;
 }
 #header .header-top-bar nav ul.dropdown-menu li {
-  padding: 20px;
+  /*padding: 20px;*/
+    width: 100%;
 }
 #header .header-top-bar nav ul.dropdown-menu li form {
   width: 190px;
@@ -3462,8 +3469,15 @@ fieldset[disabled] .btn-default.active {
   margin-bottom: 10px;
   width: 100%;
 }
+#header .header-top-bar nav ul.dropdown-menu {
+
+}
 #header .header-top-bar nav ul.dropdown-menu li a {
   color: #FFD231;
+}
+#header .header-top-bar nav ul.dropdown-menu li:hover a {
+    background-color: #FFD231;
+    color: #333;
 }
 .forms header .navbar-brand {
   height:70px;

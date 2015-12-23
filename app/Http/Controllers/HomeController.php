@@ -45,7 +45,7 @@ class HomeController extends Controller
 		$totalSubCat=subCat::count();
 		$stateList= State::lists('name','id');
 		$catList   = SubCat::lists('name','id')->take(8);
-	    $featured= Biz::whereFeatured('YES')->take(8)->get();
+	    $featured= Biz::whereFeatured('YES')->take(12)->get();
 		return view('pages.index', compact('stateList','catList','cats','featured', 'totalCat', 'totalSubCat',
 		 'subs'));
 	}

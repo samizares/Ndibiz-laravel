@@ -71,12 +71,13 @@
                   </ul>
                   <h2 class="username hidden-md hidden-lg hidden-sm">{{$user->username}}</h2>
                 <figure class="center-block">
-                    <div class="profile-pic"><a href="" data-toggle="modal" data-target="#myProfile">
+                    <div class="profile-pic">
                       {!!Html::image(isset($user->profilePhoto->image) ? $user->profilePhoto->image : 'img/user.jpg',
                         'Profile Image', array('class'=>'img-responsive center-block'))!!}
+                        <a href="#" data-toggle="modal" data-target="#myProfile">
                       <p class="pic-edit">
                         <i class="mdi-image-camera-alt"></i> 
-                         <span>Change Picture</span>
+                         <span class="text-uppercase">Change Picture</span>
                       </p></a>
                     </div>
                 </figure>
@@ -126,7 +127,10 @@
                           <a href="#fav" role="tab" data-toggle="tab"><i class="fa fa-heart"></i> <span class="">Favourites</span></a>
                         </li>
                         <li>
-                          <a href="#company-reviews" role="tab" data-toggle="tab"><i class="fa fa-comments"></i> <span class="">Reviews</span></a>
+                          <a href="#company-reviews" role="tab" data-toggle="tab"><i class="fa fa-comments"></i> <span class="">Business Reviews</span></a>
+                        </li>
+                        <li>
+                            <a href="#claimed-biz" role="tab" data-toggle="tab"><i class="fa fa-building-o"></i> <span class="">Claimed Businesses</span></a>
                         </li>
                     </ul>
                   </div> <!-- end .page-sidebar -->
@@ -209,6 +213,37 @@
 
                           </div> <!-- end .rating-with-details -->
                         </div> <!-- end .company-rating -->
+                      </div>
+                      <div class="tab-pane" id="claimed-biz">
+                          <div class="company-ratings">
+                              <h3 class="text-uppercase m10-top">Claimed Businesses</h3>
+                              <div class="rating-with-details">
+                                  @unless ( $user->biz->isEmpty() )
+                                      @foreach($user->bizs as $biz)
+                                          <div class="single-content">
+                                              <div class="company-rating-box">
+                                                  <ul class="list-inline">
+                                                      @for ($i=1; $i <= 5 ; $i++)
+                                                          <li><a href="#"><i class="fa fa-star{{ ($i <= $review->rating) ? '' : '-o'}}"></i></a></li>
+                                                      @endfor
+                                                  </ul>
+                                              </div>
+                                              <div class="rating-details">
+                                                  <div class="meta">
+                                                      <a href="#"><strong>{{$review->biz->name  }}</strong></a>
+                                                      - {{ $review->timeago}}
+                                                  </div>
+                                                  <div class="content">
+                                                      <p>{{$review->comment}}</p>
+                                                  </div>
+                                              </div>
+                                          </div> <!-- end .single-content -->
+                                      @endforeach
+                                  @endunless
+
+
+                              </div> <!-- end .rating-with-details -->
+                          </div> <!-- end .company-rating -->
                       </div>
                   </div> <!-- end .tab-content -->
               </div> <!-- end .main-grid layout -->            

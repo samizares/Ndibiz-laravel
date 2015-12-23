@@ -67,8 +67,6 @@
                             <div class="col-md-3 col-sm-3">
                                 {{--COUNTERS MOBILE--}}
                                 <ul class="list-inline user-counter hidden-md hidden-lg hidden-sm">
-                                    {{--<li><i class="fa fa-heart"></i> {{$favCount= $biz->favoured->count()}}--}}
-                                        {{--{{str_plural('Favourite', $favCount) }}</li>--}}
                                     <li><i class="fa fa-comments"></i>{{$biz->rating_count}}
                                         {{ Str::plural('review', $biz->rating_count)}}</li>
                                     <li><i class="fa fa-camera"></i>{{$photosCount=$biz->photos->count()}}
@@ -86,16 +84,17 @@
                                 </ul>
                                 {{--PROFILE PHOTO--}}
                                 <figure class="center-block">
-                                    <div class="profile-pic"><a href="" data-toggle="modal" data-target="#myBizProfile">
-                                      {!!Html::image(isset($biz->profilePhoto->image) ? $biz->profilePhoto->image : 'img/content/post-img-10.jpg',
+                                    <div class="profile-pic">
+                                      {!!Html::image(isset($biz->profilePhoto->image) ? $biz->profilePhoto->image : 'img/company.png',
                                         'Profile Image', array('class'=>'img-responsive center-block'))!!}
                                      @if(Auth::check() && (Auth::user()->id == $biz->owner))
-                                      <p class="pic-edit">
-                                        <i class="mdi-image-camera-alt"></i>
-                                         <span>Change Picture</span>
-                                      </p>
+                                        <a href="" data-toggle="modal" data-target="#myBizProfile">
+                                            <p class="pic-edit">
+                                            <i class="mdi-image-camera-alt"></i>
+                                            <span class="text-uppercase">Change Picture</span>
+                                            </p>
+                                        </a>
                                       @endif
-                                    </a>
                                     </div>
                                 </figure>
                             </div>
