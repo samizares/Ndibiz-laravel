@@ -43,7 +43,6 @@
                 <ul class="primary-nav list-unstyled">
                     @if (Auth::check())
                         <li class="hidden-lg hidden-md dropdown text-center">
-
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="menu1">
                                 <i class="fa fa-user"></i> {{Auth::user()->username}} <span class="caret"></span></a>
                             <ul class="dropdown-menu text-center" role="menu" aria-labelledby="menu1">
@@ -52,13 +51,12 @@
                             </ul>
                         </li>
                     @else
-                        <li><a class="btn" href="/auth/login" class=""><i class="fa fa-power-off"></i> <span>Login</span></a></li>
+                        <li class=""><a class="btn" href="/auth/login" class=""><i class="fa fa-power-off"></i> <span>Login</span></a></li>
                         @endif
                                 <!-- HEADER REGISTER -->
                         @if (Auth::guest())
                             <li><a class="btn" href="/auth/register" class=""><i class="fa fa-plus-square"></i> <span>Register</span></a></li>
                         @endif
-                        {{--<li class="text-center"><a href="/businesses" class=""><i class="fa fa-building"></i> Explore</a></li>--}}
                         <li class="dropdown text-center">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-building-o"></i> Explore</a>
                             <ul class="dropdown-menu">

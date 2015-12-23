@@ -20,8 +20,9 @@ class HomeController extends Controller
 
 	public function __construct()
     {
-        $this->middleware('auth',['only'=>['home','businesses','profile','getBizreview']]);
-        $this->middleware('confirm',['only'=>['home','profile','getBizreview']]);
+//        $this->middleware('auth',['only'=>['home','businesses','profile','getBizreview']]);
+        $this->middleware('auth',['only'=>['home','getBizreview']]);
+        $this->middleware('confirm',['only'=>['home','getBizreview']]);
     }
 
    public function index()

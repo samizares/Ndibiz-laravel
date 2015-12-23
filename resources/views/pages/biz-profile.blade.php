@@ -87,14 +87,14 @@
                                     <div class="profile-pic">
                                       {!!Html::image(isset($biz->profilePhoto->image) ? $biz->profilePhoto->image : 'img/company.png',
                                         'Profile Image', array('class'=>'img-responsive center-block'))!!}
-                                     @if(Auth::check() && (Auth::user()->id == $biz->owner))
                                         <a href="" data-toggle="modal" data-target="#myBizProfile">
-                                            <p class="pic-edit">
-                                            <i class="mdi-image-camera-alt"></i>
-                                            <span class="text-uppercase">Change Picture</span>
-                                            </p>
+                                            @if(Auth::check() && (Auth::user()->id == $biz->owner))
+                                                <p class="pic-edit">
+                                                    <i class="mdi-image-camera-alt"></i>
+                                                    <span class="text-uppercase">Change Picture</span>
+                                                </p>
+                                            @endif
                                         </a>
-                                      @endif
                                     </div>
                                 </figure>
                             </div>
@@ -113,8 +113,8 @@
                                         </ul>
                                         {{--CATEGORIES--}}
                                         <p class="biz-profile-cats m5-bttm"><i class="fa fa-tags" style="margin-top:2px;"></i> @foreach($biz->cats as $cat)<span>
-                                                <a class="btn btn-border" href="#">{{$cat->name}}</a></span> @endforeach
-                                        @foreach($biz->subcats as $sub)<span><a class="btn btn-border" href="#">{{$sub->name}}</a></span>@endforeach</p>
+                                                <a class="btn btn-border" href="/biz/cat/{{$cat->id}}">{{$cat->name}}</a></span> @endforeach
+                                        @foreach($biz->subcats as $sub)<span><a class="btn btn-border" href="/biz/subcat/{{$sub->id}}">{{$sub->name}}</a></span>@endforeach</p>
                                         {{--ADDRESS--}}
                                         <p class="biz-profile-address"><i class="fa fa-map-marker"></i> <span>{{$biz->address->street}}
                                             </span>, <span>{{$biz->address->lga->name}}</span>, <span>{{ $biz-> address->state->name}}</span>, Nigeria.</p>
@@ -140,6 +140,7 @@
                                     <div class="col-md-4 action-btns m0-bttm">
                                         <ul class="list-inline m0-bttm">
                                             {{--FAVOURITES BUTTON--}}
+                                            @if(Auth::check() && (Auth::user()->id !== $biz->owner))
                                             <li>
                                                 @if($favourited=in_array($biz->id, $favourites))
                                                     <form method="POST" action ="/favourites/{{ $biz->id}}">
@@ -150,23 +151,25 @@
                                                                 {!! csrf_field() !!}
                                                                 <input type="hidden" name="biz_id" value="{{$biz->id}}">
                                                                 @endif
-                                                                <a href="#" type="submit" class="btn btn-border {{ $favourited ? 'favorited' : 'not-favorited' }}">
-                                                                    <i class="fa fa-heart"></i>
-                                                                    {{ $favourited ? 'Unfavourite' : 'Favorite' }}</a>
+                                                                <button type="submit" class="btn btn-border {{ $favourited ? 'favorited' : 'not-favorited' }}">
+                                                                    <i class="fa fa-heart"></i>{{ $favourited ? 'Unfavourite' : 'Favorite' }}</button>
                                                             </form>
+                                                    </form>
                                             </li>
+                                            @endif
                                             {{--SHARE BUTTON--}}
                                             <li><a href="" type="button" class="btn btn-border"><i class="fa fa-share-alt"></i> Share</a></li>
                                             {{--EDIT PROFILE--}}
+                                            @if(Auth::check() && (Auth::user()->id == $biz->owner))
                                             <li>
-                                                @if(Auth::check() && (Auth::user()->id == $biz->owner))
-                                                    <a href="" type="button" class="btn btn-border" data-toggle="tooltip" title="Edit Profile"><i class="fa fa-pencil"></i>
+                                                <a href="" type="button" class="btn btn-border" data-toggle="tooltip" title="Edit Profile"><i class="fa fa-pencil"></i>
                                                     Edit profile</a>
-                                                @endif
                                             </li>
                                             {{--ADD PHOTO--}}
                                             <li><a href="" type="button" class="btn btn-border" data-toggle="modal" data-target="#myModal" title="Add Photo">
-                                                    <i class="fa fa-camera"></i> Add photo</a></li>
+                                                    <i class="fa fa-camera"></i> Add photo</a>
+                                            </li>
+                                            @endif
                                             {{--CLAIM BUSINESS--}}
                                             <li>
                                                 @if(! $biz->claimed)

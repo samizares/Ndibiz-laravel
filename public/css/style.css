@@ -3463,6 +3463,7 @@ fieldset[disabled] .btn-default.active {
 }
 #header .header-top-bar nav ul.dropdown-menu li form {
   width: 190px;
+    padding:20px;
 }
 #header .header-top-bar nav ul.dropdown-menu li form .form-control {
   border-radius: 0;
@@ -4476,12 +4477,12 @@ header.header {
 }
 @media (min-width: 768px) {
   .slider-content  .slide-content .lp-content {
-    padding: 128px 10px;
+    padding: 103px 10px;
   }
 }
 @media (min-width: 992px) {
   .slider-content  .slide-content .lp-content {
-    padding: 175px 10px;
+    padding: 136px 10px;
   }
 }
 h1.page-title, h3.page-subtitle {
@@ -8932,17 +8933,26 @@ p.section-subtitle {
   float: none;
   margin-bottom: -1px;
 }
-
 .btn-naked{
   backgroud:none;
   border:none;
 }
-.not-favorited,.favorited:hover{
+.favorited .fa {
+    background-color: #333;
+    color: #fdc600;
+}
+.favorited:hover .fa {
+    background-color: #fdc600;
+    color: #333;
+}
+.not-favorited,
+.favorited:hover{
   color:#333;
   background: #fdc600;
 }
-
-.not-favorited:hover, .favorited{
+.not-favorited:hover,
+.not-favorited:hover .fa,
+.favorited {
   color:#fdc600;
   background: #333;
 }
