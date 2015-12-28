@@ -158,7 +158,28 @@
                                             </li>
                                             @endif
                                             {{--SHARE BUTTON--}}
-                                            <li><a href="" type="button" class="btn btn-border"><i class="fa fa-share-alt"></i> Share</a></li>
+                                            {{--<li><a href="" type="button" class="btn btn-border"><i class="fa fa-share-alt"></i> Share</a></li>--}}
+                                            <li>
+                                                <button type="button" id="btn-share" class="btn btn-border popover-html" data-container="body"
+                                                        data-toggle="popover" data-placement="top">
+                                                  <span>
+                                                    <i class="fa fa-share-square-o"></i>
+                                                    <strong>Share</strong>
+                                                  </span>
+                                                </button>
+                                                <!-- Popover hidden content -->
+                                                <span id="bizShare" class="hidden">
+                                                  <a target="_blank" href="#" class="btn-media twitter text-center">
+                                                      <i class="fa fa-twitter"></i>
+                                                  </a>
+                                                  <a target="_blank" href="#" class="btn-media facebook">
+                                                      <i class="fa fa-facebook"></i>
+                                                  </a>
+                                                  <a target="_blank" href="#" class="btn-media google-plus">
+                                                      <i class="fa fa-google-plus"></i>
+                                                  </a>
+                                                </span>
+                                            </li>
                                             {{--EDIT PROFILE--}}
                                             @if(Auth::check() && (Auth::user()->id == $biz->owner))
                                             <li>
@@ -189,23 +210,27 @@
                             <div class="col-md-3 col-sm-3 col-xs-12">
                               <div class="page-sidebar company-sidebar">
                                 <ul class="company-category nav nav-tabs home-tab" role="tablist">
-                                  <li class="active">
-                                    <a href="#gallery" role="tab" data-toggle="tab"><i class="fa fa-camera"></i> <span class="">Gallery</span></a>
-                                  </li>
-                                  <li>
-                                    <a href="#contact" role="tab" data-toggle="tab"><i class="fa fa-envelope-o"></i> <span class="">Contact</span></a>
-                                  </li>
-                                  <li>
-                                    <a href="#reviews" role="tab" data-toggle="tab"><i class="fa fa-comments"></i> <span class="">Reviews</span></a>
-                                  </li>
+                                    <li class="active"><a href="#location" role="tab" data-toggle="tab">Map</a></li>
+                                  <li class=""><a href="#gallery" role="tab" data-toggle="tab"><i class="fa fa-camera"></i> <span class="">Gallery</span></a></li>
+                                  <li><a href="#contact" role="tab" data-toggle="tab"><i class="fa fa-envelope-o"></i> <span class="">Contact</span></a></li>
+                                    <li><a href="#reviews" role="tab" data-toggle="tab"><i class="fa fa-comments"></i> <span class="">Reviews</span></a></li>
+                                    <li><a href="#edit" role="tab" data-toggle="tab"><i class="fa fa-comments"></i> <span class="">Edit Profile</span></a></li>
                                 </ul>
                               </div> <!-- end .page-sidebar -->
                             </div> <!-- end .main-grid layout -->
                             {{--TAB CONTENT RIGHT--}}
                             <div class="col-md-9 col-sm-9 col-xs-12">
                                 <div class="tab-content">
+                                    {{--LOCATION--}}
+                                    <div class="tab-pane active" id="location">
+                                        <div id="floating-panel">
+                                            <input id="address" type="textbox" value="Sydney, NSW">
+                                            <input id="submit" type="button" value="Geocode">
+                                        </div>
+                                        <div id="map"></div>
+                                    </div>
                                     {{--GALLERY--}}
-                                    <div class="tab-pane active" id="gallery">
+                                    <div class="tab-pane" id="gallery">
                                         <div class="company-product m20-top">
                                           <h3 class="text-uppercase m10-top">Gallery</h3>
                                           <div class="row">
@@ -222,34 +247,14 @@
                                         <div class="company-profile company-contact m20-top">
                                               <div class="row">
                                                   <h3 class="text-uppercase m10-top">Contact Us</h3>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-12">
+                                                      <div class="row">
+                                                       <div class="col-md-6">
                                                         <div class="contact-map-company">
-                                                            <div id="map"></div>
+                                                            <div id=""></div>
                                                         </div> <!-- end .map-section -->
-                                                        <div class="address-details clearfix">
-                                                            <i class="fa fa-map-marker"></i>
-                                                            <p>
-                                                                <span>{{$biz->address->street}}</span>
-                                                                <span>{{$biz->address->lga->name}}</span>
-                                                                <span>{{$biz->address->state->name}}, Nigeria.</span>
-                                                            </p>
-                                                        </div>
-                                                        <div class="address-details clearfix">
-                                                            <i class="fa fa-phone"></i>
-                                                            <p>
-                                                                <span><strong>Phone 1:</strong> {{$biz->phone1}}</span>
-                                                                <span><strong>Phone 2:</strong> {{$biz->phone2}}</span>
-                                                            </p>
-                                                        </div>
-                                                        <div class="address-details clearfix">
-                                                            <i class="fa fa-envelope-o"></i>
-                                                            <p>
-                                                                <span><strong>E-mail:</strong> {{$biz->email}}</span>
-                                                                <span><strong>Website:</strong> {{$biz->website}}</span>
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
+                                                       </div>
+                                                       <div class="col-md-6">
                                                         <div class="opening-hours table-responsive p10 text-center">
                                                             <h3 class="m0 p0"><i class="fa fa-clock-o"></i> Opening Hours</h3>
                                                             <table class="table">
@@ -280,6 +285,31 @@
                                                                     <td> <span class="sat_to" id="{{$sat->id}}">{{$sat->close_time}}</span>PM</td></tr>
                                                                 </tbody>
                                                             </table>
+                                                        </div>
+                                                       </div>
+                                                      </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="address-details clearfix">
+                                                            <i class="fa fa-map-marker"></i>
+                                                            <p>
+                                                                <span>{{$biz->address->street}}, {{$biz->address->lga->name}}</span>
+                                                                <span>{{$biz->address->state->name}}, Nigeria.</span>
+                                                            </p>
+                                                        </div>
+                                                        <div class="address-details clearfix">
+                                                            <i class="fa fa-phone"></i>
+                                                            <p>
+                                                                <span><strong>Phone 1:</strong> {{$biz->phone1}}</span>
+                                                                <span><strong>Phone 2:</strong> {{$biz->phone2}}</span>
+                                                            </p>
+                                                        </div>
+                                                        <div class="address-details clearfix">
+                                                            <i class="fa fa-envelope-o"></i>
+                                                            <p>
+                                                                <span><strong>E-mail:</strong> {{$biz->email}}</span>
+                                                                <span><strong>Website:</strong> {{$biz->website}}</span>
+                                                            </p>
                                                         </div>
                                                     </div>
                                               </div>
@@ -373,6 +403,106 @@
                                             {!! $reviews->render() !!}
                                          </div> <!-- end .rating-with-details -->
                                      </div> <!-- end .company-rating -->
+                                    </div>
+                                    {{--EDIT PROFILE--}}
+                                    <div class="tab-pane" id="edit">
+                                        <div class="company-ratings m20-top">
+                                            @include('admin.partials.errors')
+                                            <form class="form-horizontal" role="form" method="POST" action="/admin/biz/{{$biz->id}}">
+                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                <input type="hidden" name="_method" value="PUT">
+                                                <input type="hidden" name="id" value="{{$biz->id}}">
+                                                <div class="form-group">
+                                                    <label for="cat" class="col-md-3 control-label">Business Name</label>
+                                                    <div class="col-md-8">
+                                                        <input required type="text" value="{{ $biz->name}}" id="name" name="name" class="form-control" placeholder="Patt's Bar">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="cat" class="col-md-3 control-label">Business Address</label>
+                                                    <div class="col-md-8">
+                                                        <input required type="text" value="{{$biz->address->street}}" id="address" name="address"
+                                                               class="form-control" placeholder="Ajose Adeogun street">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="cat" class="col-md-3 control-label">Business state</label>
+                                                    <div class="col-md-8">
+                                                        {!!Form::select('state', $stateList, $biz->address->state_id, ['class'=>'form-control',
+                                                        'id'=>'stateList','placeholder'=>'select state']) !!}
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="image_class" class="col-md-3 control-label">
+                                                        Business Region/area</label>
+                                                    <div class="col-md-8">
+                                                        {!!Form::select('lga', $lgaList, $biz->address->lga_id, ['class'=>'form-control',
+                                                         'id'=>'lga','placeholder'=>'select state']) !!}
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="cat" class="col-md-3 control-label">Business Category</label>
+                                                    <div class="col-md-8">
+                                                        {!!Form::select('cats[]', $catList, $cat, ['class'=>'form-control','id'=>'category_edit', 'multiple']) !!}
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="image_class" class="col-md-3 control-label">
+                                                        Sub categories</label>
+                                                    <div class="col-md-8">
+                                                        {!!Form::select('sub[]', $subList, $sub, ['class'=>'form-control','id'=>'sub_edit','multiple']) !!}
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="cat" class="col-md-3 control-label">Business website</label>
+                                                    <div class="col-md-8">
+                                                        <input type="text" id="website" value="{{ $biz->website}}" name="website" class="form-control"
+                                                               placeholder="www.pattsbar.com.ng">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="cat" class="col-md-3 control-label">Business Email Address</label>
+                                                    <div class="col-md-8">
+                                                        <input type="email" id="email" value="{{ $biz->email}}" name="email" class="form-control"
+                                                               placeholder="info@pattsbar.com.ng">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="cat" class="col-md-3 control-label">Contact Name</label>
+                                                    <div class="col-md-8">
+                                                        <input type="text" id="contactname" value="{{ $biz->contactname}}" name=" contactname"
+                                                               class="form-control" placeholder="Mr Patt" required>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="cat" class="col-md-3 control-label">Phone number 1</label>
+                                                    <div class="col-md-8">
+                                                        <input type="text" id="contact" value="{{ $biz->phone1}}" name="phone1" class="form-control"
+                                                               placeholder="Phone number 1">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="cat" class="col-md-3 control-label">Phone number 2</label>
+                                                    <div class="col-md-8">
+                                                        <input type="text" value="{{ $biz->phone2}}" id="contact" name="phone2"class="form-control"
+                                                               placeholder="Phone number 2">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-7 col-md-offset-3">
+                                                    <ul class="list-inline">
+                                                        <li><button type="submit" class="btn btn-default btn-md">
+                                                            <i class="fa fa-save"></i>
+                                                            Save Changes
+                                                        </button></li>
+                                                        <li><button type="button" class="btn btn-default-inverse btn-md"
+                                                                data-toggle="modal" data-target="#modal-delete">
+                                                            <i class="fa fa-times-circle"></i>
+                                                            Remove Business
+                                                        </button></li>
+                                                    </ul>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div> <!-- end .tab-content -->
                             </div> <!-- end .main-grid layout -->
@@ -585,17 +715,64 @@
     <script type="text/javascript" src="{{asset('../plugins/nanogallery/jquery.nanogallery.min.js')}}"></script>
     <script src="{{asset('js/dropzone.js')}}"></script>
     <script src="{{ asset('plugins/jasny-bootstrap/js/jasny-bootstrap.min.js') }}"></script>
-    <script type="text/javascript" src="{{asset('https://maps.googleapis.com/maps/api/js')}}"></script>
+    <script src="{{ asset('https://maps.googleapis.com/maps/api/js?key=AIzaSyDx7umcXDlgwqLPXkusQQ538yOq6FunvGA&signed_in=true&callback=initMap') }}" async defer></script>
     {{--CUSTOM PAGE SCRIPTS--}}
-    <script type="text/javascript">
-        {{--DROPZONE--}}
-        $(document).ready(function() {
-            Dropzone.autoDiscover = false;
-            $(document).on('click','#myClaim',function(){
-                var myDropzone = new Dropzone("form#uploadFile", { url: "/profile/upload", autoProcessQueue: true});
+    <script>
+        {{--GOOGLE MAPS--}}
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 8,
+                center: {lat: -34.397, lng: 150.644}
             });
-            $(document).on('click','#myModal',function(){
-                var myDropzone = new Dropzone("form#uploadFile2", { url: "/biz/{{$biz->id}}/upload", autoProcessQueue: true});
+            var geocoder = new google.maps.Geocoder();
+            document.getElementById('submit').addEventListener('click', function() {
+                geocodeAddress(geocoder, map);
+            });
+        }
+        function geocodeAddress(geocoder, resultsMap) {
+            var address = document.getElementById('address').value;
+            geocoder.geocode({'address': address}, function(results, status) {
+                if (status === google.maps.GeocoderStatus.OK) {
+                    resultsMap.setCenter(results[0].geometry.location);
+                    var marker = new google.maps.Marker({
+                        map: resultsMap,
+                        position: results[0].geometry.location
+                    });
+                } else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+        }
+    </script>
+    <script type="text/javascript">
+            {{--SOCIAL SHARE--}}
+            $(document).ready(function() {
+            $("#btn-share").popover({
+                html : true,
+                container : '#btn-share',
+                content: function() {
+                    return $('#bizShare').html();
+                },
+                template: '<div class="popover" role="tooltip"><div class="popover-content"></div></div>'
+            });
+            $(document).click(function (event) {
+                // hide share button popover
+                if (!$(event.target).closest('#btn-share').length) {
+                    $('#btn-share').popover('hide')
+                }
+            });
+            $("a.twitter").attr("href", "https://twitter.com/home?status=" + window.location.href);
+            $("a.facebook").attr("href", "https://www.facebook.com/sharer/sharer.php?u=" + window.location.href);
+            $("a.google-plus").attr("href", "https://plus.google.com/share?url=" + window.location.href);
+            {{--DROPZONE--}}
+            $(document).ready(function() {
+                Dropzone.autoDiscover = false;
+                $(document).on('click','#myClaim',function(){
+                    var myDropzone = new Dropzone("form#uploadFile", { url: "/profile/upload", autoProcessQueue: true});
+                });
+                $(document).on('click','#myModal',function(){
+                    var myDropzone = new Dropzone("form#uploadFile2", { url: "/biz/{{$biz->id}}/upload", autoProcessQueue: true});
+                });
             });
         });
         //SET ACTIVE TAB ON RELOAD
@@ -610,19 +787,6 @@
                     location.hash = '#'+$(e.target).attr('href').substr(1);
                }
             });
-        });
-        {{--GOOGLE MAPS--}}
-        $(document).ready(function() {
-            function initialize() {
-                var mapCanvas = document.getElementById('map');
-                var mapOptions = {
-                    center: new google.maps.LatLng(44.5403, -78.5463),
-                    zoom: 8,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                }
-                var map = new google.maps.Map(mapCanvas, mapOptions)
-            }
-            google.maps.event.addDomListener(window, 'load', initialize);
         });
         {{--SET ACTIVE TAB--}}
 //        $(document).ready(function() {
