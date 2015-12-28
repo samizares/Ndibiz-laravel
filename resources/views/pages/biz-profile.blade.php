@@ -227,7 +227,10 @@
                                           <div class="row">
                                                 <div id="nanoGallery3">
                                                     @foreach($biz->photos as $photo)
-                                                        <a href="{{$photo->path}}" data-ngthumb="{{$photo->path}}" data-ngdesc="Description1">Title Image1</a>
+                                                        <a href="{{$photo->path}}" data-ngthumb="{{$photo->path}}" data-ngdesc="Description1">
+                                                            Title Image1
+                                                        </a>
+                                                        {{--<button><i class="fa fa-trash"></i></button>--}}
                                                     @endforeach
                                                 </div>
                                           </div> <!-- end .row -->
@@ -581,59 +584,76 @@
     {{--CLAIM BUSINESS FORM MODAL--}}
     <div class="modal fade" id = "myClaim" tabindex = "-1" role = "dialog" aria-labelledby = "myModalLabel" aria-hidden = "true">
         <div class = "modal-dialog">
+            {!!Form::open( array('url' =>'/claimbiz/'.$biz->id, 'files'=> true, 'method'=>'post'))!!}
+            {!!Form::hidden('id', $biz->id)!!}
             <div class = "modal-content">
                 <div class="modal-header">
-                    <button type = "button" class = "close" data-dismiss = "modal" aria-hidden = "true">&times;</button>
-                    <h4 class = "modal-title" id = "myModalLabel">
-                        <h3> Claim this business to Manage it</h3>
-                    </h4>
+                    <h4 class="modal-title p0-bttm m0-bttm" id="myModalLabel">
+                        Claim this business to Manage it </h4>
+                        <p>To manage this business on Beazea Directory, verify the information below.</p>
                 </div>
                 <div class="modal-body">
-                    <p>Enter your details below(You must be the business owner or staff of the company to own this business)</p>
-                    {!! Form::open( array('url' =>'/claimbiz/'.$biz->id, 'files'=> true, 'method'=>'post')) !!}
-                    {!!Form::hidden('id', $biz->id)!!}
-                    <div class="form-group">
-                        <div class="col-md-5">Full Name</div>
-                        <div class="col-md-7">
-                            <input required type="text" id="name" name="name" class="form-control" placeholder="Full name" value="{{ old('name')}}">
-                        </div>
+                    {{--<p>Enter your details below(You must be the business owner or staff of the company to own this business)</p>--}}
+
+                    <div class="biz-info">
+                        <h5 class="m0 p0 text-uppercase"><strong>Business Info:</strong></h5>
+                        <p class="m0 p0 text-capitalize"><span class="text-uppercase">Business Name:</span> {{$biz->name}}</p>
+                        <p class="m0 p0 text-capitalize"><span class="text-uppercase">Location:</span> {{$biz->address->state->name}}</p>
+                        <p class="m0 p0 text-capitalize"><span class="text-uppercase">Phone Number:</span> (+234)-{{$biz->phone1}}</p>
                     </div>
-                    <div class="form-group">
-                        <div class="col-md-5">Email Address</div>
-                        <div class="col-md-7">
-                             <input required type="text" id="address" name="address" class="form-control" placeholder="Email" value="{{ old('address')}}">
-                        </div>
+                    <br>
+                    <div class="claimer-info">
+                        <h5 class="m0 p0 text-uppercase"><strong>Claimer Info: </strong></h5>
+                        <p class="m0 p0 text-capitalize"><span class="text-uppercase">Name:</span> Username</p>
+                        <p class="m0 p0 text-capitalize"><span class="text-uppercase">Email:</span> User Email</p>
                     </div>
+                    <br>
+                    {{--<div class="form-group">--}}
+                        {{--<div class="col-md-5">Full Name</div>--}}
+                        {{--<div class="col-md-7">--}}
+                            {{--<input required type="text" id="name" name="name" class="form-control" placeholder="Full name" value="{{ old('name')}}">--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    {{--<div class="form-group">--}}
+                        {{--<div class="col-md-5">Email Address</div>--}}
+                        {{--<div class="col-md-7">--}}
+                             {{--<input required type="text" id="address" name="address" class="form-control" placeholder="Email" value="{{ old('address')}}">--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
                     <div class="form-group">
-                      <div class="col-md-5">Are you the owner of this business?</div>
-                      <div class="col-md-7"><input type="radio" name="owner" value="YES">YES
-                        <input type="radio" name="owner" value="NO">NO
+                      <div class="checkbox">
+                          <label><input type="checkbox" value=""> I am authorised to manage the profile of this business and I agree to the
+                              <a class="link" href="#">Terms & Conditions</a></label>
                       </div>
                     </div>
+                    <br>
                     <div class="form-group">
-                        <div class="col-md-5">If Owner, can you please upload a document showing evidences of your ownership</div>
-                        <div class="col-md-5">
-                            <div class="panel-body">
-                                <div class="fileinput fileinput-new" data-provides="fileinput">
-                                  <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                                    <img src="{{asset('img/user.jpg')}}" alt="...">
-                                  </div>
-                                  <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
-                                  <div>
-                                    <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span>
-                                    <span class="fileinput-exists">Change</span><input type="file" name="image"></span>
-                                    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-                                  </div>
-                                </div>
+                      <div class="row">
+                        <div class="col-md-12">If Owner or Authorised staff, kindly upload a document showing evidences of your ownership/authorisation (*Optional)</div>
+                        <div class="col-md-12">
+                            <div class="center-block fileinput fileinput-new" data-provides="fileinput">
+                              <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+                                <img src="{{asset('img/user.jpg')}}" alt="...">
+                              </div>
+                              <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
+                              <div>
+                                <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span>
+                                <span class="fileinput-exists">Change</span><input type="file" name="image"></span>
+                                <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                              </div>
                             </div>
                         </div>
+                      </div>
                     </div>
-                    <button type = "button" class = "btn btn-default" data-dismiss = "modal">Close</button>
-                    {!!Form::submit('Submit', array('class' => 'btn btn-primary btn-sm') ) !!}
-               </form>
-           </div>
-                <div class="modal-footer"></div>
+                </div>
+                <div class="modal-footer">
+                    <ul class="list-inline">
+                        <li><button type="submit" class="btn btn-default">Claim now</button></li>
+                        <li><button type="button" class="btn btn-default-inverse" data-dismiss="modal">Close</button></li>
+                    </ul>
+                </div>
             </div><!-- /.modal-content -->
+            {!!Form::close()!!}
        </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
     {{--BUSINESS LOGO--}}
@@ -789,18 +809,13 @@
                }
             });
         });
-        {{--SET ACTIVE TAB--}}
-//        $(document).ready(function() {
-//            $('li:first-child').addClass('active');
-//            //  $('.tab-pane:first-child ').addClass('active');
-//        });
         {{--NANOGALLERY--}}
         $(document).ready(function () {
             $("#nanoGallery3").nanoGallery({
                 itemsBaseURL:"{{asset('/')}}",
                 thumbnailHoverEffect:'imageScale150',
-                thumbnailHeight:100,
-                thumbnailWidth: 150
+                thumbnailHeight:200,
+                thumbnailWidth: 250
             });
         });
         //REVIEW BOX
