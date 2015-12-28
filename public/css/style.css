@@ -140,6 +140,10 @@ input::-moz-focus-inner {
 }
 input {
   line-height: normal;
+  width: auto;
+}
+input[type="checkbox"] {
+  position: initial;
 }
 input[type="checkbox"],
 input[type="radio"] {
@@ -3107,7 +3111,7 @@ form {
 }
 input {
   outline: 0;
-  width: 100%;
+  width: auto;
   height: inherit;
   color: #333333;
   font-size: 16px;
