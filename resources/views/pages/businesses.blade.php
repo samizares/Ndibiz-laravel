@@ -125,28 +125,29 @@
                 </div> <!-- end .page-content -->
               </div>
 
-              <div class="col-md-4 col-md-pull-8 category-toggle">
-                <button><i class="fa fa-filter"></i> Filter </button>
-                <div class="page-sidebar">
-                  <!-- Category accordion -->
-                  <div id="categories">
-                    <div class="accordion">
-                      <ul class="nav nav-tabs home-tab" role="tablist">
-                         @foreach ($cats as $cat)
-                          <li>
-                            <a class="" href="#<?php $find = array(' & ',' And ',' and ',' ');$replace = array('');
-                              echo str_replace($find, $replace, $cat->name); ?>" 
-                             role="tab" data-toggle="tab"><i class="fa fa-{{$cat->image_class}}"></i>
-                            {{ $cat->name }}</a>
-                          </li>
-                          @endforeach
-                        
-                      </ul>
-                    </div> <!-- end .accordion -->
-                  </div> <!-- end #categories -->
+              <affix offset="20" class="col-md-4 col-md-pull-8 category-toggle">
+                <button v-on="click:showLeft = true"><i class="fa fa-filter"></i> Filter </button>
+                <sidebar show="{{@showLeft}}" placement="left" header="Title" width="350">
+                    <div class="page-sidebar sidebar">
+                      <!-- Category accordion -->
+                      <div id="categories">
+                        <div class="accordion">
+                          <ul class="nav nav-tabs home-tab" role="tablist">
+                             @foreach ($cats as $cat)
+                              <li>
+                                <a class="" href="#<?php $find = array(' & ',' And ',' and ',' ');$replace = array('');
+                                  echo str_replace($find, $replace, $cat->name); ?>"
+                                 role="tab" data-toggle="tab"><i class="fa fa-{{$cat->image_class}}"></i>
+                                {{ $cat->name }}</a>
+                              </li>
+                              @endforeach
 
-                </div> <!-- end .page-sidebar -->
-              </div> <!-- end grid layout-->
+                          </ul>
+                        </div> <!-- end .accordion -->
+                      </div> <!-- end #categories -->
+                    </div> <!-- end .page-sidebar -->
+                </sidebar>
+              </affix> <!-- end grid layout-->
             </div> <!-- end .row -->
           </div>
           <!-- SIDEBAR RIGHT -->
@@ -229,7 +230,22 @@
 <!-- FOOTER ENDS -->
 
 @section('scripts')
+    {{--<script src="{{asset('../node_modules/vue/dist/vue.js')}}"></script>--}}
+    {{--<script src="{{asset('../node_modules/vu-strap/dist/vue-strap.js')}}"></script>--}}
+    {{--VUE JS COMPONENTS--}}
+    {{--<script>--}}
+{{--//        var affix = require('vue-strap').affix;--}}
+        {{--var aside = require('vue-strap').alert;--}}
 
+        {{--new Vue({--}}
+            {{--components: {--}}
+{{--//                'affix': affix,--}}
+{{--//                'aside': aside,--}}
+                {{--'alert': alert--}}
+            {{--}--}}
+        {{--})--}}
+    {{--</script>--}}
+    {{--JQUERY PLUGINS--}}
     <script type="text/javascript">
         $(document).ready(function() {
             $('li:first-child').addClass('active');

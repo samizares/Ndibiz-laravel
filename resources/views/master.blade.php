@@ -14,10 +14,7 @@
   <!-- Stylesheets -->  
       @yield('stylesheets')
 
-
-    {{--<link href="{{asset('../plugins/Bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet">--}}
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{asset('node_modules/bootstrap/dist/css/bootstrap.css')}}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/animate.css')}}">
     <link rel="stylesheet" href="{{ asset('plugins/selectize/selectize.default.css')}}">
@@ -57,8 +54,7 @@
   <!-- Core Scripts -->
 
   <script src="{{asset('js/jquery-2.1.3.min.js') }}"></script>
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  <script src="{{asset('node_modules/bootstrap/dist/js/bootstrap.js')}}"></script>
   <script src="{{asset('js/jquery.ba-outside-events.min.js') }}"></script>
   <script src="{{asset('plugins/selectize/selectize.min.js')}}" type="text/javascript"></script>
   <script src="{{asset('plugins/select2/select2.min.js')}}"></script>

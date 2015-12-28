@@ -4157,7 +4157,10 @@ header.header {
     height: 300px;
   }
 }
-#map {
+#location1, #location2 {
+  height: 200px;
+}
+#map1, #map2 {
   height: 100%;
 }
 #floating-panel {

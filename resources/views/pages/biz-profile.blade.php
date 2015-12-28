@@ -210,7 +210,6 @@
                             <div class="col-md-3 col-sm-3 col-xs-12">
                               <div class="page-sidebar company-sidebar">
                                 <ul class="company-category nav nav-tabs home-tab" role="tablist">
-                                    <li class="active"><a href="#location" role="tab" data-toggle="tab">Map</a></li>
                                   <li class=""><a href="#gallery" role="tab" data-toggle="tab"><i class="fa fa-camera"></i> <span class="">Gallery</span></a></li>
                                   <li><a href="#contact" role="tab" data-toggle="tab"><i class="fa fa-envelope-o"></i> <span class="">Contact</span></a></li>
                                     <li><a href="#reviews" role="tab" data-toggle="tab"><i class="fa fa-comments"></i> <span class="">Reviews</span></a></li>
@@ -221,14 +220,6 @@
                             {{--TAB CONTENT RIGHT--}}
                             <div class="col-md-9 col-sm-9 col-xs-12">
                                 <div class="tab-content">
-                                    {{--LOCATION--}}
-                                    <div class="tab-pane active" id="location">
-                                        <div id="floating-panel">
-                                            <input id="address" type="textbox" value="Sydney, NSW">
-                                            <input id="submit" type="button" value="Geocode">
-                                        </div>
-                                        <div id="map"></div>
-                                    </div>
                                     {{--GALLERY--}}
                                     <div class="tab-pane" id="gallery">
                                         <div class="company-product m20-top">
@@ -249,11 +240,17 @@
                                                   <h3 class="text-uppercase m10-top">Contact Us</h3>
                                                     <div class="col-md-12">
                                                       <div class="row">
+                                                       {{--MAP--}}
                                                        <div class="col-md-6">
-                                                        <div class="contact-map-company">
-                                                            <div id=""></div>
+                                                        <div id="location2" class="contact-map-company">
+                                                            {{--<div id="floating-panel">--}}
+                                                                {{--<input id="address" type="textbox" value="{{$biz->address->lga->name}}, {{$biz->address->state->name}}">--}}
+                                                                {{--<input id="submit" type="button" value="Geocode">--}}
+                                                            {{--</div>--}}
+                                                            <div id="map2"></div>
                                                         </div> <!-- end .map-section -->
                                                        </div>
+                                                       {{--OPENING TIMES--}}
                                                        <div class="col-md-6">
                                                         <div class="opening-hours table-responsive p10 text-center">
                                                             <h3 class="m0 p0"><i class="fa fa-clock-o"></i> Opening Hours</h3>
@@ -289,6 +286,7 @@
                                                        </div>
                                                       </div>
                                                     </div>
+                                                    {{--ADDRESS--}}
                                                     <div class="col-md-12">
                                                         <div class="address-details clearfix">
                                                             <i class="fa fa-map-marker"></i>
@@ -719,15 +717,18 @@
     {{--CUSTOM PAGE SCRIPTS--}}
     <script>
         {{--GOOGLE MAPS--}}
-        function initMap() {
-            var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 8,
-                center: {lat: -34.397, lng: 150.644}
+       function initMap() {
+            var map2 = new google.maps.Map(document.getElementById('map2'), {
+                zoom: 5,
+//                center: {lat: 6.5481425, lng: 3.1173043}
+                center: {lat: 9.0611087, lng: 4.1770644}
             });
-            var geocoder = new google.maps.Geocoder();
-            document.getElementById('submit').addEventListener('click', function() {
-                geocodeAddress(geocoder, map);
-            });
+           var geocoder = new google.maps.Geocoder();
+
+//           getElementById('address')
+           document.addEventListener('load', function() {
+               geocodeAddress(geocoder, map2);
+           });
         }
         function geocodeAddress(geocoder, resultsMap) {
             var address = document.getElementById('address').value;

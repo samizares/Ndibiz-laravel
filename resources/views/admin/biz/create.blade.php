@@ -1,27 +1,12 @@
 @extends('master')
 <!-- HEAD STARTS-->
   @section('title', 'Admin')
-  @section('stylesheets')     
-    <link href="{{asset('plugins/datatable/css/datatables.css')}}" rel="stylesheet">
-    <link href="{{asset('plugins/datatable/css/dataTables.bootstrap.css')}}" rel="stylesheet">
-    <link href="{{asset('plugins/bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet">
+  @section('stylesheets')
     <link href="{{asset('plugins/select2/select2.min.css')}}" rel="stylesheet">
-    <!-- <link href="{{asset('plugins/bootstrap-editable/bootstrap-editable.css')}}" rel="stylesheet"> -->
+    <link href="{{ asset('../plugins/dropzone/dropzone.css')}}" rel="stylesheet">
+    <link href="{{ asset('../plugins/dropzone/basic.css')}}" rel="stylesheet">
   @endsection
 <!-- HEAD ENDS-->
-
-<!-- HEADER STARTS -->
-  <!-- breadcrumbs -->
-  @section('breadcrumb')
-        <div class="breadcrumb">
-          <div class="featured-listing" style="margin:0;">
-              <h2 class="page-title animated fadeInLeft" style="margin:0;">Admin >> Business Listings</h2>
-          </div>
-        </div>
-  @endsection
- 
-<!-- HEADER ENDS -->
-
 <!-- CONTENT STARTS -->
 @section('content')
   <div id="page-content" class="home-slider-content">
@@ -34,7 +19,7 @@
       </div>
 
       <div class="row">
-        <div class="col-md-9 col-md-push-3">
+        <div class="col-md-8">
           <div class="panel panel-default">
             <div class="panel-heading">
               <h3 class="panel-title">New Business form</h3>
@@ -45,7 +30,6 @@
 
               <form class="form-horizontal" role="form" method="POST"  action="/admin/biz">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-
                 <div class="form-group">
                    <label for="cat" class="col-md-3 control-label">Business Name</label>
                     <div class="col-md-8">
@@ -56,7 +40,6 @@
                        <label for="cat" class="col-md-3 control-label">Business Address</label>
                        <div class="col-md-8">
                        <input required type="text" id="address" name="address" class="form-control" placeholder="Ajose Adeogun street" value="{{ old('address')}}">
-                        
                       </div>
                   </div>
                   <div class="form-group">
@@ -64,7 +47,6 @@
                        <div class="col-md-8">
                            {!!Form::select('state', $stateList, Input::old('state'), ['class'=>'form-control','id'=>'stateList',
                           'placeholder'=>'select state']) !!}
-                        
                       </div>
                   </div>
                   <div class="form-group">
@@ -74,14 +56,11 @@
                           <select id="lga" name="lga" value="{{ old('lga')}}" class="form-control"> </select>  
                         </div>
                   </div>
-
-                  
                    <div class="form-group">
                        <label for="cat" class="col-md-3 control-label">Business Category</label>
                        <div class="col-md-8">
                         {!!Form::select('cats[]', $catList,Input::old('cats[]') , ['class'=>'form-control','id'=>'category3',
                         'multiple']) !!}
-                        
                       </div>
                   </div>
                   <div class="form-group">
@@ -102,14 +81,12 @@
                        <label for="cat" class="col-md-3 control-label">Business Email Address</label>
                        <div class="col-md-8">
                         <input type="email" id="email" name="email" value="{{ old('email')}}" class="form-control" placeholder="info@pattsbar.com.ng">
-                        
                       </div>
                   </div>
                   <div class="form-group">
                        <label for="cat" class="col-md-3 control-label">Contact Name</label>
                        <div class="col-md-8">
                        <input type="text" id="contactname" name=" contactname" value="{{ old('contactname')}}" class="form-control" placeholder="Mr Patt" required>
-                        
                       </div>
                   </div>
                   <div class="form-group">
@@ -141,19 +118,39 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-3 col-md-pull-9 category-toggle">
-                  <button><i class="fa fa-briefcase"></i></button>
-                  <div class="post-sidebar">
-                        <div class="latest-post-content">
-                            <h2>Admin Panel</h2>
-                            <div class="single-product"></div>
-                        </div>
+          <div class="col-md-4">
+              <div class="post-sidebar">
+                  <div class="latest-post-content">
+                      <h2>Why join BEAZEA Directory?</h2>
+                      <div class="single-product">
+                          <ul>
+                              <li>Feature your business in the Nigeria's most popular online business directory</li>
+                              <li>Improved visibility in local Google searches</li>
+                              <li>Get found by mobile, tablet and desktop users</li>
+                          </ul>
+                      </div>
                   </div>
-              </div> <!-- end .page-sidebar -->
+                  <p><img class="center-block" src="{{asset ('img/content/devices.jpg')}}" alt=""></p>
+                  <div class="latest-post-content">
+                      <h2>Business already on BEAZEA Directory?</h2>
+                      <div class="single-product">
+                          <p>Take a moment to create a BEAZEA Directory account and start customising your business profile with contact details, opening times, images and more.</p>
+                          <p><a class="form-links" href="/auth/login">Click here to get started now</a></p>
+                      </div>
+                  </div>
+                  <div class="latest-post-content">
+                      <h2>Attract even more customers</h2>
+                      <div class="single-product">
+                          <p>Want to guarantee a high ranking, page one position for relevant local searches? Call us today to discuss our range of enhanced advertising solutions.</p>
+                          <p><span style="font-size: 1.9em; color: #000;">Call (+234)-0803-XXX-XXXX</span></p>
+                      </div>
+                  </div>
+              </div>
           </div>
-        </div>
-      </div>
-@endsection
+      </div> <!-- end .row -->
+    </div> <!-- end .container -->
+  </div>  <!-- end form-content -->
+  @endsection
 <!-- CONTENT ENDS -->
 
 <!-- SCRIPTS STARTS -->

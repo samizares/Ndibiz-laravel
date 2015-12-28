@@ -132,6 +132,9 @@
                         <li>
                             <a href="#claimed-biz" role="tab" data-toggle="tab"><i class="fa fa-building-o"></i> <span class="">Claimed Businesses</span></a>
                         </li>
+                        <li>
+                            <a href="#edit" role="tab" data-toggle="tab"><i class="fa fa-building-o"></i> <span class="">Edit Profile</span></a>
+                        </li>
                     </ul>
                   </div> <!-- end .page-sidebar -->
               </div>
@@ -242,6 +245,53 @@
                                   @endunless
 
 
+                              </div> <!-- end .rating-with-details -->
+                          </div> <!-- end .company-rating -->
+                      </div>
+                      <div class="tab-pane" id="edit">
+                          <div class="company-ratings">
+                              <h3 class="text-uppercase m10-top">Edit Profile</h3>
+                              <div class="rating-with-details">
+                                  @include('admin.partials.errors')
+                                  <form class="form-horizontal" role="form" method="POST" action="">
+                                      <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                      <input type="hidden" name="_method" value="PUT">
+                                      <input type="hidden" name="id" value="{{$user->id}}">
+                                      <div class="form-group">
+                                          <label for="cat" class="col-md-3 control-label">User Name</label>
+                                          <div class="col-md-8">
+                                              <input required="required" type="text" value="{{ $user->username}}" id="name" name="name"
+                                                 class="form-control" placeholder="username">
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="email" class="col-md-3 control-label">Email Address</label>
+                                          <div class="col-md-8">
+                                              <input type="email" id="email" value="{{ $user->email}}" name="email" class="form-control"
+                                                     placeholder="">
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="location" class="col-md-3 control-label">Location</label>
+                                          <div class="col-md-8">
+                                              <input type="text" id="location" value="{{ $user->state}}" name="location" class="form-control"
+                                                     placeholder="Lagos, Nigeria">
+                                          </div>
+                                      </div>
+                                      <div class="col-md-7 col-md-offset-3">
+                                          <ul class="list-inline">
+                                              <li><button type="submit" class="btn btn-default btn-md">
+                                                  <i class="fa fa-save"></i>
+                                                  Save Changes
+                                              </button></li>
+                                              <li><button type="button" class="btn btn-default-inverse btn-md"
+                                                      data-toggle="modal" data-target="#modal-delete">
+                                                  <i class="fa fa-times-circle"></i>
+                                                  Delete Account
+                                              </button></li>
+                                          </ul>
+                                      </div>
+                                  </form>
                               </div> <!-- end .rating-with-details -->
                           </div> <!-- end .company-rating -->
                       </div>
