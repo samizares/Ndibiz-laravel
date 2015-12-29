@@ -84,20 +84,20 @@
           <h3 class="section-title"><strong>Featured</strong> Categories</h3>
           <p class="section-subtitle text-color-grey444 m0-bttm">Explore our most popular business categories.</p>
           <div class="row featured-category">
-              @unless ( $featured->isEmpty() )
-              @foreach($featured as $feature)
-                      @foreach ($feature->cats as $cat)
+              @unless ( $cats->isEmpty() )
+              @foreach($cats as $cat)
+                      
               <div class="col-md-3">
                   <div class="category-item">
                       <a class="btn" href="/biz/cat/{{$cat->id}}"><span class=""><i class="fa fa-{{$cat->image_class}}"></i> <br>{{$cat->name}}</span>
-                          {{--<p class="sub-counter animated slideIn">--}}
-                              {{--<span>{{$cat->name}}</span>--}}
-                              {{--<span class="biz-counter">{{$cat->biz->count()}} businesses <i class="fa fa-building"></i></span>--}}
-                          {{--</p>--}}
+                          <p class="sub-counter animated slideIn">
+                              <span>{{$cat->name}}</span>
+                              <span class="biz-counter">{{$cat->biz->count()}} businesses <i class="fa fa-building"></i></span>
+                          </p>
                       </a>
                   </div>
               </div>
-                      @endforeach
+                      
                 @endforeach
               @endunless
           </div>

@@ -82,7 +82,8 @@
                                                     <div class="col-sm-4 col-xs-6">
                                                         <div class="single-product p0-bttm p15-top">
                                                             <figure>
-                                                                <img src="{{asset('img/content/post-img-10.jpg') }}" alt="">
+                                                               {!!Html::image(isset($biz->profilePhoto->image) ? $biz->profilePhoto->image : 'img/content/post-img-10.jpg',
+                                                                    'Profile Image', array('class'=>'img-responsive center-block'))!!}
                                                                 <div class="rating">
                                                                     <ul class="list-inline">
                                                                         <li>
@@ -164,7 +165,7 @@
                                 <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel">
                                     <!-- Carousel items -->
                                     <div class="carousel-inner">
-                                        <div class="active item"><img src="../img/content/ad1.png" alt=""></div>
+                                        <div class="active item"><img src="{{asset('img/content/ad1.png')}}" alt=""></div>
                                         <div class="item"><img src="{{asset ('img/content/ad1.jpg')}}" alt=""></div>
                                         <div class="item"><img src="{{asset ('img/content/ad1.jpg')}}" alt=""></div>
                                     </div>

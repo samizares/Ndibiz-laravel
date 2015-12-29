@@ -164,7 +164,7 @@
                                 <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel">
                                     <!-- Carousel items -->
                                     <div class="carousel-inner">
-                                        <div class="active item"><img src="../img/content/ad1.png" alt=""></div>
+                                        <div class="active item"><img src="{{asset('img/content/ad1.png')}}" alt=""></div>
                                         <div class="item"><img src="{{asset ('img/content/ad1.jpg')}}" alt=""></div>
                                         <div class="item"><img src="{{asset ('img/content/ad1.jpg')}}" alt=""></div>
                                     </div>

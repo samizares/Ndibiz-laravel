@@ -20,19 +20,23 @@ class HomeController extends Controller
 
 	public function __construct()
     {
-        $this->middleware('auth',['only'=>['home','businesses','profile','getBizreview']]);
+        $this->middleware('auth',['only'=>['home','profile','getBizreview']]);
         $this->middleware('confirm',['only'=>['home','profile','getBizreview']]);
     }
 
    public function index()
 	{
-		$cats = Cat::all()->take(5);
+		$cats = Cat::paginate(8);
 		$bizs = Biz::orderBy('created_at', 'desc')->take(6);
 		$totalCat=Cat::count();
 		$totalSubCat=subCat::count();
 		$stateList= State::lists('name','id');
 		$catList   = SubCat::lists('name','id')->take(8);
         $featured= Biz::whereFeatured('YES')->get();
+        //foreach($bizs as $biz){
+        //	$biz->description= "We specilize in these categories-". $biz->cats. ""
+       // }
+
 		return view('pages.index', compact('stateList','catList','cats','featured', 'totalCat', 'totalSubCat',
 		 'subs'));
 	}
