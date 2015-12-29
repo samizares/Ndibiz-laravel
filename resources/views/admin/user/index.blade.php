@@ -68,9 +68,11 @@
                   <td> 
                     <span class="admin" id="{{$user->id}}">{{ $user->admin }}</span></td>
                 
-                  <td> @if(Auth::user()->id == $user->id)  <a href="/admin/user/{{$user->id}}/edit"
+                  <td><a href="/profile/{{$user->id}}" class="btn btn-xs btn-default-inverse animated fadeInLeft"
+                  data-toggle="tooltip" data-placement="top" title="View User Info"><i class="fa fa-eye"></i> </a>
+                  | @if(Auth::user()->id == $user->id)  <a href="/admin/user/{{$user->id}}/edit"
                                class="btn btn-xs btn-default-inverse animated fadeInLeft" data-toggle="tooltip" data-placement="top" title="View User Info">
-                              <i class="fa fa-eye"></i>
+                              <i class="fa fa-edit"></i>
                             </a>
 
                             @endif

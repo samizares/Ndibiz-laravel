@@ -121,8 +121,6 @@ return [
     | your application but you are free to change this when necessary.
     |
     */
-
-//    'path' => 'http://localhost:8090',
     'path' => '/',
 
     /*

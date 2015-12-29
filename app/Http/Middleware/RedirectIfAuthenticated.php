@@ -34,10 +34,9 @@ class RedirectIfAuthenticated
      * @return mixed
      */
     public function handle($request, Closure $next)
-    {
+     {
         if ($this->auth->check()) {
             return redirect('/home');
-           // return new RedirectResponse(url('/home'));
         }
 
         return $next($request);

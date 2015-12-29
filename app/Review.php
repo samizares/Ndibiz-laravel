@@ -18,7 +18,7 @@ class Review extends Model
 
     public function  biz()
     {
-    	return $this->belongsTo('Biz');
+    	return $this->belongsTo('App\Biz');
     }
 
     public function scopeApproved($query)

@@ -7,7 +7,6 @@
       <link href="{{ asset('../plugins/dropzone/basic.css')}}" rel="stylesheet">
   @endsection
 <!-- HEAD ENDS-->
-
 <!-- CONTENT STARTS -->
 @section('content')
   <div class="m20-bttm">
@@ -82,7 +81,7 @@
                     <label for="lga" class="col-md-3 control-label">
                       Region/area</label>
                         <div class="col-md-8">
-                          <select id="lga" name="lga" value="{{ old('lga')}}" class="form-control"> </select>  
+                          <select id="lga" name="lga" value="{{ old('lga')}}" class="form-control"> </select>
                         </div>
                   </div>
                   {{--IMAGES--}}
@@ -253,7 +252,7 @@
           if($(this).val() !== "select state") {
              var model=$('#lga');
             model.empty();
-           $.get('{{ URL::to('api/lga')}}', {z: $(this).val()}, function(result){       
+           $.get('{{ URL::to('api/lga')}}', {z: $(this).val()}, function(result){
              $.each(result.data,function(){
                               $('#lga').append('<option value="'+this.id+'">'+this.text+'</option>');
 
@@ -268,5 +267,5 @@
        // tags: true,
       });
     });
-  </script>  
+  </script>
 @stop

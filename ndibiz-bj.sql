@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 09, 2015 at 05:50 PM
+-- Generation Time: Dec 23, 2015 at 08:51 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `address` (
   `state_id` int(10) unsigned NOT NULL,
   `biz_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=27 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=35 ;
 
 --
 -- Dumping data for table `address`
@@ -57,7 +57,15 @@ INSERT INTO `address` (`id`, `street`, `lga_id`, `state_id`, `biz_id`) VALUES
 (20, '23, shangisha, off Association Avenue', 1, 25, 23),
 (21, '23, spare parts road,Spare parts market', 84, 25, 24),
 (22, '47,total crescent, off Abulegba street', 94, 25, 25),
-(26, '32,Abraham Adosanya crescent, Off Mutiu Lawal Road.', 28, 25, 29);
+(26, '32,Abraham Adosanya crescent, Off Mutiu Lawal Road.', 28, 25, 29),
+(27, '20, Temi Ayodele street off Emily Akinola street', 91, 25, 30),
+(28, '10,fafawa Oregun street, Banana island.', 30, 25, 32),
+(29, '13,Emotan street, off Emotan road', 120, 13, 33),
+(30, '34, Osamudiamen street, off okhoro road', 120, 13, 34),
+(31, '35, Efosa crescent, Victoria Island', 28, 25, 35),
+(32, '39,Eric crescent, Lekki Phase 1', 31, 25, 36),
+(33, '23,Etoya street, off Medical Stores road', 120, 13, 37),
+(34, '99, Ekett bus stop, Kuje District', 26, 2, 39);
 
 -- --------------------------------------------------------
 
@@ -82,33 +90,43 @@ CREATE TABLE IF NOT EXISTS `biz` (
   `featured` varchar(5) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'NO',
   `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `icon` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `owner` int(10) unsigned DEFAULT NULL,
+  `claimed` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `businessprofile_email_unique` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=30 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=40 ;
 
 --
 -- Dumping data for table `biz`
 --
 
-INSERT INTO `biz` (`id`, `name`, `contactname`, `email`, `website`, `phone1`, `phone2`, `created_at`, `updated_at`, `user_id`, `rating_cache`, `rating_count`, `slug`, `featured`, `description`, `icon`) VALUES
-(1, 'samizares cab service', 'sammyoryor', 'samizares@gmail.com', 'http://www.samizarescab.com', 2147483647, 2147483647, '2015-08-12 21:17:40', '2015-10-08 16:04:48', 7, '4.3', 2, '', 'YES', '', ''),
-(3, 'coded Night club', 'Great sammy', 'samizares@yahoo.com', 'http://www.codednightclub.com', 2147483647, 2147483647, '2015-08-12 21:34:57', '2015-10-08 23:36:21', 7, '4.3', 3, '', 'NO', '', ''),
-(8, 'Bella''s place', 'Annabell', 'infobella@msn.com', 'http://bellasplace.com', 2147483647, 2147483647, '2015-08-24 11:06:04', '2015-08-24 11:06:04', 7, '3.0', 0, '', 'NO', '', ''),
-(9, 'Zares Mealsss', 'Mr Piro', 'info@zares.com', 'http://www.zaresmeals.com', 2147483647, 2147483647, '2015-08-24 13:09:21', '2015-10-09 15:49:10', 7, '4.0', 2, '', 'YES', '', ''),
-(11, 'Sammy''s Bank', 'Zares', 'samizares@bank.com', 'http://www.sammysbank.com', 909837637, 2147483647, '2015-08-24 22:00:54', '2015-09-05 12:30:38', 7, '3.0', 0, '', 'YES', '', ''),
-(12, 'shanshan cars', 'Mr Phil', 'info@shahshan.com', 'http://www.shanshan.com', 2147483647, 2147483647, '2015-08-25 20:04:54', '2015-09-05 12:03:55', 7, '3.0', 0, '', 'YES', '', ''),
-(15, 'Twilight Services', 'Gentle jack', 'info@twillight.com', 'http://www.twilightservices.com', 2147483647, 2147483647, '2015-08-25 21:50:11', '2015-09-24 11:12:35', 7, '3.0', 0, '', 'YES', '', ''),
-(16, 'Angry birds', 'Angry man', 'info@angry.com', 'http://angrybirds.com', 9984003, 9489454, '2015-08-25 21:56:13', '2015-08-27 10:46:13', 7, '3.0', 0, '', 'YES', '', ''),
-(17, 'Franks home', 'Frank Spiff', 'info@frank.com', 'http://frankshome.com', 2147483647, 2147483647, '2015-08-25 22:06:40', '2015-08-27 12:55:09', 7, '3.0', 0, '', 'YES', '', ''),
-(18, 'Janes Super stores', 'Mrs Jane Foster', 'info@jane.com', 'http://janestores.com', 90434850, 94853324, '2015-08-27 17:17:17', '2015-08-27 17:17:17', 7, '3.0', 0, '', 'NO', '', ''),
-(19, 'Meegan Exotic cars', 'Mr Meegan Renault', 'info@meegan.com', 'http://meegancars.com', 2147483647, 2147483647, '2015-08-27 17:20:12', '2015-09-05 12:06:56', 7, '3.0', 0, '', 'YES', '', ''),
-(20, 'Mo''s Cathering services', 'Mrs Modukpe Uyi', 'info@mocat.com', 'http://mocathering.com', 909876789, 989049857, '2015-08-27 17:34:07', '2015-09-05 21:34:52', 7, '3.0', 0, '', 'YES', '', ''),
-(21, 'Fred engines', 'Mr Fred Perry', 'info@fredengines.com', 'http://fredengines.com', 980989485, 890458593, '2015-08-27 17:44:47', '2015-09-24 11:13:25', 7, '3.0', 0, '', 'YES', '', ''),
-(22, 'New Bank Biz', 'Gbenga Daniels', 'info@newbank.com', 'http://www.newbank.com', 2147483647, 2147483647, '2015-08-31 23:10:01', '2015-09-24 11:13:16', 7, '3.0', 0, '', 'YES', '', ''),
-(23, 'Annabell''s Conglomerate', 'Ann Bella', 'info@anncong.com', 'http://www.annabellsconglomerate.com', 2147483647, 2147483647, '2015-09-11 03:08:21', '2015-09-11 03:08:21', 7, '3.0', 0, '', 'NO', '', ''),
-(24, 'Alade''s Auto Empire', 'Alade Bj', 'info@alade.com', 'http://aladeauto.com', 2147483647, 2147483647, '2015-09-11 03:14:41', '2015-09-11 03:14:41', 7, '3.0', 0, '', 'NO', '', ''),
-(25, 'Sammy1 testing bizzz', 'Sammy Estrada', 'info@sammytesting.com', 'http://sammytestingone.com', 2147483647, 2147483647, '2015-09-25 14:27:05', '2015-09-25 14:44:40', 7, '3.0', 0, '', 'NO', '', ''),
-(29, 'Alagbon Shopping Complex ', 'Mr Desmond Tutu', 'info@alagbon.com', 'http://Alagbonshopping.com', 2147483647, 2147483647, '2015-09-28 06:16:25', '2015-09-28 06:16:25', 7, '3.0', 0, '', 'NO', '', '');
+INSERT INTO `biz` (`id`, `name`, `contactname`, `email`, `website`, `phone1`, `phone2`, `created_at`, `updated_at`, `user_id`, `rating_cache`, `rating_count`, `slug`, `featured`, `description`, `icon`, `owner`, `claimed`) VALUES
+(1, 'samizares cab service', 'sammyoryor', 'samizares@gmail.com', 'http://www.samizarescab.com', 2147483647, 2147483647, '2015-08-12 21:17:40', '2015-12-23 02:05:53', 7, '4.3', 2, '', 'NO', '', '', 7, 1),
+(3, 'coded Night club', 'Great sammy', 'samizares@yahoo.com', 'http://www.codednightclub.com', 2147483647, 2147483647, '2015-08-12 21:34:57', '2015-10-08 23:36:21', 7, '4.3', 3, '', 'NO', '', '', NULL, 0),
+(8, 'Bella''s place', 'Annabell', 'infobella@msn.com', 'http://bellasplace.com', 2147483647, 2147483647, '2015-08-24 11:06:04', '2015-08-24 11:06:04', 7, '3.0', 0, '', 'NO', '', '', NULL, 0),
+(9, 'Zares Mealsss', 'Mr Piro', 'info@zares.com', 'http://www.zaresmeals.com', 2147483647, 2147483647, '2015-08-24 13:09:21', '2015-11-05 07:46:53', 10, '4.0', 3, '', 'YES', '', '', NULL, 0),
+(11, 'Sammy''s Bank', 'Zares', 'samizares@bank.com', 'http://www.sammysbank.com', 909837637, 2147483647, '2015-08-24 22:00:54', '2015-09-05 12:30:38', 7, '3.0', 0, '', 'YES', '', '', NULL, 0),
+(12, 'shanshan cars', 'Mr Phil', 'info@shahshan.com', 'http://www.shanshan.com', 2147483647, 2147483647, '2015-08-25 20:04:54', '2015-11-04 11:05:09', 7, '4.0', 1, '', 'YES', '', '', NULL, 0),
+(15, 'Twilight Services', 'Gentle jack', 'info@twillight.com', 'http://www.twilightservices.com', 2147483647, 2147483647, '2015-08-25 21:50:11', '2015-11-05 07:51:22', 10, '3.0', 0, '', 'YES', '', '', NULL, 0),
+(16, 'Angry birds', 'Angry man', 'info@angry.com', 'http://angrybirds.com', 9984003, 9489454, '2015-08-25 21:56:13', '2015-08-27 10:46:13', 7, '3.0', 0, '', 'YES', '', '', NULL, 0),
+(17, 'Franks home', 'Frank Spiff', 'info@frank.com', 'http://frankshome.com', 2147483647, 2147483647, '2015-08-25 22:06:40', '2015-08-27 12:55:09', 7, '3.0', 0, '', 'YES', '', '', NULL, 0),
+(18, 'Janes Super stores', 'Mrs Jane Foster', 'info@jane.com', 'http://janestores.com', 90434850, 94853324, '2015-08-27 17:17:17', '2015-08-27 17:17:17', 7, '3.0', 0, '', 'NO', '', '', NULL, 0),
+(19, 'Meegan Exotic cars', 'Mr Meegan Renault', 'info@meegan.com', 'http://meegancars.com', 2147483647, 2147483647, '2015-08-27 17:20:12', '2015-09-05 12:06:56', 7, '3.0', 0, '', 'YES', '', '', NULL, 0),
+(20, 'Mo''s Cathering services', 'Mrs Modukpe Uyi', 'info@mocat.com', 'http://mocathering.com', 909876789, 989049857, '2015-08-27 17:34:07', '2015-09-05 21:34:52', 7, '3.0', 0, '', 'YES', '', '', NULL, 0),
+(21, 'Fred engines', 'Mr Fred Perry', 'info@fredengines.com', 'http://fredengines.com', 980989485, 890458593, '2015-08-27 17:44:47', '2015-09-24 11:13:25', 7, '3.0', 0, '', 'YES', '', '', NULL, 0),
+(22, 'New Bank Biz', 'Gbenga Daniels', 'info@newbank.com', 'http://www.newbank.com', 2147483647, 2147483647, '2015-08-31 23:10:01', '2015-09-24 11:13:16', 7, '3.0', 0, '', 'YES', '', '', NULL, 0),
+(23, 'Annabell''s Conglomerate', 'Ann Bella', 'info@anncong.com', 'http://www.annabellsconglomerate.com', 2147483647, 2147483647, '2015-09-11 03:08:21', '2015-09-11 03:08:21', 7, '3.0', 0, '', 'NO', '', '', NULL, 0),
+(24, 'Alade''s Auto Empire', 'Alade Bj', 'info@alade.com', 'http://aladeauto.com', 2147483647, 2147483647, '2015-09-11 03:14:41', '2015-09-11 03:14:41', 7, '3.0', 0, '', 'NO', '', '', NULL, 0),
+(25, 'Sammy1 testing bizzz', 'Sammy Estrada', 'info@sammytesting.com', 'http://sammytestingone.com', 2147483647, 2147483647, '2015-09-25 14:27:05', '2015-09-25 14:44:40', 7, '3.0', 0, '', 'NO', '', '', NULL, 0),
+(29, 'Alagbon Shopping Complex ', 'Mr Desmond Tutu', 'info@alagbon.com', 'http://Alagbonshopping.com', 2147483647, 2147483647, '2015-09-28 06:16:25', '2015-09-28 06:16:25', 7, '3.0', 0, '', 'NO', '', '', NULL, 0),
+(30, 'Yellow services', 'Mr. Emgrade ', 'info@yellowservices.com', 'http://yellowservices.com', 2147483647, 2147483647, '2015-11-04 16:22:03', '2015-12-23 02:08:27', 10, '3.0', 0, '', 'YES', '', '', NULL, 0),
+(32, 'Musa Delievery Services', 'Mr. Musa Adelaide', 'info@musadelivery.com', 'http://www.musadelievery.com', 2147483647, 2147483647, '2015-11-04 16:32:52', '2015-11-04 16:32:52', 10, '3.0', 0, '', 'NO', '', '', NULL, 0),
+(33, 'Osas car wash', 'Mr Osas Emuwahen', 'info@osascarwash.com', 'http://osascarwash.com', 2147483647, 2147483647, '2015-11-04 16:43:27', '2015-11-04 16:43:27', 10, '3.0', 0, '', 'NO', '', '', NULL, 0),
+(34, 'Etiosa Karaoke', 'Mr. Etinosa Osadolor', 'info@etinosakaraoke.com', 'http://etinosakaraoke.com', 2147483647, 2147483647, '2015-11-04 16:57:01', '2015-11-04 16:57:01', 10, '3.0', 0, '', 'NO', '', '', NULL, 0),
+(35, 'Union Homes', 'Mr. Yaqubu ', 'info@unionhomes.com', 'http://www.unionhomes.com', 2147483647, 2147483647, '2015-11-04 17:01:02', '2015-11-04 17:01:02', 10, '3.0', 0, '', 'NO', '', '', NULL, 0),
+(36, 'Bolaji Hotels', 'Mr Bolaji', 'info@bolajihotels.com', 'http://bolajihotels.com', 2147483647, 2147483647, '2015-11-04 17:07:23', '2015-12-15 18:23:59', 10, '4.5', 2, '', 'YES', '', '', 15, 1),
+(37, 'Alade Short lets', 'Mr. Alade ', 'info@aladeshortlet.com', 'http://aladeshortlet.com', 2147483647, 2147483647, '2015-11-04 17:10:19', '2015-11-04 17:10:19', 10, '3.0', 0, '', 'NO', '', '', 16, 1),
+(39, 'Reagent Services', 'Mr komolafe', 'info@reagentservices.com', 'http://www.reagentservices.com', 2147483647, 2147483647, '2015-11-04 17:21:42', '2015-11-04 17:21:42', 10, '3.0', 0, '', 'NO', '', '', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -123,7 +141,7 @@ CREATE TABLE IF NOT EXISTS `biz_cat_pivot` (
   PRIMARY KEY (`id`),
   KEY `biz_id` (`biz_id`),
   KEY `cat_id` (`cat_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=31 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=40 ;
 
 --
 -- Dumping data for table `biz_cat_pivot`
@@ -136,7 +154,6 @@ INSERT INTO `biz_cat_pivot` (`id`, `biz_id`, `cat_id`) VALUES
 (6, 11, 34),
 (7, 1, 10),
 (8, 12, 11),
-(10, 15, 6),
 (11, 16, 1),
 (12, 17, 33),
 (13, 18, 12),
@@ -150,7 +167,66 @@ INSERT INTO `biz_cat_pivot` (`id`, `biz_id`, `cat_id`) VALUES
 (21, 24, 11),
 (24, 25, 43),
 (25, 25, 44),
-(30, 29, 2);
+(30, 29, 2),
+(31, 30, 2),
+(32, 32, 5),
+(33, 33, 10),
+(34, 34, 43),
+(35, 35, 44),
+(36, 36, 45),
+(37, 37, 45),
+(38, 39, 45),
+(39, 15, 41);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `biz_photos`
+--
+
+CREATE TABLE IF NOT EXISTS `biz_photos` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `biz_id` int(10) unsigned NOT NULL,
+  `path` varchar(100) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` timestamp NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `biz_photos`
+--
+
+INSERT INTO `biz_photos` (`id`, `biz_id`, `path`, `created_at`, `updated_at`) VALUES
+(1, 1, '/biz/photos/144977163120110516_025.jpg', '2015-12-10 19:20:31', '2015-12-10 18:20:31'),
+(2, 1, '/biz/photos/144977163220110526_008.jpg', '2015-12-10 19:20:33', '2015-12-10 18:20:33'),
+(3, 1, '/biz/photos/144977163420110611_006.jpg', '2015-12-10 19:20:34', '2015-12-10 18:20:34'),
+(4, 1, '/biz/photos/144977163420110621_006.jpg', '2015-12-10 19:20:34', '2015-12-10 18:20:34'),
+(5, 1, '/biz/photos/1449961207(4).jpg', '2015-12-13 00:00:07', '2015-12-12 23:00:07'),
+(6, 36, '/biz/photos/1450264943logo.png', '2015-12-16 12:22:23', '2015-12-16 12:22:23');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `biz_profile_photos`
+--
+
+CREATE TABLE IF NOT EXISTS `biz_profile_photos` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `image` varchar(100) NOT NULL,
+  `biz_id` int(10) unsigned NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` timestamp NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `biz_profile_photos`
+--
+
+INSERT INTO `biz_profile_photos` (`id`, `image`, `biz_id`, `created_at`, `updated_at`) VALUES
+(1, 'biz/profile/1449961110fountain.jpg', 1, '2015-12-12 23:52:09', '2015-12-12 22:58:30'),
+(2, 'biz/profile/1450200425logo2.png', 36, '2015-12-15 18:27:05', '2015-12-15 18:27:05');
 
 -- --------------------------------------------------------
 
@@ -184,7 +260,7 @@ CREATE TABLE IF NOT EXISTS `biz_subcat_pivot` (
   `subcat_id` int(10) unsigned NOT NULL,
   `biz_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=47 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=64 ;
 
 --
 -- Dumping data for table `biz_subcat_pivot`
@@ -193,8 +269,6 @@ CREATE TABLE IF NOT EXISTS `biz_subcat_pivot` (
 INSERT INTO `biz_subcat_pivot` (`id`, `subcat_id`, `biz_id`) VALUES
 (1, 25, 8),
 (2, 26, 8),
-(3, 62, 9),
-(4, 63, 9),
 (5, 64, 11),
 (6, 65, 11),
 (7, 66, 11),
@@ -203,7 +277,6 @@ INSERT INTO `biz_subcat_pivot` (`id`, `subcat_id`, `biz_id`) VALUES
 (10, 29, 3),
 (11, 30, 3),
 (12, 49, 12),
-(13, 27, 15),
 (14, 25, 16),
 (15, 47, 17),
 (16, 31, 18),
@@ -225,7 +298,24 @@ INSERT INTO `biz_subcat_pivot` (`id`, `subcat_id`, `biz_id`) VALUES
 (35, 96, 25),
 (36, 97, 25),
 (45, 113, 29),
-(46, 114, 29);
+(46, 114, 29),
+(47, 113, 30),
+(48, 118, 32),
+(49, 60, 33),
+(50, 94, 34),
+(51, 95, 34),
+(52, 135, 35),
+(53, 136, 36),
+(54, 137, 37),
+(55, 138, 39),
+(56, 122, 9),
+(57, 123, 9),
+(58, 124, 9),
+(59, 126, 9),
+(60, 141, 15),
+(61, 142, 15),
+(62, 143, 15),
+(63, 144, 15);
 
 -- --------------------------------------------------------
 
@@ -242,7 +332,7 @@ CREATE TABLE IF NOT EXISTS `business_hours` (
   `created_at` timestamp NOT NULL,
   `updated_at` timestamp NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=773 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=808 ;
 
 --
 -- Dumping data for table `business_hours`
@@ -1005,7 +1095,42 @@ INSERT INTO `business_hours` (`id`, `day`, `open_time`, `close_time`, `biz_id`, 
 (769, 'THU', '9.00', '5.00', 29, '2015-10-09 15:18:12', '2015-10-09 15:18:12'),
 (770, 'FRI', '9.00', '5.00', 29, '2015-10-09 15:18:12', '2015-10-09 15:18:12'),
 (771, 'SAT', '9.00', '5.00', 29, '2015-10-09 15:18:12', '2015-10-09 15:18:12'),
-(772, 'SUN', '9.00', '5.00', 29, '2015-10-09 15:18:12', '2015-10-09 15:18:12');
+(772, 'SUN', '9.00', '5.00', 29, '2015-10-09 15:18:12', '2015-10-09 15:18:12'),
+(773, 'MON', '9.00', '5.00', 34, '2015-11-04 16:57:02', '2015-11-04 16:57:02'),
+(774, 'TUE', '9.00', '5.00', 34, '2015-11-04 16:57:02', '2015-11-04 16:57:02'),
+(775, 'WED', '9.00', '5.00', 34, '2015-11-04 16:57:02', '2015-11-04 16:57:02'),
+(776, 'THU', '9.00', '5.00', 34, '2015-11-04 16:57:02', '2015-11-04 16:57:02'),
+(777, 'FRI', '9.00', '5.00', 34, '2015-11-04 16:57:02', '2015-11-04 16:57:02'),
+(778, 'SAT', '9.00', '5.00', 34, '2015-11-04 16:57:02', '2015-11-04 16:57:02'),
+(779, 'SUN', '9.00', '5.00', 34, '2015-11-04 16:57:02', '2015-11-04 16:57:02'),
+(780, 'MON', '9.00', '5.00', 35, '2015-11-04 17:01:02', '2015-11-04 17:01:02'),
+(781, 'TUE', '9.00', '5.00', 35, '2015-11-04 17:01:02', '2015-11-04 17:01:02'),
+(782, 'WED', '9.00', '5.00', 35, '2015-11-04 17:01:02', '2015-11-04 17:01:02'),
+(783, 'THU', '9.00', '5.00', 35, '2015-11-04 17:01:02', '2015-11-04 17:01:02'),
+(784, 'FRI', '9.00', '5.00', 35, '2015-11-04 17:01:02', '2015-11-04 17:01:02'),
+(785, 'SAT', '9.00', '5.00', 35, '2015-11-04 17:01:02', '2015-11-04 17:01:02'),
+(786, 'SUN', '9.00', '5.00', 35, '2015-11-04 17:01:02', '2015-11-04 17:01:02'),
+(787, 'MON', '9.00', '5.00', 36, '2015-11-04 17:07:23', '2015-11-04 17:07:23'),
+(788, 'TUE', '9.00', '5.00', 36, '2015-11-04 17:07:23', '2015-11-04 17:07:23'),
+(789, 'WED', '9.00', '5.00', 36, '2015-11-04 17:07:23', '2015-11-04 17:07:23'),
+(790, 'THU', '9.00', '5.00', 36, '2015-11-04 17:07:23', '2015-11-04 17:07:23'),
+(791, 'FRI', '9.00', '5.00', 36, '2015-11-04 17:07:23', '2015-11-04 17:07:23'),
+(792, 'SAT', '9.00', '5.00', 36, '2015-11-04 17:07:23', '2015-11-04 17:07:23'),
+(793, 'SUN', '9.00', '5.00', 36, '2015-11-04 17:07:23', '2015-11-04 17:07:23'),
+(794, 'MON', '9.00', '5.00', 37, '2015-11-04 17:10:19', '2015-11-04 17:10:19'),
+(795, 'TUE', '9.00', '5.00', 37, '2015-11-04 17:10:19', '2015-11-04 17:10:19'),
+(796, 'WED', '9.00', '5.00', 37, '2015-11-04 17:10:19', '2015-11-04 17:10:19'),
+(797, 'THU', '9.00', '5.00', 37, '2015-11-04 17:10:20', '2015-11-04 17:10:20'),
+(798, 'FRI', '9.00', '5.00', 37, '2015-11-04 17:10:20', '2015-11-04 17:10:20'),
+(799, 'SAT', '9.00', '5.00', 37, '2015-11-04 17:10:20', '2015-11-04 17:10:20'),
+(800, 'SUN', '9.00', '5.00', 37, '2015-11-04 17:10:20', '2015-11-04 17:10:20'),
+(801, 'MON', '9.00', '5.00', 39, '2015-11-04 17:21:43', '2015-11-04 17:21:43'),
+(802, 'TUE', '9.00', '5.00', 39, '2015-11-04 17:21:43', '2015-11-04 17:21:43'),
+(803, 'WED', '9.00', '5.00', 39, '2015-11-04 17:21:43', '2015-11-04 17:21:43'),
+(804, 'THU', '9.00', '5.00', 39, '2015-11-04 17:21:43', '2015-11-04 17:21:43'),
+(805, 'FRI', '9.00', '5.00', 39, '2015-11-04 17:21:43', '2015-11-04 17:21:43'),
+(806, 'SAT', '9.00', '5.00', 39, '2015-11-04 17:21:43', '2015-11-04 17:21:43'),
+(807, 'SUN', '9.00', '5.00', 39, '2015-11-04 17:21:43', '2015-11-04 17:21:43');
 
 -- --------------------------------------------------------
 
@@ -1020,7 +1145,7 @@ CREATE TABLE IF NOT EXISTS `cats` (
   `meta_description` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=45 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=46 ;
 
 --
 -- Dumping data for table `cats`
@@ -1029,19 +1154,52 @@ CREATE TABLE IF NOT EXISTS `cats` (
 INSERT INTO `cats` (`id`, `name`, `image_class`, `meta_description`) VALUES
 (2, 'Shopping', 'bicycle', ''),
 (3, 'Sports & Leisure', 'futbol-o', 'Get all businesses in the Sports and Leisure category'),
-(4, 'Restaurants', 'spoon', 'Great African cuisines'),
-(5, 'Transportation', 'taxi', 'Bus transportation'),
+(4, 'Restaurants', 'spoon', 'Great Restaurant around you'),
+(5, 'Transportation', 'taxi', 'Check out Businesses under Bus transportation'),
 (9, 'Arts And Entertainment', 'glass', 'Here this is it, use it oh,,'),
 (10, 'cars', 'car', 'Automobiles'),
 (11, 'Cars and factories', 'bus', 'Does this really exist'),
 (12, 'Magnet producers', 'book', 'wow,,this is cool'),
-(33, 'home furniture', 'home', 'home utencils here'),
-(36, 'Cathering Services', 'spoon', 'Ndibiz stock all kinds of Cathering Services'),
+(33, 'home furniture', 'television', 'home utencils here'),
+(36, 'Cathering Services', 'glass', 'Ndibiz stock all kinds of Cathering Services'),
 (38, 'Shipping Services', 'ship', 'Get the trusted contacts of your trusted Shipping companies'),
 (40, 'Education', 'briefcase', 'Check out all the businesses in our Education categories'),
-(41, 'Electronics', 'television', 'Check out all the businesses in our Electronics category'),
+(41, 'Electronics', 'futbol-o', 'Check out all the businesses in our Electronics category'),
 (43, 'Bars', 'glass', 'Check out the businesses in these categories'),
-(44, 'Banking and Finance', 'money', 'Get all the businesses in our Banking and Finance categories');
+(44, 'Banking and Finance', 'money', 'Get all the businesses in our Banking and Finance categories'),
+(45, 'Accomodation services', 'home', 'Check all the listed businesses in our Accommodation services category');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `favourites`
+--
+
+CREATE TABLE IF NOT EXISTS `favourites` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `biz_id` int(10) unsigned NOT NULL,
+  `user_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
+
+--
+-- Dumping data for table `favourites`
+--
+
+INSERT INTO `favourites` (`id`, `biz_id`, `user_id`) VALUES
+(9, 3, 7),
+(11, 8, 7),
+(12, 20, 7),
+(14, 3, 10),
+(15, 8, 10),
+(17, 22, 10),
+(19, 9, 10),
+(20, 12, 10),
+(21, 1, 10),
+(22, 1, 7),
+(26, 36, 15),
+(27, 11, 15),
+(28, 29, 15);
 
 -- --------------------------------------------------------
 
@@ -1054,7 +1212,7 @@ CREATE TABLE IF NOT EXISTS `lgas` (
   `name` varchar(100) NOT NULL,
   `state_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=120 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=123 ;
 
 --
 -- Dumping data for table `lgas`
@@ -1163,7 +1321,10 @@ INSERT INTO `lgas` (`id`, `name`, `state_id`) VALUES
 (112, 'state22', 39),
 (113, 'state33', 39),
 (118, 'plateau3', 32),
-(119, 'plateau4', 32);
+(119, 'plateau4', 32),
+(120, 'Benin city', 13),
+(121, 'Auchi', 13),
+(122, 'Afuze', 13);
 
 -- --------------------------------------------------------
 
@@ -1204,6 +1365,23 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `owner_details`
+--
+
+CREATE TABLE IF NOT EXISTS `owner_details` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned NOT NULL,
+  `biz_id` int(10) unsigned NOT NULL,
+  `status` tinyint(2) NOT NULL DEFAULT '0',
+  `created_at` datetime NOT NULL,
+  `updated_at` timestamp NOT NULL,
+  `ownership` tinyint(4) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `password_resets`
 --
 
@@ -1225,6 +1403,87 @@ INSERT INTO `password_resets` (`email`, `token`, `created_at`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `photos`
+--
+
+CREATE TABLE IF NOT EXISTS `photos` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `path` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `photo_user`
+--
+
+CREATE TABLE IF NOT EXISTS `photo_user` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned NOT NULL,
+  `path` varchar(100) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` timestamp NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=32 ;
+
+--
+-- Dumping data for table `photo_user`
+--
+
+INSERT INTO `photo_user` (`id`, `user_id`, `path`, `created_at`, `updated_at`) VALUES
+(1, 10, '/users/photos/1449666157(1).JPG', '2015-12-09 14:02:37', '2015-12-09 13:02:37'),
+(2, 10, '/users/photos/1449666207(9).jpg', '2015-12-09 14:03:27', '2015-12-09 13:03:27'),
+(3, 10, '/users/photos/1449666208(4).jpg', '2015-12-09 14:03:28', '2015-12-09 13:03:28'),
+(4, 10, '/users/photos/1449666209(1).JPG', '2015-12-09 14:03:29', '2015-12-09 13:03:29'),
+(5, 12, '/users/photos/1449763728bg2.jpg', '2015-12-10 17:08:48', '2015-12-10 16:08:48'),
+(6, 12, '/users/photos/1449763729bg1.jpg', '2015-12-10 17:08:49', '2015-12-10 16:08:49'),
+(7, 12, '/users/photos/1449763729bg4.jpg', '2015-12-10 17:08:50', '2015-12-10 16:08:50'),
+(8, 7, '/users/photos/1449766311DSC_0009.JPG', '2015-12-10 17:51:51', '2015-12-10 16:51:51'),
+(9, 7, '/users/photos/1449766323DSC_0013.JPG', '2015-12-10 17:52:03', '2015-12-10 16:52:03'),
+(10, 10, '/users/photos/1449766539sammy-6.JPG', '2015-12-10 17:55:39', '2015-12-10 16:55:39'),
+(11, 7, '/users/photos/1449766782(8).jpg', '2015-12-10 17:59:42', '2015-12-10 16:59:42'),
+(12, 7, '/users/photos/1449766883576034_10151402169618964_38533247_n.jpg', '2015-12-10 18:01:23', '2015-12-10 17:01:23'),
+(17, 7, '/users/photos/1449768461(1).JPG', '2015-12-10 18:27:41', '2015-12-10 17:27:41'),
+(22, 7, '/users/photos/14497799581.JPG', '2015-12-10 21:39:18', '2015-12-10 20:39:18'),
+(23, 7, '/users/photos/14497799593.JPG', '2015-12-10 21:39:19', '2015-12-10 20:39:19'),
+(24, 7, '/users/photos/14497799609.JPG', '2015-12-10 21:39:20', '2015-12-10 20:39:20'),
+(25, 7, '/users/photos/14498151683.JPG', '2015-12-11 07:26:09', '2015-12-11 06:26:09'),
+(26, 15, '/users/photos/1450177253logo2.png', '2015-12-15 12:00:53', '2015-12-15 12:00:53'),
+(27, 15, '/users/photos/1450178291logo.jpg', '2015-12-15 12:18:11', '2015-12-15 12:18:11'),
+(28, 15, '/users/photos/1450178291logo.png', '2015-12-15 12:18:11', '2015-12-15 12:18:11'),
+(29, 15, '/users/photos/1450178291logo2.fw.png', '2015-12-15 12:18:12', '2015-12-15 12:18:12'),
+(30, 15, '/users/photos/1450178292logo2.jpg', '2015-12-15 12:18:12', '2015-12-15 12:18:12'),
+(31, 15, '/users/photos/1450178292logo2.png', '2015-12-15 12:18:12', '2015-12-15 12:18:12');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `profile_photos`
+--
+
+CREATE TABLE IF NOT EXISTS `profile_photos` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `image` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `user_id` int(10) unsigned NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  KEY `profile_photos_user_id_foreign` (`user_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=12 ;
+
+--
+-- Dumping data for table `profile_photos`
+--
+
+INSERT INTO `profile_photos` (`id`, `image`, `user_id`, `created_at`, `updated_at`) VALUES
+(9, 'biz/profile/1449826157(1).JPG', 7, '2015-12-11 09:26:09', '2015-12-11 09:29:17'),
+(10, 'biz/profile/144982660820110201_011.jpg', 12, '2015-12-11 09:36:48', '2015-12-11 09:36:48'),
+(11, 'user/profile/1450176593logo2.png', 15, '2015-12-15 11:49:02', '2015-12-15 11:49:53');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `reviews`
 --
 
@@ -1239,7 +1498,7 @@ CREATE TABLE IF NOT EXISTS `reviews` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `reviews`
@@ -1252,7 +1511,11 @@ INSERT INTO `reviews` (`id`, `biz_id`, `user_id`, `rating`, `comment`, `approved
 (6, 3, 10, 5, 'This would go to,, great business', 1, 0, '2015-10-09 00:01:39', '2015-10-09 00:01:39'),
 (7, 3, 7, 4, 'This will not go', 1, 0, '2015-10-09 00:36:20', '2015-10-09 00:36:20'),
 (8, 9, 7, 4, 'I love this business', 1, 0, '2015-10-09 16:24:46', '2015-10-09 16:24:46'),
-(9, 9, 7, 4, 'Yeah, i got this,,', 1, 0, '2015-10-09 16:49:10', '2015-10-09 16:49:10');
+(9, 9, 7, 4, 'Yeah, i got this,,', 1, 0, '2015-10-09 16:49:10', '2015-10-09 16:49:10'),
+(10, 9, 10, 4, 'The business delivery area is awesome', 1, 0, '2015-11-04 12:03:30', '2015-11-04 12:03:30'),
+(11, 12, 10, 4, 'Awesome response time and customer service,,', 1, 0, '2015-11-04 12:05:09', '2015-11-04 12:05:09'),
+(12, 36, 15, 5, 'awesome business', 1, 0, '2015-12-14 19:54:37', '2015-12-14 19:54:37'),
+(13, 36, 15, 4, 'great service', 1, 0, '2015-12-15 18:23:59', '2015-12-15 18:23:59');
 
 -- --------------------------------------------------------
 
@@ -1506,7 +1769,7 @@ CREATE TABLE IF NOT EXISTS `sub_cats` (
   `image_class` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=118 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=154 ;
 
 --
 -- Dumping data for table `sub_cats`
@@ -1514,33 +1777,16 @@ CREATE TABLE IF NOT EXISTS `sub_cats` (
 
 INSERT INTO `sub_cats` (`id`, `name`, `cat_id`, `image_class`) VALUES
 (31, 'sodium', 12, 'question'),
-(44, 'spoons', 33, 'spoon'),
-(45, 'table', 33, 'spoon'),
-(46, 'tee', 33, 'spoon'),
-(47, 'spoon', 33, 'spoon'),
 (48, 'benz factories', 11, 'car'),
 (49, 'volkswagon', 11, 'car'),
 (59, 'car dealers', 10, 'car'),
 (60, 'car wash', 10, 'car'),
 (61, 'mini mart', 10, 'edit'),
-(62, 'mamaput', 4, 'spoon'),
-(63, 'African dish', 4, 'spoon'),
-(67, 'cake services', 36, 'birthday-cake'),
-(68, 'events food rental', 36, 'spoon'),
-(69, 'baking experts', 36, 'birthday-cake'),
 (80, 'clearing', 38, ''),
 (81, 'clearing and forwarding', 38, ''),
 (82, 'web programming', 40, ''),
 (83, 'Networking', 40, ''),
 (84, 'computer hardware', 40, ''),
-(85, 'Televison', 41, ''),
-(86, 'Home theatre', 41, ''),
-(87, 'DVD', 41, ''),
-(93, 'pubs', 43, ''),
-(94, 'clubs', 43, ''),
-(95, 'Nightlife', 43, ''),
-(96, 'Loans', 44, ''),
-(97, 'mortagage', 44, ''),
 (107, 'colours', 9, ''),
 (108, 'creativity', 9, ''),
 (109, 'great', 9, ''),
@@ -1551,7 +1797,38 @@ INSERT INTO `sub_cats` (`id`, `name`, `cat_id`, `image_class`) VALUES
 (114, 'fashinable items', 2, ''),
 (115, 'gym', 3, ''),
 (116, 'gym equipment', 3, ''),
-(117, 'body building', 3, '');
+(117, 'body building', 3, ''),
+(118, 'Delivery services', 5, ''),
+(119, 'Cabs', 5, ''),
+(120, 'Travel buses', 5, ''),
+(121, 'flight services', 5, ''),
+(122, 'African dish', 4, ''),
+(123, 'mamaput', 4, ''),
+(124, 'Continental dishes', 4, ''),
+(125, 'Chinese cuisines', 4, ''),
+(126, 'Calabar kitchen', 4, ''),
+(127, 'clubs', 43, ''),
+(128, 'Nightlife', 43, ''),
+(129, 'pubs', 43, ''),
+(130, 'Karaoke night', 43, ''),
+(131, 'Life Band', 43, ''),
+(132, 'Loans', 44, ''),
+(133, 'mortagage', 44, ''),
+(134, 'Banking services', 44, ''),
+(135, 'Home financing', 44, ''),
+(136, 'Hotel services', 45, ''),
+(137, 'short-let', 45, ''),
+(138, 'Housing agents', 45, ''),
+(142, 'Air Conditioners(AC)', 33, ''),
+(143, 'Fridges', 33, ''),
+(146, 'baking experts', 36, ''),
+(147, 'cake services', 36, ''),
+(148, 'events food rental', 36, ''),
+(149, 'DVD', 41, ''),
+(150, 'Fans', 41, ''),
+(151, 'Home theatre', 41, ''),
+(152, 'Televison', 41, ''),
+(153, 'Washing Machine', 41, '');
 
 -- --------------------------------------------------------
 
@@ -1576,15 +1853,21 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_username_unique` (`username`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `username`, `email`, `password`, `confirmation_code`, `confirmed`, `admin`, `remember_token`, `created_at`, `updated_at`, `deleted_at`, `notify`) VALUES
-(7, '', 'samizares1', 'samizares@hotmail.com', '$2y$10$wKoP0dgXzogJOLwOiq4YXeJuHZ2Cf3zM8xp3DCulbLNz8QI7Z47NS', '', 1, 1, 'dyOemaRRxEO1yzQGVlP7dLRGm2TxT2N3bABgjdtYmMORH9IpiyWsNstUhhw1', '2015-08-04 10:37:00', '2015-10-07 13:18:58', NULL, 1),
-(10, '', 'sammylee', 'samizares@gmail.com', '$2y$10$wbNf3Oo3Om9RflheTdLpKeZjo5BZPxnOirE5qpbelwGP0jbQZbvDK', '', 1, 1, 'qUU3hhY94OgEmiiUXiyFO6bf8D6tCc1WaBNblow7X6J1pFzoaJ2FZ1vAvHwy', '2015-08-13 05:15:24', '2015-10-07 18:21:17', NULL, 1);
+(7, '', 'samizares1', 'samizares@hotmail.com', '$2y$10$wKoP0dgXzogJOLwOiq4YXeJuHZ2Cf3zM8xp3DCulbLNz8QI7Z47NS', '', 1, 1, 'vqfFEzjNBedoF6YXl558NzDGPIhDQ99GltXYhwWXVAZhTnKX0YJEL7WHbSzN', '2015-08-04 10:37:00', '2015-12-10 15:27:20', NULL, 1),
+(10, '', 'sammylee', 'samizares@gmail.com', '$2y$10$wbNf3Oo3Om9RflheTdLpKeZjo5BZPxnOirE5qpbelwGP0jbQZbvDK', '', 1, 1, 'g5fTyjMUfi2wuGdgUUw5tM4m0AamWVxgxtiJKxlotUt9iYL541KDUyf44B2G', '2015-08-13 05:15:24', '2015-12-10 16:06:58', NULL, 1),
+(11, 'the great', 'The greatSeller22', 'yahooman@yahoo.com', '$2y$10$PirU6vYKETTSZjptoP9LHefBGN9U7MJV7Ij8QrKw4n1XbJrG6EUmW', 'qUUcMnay9rjgcm43BsHivniI1yYSOMyahooman@yahoo.com', 0, 0, 'DuB0TBSVmfmMg6JAu1RVk9lnwiLgj1WWkN622BdHy39fdUEfN5VIx6NXyRMD', '2015-11-03 11:10:26', '2015-12-07 08:38:22', NULL, 1),
+(12, '', 'Desmond', 'desmond@gmail.com', '$2y$10$AhLLwJSKoNOq4iKRyE3lRuepmun.rRB6C6VekbC7Q1VhksGnu63lq', '3osgoi7SbcOs23xPkCMWN5jMF1BXKXdesmond@gmail.com', 1, 0, 'MMYJRKItsLQMuSIi7fCDGq30emFBUKmL67adlsQ85ZNckS90h2MqaJyqewjd', '2015-11-03 12:06:29', '2015-12-10 16:30:56', NULL, 1),
+(13, '', 'Alaji', 'alhaji@gmail.com', '$2y$10$AzRRaYzLTeetDSWfIqFmqueUOxP8ocSq9ZJ5ItMJouLZ.0fsInGxa', 'uOUbCXGi4vcmaGOe00qgWp3iE8Nhx8alhaji@gmail.com', 0, 0, NULL, '2015-11-03 12:24:32', '2015-11-03 12:24:32', NULL, 1),
+(14, '', 'Nonso', 'nonso@gmail.com', '$2y$10$qzn/mhT8K5PMRlXBJFk2zO9cNRqTuRqMZ4IUJkKUGDbbP0vTNrxDq', 'MppJjSP8cbnC9179i3R60Iem0dGcINnonso@gmail.com', 0, 0, NULL, '2015-11-03 12:25:30', '2015-11-03 12:25:30', NULL, 1),
+(15, '', 'adminUser1', 'bolaji.alade@curiouzmind.com', '$2y$10$4uenH2GGbHAJmWt8LbzUpedPAhOrsplfi8NdJqI4pZKX/zfHr8z5a', 'rMspCrWSrimD9DLpxBAgePOqqbjMZ0bolaji.alade@curiouzmind.com', 1, 1, 'RAqP6OMRWDCYcBeEaQ0wZ4tsQ1C7QcQ1wadK4LCHS0oFedOoEZbR0uXHwjxT', '2015-12-14 19:44:19', '2015-12-23 05:59:33', NULL, 1),
+(16, '', 'user1', 'gbolahanalade@gmail.com', '$2y$10$Qyl4pOWqLXx6BjwXn.KJ8.VOzIBlKPd8ynaEoO41AKKHyZ9mqUcP.', '6MuIP8m3iNrU0tLRny3vfbhGQlKGs5gbolahanalade@gmail.com', 1, 0, '7uTOddNU4myhLYLsEQNdK6P1vwDvXphtLUmc8FA25QQT3tT2gxopx5n5azhi', '2015-12-14 19:46:06', '2015-12-23 07:54:09', NULL, 1);
 
 --
 -- Constraints for dumped tables

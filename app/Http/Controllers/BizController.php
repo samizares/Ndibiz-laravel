@@ -16,6 +16,7 @@ class BizController extends Controller
      public function __construct()
     {
         $this->middleware('auth',['except'=>'index','show']);
+        $this->middleware('confirm',['except'=>'index','show']);
     }
 
     /**
@@ -100,7 +101,28 @@ class BizController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $biz= Biz::findorFail($id);
+        $cat= $biz->cats->lists('id')->all();
+        $sub= $biz->subcats->lists('id')->all();
+        // dd($sub);
+        $catList= Cat::lists('name', 'id');
+        $subList= SubCat::lists('name','id');
+        // dd($subList);
+        $stateList= State::lists('name','id');
+        $lgaList= Lga::lists('name','id');
+        //$area= Address::lists
+
+        //dd($biz->address->state->name);
+
+        //  foreach ($biz->subcats as $sub) {
+        //      $currentSubs[] = $sub->id;
+        //  }
+
+        //   if(empty($currentSubs)){
+        //      $currentSubs = '';
+        //  }
+
+        return view('admin/biz/edit',compact('biz','catList','subList','stateList','cat','currentSubs','lgaList','sub'));
     }
 
     /**

@@ -1,4 +1,3 @@
-
 <header id="header">
     <div class="header-top-bar p0-top p0-bttm">
       <div class="container">
@@ -24,12 +23,14 @@
         <nav aria-labelledby="user-navigation" class="pull-right hidden-sm hidden-xs" role="navigation">
           <ul class="nav navbar m0-bttm">          
               <!-- HEADER-LOGIN -->
-              @if (Auth::check())  
+             @if(Auth::check())
+                 
               <li class="dropdown">           
                 <a class="btn" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                  <span class="fa fa-user fa-fw"></span> {{Auth::user()->username}}<span class="fa fa-angle-down"></span></a>
+                  <span class="fa fa-user fa-fw"></span> {{Auth::user()->username}}<span class="fa fa-angle-down">
+                </span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="/user-profile"><i class="fa fa-user"></i> View Profile</a></li>
+                    <li><a href="/profile/{{Auth::user()->id}}"><i class="fa fa-user"></i> View Profile</a></li>
                     <li><a href="{{ URL::to('auth/logout') }}"><i class="fa fa-power-off"></i> Logout</a></li>
                 </ul>
               </li>       
@@ -42,6 +43,7 @@
                 </ul>
               </li>
               @endif
+              
               <!-- HEADER REGISTER -->
               @if (Auth::guest())
               <li class="dropdown">
