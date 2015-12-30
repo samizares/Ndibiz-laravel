@@ -213,7 +213,9 @@
                                   <li class=""><a href="#gallery" role="tab" data-toggle="tab"><i class="fa fa-camera"></i> <span class="">Gallery</span></a></li>
                                   <li><a href="#contact" role="tab" data-toggle="tab"><i class="fa fa-envelope-o"></i> <span class="">Contact</span></a></li>
                                     <li><a href="#reviews" role="tab" data-toggle="tab"><i class="fa fa-comments"></i> <span class="">Reviews</span></a></li>
+                                    @if(Auth::check() && (Auth::user()->id == $biz->owner))
                                     <li><a href="#edit" role="tab" data-toggle="tab"><i class="fa fa-comments"></i> <span class="">Edit Profile</span></a></li>
+                                    @endif
                                 </ul>
                               </div> <!-- end .page-sidebar -->
                             </div> <!-- end .main-grid layout -->
@@ -406,6 +408,7 @@
                                      </div> <!-- end .company-rating -->
                                     </div>
                                     {{--EDIT PROFILE--}}
+                                    @if(Auth::check() && (Auth::user()->id == $biz->owner))
                                     <div class="tab-pane" id="edit">
                                         <div class="company-ratings m20-top">
                                             @include('admin.partials.errors')
@@ -505,6 +508,7 @@
                                             </form>
                                         </div>
                                     </div>
+                                    @endif
                                 </div> <!-- end .tab-content -->
                             </div> <!-- end .main-grid layout -->
                         </div> <!-- end .row -->
