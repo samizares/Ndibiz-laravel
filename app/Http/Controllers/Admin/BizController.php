@@ -79,6 +79,12 @@ class BizController extends Controller
         $subs= $request->input('sub');
         $biz->subcats()->sync($subs);
 
+        $lga=$request->input('lga');
+        $biz->lgas()->attach($lga);
+
+        $state=$request->input('state');
+        $biz->states()->attach($state);
+
         $mon = BusinessHour::create(['day' => 'MON','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
         $tue = BusinessHour::create(['day' => 'TUE','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
         $wed = BusinessHour::create(['day' => 'WED','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
@@ -159,6 +165,12 @@ class BizController extends Controller
         $add->lga_id= $request->input('lga');
         $add->state_id=$request->input('state');
         $add->save();
+
+        $lga=$request->input('lga');
+        $biz->lgas()->attach($lga);
+        
+        $state=$request->input('state');
+        $biz->states()->attach($state);
 
         $category=$request->input('cats');
        // $catNames= [];

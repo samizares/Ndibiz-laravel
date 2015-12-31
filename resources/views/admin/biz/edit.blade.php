@@ -2,11 +2,11 @@
 <!-- HEAD STARTS-->
   @section('title', 'Admin')
   @section('stylesheets')     
-    <link href="{{asset('plugins/datatable/css/datatables.css')}}" rel="stylesheet">
-    <link href="{{asset('plugins/datatable/css/dataTables.bootstrap.css')}}" rel="stylesheet">
-    <link href="{{asset('plugins/bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet">
+    {{--<link href="{{asset('plugins/datatable/css/datatables.css')}}" rel="stylesheet">--}}
+    {{--<link href="{{asset('plugins/datatable/css/dataTables.bootstrap.css')}}" rel="stylesheet">--}}
+    {{--<link href="{{asset('plugins/bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet">--}}
     <link href="{{asset('plugins/select2/select2.min.css')}}" rel="stylesheet">
-    <!-- <link href="{{asset('plugins/bootstrap-editable/bootstrap-editable.css')}}" rel="stylesheet"> -->
+    {{--<!-- <link href="{{asset('plugins/bootstrap-editable/bootstrap-editable.css')}}" rel="stylesheet"> -->--}}
   @endsection
 <!-- HEAD ENDS-->
 
@@ -217,9 +217,7 @@
       $("#category_edit").select2({
         // tags: true,
       });
-
     });
-
     $(document).ready(function() {
       var y=[];
      $('#category_edit').change(function(){
@@ -228,14 +226,12 @@
             model.empty();
            $.get('{{ URL::to('api/subcat') }}', {y: $(this).val()}, function(result){
              $.each(result.data,function(){
-                              $('#sub_edit').append('<option value="'+this.id+'">'+this.text+'</option>');
-
-                        });
+                  $('#sub_edit').append('<option value="'+this.id+'">'+this.text+'</option>');
+            });
            });
          }
       });
     });
-
     $(document).ready(function() {
       $("#stateList").select2({
       });

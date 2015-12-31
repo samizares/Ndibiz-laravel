@@ -12,7 +12,7 @@ class Biz extends Model
 
    public function address()
     {
-      return $this->hasOne('App\Address');
+      return $this->hasMany('App\Address');
     }
 
      public function reviews()
@@ -64,9 +64,15 @@ class Biz extends Model
         return $this->BelongsToMany('App\Cat', 'biz_cat_pivot','biz_id','cat_id');
     }
 
-    public function state()
+    
+    public function states()
     {
-      return $this->belongsToMany('App\State','biz_state_pivot');
+       return $this->belongsToMany('App\State','biz_state_pivot','biz_id', 'state_id');
+    }
+
+    public function lgas()
+    {
+       return $this->belongsToMany('App\Lga','biz_lga_pivot','biz_id', 'lga_id');
     }
 
     public function recalculateRating()

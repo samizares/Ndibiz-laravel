@@ -20,8 +20,10 @@ class HomeController extends Controller
 
 	public function __construct()
     {
-        $this->middleware('auth',['only'=>['home','profile','getBizreview']]);
-        $this->middleware('confirm',['only'=>['home','profile','getBizreview']]);
+//        $this->middleware('auth',['only'=>['home','businesses','profile','getBizreview']]);
+        $this->middleware('auth',['only'=>['home','getBizreview']]);
+        $this->middleware('confirm',['only'=>['home','getBizreview']]);
+
     }
 
    public function index()
@@ -32,11 +34,12 @@ class HomeController extends Controller
 		$totalSubCat=subCat::count();
 		$stateList= State::lists('name','id');
 		$catList   = SubCat::lists('name','id')->take(8);
-        $featured= Biz::whereFeatured('YES')->get();
+
+          $featured= Biz::whereFeatured('YES')->take(12)->get();
         //foreach($bizs as $biz){
         //	$biz->description= "We specilize in these categories-". $biz->cats. ""
        // }
-
+     
 		return view('pages.index', compact('stateList','catList','cats','featured', 'totalCat', 'totalSubCat',
 		 'subs'));
 	}
@@ -49,7 +52,7 @@ class HomeController extends Controller
 		$totalSubCat=subCat::count();
 		$stateList= State::lists('name','id');
 		$catList   = SubCat::lists('name','id')->take(8);
-	    $featured= Biz::whereFeatured('YES')->take(5)->get();
+	    $featured= Biz::whereFeatured('YES')->take(12)->get();
 		return view('pages.index', compact('stateList','catList','cats','featured', 'totalCat', 'totalSubCat',
 		 'subs'));
 	}
@@ -67,10 +70,22 @@ class HomeController extends Controller
 		// dd($featured);
 		return view('pages.businesses', compact('stateList','catList','cats','bizs','featured','recent', 'totalBiz', 'totalCat'));
 	}
+	public function map()
+	{
+		$cats = Cat::all();
+		$totalBiz=Biz::count();
+		$totalCat=Cat::count();
+		$bizs = Biz::orderBy('created_at', 'desc')->paginate(6);
+		$stateList= State::lists('name','name');
+		$catList   = Cat::lists('name','name');
+		$featured= Biz::whereFeatured('YES')->paginate(3);
+		$recent= Biz::orderBy('created_at', 'desc')->paginate(2);
+		// dd($featured);
+		return view('pages.map', compact('stateList','catList','cats','bizs','featured','recent', 'totalBiz', 'totalCat'));
+	}
 
 	public function categories()
 	{
-
 		$cats=  Cat::all();
 		$totalBiz=Biz::count();
 		$totalCat=Cat::count();
@@ -81,6 +96,15 @@ class HomeController extends Controller
 		$recent= Biz::orderBy('created_at', 'desc')->paginate(2);
 		return view('pages.categories', compact('stateList','catList','featured','cats','recent', 'totalBiz', 'totalCat',
 		 'totalSubCat'));
+	}
+
+	public function locations()
+	{
+		$states = State::all();
+        $totalState = State::count();
+        $totalBiz=Biz::count();
+        $stateList= State::lists('name','name');
+		return view('pages.locations', compact('states','totalState','stateList','totalBiz'));
 	}
 
 	public function searchResults()
@@ -191,8 +215,11 @@ class HomeController extends Controller
 	 {
 	 	
 	 	  $stateList= State::lists('name','name');
+		  $lgaList= Lga::lists('name','id');
+		 $subList= SubCat::lists('name','id');
 		  $catList   = Cat::lists('name','name');
 	 	  $biz = Biz::findOrFail($id);
+	 	   $sub= $biz->subcats->lists('id')->all();
 	 	  $favourites= \DB::table('favourites')->where('user_id', \Auth::user()->id)->lists('biz_id');
 	 	  //dd($favourites);
 	 	  $hours=$biz->hours;
@@ -212,7 +239,8 @@ class HomeController extends Controller
         $featured= Biz::whereFeatured('YES')->paginate(3);
 		$recent= Biz::orderBy('created_at', 'desc')->paginate(1);
 
-         return view('pages.biz-profile', array('biz'=>$biz,'reviews'=>$reviews,'stateList'=>$stateList,
+         return view('pages.biz-profile', array('biz'=>$biz,'reviews'=>$reviews,'sub'=>$sub,'stateList'=>$stateList,'lgaList'=>$lgaList,
+				 'subList'=>$subList,
          	'catList'=>$catList,'favourites'=>$favourites), compact('featured','recent','mon','tue','wed','thu','fri','sat','sun'));
 	 }
 
@@ -239,10 +267,7 @@ class HomeController extends Controller
 	 	$review = new Review();
 	 	$review->storeReviewForBiz($id, $request->comment, $request->rating);
 		return redirect('review/biz/'.$id.'#company-reviews')->with('success','Review Submitted successfully');
-
 	 }
-
-
 	 public function bizSub($id)
 	 {
 	 	$sub= SubCat::findOrFail($id);
@@ -278,11 +303,12 @@ class HomeController extends Controller
 		$favourites=\DB::table('favourites')->whereUserId(\Auth::user()->id)->lists('biz_id');
 		//$bizs = Biz::orderBy('created_at', 'desc')->paginate(6);
 		$stateList= State::lists('name','name');
+		$lgaList= Lga::lists('name','id');
 		$catList   = Cat::lists('name','name'); 
 		 $featured= Biz::whereFeatured('YES')->paginate(3);
 		 $recent= Biz::orderBy('created_at', 'desc')->paginate(2);
 		// dd($featured);
-		return view('pages.user-profile', compact('stateList','catList','cats',
+		return view('pages.user-profile', compact('stateList','lgaList','catList','cats',
 			'bizs','user','favourites','featured','recent', 'totalBiz', 'totalCat'));
 	}
 

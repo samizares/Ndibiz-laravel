@@ -59,141 +59,7 @@
             @include('partials.notifications')
             <div class="home-with-slide business-profile">
                 <div class="row">
-<<<<<<< HEAD
-                    <div class="col-md-8 p20-bttm">              
-                        <p class="m5-bttm"><i class="fa fa-tags" style="margin-top:2px;"></i> @foreach($biz->cats as $cat)<span><a class="btn btn-border" href="#">{{$cat->name}}</a></span> @endforeach                      
-                        @foreach($biz->subcats as $sub)<span><a class="btn btn-border" href="#">{{$sub->name}}</a></span>@endforeach</p>
-                        <p class="m5-bttm address-preview"><i class="fa fa-map-marker"></i> <span>{{$biz->address->street}}</span>, <span>{{$biz->address->lga->name}}</span>, <span>{{ $biz-> address->state->name}}</span>, Nigeria.</p>
-                        <p class="m5-bttm"><i class="fa fa-phone"></i> (+234)-{{$biz->phone1}}</p>
-                        <p class="m5-bttm"> <i class="fa fa-phone"></i> (+234)-{{$biz->phone2}}</p>
-                        <p><span><i class="fa fa-external-link"></i>  {{$biz->website}}</span></p>
-                        @if(! $biz->claimed)
-                        <p class="m5-bttm"><button type="button" class="btn btn-default" data-toggle="modal" 
-                          data-target="#myClaim">Claim Business</button></p>
-                        @endif
 
-                        @if(Auth::check() && (Auth::user()->id == $biz->owner))
-                          <div class="col-md-4">
-                            <div class="btn-group">
-                             <button type="button" class="btn btn-default" data-toggle="tooltip" title="Edit Profile"><i class="fa fa-cog"></i></button>
-                             <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal" title="Add Photo"><i class="fa fa-camera"></i></button>
-                           </div>
-                         </div>
-                         @endif
-
-                    
-                          
-                    </div>
-                    <div class="col-md-4">
-                              <div class="opening-hours">
-                                <h4><i class="fa fa-clock-o"></i> Opening Hours</h4>
-                                <table>
-                                  <tbody>
-                                    <tr><th>Mon:</th>  <td>9AM-5PM</td></tr>
-                                    <tr><th>Tues:</th> <td>9AM-5PM</td></tr>
-                                    <tr><th>Wed:</th> <td>9AM-5PM</td></tr>
-                                    <tr><th>Thurs:</th>  <td>9AM-5PM</td></tr>
-                                    <tr><th>Fri:</th> <td>9AM-5PM</td></tr>
-                                    <tr><th>Sat:</th> <td>9AM-5PM</td></tr>
-                                    <tr><th>Sun:</th> <td>9AM-5PM</td></tr>
-                                  </tbody>
-                                </table>
-                              </div>
-                            </div>
-                </div>
-            </div>
-          </div>
-          <!-- profile tabs -->
-          <div class="row">
-            <div class="col-md-3 col-sm-3">              
-              <div class="page-sidebar company-sidebar">
-                <ul class="company-category nav nav-tabs home-tab" role="tablist">
-                  <li class="active">
-                    <a href="#company-product" role="tab" data-toggle="tab"><i class="fa fa-camera"></i>Gallery</a>
-                  </li>
-                  <li>
-                    <a href="#company-contact" role="tab" data-toggle="tab"><i class="fa fa-envelope-o"></i>Contact</a>
-                  </li>
-                  <li>
-                    <a href="#company-reviews" role="tab" data-toggle="tab"><i class="fa fa-comments"></i>Reviews</a>
-                  </li>
-                </ul>
-                @if(! $biz->claimed)
-                <div class="own-company hidden-xs">
-                  <a href="#">Claim This Company</a>
-                </div>
-                @endif
-              </div> <!-- end .page-sidebar -->
-            </div> <!-- end .main-grid layout -->
-            <div class="col-md-9 col-sm-9">
-                <div class="tab-content">
-                  <div class="tab-pane active" id="company-product">
-                    <div class="company-product">
-
-                      <h3 class="text-uppercase m10-top">Gallery</h3>
-
-                      <div class="row">
-                            <div id="nanoGallery3">
-                                 @foreach($biz->photos as $photo)
-                                <a href="{{$photo->path}}" data-ngthumb="{{$photo->path}}" 
-                                data-ngdesc="Description1">Title Image1</a>
-                              @endforeach
-                            </div>
-                      </div> <!-- end .row -->
-                    </div> <!-- end .company-product -->
-                  </div> <!-- end .tab-pane -->
-
-                  <div class="tab-pane" id="company-contact">
-                    <div class="company-profile company-contact">
-
-                      <h3 class="text-uppercase m10-top">Contact Us
-                        <span class="social-link text-right">
-                          <ul class="list-inline">
-                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                          </ul>
-                        </span>
-                      </h3>
-
-                      <div class="row">
-                        <div class="col-md-12">
-
-                          <div class="contact-map-company">
-                            <div id="map">
-
-                            </div>
-                          </div> <!-- end .map-section -->
-                          <div class="row">
-                            <h3 class="p10-left">Business Info</h3>
-                            <div class="col-md-8">
-                              <div class="address-details clearfix">
-                                <i class="fa fa-map-marker"></i>
-                                <p>
-                                  <span>{{$biz->address->street}}</span>
-                                  <span>{{$biz->address->lga->name}}</span>
-                                  <span>{{$biz->address->state->name}}, Nigeria.</span>
-                                </p>
-                              </div>
-
-                              <div class="address-details clearfix">
-                                <i class="fa fa-phone"></i>
-                                <p>
-                                  <span><strong>Phone 1:</strong> {{$biz->phone1}}</span>
-                                  <span><strong>Phone 2:</strong> {{$biz->phone2}}</span>
-                                </p>
-                              </div>
-
-                              <div class="address-details clearfix">
-                                <i class="fa fa-envelope-o"></i>
-                                <p>
-                                  <span><strong>E-mail:</strong> {{$biz->email}}</span>
-                                  <span><strong>Website:</strong> {{$biz->website}}</span>
-                                </p>
-                              </div>
-=======
-                    {{--MAIN CONTENT--}}
                     <div class="col-md-8">
                         {{--PROFILE OVERVIEW--}}
                         <div class="row profile-overview">
@@ -232,7 +98,7 @@
                                     </a>
                                     </div>
                                 </figure>
->>>>>>> origin/master
+
                             </div>
                             <div class="col-md-9 col-sm-9 col-xs-12">
                                 <div class="row">
@@ -252,8 +118,8 @@
                                                 <a class="btn btn-border" href="#">{{$cat->name}}</a></span> @endforeach
                                         @foreach($biz->subcats as $sub)<span><a class="btn btn-border" href="#">{{$sub->name}}</a></span>@endforeach</p>
                                         {{--ADDRESS--}}
-                                        <p class="biz-profile-address"><i class="fa fa-map-marker"></i> <span>{{$biz->address->street}}
-                                            </span>, <span>{{$biz->address->lga->name}}</span>, <span>{{ $biz-> address->state->name}}</span>, Nigeria.</p>
+                                        <p class="biz-profile-address"><i class="fa fa-map-marker"></i> <span>{{$biz->address{0}->street}}
+                                            </span>, <span>{{$biz->address{0}->lga->name}}</span>, <span>{{ $biz-> address{0}->state->name}}</span>, Nigeria.</p>
                                         {{--PHONE 1--}}
                                         <p class="biz-profile-phone1"><i class="fa fa-phone"></i> (+234)-{{$biz->phone1}}</p>
                                         {{--PHONE 2--}}
@@ -362,9 +228,9 @@
                                                         <div class="address-details clearfix">
                                                             <i class="fa fa-map-marker"></i>
                                                             <p>
-                                                                <span>{{$biz->address->street}}</span>
-                                                                <span>{{$biz->address->lga->name}}</span>
-                                                                <span>{{$biz->address->state->name}}, Nigeria.</span>
+                                                                <span>{{$biz->address{0}->street}}</span>
+                                                                <span>{{$biz->address{0}->lga->name}}</span>
+                                                                <span>{{$biz->address{0}->state->name}}, Nigeria.</span>
                                                             </p>
                                                         </div>
                                                         <div class="address-details clearfix">
@@ -715,7 +581,7 @@
 <!-- FOOTER ENDS -->
 
 @section('scripts')
-    <script type="text/javascript" src="{{asset('../plugins/nanogallery/jquery.nanogallery.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('plugins/nanogallery/jquery.nanogallery.min.js')}}"></script>
     <script src="{{asset('js/dropzone.js')}}"></script>
     <script src="{{ asset('plugins/jasny-bootstrap/js/jasny-bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{asset('https://maps.googleapis.com/maps/api/js')}}"></script>

@@ -20,7 +20,6 @@
                 <ul class="primary-nav list-unstyled">
                     @if (Auth::check())
                         <li class="hidden-lg hidden-md dropdown text-center">
-
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="menu1">
                                 <i class="fa fa-user"></i> {{Auth::user()->username}} <span class="caret"></span></a>
                             <ul class="dropdown-menu text-center" role="menu" aria-labelledby="menu1">
@@ -67,19 +66,18 @@
                   <ul class="list-inline user-counter hidden-md hidden-lg hidden-sm">
                       <li><i class="fa fa-heart"></i> {{$favCount= $user->favours->count()}}
                           {{str_plural('Favourite', $favCount) }}</li>
-                      <li><i class="fa fa-comments"></i>{{$revCount= $user->reviews->count()}}
-                          {{ str_plural('Review', $revCount)}}</li>
                       <li><i class="fa fa-camera"></i>{{$photosCount=$user->photos->count()}}
                           {{ str_plural('Photo', $photosCount)}} </li>
                   </ul>
                   <h2 class="username hidden-md hidden-lg hidden-sm">{{$user->username}}</h2>
                 <figure class="center-block">
-                    <div class="profile-pic"><a href="" data-toggle="modal" data-target="#myProfile">
+                    <div class="profile-pic">
                       {!!Html::image(isset($user->profilePhoto->image) ? $user->profilePhoto->image : 'img/user.jpg',
                         'Profile Image', array('class'=>'img-responsive center-block'))!!}
+                        <a href="#" data-toggle="modal" data-target="#myProfile">
                       <p class="pic-edit">
                         <i class="mdi-image-camera-alt"></i> 
-                         <span>Change Picture</span>
+                         <span class="text-uppercase">Change Picture</span>
                       </p></a>
                     </div>
                 </figure>
@@ -97,8 +95,6 @@
                       <ul class="list-inline user-counter hidden-xs">
                         <li><i class="fa fa-heart"></i> {{$favCount= $user->favours->count()}}
                           {{str_plural('Favourite', $favCount) }}</li>
-                        <li><i class="fa fa-comments"></i>{{$revCount= $user->reviews->count()}}
-                          {{ str_plural('Review', $revCount)}}</li>
                         <li><i class="fa fa-camera"></i>{{$photosCount=$user->photos->count()}}
                           {{ str_plural('Photo', $photosCount)}} </li>
                       </ul>
@@ -111,7 +107,6 @@
                             <li><a href="#" type="button" class="btn btn-border" data-toggle="tooltip" title="Edit Profile"><i class="fa fa-pencil"></i> Edit profile</a></li>
                             <li><a href="#" type="button" class="btn btn-border" data-toggle="modal" data-target="#myModal" title="Add Photo"><i class="fa fa-camera"></i>
                                     Add photo</a></li>
-                            <li><a href="#" type="button" class="btn btn-border" data-toggle="tooltip" title="Add Review"><i class="fa fa-star"></i> Add review</a></li>
                         </ul>
                     </div>
                     @endif
@@ -132,7 +127,13 @@
                           <a href="#fav" role="tab" data-toggle="tab"><i class="fa fa-heart"></i> <span class="">Favourites</span></a>
                         </li>
                         <li>
-                          <a href="#company-reviews" role="tab" data-toggle="tab"><i class="fa fa-comments"></i> <span class="">Reviews</span></a>
+                          <a href="#company-reviews" role="tab" data-toggle="tab"><i class="fa fa-comments"></i> <span class="">Business Reviews</span></a>
+                        </li>
+                        <li>
+                            <a href="#claimed-biz" role="tab" data-toggle="tab"><i class="fa fa-building-o"></i> <span class="">Claimed Businesses</span></a>
+                        </li>
+                        <li>
+                            <a href="#edit" role="tab" data-toggle="tab"><i class="fa fa-building-o"></i> <span class="">Edit Profile</span></a>
                         </li>
                     </ul>
                   </div> <!-- end .page-sidebar -->
@@ -215,6 +216,85 @@
 
                           </div> <!-- end .rating-with-details -->
                         </div> <!-- end .company-rating -->
+                      </div>
+                      <div class="tab-pane" id="claimed-biz">
+                          <div class="company-ratings">
+                              <h3 class="text-uppercase m10-top">Claimed Businesses</h3>
+                              <div class="rating-with-details">
+                                  @unless ( $user->reviews->isEmpty() )
+                                      @foreach($user->reviews as $review)
+                                          <div class="single-content">
+                                              <div class="company-rating-box">
+                                                  <ul class="list-inline">
+                                                      @for($i=1; $i <= 5 ; $i++)
+                                                          <li><a href="#"><i class="fa fa-star{{ ($i <= $review->rating)
+                                                           ? '' : '-o'}}"></i></a></li>
+                                                      @endfor
+                                                  </ul>
+                                              </div>
+                                              <div class="rating-details">
+                                                  <div class="meta">
+                                                      <a href="#"><strong>{{$review->biz->name  }}</strong></a>
+                                                      - {{ $review->timeago}}
+                                                  </div>
+                                                  <div class="content">
+                                                      <p>{{$review->comment}}</p>
+                                                  </div>
+                                              </div>
+                                          </div> <!-- end .single-content -->
+                                      @endforeach
+                                  @endunless
+
+
+                              </div> <!-- end .rating-with-details -->
+                          </div> <!-- end .company-rating -->
+                      </div>
+                      <div class="tab-pane" id="edit">
+                          <div class="company-ratings">
+                              <h3 class="text-uppercase m10-top">Edit Profile</h3>
+                              <div class="rating-with-details">
+                                  @include('admin.partials.errors')
+                                  <form class="form-horizontal" role="form" method="POST" action="">
+                                      <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                      <input type="hidden" name="_method" value="PUT">
+                                      <input type="hidden" name="id" value="{{$user->id}}">
+                                      <div class="form-group">
+                                          <label for="cat" class="col-md-3 control-label">User Name</label>
+                                          <div class="col-md-8">
+                                              <input required="required" type="text" value="{{ $user->username}}" id="name" name="name"
+                                                 class="form-control" placeholder="username">
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="email" class="col-md-3 control-label">Email Address</label>
+                                          <div class="col-md-8">
+                                              <input type="email" id="email" value="{{ $user->email}}" name="email" class="form-control"
+                                                     placeholder="">
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="location" class="col-md-3 control-label">Location</label>
+                                          <div class="col-md-8">
+                                              <input type="text" id="location" value="{{ $user->state}}" name="location" class="form-control"
+                                                     placeholder="Lagos, Nigeria">
+                                          </div>
+                                      </div>
+                                      <div class="col-md-7 col-md-offset-3">
+                                          <ul class="list-inline">
+                                              <li><button type="submit" class="btn btn-default btn-md">
+                                                  <i class="fa fa-save"></i>
+                                                  Save Changes
+                                              </button></li>
+                                              <li><button type="button" class="btn btn-default-inverse btn-md"
+                                                      data-toggle="modal" data-target="#modal-delete">
+                                                  <i class="fa fa-times-circle"></i>
+                                                  Delete Account
+                                              </button></li>
+                                          </ul>
+                                      </div>
+                                  </form>
+                              </div> <!-- end .rating-with-details -->
+                          </div> <!-- end .company-rating -->
                       </div>
                   </div> <!-- end .tab-content -->
               </div> <!-- end .main-grid layout -->            

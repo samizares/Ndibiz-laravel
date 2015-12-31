@@ -36,6 +36,8 @@ Route::post('profile/{id}/photo', 'HomeController@userprofilephoto');
 
 Route::get('categories', 'HomeController@categories');
 Route::get('businesses', 'HomeController@businesses');
+Route::get('map', 'HomeController@map');
+Route::get('locations', 'HomeController@locations');
 Route::get('search-results', 'HomeController@searchResults');
 
 Route::post('favourites', 'HomeController@favoured');

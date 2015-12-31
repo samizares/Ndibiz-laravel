@@ -53,7 +53,7 @@
     <div class="container">
     @include('partials.notifications')
         <div class="home-with-slide">
-            <div class="row">
+            <div class="row businesses">
                 <div class="col-md-8">
                     <div class="row">
                         <div class="col-md-12">

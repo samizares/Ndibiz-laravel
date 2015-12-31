@@ -61,7 +61,7 @@
                                 <h3 class="m0-top text-cap"><a href="/"><i class="fa fa-home"></i> </a> » <a href="/businesses"><small>Business Listings</small></a> » <small>{{$cat->name}}</small></h3>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row businesses">
                             <div class="col-md-12">
                                 <div class="page-content">
                                     <div class="product-details-list view-switch">
