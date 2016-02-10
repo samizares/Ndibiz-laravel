@@ -64,15 +64,15 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="page-content">
-                                    <div class="product-details-list view-switch">
+                                    <div class="product-details view-switch">
                                         <div class="row clearfix p0-top">
                                             <div class="col-md-9">
                                                 <h3 class="m0-top">Showing results for "{{$sub->name}} ({{$sub->biz->count()}})"</h3>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="change-view pull-right">
-                                                    <button class="grid-view"><i class="fa fa-th"></i></button>
-                                                    <button class="list-view active"><i class="fa fa-bars"></i></button>
+                                                    <button class="grid-view active"><i class="fa fa-th"></i></button>
+                                                    <button class="list-view"><i class="fa fa-bars"></i></button>
                                                 </div>
                                             </div>
                                         </div>
@@ -131,19 +131,18 @@
         $(document).ready(function() {
             $('.change-view button').on('click',function(e) {
 
-                if ($(this).hasClass('grid-view')) {
-                    $(this).addClass('active');
-                    $('.list-view').removeClass('active');
-                    $('.page-content .view-switch').removeClass('product-details-list').addClass('product-details');
-
-                } else if($(this).hasClass('list-view')) {
+                if ($(this).hasClass('list-view')) {
                     $(this).addClass('active');
                     $('.grid-view').removeClass('active');
                     $('.page-content .view-switch').removeClass('product-details').addClass('product-details-list');
+
+                } else if($(this).hasClass('grid-view')) {
+                    $(this).addClass('active');
+                    $('.list-view').removeClass('active');
+                    $('.page-content .view-switch').removeClass('product-details-list').addClass('product-details');
                 }
             });
         });
-
     </script>
     <script src="{{asset('js/scripts.js')}}"></script>
 @endsection

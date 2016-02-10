@@ -65,7 +65,7 @@
             <div class="row businesses">
               <div class="col-md-8 col-md-push-4">
                 <div class="page-content">
-                  <div class="product-details-list view-switch">
+                  <div class="product-details view-switch">
                     <div class="tab-content">
                       @unless ( $cats->isEmpty() )
                       @foreach ($cats as $cat)
@@ -85,8 +85,8 @@
                                   {{--</select>--}}
                               {{--</div>--}}
                             <div class="change-view pull-right">
-                                <button class="grid-view"><i class="fa fa-th"></i></button>
-                                <button class="list-view active"><i class="fa fa-bars"></i></button>
+                                <button class="grid-view active"><i class="fa fa-th"></i></button>
+                                <button class="list-view"><i class="fa fa-bars"></i></button>
                             </div> 
                           </div>
                         </div>                                         
@@ -189,7 +189,7 @@
             $('li:first-child').addClass('active');
             $('.tab-pane:first-child').addClass('active');
         });
-      // style switcr for list-grid view
+      // style switcher for list-grid view
       //--------------------------------------------------
       $(document).ready(function() {
           $('.change-view button').on('click',function(e) {

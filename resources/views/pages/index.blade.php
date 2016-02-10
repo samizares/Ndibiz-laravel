@@ -76,33 +76,68 @@
     @endsection
             <!-- CONTENT -->
 @section('content')
-  @include('partials.notifications')
-  <div id="page-content" class="home-slider-content">
-    <div class="container">
-      <div class="home-with-slide category-listing">
-          <h3 class="section-title"><strong>Featured</strong> Categories</h3>
-          <p class="section-subtitle text-color-grey444 m0-bttm">Explore our most popular business categories.</p>
-          <div class="row featured-category">
-              @unless ( $cats->isEmpty() )
-              @foreach($cats as $cat)
-                      
-              <div class="col-md-3">
-                  <div class="category-item">
-                      <a class="btn" href="/biz/cat/{{$cat->slug}}"><span class=""><i class="fa fa-{{$cat->image_class}}"></i> <br>{{$cat->name}}</span>
-                          <p class="sub-counter animated slideIn">
-                              <span>{{$cat->name}}</span>
-                              <span class="biz-counter">{{$cat->biz->count()}} businesses <i class="fa fa-building"></i></span>
-                          </p>
-                      </a>
-                  </div>
-              </div>
-                      
-                @endforeach
-              @endunless
-          </div>
-          <div class="discover-more text-center"><a class="btn btn-default" href="/categories">Discover More Categories</a>
-      </div>
 
+    @include('partials.notifications')
+    <div class="register-content">
+        <div class="reg-heading hidden">
+            <h3>List a business for <strong class="text-color-yellowFFD231">Free</strong> now <br> <span class="btn btn-default"><a href="/biz/create">
+                        <i class="fa fa-plus"></i> Add a Business</a></span></h3>
+        </div>
+        <div class="registration-details">
+            <div class="container">
+                <h3 class="section-title"><strong>See How It Works</strong></h3>
+                <span class="section-subtitle text-color-grey222 text-center">Discover how easy our directory can help you connect with businesses around you.</span>
+                <div class="row m20-top m20-bttm">
+                    <div class="col-md-4 m20-bttm">
+                        <div class="box regular-member">
+                            <i class="fa fa-user m10-bttm"></i>
+                            <h4 class="p5-bttm">Choose What To Do</h4>
+                            <p>Lorem ipsum dolor sit amet, wisi constituto vim in. An eum audire verterem, an rebum adipiscing has. </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 m20-bttm">
+                        <div class="box business-member">
+                            <i class="fa fa-search m10-bttm"></i>
+                            <h4 class="p5-bttm">Find What You Want</h4>
+                            <p>Lorem ipsum dolor sit amet, wisi constituto vim in. An eum audire verterem, an rebum adipiscing has. </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 m20-bttm">
+                        <div class="box business-member">
+                            <i class="fa fa-building m10-bttm"></i>
+                            <h4 class="p5-bttm">Explore local businesses</h4>
+                            <p>Lorem ipsum dolor sit amet, wisi constituto vim in. An eum audire verterem, an rebum adipiscing has. </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END .CONTAINER -->
+        </div>
+        <!-- END .REGISTRATION-DETAILS -->
+    </div>
+    <!-- END REGISTER-CONTENT -->
+    <div id="page-content" class="home-slider-content">
+        <div class="container">
+            <div class="home-with-slide category-listing">
+                <h3 class="section-title"><strong>Featured</strong> Categories</h3>
+                <p class="section-subtitle text-color-grey444 m0-bttm">Explore our most popular business categories.</p>
+                <div class="row featured-category">
+                    @unless ( $featured->isEmpty() )
+                        @foreach($featured as $feature)
+                            @foreach ($feature->cats as $cat)
+                                <div class="col-md-3">
+                                    <div class="category-item">
+                                        <a class="btn" href="/biz/cat/{{$cat->id}}">
+                                            <span><i class="fa fa-{{$cat->image_class}}"></i> <br>
+                                            <span class="biz-counter"> ({{$cat->biz->count()}}) </span> {{$cat->name}}</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endforeach
+                    @endunless
+                </div>
+                <div class="discover-more text-center m20-bttm p10-bttm"><a class="btn btn-default" href="/categories">Discover More Categories</a></div>
             </div> <!-- end .home-with-slide -->
         </div> <!-- end .container -->
     </div>  <!-- end #page-content -->
@@ -155,10 +190,10 @@
 
     <div class="register-content">
         <div class="reg-heading">
-            <h3>List a business for <strong class="text-color-yellowFFD231">Free</strong> now <br> <span class="btn btn-default"><a href="/biz/create">
+            <h3>List a business for <strong class="text-color-grey333">Free</strong> now <br> <span class="btn btn-default"><a href="/biz/create">
                         <i class="fa fa-plus"></i> Add a Business</a></span></h3>
         </div>
-        <div class="registration-details">
+        <div class="registration-details hidden">
             <div class="container">
                 <h3 class="section-title"><strong>See How It Works</strong></h3>
                 <span class="section-subtitle text-color-grey222 text-center">Discover how easy our directory can help you connect with businesses around you.</span>

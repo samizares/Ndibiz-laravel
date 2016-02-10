@@ -226,20 +226,14 @@
                             <div class="col-md-3 col-sm-3 col-xs-12">
                               <div class="page-sidebar company-sidebar">
                                 <ul class="company-category nav nav-tabs home-tab" role="tablist">
-                                  <li class="active">
-                                    <a href="#gallery" role="tab" data-toggle="tab"><i class="fa fa-camera"></i> <span class="">Gallery</span></a>
-                                  </li>
-                                  <li>
-                                    <a href="#contact" role="tab" data-toggle="tab"><i class="fa fa-envelope-o"></i> <span class="">Contact</span></a>
-                                  </li>
-                                  <li>
-                                    <a href="#reviews" role="tab" data-toggle="tab"><i class="fa fa-comments"></i> <span class="">Reviews</span></a>
-                                  </li>
-                                  @if(Auth::check() && (Auth::user()->id == $biz->owner))
-                                  <li>
-                                    <a href="#edit" role="tab" data-toggle="tab"><i class="fa fa-building-o"></i> <span class="">Edit Biz</span></a>
-                                 </li>
-                                 @endif
+
+                                  <li class=""><a href="#gallery" role="tab" data-toggle="tab"><i class="fa fa-camera"></i> <span class="">Gallery</span></a></li>
+                                  <li><a href="#contact" role="tab" data-toggle="tab"><i class="fa fa-envelope-o"></i> <span class="">Contact</span></a></li>
+                                    <li><a href="#reviews" role="tab" data-toggle="tab"><i class="fa fa-comments"></i> <span class="">Reviews</span></a></li>
+                                    @if(Auth::check() && (Auth::user()->id == $biz->owner))
+                                    <li><a href="#edit" role="tab" data-toggle="tab"><i class="fa fa-comments"></i> <span class="">Edit Profile</span></a></li>
+                                    @endif
+
                                 </ul>
                               </div> <!-- end .page-sidebar -->
                             </div> <!-- end .main-grid layout -->
@@ -416,6 +410,10 @@
                                          </div> <!-- end .rating-with-details -->
                                      </div> <!-- end .company-rating -->
                                     </div>
+
+                                    {{--EDIT PROFILE--}}
+                                    @if(Auth::check() && (Auth::user()->id == $biz->owner))
+
                                     <div class="tab-pane" id="edit">
                           <div class="company-ratings">
                               <h3 class="text-uppercase m10-top">Edit Biz Profile</h3>
@@ -485,13 +483,14 @@
                                               {!!Form::select('cats[]', $catList, $cat, ['class'=>'form-control','id'=>'category_edit', 'multiple']) !!}     
                                          </div>
                                     </div>
-            <div class="form-group">
-              <label for="image_class" class="col-md-3 control-label">
-                Sub categories</label>
-                  <div class="col-md-8">
-                    {!!Form::select('sub[]', $subList, $sub, ['class'=>'form-control','id'=>'sub_edit','multiple']) !!} 
-                  </div>
-            </div>
+
+                                  <div class="form-group">
+                                      <label for="image_class" class="col-md-3 control-label">
+                                         Sub categories</label>
+                                     <div class="col-md-8">
+                                           {!!Form::select('sub[]', $subList, $sub, ['class'=>'form-control','id'=>'sub_edit','multiple']) !!} 
+                                    </div>
+                                 </div>
 
                                       <div class="col-md-7 col-md-offset-3">
                                           <ul class="list-inline">
@@ -506,6 +505,7 @@
                               </div> <!-- end .rating-with-details -->
                           </div> <!-- end .company-rating -->
                       </div>
+                                    @endif
                                 </div> <!-- end .tab-content -->
                             </div> <!-- end .main-grid layout -->
                         </div> <!-- end .row -->
