@@ -15,7 +15,6 @@ use App\SubCat;
 use App\Biz_Subcat_pivot;
 use App\Cat;
 use App\BusinessHour;
-
 class BizController extends Controller
 {
     /**
@@ -189,7 +188,6 @@ class BizController extends Controller
                 $biz->cats()->saveMany($catNames); */
        
         $biz->cats()->sync($category);
-
         $subs= $request->input('sub');
         // $real= [];
 
@@ -200,9 +198,9 @@ class BizController extends Controller
                 }
                  else{
                      $newSub = new SubCat();
-                     $newSub ->name  = $sub;
+                     $newSub ->name = $sub;
                      $newCat->save();
-                 $real[]=$newSub;
+                     $real[]=$newSub;
                  }
             }
                 $biz->subcats()->saveMany($real);  */
@@ -218,11 +216,28 @@ class BizController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
+        dd($request->all());
         $biz = Biz::findOrFail($id);
         $cat= $biz->cats->lists('id')->all();
        // dd($cat);
+        $sub= $biz->subcats->lists('id')->all();
+        $biz->cats()->detach($cat);
+        $biz->subcats()->detach($sub);
+        $biz->address()->delete();
+        $biz->delete();
+
+    return redirect('/admin/biz')
+        ->withSuccess("The business '$biz->name' has been deleted.");
+    }
+
+     public function deleteBiz(Request $request)
+    {
+       // dd($request->all());
+        $bizId =$request->get('yes');
+        $biz= Biz::findorFail($bizId);
+        $cat= $biz->cats->lists('id')->all();
         $sub= $biz->subcats->lists('id')->all();
         $biz->cats()->detach($cat);
         $biz->subcats()->detach($sub);

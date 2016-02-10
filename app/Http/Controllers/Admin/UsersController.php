@@ -12,7 +12,7 @@ class UsersController extends Controller
     private $newsletterList;
 
     function __construct(NewsletterList $newsletterList)
-    {
+    {   
         $this->newsletterList=$newsletterList;
     }
 

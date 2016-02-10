@@ -67,7 +67,11 @@
               <td class="hidden-md">{{ $cat->meta_description }}</td>
               <td>
                 <div class="btn-group">@foreach($cat->subcats as $catt)
-                  <li>{{ $catt->name }} </li> @endforeach
+                  <li>{{ $catt->name }}
+                   <a href="#" class="btn btn-xs btn-default-inverse animated fadeInRight" data-toggle="modal" 
+                            data-sid="{{$catt->id}}" data-sname="{{$catt->name}}" data-target="#delete-sub"
+                             title="Delete this Category"><i class="fa fa-times-circle"></i>
+                            </a></li> @endforeach
                  
                 </div>
               </td>
@@ -76,13 +80,10 @@
                              class="btn btn-xs btn-default-inverse animated fadeIn" data-toggle="tooltip" data-placement="top" title="Edit Category Info">
                             <i class="fa fa-edit"></i>
                           </a>
-                         <!-- <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target=".deleteModal_{{$cat->id}}">
-                                                      <i class="fa fa-trash-o"></i> <span class="hidden">Delete</span>
-                                                    </button>       -->           
-                           
-                      <!--    <a class="btn btn-xs btn-default-inverse animated fadeInRight" data-toggle="modal" data-target="#deleteModal_{{$cat->id}}">
-                             <i class="fa fa-trash"></i>
-                          </a> -->
+                         <a href="#" class="btn btn-xs btn-default-inverse animated fadeInRight" data-toggle="modal" 
+                            data-id="{{$cat->id}}" data-name="{{$cat->name}}" data-target="#modal-delete"
+                             title="Delete this Category"><i class="fa fa-times-circle"></i>
+                            </a>
 
               </td>
             </tr>
@@ -104,46 +105,73 @@
    </div> <!-- end .home-with-slide -->
   </div> <!-- end .container -->
 </div>  <!-- end #page-content -->
-<!--<div  class="modal fade deleteModal_{{$cat->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">>
+ {{-- Confirm Delete --}}
+  <div class="modal fade" id="modal-delete" tabIndex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">
             ×
           </button>
-          <h4 class="modal-title" id="myModalLabel">Please Confirm</h4>
+          <h4 class="modal-title">Please Confirm</h4>
         </div>
         <div class="modal-body">
           <p class="lead">
             <i class="fa fa-question-circle fa-lg"></i>  
-            Are you sure you want to delete this Category and its subcategories?
+            Are you sure you want to delete this Category?
           </p>
         </div>
         <div class="modal-footer">
-          <form method="POST" action="/admin/cat/{{ $cat->id }}">
+          <form class="form-horizontal" method="POST" action="/admin/cat/delete">
            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            <input type="hidden" name="_method" value="DELETE">
             <button type="button" class="btn btn-default"
                     data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-danger">
+            <button type="submit" name="yes" class="btn btn-danger">
               <i class="fa fa-times-circle"></i> Yes
             </button>
           </form>
         </div>
       </div>
     </div>
-  </div> -->
+  </div> 
+
+  {{-- Delete Subcategory--}}
+  <div class="modal fade" id="delete-sub" tabIndex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">
+            ×
+          </button>
+          <h4 class="modal-title">Please Confirm</h4>
+        </div>
+        <div class="modal-body">
+          <p class="lead">
+            <i class="fa fa-question-circle fa-lg"></i>  
+            Are you sure you want to delete this Sub-Category?
+          </p>
+        </div>
+        <div class="modal-footer">
+          <form class="form-horizontal" method="POST" action="/admin/sub/delete">
+           <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <button type="button" class="btn btn-default"
+                    data-dismiss="modal">Close</button>
+            <button type="submit" name="sub" class="btn btn-danger">
+              <i class="fa fa-times-circle"></i> Yes
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div> 
 
 @endsection
 <!-- CONTENT ENDS -->
 
 <!-- SCRIPTS STARTS -->
   @section('scripts')    
-    <script src="{{asset('plugins/bootstrap-3.3.5/js/bootstrap.js')}}"></script>
     <script src="{{asset('plugins/datatable/js/datatables.js')}}"></script>
-    <script src="{{asset('js/deleteHandler.js') }}"></script>
     
-
     <script type="text/javascript">
         // Datatables
         //-----------------------------------------------------
@@ -165,6 +193,38 @@
 
           $(function () {
             $('[data-toggle="tooltip"]').tooltip()
+          });
+
+          $(document).ready(function () {
+          $('#modal-delete').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+    var catid = button.data('id') // Extract info from data-* attributes
+    var catname = button.data('name')
+    
+    var title = 'Confirm Delete ' + catname + ' from database';
+    var content = 'Are you sure want to remove ' + catname + ' from database?';
+    
+    // Update the modal's content.
+    var modal = $(this)
+    modal.find('.modal-title').text(title);
+    modal.find('.modal-body').text(content);
+    modal.find('button.btn-danger').val(catid);
+           });
+
+$('#delete-sub').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+    var subid = button.data('sid') // Extract info from data-* attributes
+    var subname = button.data('sname')
+    
+    var title = 'Confirm Delete ' + subname + ' from database';
+    var content = 'Are you sure want to remove ' + subname + ' from database?';
+    
+    // Update the modal's content.
+    var modal = $(this)
+    modal.find('.modal-title').text(title);
+    modal.find('.modal-body').text(content);
+    modal.find('button.btn-danger').val(subid);
+           });
           });
     </script>
     <script src="{{asset('js/scripts.js')}}"></script>

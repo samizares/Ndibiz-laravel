@@ -14,6 +14,7 @@ use App\Cat;
 use App\SubCat;
 use Input;
 use App\Review;
+use App\Setting;
 
 class HomeController extends Controller
 {
@@ -21,26 +22,40 @@ class HomeController extends Controller
 	public function __construct()
     {
 //        $this->middleware('auth',['only'=>['home','businesses','profile','getBizreview']]);
-        $this->middleware('auth',['only'=>['home','getBizreview']]);
-        $this->middleware('confirm',['only'=>['home','getBizreview']]);
+        $this->middleware('auth',['only'=>['home','favours']]);
+        $this->middleware('confirm',['only'=>['home']]);
 
     }
 
    public function index()
 	{
 		$cats = Cat::paginate(8);
+		//$subcats = SubCat::all();
 		$bizs = Biz::orderBy('created_at', 'desc')->take(6);
+		//$bizs = Biz::all();
 		$totalCat=Cat::count();
 		$totalSubCat=subCat::count();
 		$stateList= State::lists('name','id');
 		$catList   = SubCat::lists('name','id')->take(8);
 
           $featured= Biz::whereFeatured('YES')->take(12)->get();
-        //foreach($bizs as $biz){
-        //	$biz->description= "We specilize in these categories-". $biz->cats. ""
-       // }
+          $settings=Setting::findOrFail(1);
+        // foreach($subcats as $sub){
+         //	$sub->slug=str_slug($sub->name);
+           // $biz->slug=str_slug($biz->name);
+        	//if(! $biz->description){
+        		//$description= $biz->name." specilizes in these categories- ";
+        		//foreach ($biz->subcats as $cat){
+        		//	$description .=$cat->name.",";        			
+        		 // }       		
+        		///$biz->description= $description;
+           //  }
+   
+        	//$sub->save();      
+        	//}  
+          
      
-		return view('pages.index', compact('stateList','catList','cats','featured', 'totalCat', 'totalSubCat',
+		return view('pages.index', compact('stateList','settings','catList','cats','featured', 'totalCat', 'totalSubCat',
 		 'subs'));
 	}
 
@@ -211,17 +226,23 @@ class HomeController extends Controller
          return view('pages.biz-result', array('biz'=>$biz,'reviews'=>$reviews));
     }
 	 
-	 public function getBizreview($id)
+	 public function getBizreview($slug)
 	 {
 	 	
 	 	  $stateList= State::lists('name','name');
 		  $lgaList= Lga::lists('name','id');
-		 $subList= SubCat::lists('name','id');
+		  $subList= SubCat::lists('name','id');
 		  $catList   = Cat::lists('name','name');
-	 	  $biz = Biz::findOrFail($id);
-	 	   $sub= $biz->subcats->lists('id')->all();
-	 	  $favourites= \DB::table('favourites')->where('user_id', \Auth::user()->id)->lists('biz_id');
+	 	  //$biz = Biz::findOrFail($id);
+	 	  $biz= Biz::whereSlug($slug)->firstOrFail();
+	 	  $sub= $biz->subcats->lists('id')->all();
+
+	 	   $favours= $biz->favoured->count();
+	 	  // dd($favours);
+	 	 // $favourites= \DB::table('favourites')->where('user_id', \Auth::user()->id)->lists('biz_id');
+	 	  // $favourites= \Auth::user()->favours->lists('id')->all();
 	 	  //dd($favourites);
+
 	 	  $hours=$biz->hours;
 	 	  $mon=$biz->hours->where('day','MON')->first();
 	 	  $tue=$biz->hours->where('day','TUE')->first();
@@ -237,11 +258,11 @@ class HomeController extends Controller
         $reviews = $biz->reviews()->with('user')->approved()->notSpam()
         ->orderBy('created_at','desc')->paginate(50);
         $featured= Biz::whereFeatured('YES')->paginate(3);
-		$recent= Biz::orderBy('created_at', 'desc')->paginate(1);
+		$recent= Biz::orderBy('created_at', 'desc')->paginate(3);
 
          return view('pages.biz-profile', array('biz'=>$biz,'reviews'=>$reviews,'sub'=>$sub,'stateList'=>$stateList,'lgaList'=>$lgaList,
-				 'subList'=>$subList,
-         	'catList'=>$catList,'favourites'=>$favourites), compact('featured','recent','mon','tue','wed','thu','fri','sat','sun'));
+				 'subList'=>$subList,'favours'=>$favours,
+         	'catList'=>$catList), compact('featured','recent','mon','tue','wed','thu','fri','sat','sun'));
 	 }
 
 	 public function postReview($id)
@@ -268,9 +289,9 @@ class HomeController extends Controller
 	 	$review->storeReviewForBiz($id, $request->comment, $request->rating);
 		return redirect('review/biz/'.$id.'#company-reviews')->with('success','Review Submitted successfully');
 	 }
-	 public function bizSub($id)
+	 public function bizSub($slug)
 	 {
-	 	$sub= SubCat::findOrFail($id);
+	 	$sub= SubCat::whereSlug($slug)->firstOrFail();
 	 	$bizs=$sub->biz;
 	 	$cats = Cat::all();
 		$stateList= State::lists('name','name');
@@ -282,9 +303,9 @@ class HomeController extends Controller
 		return view('pages.biz-sub',compact('bizs','stateList','catList','loc','cats','featured','recent','sub'));
 	 }
 
-	  public function bizCat($id)
+	  public function bizCat($slug)
 	 {
-	 	$cat= Cat::findOrFail($id);
+	 	$cat= Cat::whereSlug($slug)->firstOrFail();
 	 	$bizs=$cat->biz;
 	 	$cats = Cat::all();
 		$stateList= State::lists('name','name');
@@ -295,29 +316,34 @@ class HomeController extends Controller
 		return view('pages.biz-cat',compact('bizs','stateList','catList','cats','featured','recent','cat'));
 	 }
 
-	 public function profile($userId)
-	{
-		$cats = Cat::all();
-		$user= \App\User::findOrFail($userId);
-		$bizs= $user->favours;
-		$favourites=\DB::table('favourites')->whereUserId(\Auth::user()->id)->lists('biz_id');
-		//$bizs = Biz::orderBy('created_at', 'desc')->paginate(6);
-		$stateList= State::lists('name','name');
-		$lgaList= Lga::lists('name','id');
-		$catList   = Cat::lists('name','name'); 
-		 $featured= Biz::whereFeatured('YES')->paginate(3);
-		 $recent= Biz::orderBy('created_at', 'desc')->paginate(2);
-		// dd($featured);
-		return view('pages.user-profile', compact('stateList','lgaList','catList','cats',
-			'bizs','user','favourites','featured','recent', 'totalBiz', 'totalCat'));
-	}
 
 	 public function favoured()
 	 {
-	 
-  		 \Auth::user()->favours()->attach(\Input::get('biz_id'));
+	    $biz_id=\Input::get('biz_id');
+	    $biz= Biz::findOrFail($biz_id);
+	    $favourites= \Auth::user()->favours->lists('id')->all();
+	    if($favourited=in_array($biz_id, $favourites)){
+	    	\Auth::user()->favours()->detach($biz_id);
+	    	 $data[]=array('id' =>0, 'count' => $biz->favoured->count(), 'text'=>'favorited');
+	    	 return \Response::json(['data'=> $data]);
+		  }
+		  else {
+		  	\Auth::user()->favours()->attach($biz_id);
+		  	$data[]=array('id' =>1, 'count' => $biz->favoured->count(), 'text'=>'not-favorited');
+	    	 return \Response::json(['data'=> $data]);
+		  }
+
+  		// \Auth::user()->favours()->attach(\Input::get('biz_id'));
+    	//	 return \Redirect::back();
+	 }
+
+	 public function favours()
+	 {
+	
     		 return \Redirect::back();
 	 }
+
+
 
 	 public function unfavoured($biz_id)
 	 {
@@ -326,80 +352,18 @@ class HomeController extends Controller
     		 return \Redirect::back();
 	 }
 
-	 public function userphotos(Request $request,$id)
-	 {
-	 	$file= $request->file('file');
-	 	$name= time(). $file->getClientOriginalName();
-	 	$file->move('users/photos', $name);
-	 	$user= \App\User::findOrFail($id);
-	 	$user->photos()->create(['path'=>"/users/photos/{$name}"]);
-	 	return 'Done';
-	 }
+	 
 	 public function bizphotos(Request $request,$id)
 	 {
 	 	$file= $request->file('file');
 	 	$name= time(). $file->getClientOriginalName();
-	 	$file->move('biz/photos', $name);
+	 	$file->move('bizz/photos', $name);
 	 	$biz= \App\Biz::findOrFail($id);
-	 	$biz->photos()->create(['path'=>"/biz/photos/{$name}"]);
+	 	$biz->photos()->create(['path'=>"/bizz/photos/{$name}"]);
 	 	return 'Done';
 	 }
 
-	 public function userprofilephoto(Request $request,$id)
-	 {
-	 	//$file= $request->file('file');
-	 	//$name= time(). $file->getClientOriginalName();
-	 	//$file->move('biz/profile/photos', $name);
-	 	//$biz= \App\Biz::findOrFail($id);
-	 	//$biz->photos()->create(['path'=>"/biz/photos/{$name}"]);
-	 	//return 'Done';
-
-      $picture = [
-           'image' => $request->file('image'),
-        ];
-
-        $rules = [
-             'image'=> 'required|image|mimes:jpeg,jpg,bmp,png,gif',
-        ];
-
-        $validator = \Validator::make($picture, $rules);
-        if ($validator->passes())
-         {
-
-          $user_id= $request->get('id');
-          $user= \App\User::findorFail($user_id);
-          $profilePhoto = $user->profilePhoto; 
-
-           $image= $request->file('image');
-           $name= time(). $image->getClientOriginalName();
-           $image->move('user/profile', $name);
-
-          if (! isset($profilePhoto->image))
-          {
-          $pic= new \App\ProfilePhoto;
-          $pic->image ='user/profile/'.$name;
-          $user->profilePhoto()->save($pic);
-
-             return \Redirect::back()
-            ->with('message', 'profile photo added!!!');
-          }
-          if(isset($profilePhoto->image))
-           { 
-                  
-           $profilePhoto->image ='user/profile/'.$name;
-            
-           $user->profilePhoto()->save( $profilePhoto);
-           return \Redirect::back()
-            ->with('message', ' profile photo updated!');
-           }
-    
-        }
-         return \Redirect::back()
-        ->with('errors', $validator->messages());
-      
-        
-
-    }  
+	 
     
     public function bizprofilephoto(Request $request,$id)
 	 {
@@ -422,12 +386,12 @@ class HomeController extends Controller
 
            $image= $request->file('image');
            $name= time(). $image->getClientOriginalName();
-           $image->move('biz/profile', $name);
+           $image->move('bizz/profile', $name);
 
           if (! isset($profilePhoto->image))
           {
           $pic= new \App\BizProfilePhoto;
-          $pic->image ='biz/profile/'.$name;
+          $pic->image ='bizz/profile/'.$name;
           $biz->profilePhoto()->save($pic);
 
              return \Redirect::back()
@@ -436,7 +400,7 @@ class HomeController extends Controller
           if(isset($profilePhoto->image))
            { 
                   
-           $profilePhoto->image ='biz/profile/'.$name;
+           $profilePhoto->image ='bizz/profile/'.$name;
             
            $biz->profilePhoto()->save( $profilePhoto);
            return \Redirect::back()
@@ -446,14 +410,9 @@ class HomeController extends Controller
         }
          return \Redirect::back()
         ->with('errors', $validator->messages());
-      
-        
+              
 
     } 
-public function claimbiz(Request $request)
-{
-	dd($request->all());
-}
 	 
 
 	 public function favourites()

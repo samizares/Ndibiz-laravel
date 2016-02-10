@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="{{ asset('plugins/animate.css')}}">
     <link rel="stylesheet" href="{{ asset('plugins/selectize/selectize.default.css')}}">
     <link href="{{asset('plugins/select2/select2.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/sweetalert.css')}}" rel="stylesheet">
 
     {{--FONT AWESOME--}}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -59,6 +60,7 @@
   <script src="{{asset('js/jquery.ba-outside-events.min.js') }}"></script>
   <script src="{{asset('plugins/selectize/selectize.min.js')}}" type="text/javascript"></script>
   <script src="{{asset('plugins/select2/select2.min.js')}}"></script>
+  <script src="{{asset('js/sweetalert.min.js')}}"></script>
 
   <!-- Page Scripts -->
   <script type="text/javascript">
@@ -69,6 +71,38 @@
       //-------------------------------------------------
       $(document).ready(function() {
           $('.rotate').rotaterator({fadeSpeed:2000, pauseSpeed:80});
+           $('#subscribe').submit(function() {
+                if ($('#email').val() == '') {
+                    swal("Error!", "Please supply an email address!", "warning");
+            
+                       } else {
+              var email= $('#email').val();
+              $.ajax({ url: "{{ URL::to('api/subscribe')}}",
+                    data: {email: email},
+                    dataType: 'json',
+                    type: 'post',
+                 success: function(output) {
+                     $.each(output.data, function(){
+                        if(this.id==0){
+                      console.log(this.text);
+                      swal("Error!", this.text, "warning");
+                        } 
+                        if(this.id==1){
+                         console.log(this.text);
+                      swal("Success!", this.text, "success");
+                      }
+                      else{
+                        swal("Error!", "Something went wrong", "warning");
+                      }
+
+                  });
+                     
+                         }
+                });
+          }
+
+               return false;
+                }); // end submit()
       });
       $(document).ready(function() {
             // Enable location search
@@ -144,7 +178,7 @@
   </script>
   @yield('scripts')
 <!-- SCRIPTS ENDS -->
-             
+            
 </body>
 </html>
 

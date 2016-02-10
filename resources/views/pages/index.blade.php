@@ -2,6 +2,7 @@
         <!-- HEAD -->
 @section('title', 'Home')
 @section('stylesheets')
+<link href="{{asset('css/sweetalert.css')}}" rel="stylesheet">
 @endsection
         <!-- HEADER -->
 <!-- search -->
@@ -16,17 +17,17 @@
                 <img src="{{asset('img/content/lagosnight.jpg')}}" alt="">
                 <div class="slide-content">
                     <div class="lp-content">
-                        <h1 class="text-center page-title hidden-xs m5-bttm"> Discover <br>
+                        <h1 class="text-center page-title hidden-xs m5-bttm"> {{$settings->title1}} <br>
                             <p style="min-height: 55px;font-weight: 200;" class="m5-bttm"><span class="rotate">
-                        <span>Businesses in Your City</span>
-                        <span>Restaurants in Lagos</span>
-                        <span>Hotels in Abuja</span>
-                        <span>Clubs in Victoria Island</span>
-                        <span>Banks in Ikeja</span>
+                        <span>{{$settings->span1}}</span>
+                        <span>{{$settings->span2}}</span>
+                        <span>{{$settings->span3}}</span>
+                        <span>{{$settings->span4}}</span>
+                        <span>{{$settings->span5}}</span>
                     </span></p>
                         </h1>
-                        <h1 class="page-title hidden-lg hidden-md hidden-sm m5-bttm">Discover your city</h1>
-                        <h3 class="page-subtitle m5-top">Find great places to stay, eat, shop, or visit from local experts.</h3>
+                        <h1 class="page-title hidden-lg hidden-md hidden-sm m5-bttm">{{$settings->title2}}</h1>
+                        <h3 class="page-subtitle m5-top">{{$settings->subtitle}}</h3>
                         <h1><a class="btn btn-default btn-lg" href="/businesses"><i class="fa fa-plus-square"></i> Explore Businesses</a></h1>
                     </div>
                 </div>
@@ -87,7 +88,7 @@
                       
               <div class="col-md-3">
                   <div class="category-item">
-                      <a class="btn" href="/biz/cat/{{$cat->id}}"><span class=""><i class="fa fa-{{$cat->image_class}}"></i> <br>{{$cat->name}}</span>
+                      <a class="btn" href="/biz/cat/{{$cat->slug}}"><span class=""><i class="fa fa-{{$cat->image_class}}"></i> <br>{{$cat->name}}</span>
                           <p class="sub-counter animated slideIn">
                               <span>{{$cat->name}}</span>
                               <span class="biz-counter">{{$cat->biz->count()}} businesses <i class="fa fa-building"></i></span>
@@ -115,7 +116,7 @@
                     @foreach ($featured as $feature)
                         <div class="item">
                             <div class="single-product">
-                                <a href="/review/biz/{{$feature->id}}">
+                                <a href="/review/biz/{{$feature->slug}}">
                                     <figure>
                                         <img src="{{asset('img/content/post-img-1.jpg')}}" alt="">
                                         <div class="rating">
@@ -134,7 +135,7 @@
                                         </div>
                                     </figure>
                                     <h4 class="text-left">{{$feature->name}}</h4>
-                                    <p class="biz-tagline m20-bttm text-left">Business tagline goes here...</p>
+                                    <p class="biz-tagline m20-bttm text-left">{{$feature->description}}</p>
                                     <p class="text-left m0-bttm">
                                         @foreach($feature->subcats as $sub)
                                             <span class="btn btn-border btn-xs btn-tags" role="button"><i class="fa fa-tags"></i> {{$sub->name}}</span>
@@ -199,12 +200,13 @@
     <!-- SCRIPTS STARTS -->
     @section('scripts')
     <script src="{{asset('js/scripts.js')}}"></script>
-    <script src="{{asset('../plugins/owl-carousel/owl.carousel.js') }}"></script>
+    <script src="{{asset('plugins/owl-carousel/owl.carousel.js') }}"></script>
     <script>
         //Text rotator
         //-------------------------------------------------
         $(document).ready(function() {
             $('.rotate').rotaterator({fadeSpeed:2000, pauseSpeed:80});
+
         });
     </script>
     @stop

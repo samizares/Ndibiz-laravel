@@ -58,15 +58,15 @@
                   <div class="form-group">
                        <label for="cat" class="col-md-3 control-label">Business state</label>
                        <div class="col-md-8">
-                           {!!Form::select('state', $stateList, $state->name, ['class'=>'form-control','id'=>'stateList',
-                          'placeholder'=>'select state']) !!}                        
+                           {!!Form::select('state',$stateList, $state->name, ['class'=>'form-control','id'=>'stateList',
+                          ]) !!}                        
                       </div>
                   </div>
                   <div class="form-group">
                     <label for="image_class" class="col-md-3 control-label">
                       Create Region/area</label>
                         <div class="col-md-8">
-                         {!!Form::select('lga[]', $lgaList, $areas, ['class'=>'form-control','id'=>'lga','multiple']) !!}
+                         {!!Form::select('lga[]', $areas, $areas, ['class'=>'form-control','id'=>'lga','placeholder'=>'Edit Regions','multiple']) !!}
                         </div>
                   </div>
 
@@ -79,7 +79,12 @@
                   <button type="button" class="btn btn-danger btn-md"
                           data-toggle="modal" data-target="#modal-delete">
                     <i class="fa fa-times-circle"></i>
-                   Delete
+                   Delete State and All Regions
+                  </button>
+                  <button type="button" class="btn btn-danger btn-md"
+                          data-toggle="modal" data-target="#modal-deleteArea">
+                    <i class="fa fa-times-circle"></i>
+                   Delete Selected Regions
                   </button>
                 </div>
               </div>
@@ -101,19 +106,19 @@
   </div> <!-- end .container -->
 </div>  <!-- end #page-content -->
  <!-- Confirm Delete -->
-  <div class="modal fade" id="modal-delete" tabIndex="-1">
+  <div class="modal fade" id="modal-delete" tabIndex="-1" role = "dialog" aria-labelledby = "myModalLabel" aria-hidden = "true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">
             ×
           </button>
-          <h4 class="modal-title">Please Confirm</h4>
+          <h4 class="modal-title" id="myModalLabel">Please Confirm</h4>
         </div>
         <div class="modal-body">
           <p class="lead">
             <i class="fa fa-question-circle fa-lg"></i>  
-            Are you sure you want to delete this State?
+            Are you sure you want to delete this State and all its regions?
           </p>
         </div>
         <div class="modal-footer">
@@ -130,34 +135,54 @@
       </div>
     </div>
   </div> 
+
+   <div class="modal fade" id="modal-deleteArea" tabIndex="-1" role = "dialog" aria-labelledby = "myDeleteSel" aria-hidden = "true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">
+            ×
+          </button>
+          <h4 class="modal-title" id="myDeleteSel">Please Confirm</h4>
+        </div>
+        <div class="modal-body">
+          <p class="lead">
+            <i class="fa fa-question-circle fa-lg"></i>  
+            Are you sure you want to delete the selected Areas this state?
+          </p>
+        </div>
+        <div class="modal-footer">
+          <form method="POST" action="/admin/location/delete">
+           <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="_method" value="DELETE">
+            <button type="button" class="btn btn-default"
+                    data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-danger">
+              <i class="fa fa-times-circle"></i> Yes
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div> 
 @endsection
 
-@section('scripts')
-  <script src="{{asset('plugins/bootstrap-3.3.5/js/bootstrap.js')}}"></script>
-  <script src="{{asset('plugins/select2/select2.min.js')}}"></script>
-  <script>
+  @section('scripts')
+{{--<script src="{{asset('plugins/bootstrap-3.3.5/js/bootstrap.js')}}"></script> --}}
+<script src="{{asset('plugins/select2/select2.min.js')}}"></script>
+<script>
     $(document).ready(function() {
       $("#stateList").select2({
-        tags:true,
+         tags: true
       });
     });
-  /*  $(document).ready(function() {
-     $('#stateList').change(function(){
-          if($(this).val() !== "select state") {
-             var model=$('#lga');
-            model.empty();
-           $.get('{{ URL::to('api/lga')}}', {z: $(this).val()}, function(result){       
-             $.each(result.data,function(){
-                              $('#lga').append('<option value="'+this.id+'">'+this.text+'</option>');
-                        });
-           });
-         }
-      });
-    }); */
-    $(document).ready(function() {
+
+   $(document).ready(function() {
       $("#lga").select2({
-        tags: true,
+        tags: true
       });
     });
-  </script>
-@stop
+
+    </script>
+    <script src="{{asset('js/scripts.js')}}"></script>
+    @endsection

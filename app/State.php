@@ -11,7 +11,7 @@ class State extends Model
 	protected $fillable = ['name'];
 
 	public function lgas(){
-		return $this->hasMany('App\Lga');
+		return $this->hasMany('App\Lga','state_id');
 	}
 
 	public function biz()

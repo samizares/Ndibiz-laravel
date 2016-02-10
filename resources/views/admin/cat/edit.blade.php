@@ -74,11 +74,6 @@
                     <i class="fa fa-save"></i>
                       Save Changes
                   </button>
-                  <button type="button" class="btn btn-danger btn-md"
-                          data-toggle="modal" data-target="#modal-delete">
-                    <i class="fa fa-times-circle"></i>
-                   Delete
-                  </button>
                 </div>
               </div>
 
@@ -88,14 +83,14 @@
         </div>
       </div>
       <div class="col-md-3 col-md-pull-9 category-toggle">
-                <button><i class="fa fa-briefcase"></i></button>
+           <button><i class="fa fa-briefcase"></i></button>
                 <div class="post-sidebar">
                       <div class="latest-post-content">
                           <h2>Admin Panel</h2>
                           <div class="single-product"></div>
                       </div>
                 </div>
-            </div> <!-- end .page-sidebar -->
+      </div> <!-- end .page-sidebar -->
     </div>
     </div> <!-- end .home-with-slide -->
     </div> <!-- end .container -->
@@ -136,8 +131,8 @@
 
 <!-- SCRIPTS STARTS -->
 @section('scripts')
-  <script src="{{asset('plugins/bootstrap-3.3.5/js/bootstrap.js')}}"></script>
-  <script src="{{asset('plugins/select2/select2.min.js')}}"></script>  
+  <script src="{{ asset('plugins/bootstrap-3.3.5/js/bootstrap.js') }}"></script>
+  <script src="{{ asset('plugins/select2/select2.min.js') }}"></script>  
   <script>
     $(document).ready(function() {
         $("button.btn-hover").hover(function(){

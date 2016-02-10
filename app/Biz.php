@@ -8,11 +8,16 @@ class Biz extends Model
 {
       protected $table = 'biz';
 
-      protected $fillable = ['name', 'address', 'contactname', 'email','website', 'phone1', 'phone2'];
+      protected $fillable = ['name', 'address','tagline','description', 'contactname', 'website'];
 
    public function address()
     {
-      return $this->hasMany('App\Address');
+      return $this->hasOne('App\Address','biz_id');
+    }
+
+    public function branch()
+    {
+      return $this->hasMany('App\Branch','biz_id');
     }
 
      public function reviews()
@@ -27,24 +32,29 @@ class Biz extends Model
 
     public function favoured()
     {
-        return $this->belongsToMany('App\User','favourites');
+        return $this->belongsToMany('App\User','favourites','biz_id','user_id');
     }
    public function ownerbiz()
     {
         return $this->belongsTo('App\User');
     }
     public function subcats()
-  {
+   {
        return $this->belongsToMany('App\SubCat','biz_subcat_pivot','biz_id', 'subcat_id');
     }
 
-    public function setTitleAttribute($value)
+    public function subscribedUser()
+    {
+      return $this->belongsToMany('App\User', 'biz_user_pivot','biz_id','user_id');
+    }
+
+    public function setNameAttribute($value)
      {
        $this->attributes['name'] = $value;
 
       if (! $this->exists) {
-            $this->setUniqueSlug($value, '');
-        }
+      $this->attributes['slug'] = str_slug($value);
+         }
     }
 
      protected function setUniqueSlug($name, $extra)
@@ -115,6 +125,11 @@ class Biz extends Model
     public function profilePhoto()
     {
         return $this->hasOne('App\BizProfilePhoto');
+    }
+
+    public function claim()
+    {
+      return $this->belongsTo('App\User','owner');
     }
 }
 

@@ -84,6 +84,11 @@
                                class="btn btn-xs btn-default-inverse animated fadeIn" data-toggle="tooltip" data-placement="top" title="Edit Business Info">
                               <i class="fa fa-edit"></i>
                             </a>
+                            <a href="#" class="btn btn-xs btn-default-inverse animated fadeInRight" data-toggle="modal" 
+                            data-id="{{$biz->id}}" data-name="{{$biz->name}}" data-target="#modal-delete"
+                             title="Delete this biz"><i class="fa fa-times-circle"></i>
+                            </a>
+
               
                   </td>
                 </tr>
@@ -104,6 +109,36 @@
      </div> <!-- end .home-with-slide -->
     </div> <!-- end .container -->
   </div>  <!-- end #page-content -->
+
+  {{-- Confirm Delete --}}
+  <div class="modal fade" id="modal-delete" tabIndex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">
+            ×
+          </button>
+          <h4 class="modal-title">Please Confirm</h4>
+        </div>
+        <div class="modal-body">
+          <p class="lead">
+            <i class="fa fa-question-circle fa-lg"></i>  
+            Are you sure you want to delete this Business?
+          </p>
+        </div>
+        <div class="modal-footer">
+          <form class="form-horizontal" method="POST" action="/admin/biz/delete">
+           <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <button type="button" class="btn btn-default"
+                    data-dismiss="modal">Close</button>
+            <button type="submit" name="yes" class="btn btn-danger">
+              <i class="fa fa-times-circle"></i> Yes
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div> 
   
 @endsection
 <!-- CONTENT ENDS -->
@@ -174,6 +209,24 @@
                 }  */
                   
             });
+          });
+
+       $(document).ready(function () {
+          $('#modal-delete').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+    var bizid = button.data('id') // Extract info from data-* attributes
+    var bizname = button.data('name')
+    
+    var title = 'Confirm Delete  Biz #' + bizid + ' from database';
+    var content = 'Are you sure want to remove ' + bizname + ' from database?';
+    
+    // Update the modal's content.
+    var modal = $(this)
+    modal.find('.modal-title').text(title);
+    modal.find('.modal-body').text(content);
+    modal.find('button.btn-danger').val(bizid);
+           });
+
           });
     </script>
    <script src="{{asset('js/scripts.js')}}"></script> 

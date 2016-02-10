@@ -2,9 +2,9 @@
 <!-- HEAD STARTS-->
   @section('title', 'Register A Business')
   @section('stylesheets')
-      <link href="{{asset('../plugins/select2/select2.min.css')}}" rel="stylesheet">
-      <link href="{{ asset('../plugins/dropzone/dropzone.css')}}" rel="stylesheet">
-      <link href="{{ asset('../plugins/dropzone/basic.css')}}" rel="stylesheet">
+      <link href="{{asset('plugins/select2/select2.min.css')}}" rel="stylesheet">
+      <link  rel="stylesheet" href="{{asset('plugins/jasny-bootstrap/css/jasny-bootstrap.min.css')}}">
+      <link  rel="stylesheet" href="{{asset('css/dropzone.css')}}">
   @endsection
 <!-- HEAD ENDS-->
 <!-- CONTENT STARTS -->
@@ -23,7 +23,7 @@
       <div class="row m20-bttm">
         <div class="col-md-8">
           <div class="page-forms">
-              <form class="form-horizontal" role="form" method="POST"  action="/admin/biz">
+              <form id="myAwesomeDropzone" class="form-horizontal dropzone" role="form" method="POST" action="/biz" enctype="multipart/form-data">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                   {{--BUSINESS NAME--}}
                   <div class="form-group">
@@ -61,6 +61,16 @@
                           <select id="sub" name="sub[]" value="{{ old('sub[]')}}" class="form-control" multiple="multiple"> </select>
                       </div>
                   </div>
+
+                  {{--Displaying bank Sort Code field if Category is banking and finance --}}
+                  <div id="sort_code" class="form-group" style="display:none;">
+                      <label for="sort_code" class="col-md-3 control-label">
+                          Bank Sort Code</label>
+                      <div class="col-md-8">
+                          <input type="text" name="sort_code" class="form-control" placeholder="e.g. Enter bank's sort code here" value="{{ old('name')}}">
+                      </div>
+                  </div>
+
                   {{--STREET ADDRESS--}}
                    <div class="form-group">
                        <label for="cat" class="col-md-3 control-label">Business Address</label>
@@ -87,11 +97,35 @@
                   {{--IMAGES--}}
                   <div class="form-group">
                       <label for="images" class="col-md-3 control-label">
-                          Gallery Images (optional)</label>
+                          Upload Business Profile Image (optional)</label>
                       <div class="col-md-8">
-                          <input type="file">
+                          {{--<input type="file"> --}}
+                         {{--<div class="dropzone-previews"></div> --}}
+                          {{--<div class="dropzone dropzone-previews" id="myAwesomeDropzone"></div> --}}
+                          <div class="panel-body">
+                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                      <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+                                        <img src="{{asset('img/user.jpg')}}" alt="...">
+                                      </div>
+                                      <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
+                                      <div>
+                                        <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span>
+                                        <span class="fileinput-exists">Change</span><input type="file" name="image"></span>
+                                        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                      </div>
+                                    </div>
+                                </div>
                       </div>
                   </div>
+
+                {{-- <div class="form-group">--}}
+                     {{-- <label for="images" class="col-md-3 control-label">--}}
+                     {{--     Upload Business Gallery Images(optional)</label>--}}
+                     {{-- <div class="col-md-8">--}}
+                          
+                        {{-- <div class="dropzone dropzone-previews"></div>--}}
+                    {{-- </div> --}}
+                 {{-- </div> --}}
                   {{--OPENING TIMES--}}
                   {{--<div class="form-group">--}}
                       {{--<label for="times" class="col-md-3 control-label">--}}
@@ -182,7 +216,7 @@
                           </ul>
                       </div>
                   </div>
-                    <p><img class="center-block" src="{{asset ('img/content/devices.jpg')}}" alt=""></p>
+                    <p><img class="center-block" src="{{asset('img/content/devices.jpg')}}" alt=""></p>
                   <div class="latest-post-content">
                       <h2>Business already on BEAZEA Directory?</h2>
                       <div class="single-product">
@@ -205,9 +239,34 @@
 @endsection
   
 @section('scripts')
-    <script src="{{asset('../plugins/select2/select2.min.js')}}"></script>
-    <script src="{{asset('../plugins/dropzone/dropzone.js')}}"></script>
-  <script>
+   <script src="{{asset('plugins/select2/select2.min.js')}}"></script>
+   <script src="{{asset('js/dropzone.js')}}"></script>
+   <script src="{{ asset('plugins/jasny-bootstrap/js/jasny-bootstrap.min.js') }}"></script>
+     {{--CUSTOM PAGE SCRIPTS--}}
+    <script type="text/javascript">
+    {{--DROPZONE--}}  
+            Dropzone.autoDiscover = false;
+            Dropzone.options.myAwesomeDropzone = {
+              //previewsContainer: ".dropzone-previews",
+              autoProcessQueue: false,
+              uploadMultiple: true,
+              parallelUploads: 100,
+              maxFiles: 5,
+
+              // The setting up of the dropzone
+     init: function() {
+     var myDropzone = this;
+
+    // First change the button to actually tell Dropzone to process the queue.
+    this.element.querySelector("button[type=submit]").addEventListener("click", function(e) {
+      // Make sure that the form isn't actually being sent.
+      e.preventDefault();
+      e.stopPropagation();
+      myDropzone.processQueue();
+    });
+            }
+        }
+
     $(document).ready(function() {
       $("#category3").select2({
          placeholder: 'select business category',
@@ -230,7 +289,8 @@
     $(document).ready(function() {
       var y=[];
      $('#category3').change(function(){
-          if($(this).val() !== "select business category") {
+         var selection= $(this).val();
+          if(selection !== "select business category") {
              var model=$('#sub');
             model.empty();
            $.get('{{ URL::to('api/subcat') }}', {y: $(this).val()}, function(result){
@@ -240,8 +300,29 @@
                         });
            });
          }
+          if(selection == 44) {
+          $("#sort_code").show();
+          }
+          else {
+            $("#sort_code").hide();
+          }
+
       });
     });
+    
+     $(document).ready(function() {
+      $('#category3').change(function(){
+        var selection= $(this).val();
+        if(selection == 44) {
+          $("#sort_code").show();
+          }
+          else {
+            $("#sort_code").hide();
+          }
+        
+        });
+      });
+
     $(document).ready(function() {
       $("#stateList").select2({
         placeholder: 'select state',
@@ -261,11 +342,34 @@
          }
       });
     });
+
+    $(document).ready(function() {
+     $('#stateList').click(function(){
+          if($(this).val() !== "select state") {
+             var model=$('#lga');
+            model.empty();
+           $.get('{{ URL::to('api/lga')}}', {z: $(this).val()}, function(result){
+             $.each(result.data,function(){
+                              $('#lga').append('<option value="'+this.id+'">'+this.text+'</option>');
+
+                 });
+           });
+         }
+      });
+    });
+
     $(document).ready(function() {
       $("#sub").select2({
         placeholder: 'select or create subcategories',
        // tags: true,
       });
-    });
+
+       $(document).ready(function() {
+         $("#lga").select2({
+          placeholder: 'select a state first',
+        });
+      }); 
+
+         });
   </script>
 @stop

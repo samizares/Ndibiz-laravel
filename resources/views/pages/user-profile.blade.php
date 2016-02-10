@@ -3,6 +3,7 @@
 @section('title', 'User Profile')
 @section('stylesheets')
    <link  rel="stylesheet" href="{{asset('css/dropzone.css')}}">
+   <link href="{{asset('plugins/select2/select2.min.css')}}" rel="stylesheet">
    <link  rel="stylesheet" href="{{asset('plugins/jasny-bootstrap/css/jasny-bootstrap.min.css')}}">
    <link rel="stylesheet" type="text/css" href="{{asset('plugins/nanogallery/css/nanogallery.min.css')}}">
 @endsection
@@ -74,11 +75,13 @@
                     <div class="profile-pic">
                       {!!Html::image(isset($user->profilePhoto->image) ? $user->profilePhoto->image : 'img/user.jpg',
                         'Profile Image', array('class'=>'img-responsive center-block'))!!}
+                       @if(Auth::check() && (Auth::user()->id == $user->id))
                         <a href="#" data-toggle="modal" data-target="#myProfile">
                       <p class="pic-edit">
                         <i class="mdi-image-camera-alt"></i> 
                          <span class="text-uppercase">Change Picture</span>
                       </p></a>
+                      @endif
                     </div>
                 </figure>
               </div>
@@ -87,11 +90,7 @@
                     <div class="col-md-8">
                       <h2 class="username hidden-xs">{{$user->username}}</h2>
                         <p class="m5-bttm address"><i class="fa fa-map-marker"></i> Lagos, Nigeria.</p>
-                        <p class="checkbox">
-                            <label>
-                                <input type="checkbox" style="width:auto;"> Notify me of updates
-                            </label>
-                        </p>
+                        
                       <ul class="list-inline user-counter hidden-xs">
                         <li><i class="fa fa-heart"></i> {{$favCount= $user->favours->count()}}
                           {{str_plural('Favourite', $favCount) }}</li>
@@ -104,7 +103,6 @@
                     @if(Auth::check() && (Auth::user()->id == $user->id))
                     <div class="col-md-4 action-btns">
                         <ul class="list-inline m0-bttm">
-                            <li><a href="#" type="button" class="btn btn-border" data-toggle="tooltip" title="Edit Profile"><i class="fa fa-pencil"></i> Edit profile</a></li>
                             <li><a href="#" type="button" class="btn btn-border" data-toggle="modal" data-target="#myModal" title="Add Photo"><i class="fa fa-camera"></i>
                                     Add photo</a></li>
                         </ul>
@@ -129,12 +127,15 @@
                         <li>
                           <a href="#company-reviews" role="tab" data-toggle="tab"><i class="fa fa-comments"></i> <span class="">Business Reviews</span></a>
                         </li>
+                        @if(Auth::check() && (Auth::user()->id == $user->id))
                         <li>
                             <a href="#claimed-biz" role="tab" data-toggle="tab"><i class="fa fa-building-o"></i> <span class="">Claimed Businesses</span></a>
                         </li>
+                         
                         <li>
                             <a href="#edit" role="tab" data-toggle="tab"><i class="fa fa-building-o"></i> <span class="">Edit Profile</span></a>
                         </li>
+                        @endif
                     </ul>
                   </div> <!-- end .page-sidebar -->
               </div>
@@ -159,13 +160,16 @@
                       <div class="tab-pane" id="fav">
                         <div class="favourite-biz">
                           <h3 class="text-uppercase m10-top">Favourite Businesses</h3>
+                          @include('partials.favourite')
                           <div class="row clearfix">
                             @unless ( $bizs->isEmpty() )
                             @foreach ($bizs as $biz)
                                 <div class="col-md-6 col-sm-6">
                                   <div class="single-product">
-                                      <figure><a href="/review/biz/{{$biz->id}}">
-                                          <img src="{{asset('img/content/post-img-10.jpg') }}" alt="">
+                                      <figure><a href="/review/biz/{{$biz->slug}}">
+                                        <img src="{{isset($biz->profilePhoto->image) ? asset($biz->profilePhoto->image) : 
+                                               asset('img/content/post-img-10.jpg') }}" alt="">
+                                    
                                           <div class="rating">
                                               <ul class="list-inline">
                                                   <li>
@@ -177,8 +181,10 @@
                                               <p class="">{{$biz->rating_count}} {{ Str::plural('review', $biz->rating_count)}}</p>
                                           </div></a>
                                       </figure>
-                                      <h4><a href="/review/biz/{{$biz->id}}">{{$biz->name}}</a></h4>
-                                      <p class="m5-bttm"><span data-toggle="tooltip" title="Remove from favourites"><a href=""><i class="fa fa-trash"></i></a></span></p>
+                                      <h4><a href="/review/biz/{{$biz->slug}}">{{$biz->name}}</a></h4>
+                                      <p class="m5-bttm"><span data-toggle="modal" data-target="#favModal" 
+                                        data-id="{{$biz->id}}" data-bizname="{{$biz->name}}" title="Remove from favourites">
+                                        <a><i class="fa fa-trash"></i></a></span></p>
                                   </div> <!-- end .single-product -->
                                 </div>
                             @endforeach
@@ -218,45 +224,45 @@
                         </div> <!-- end .company-rating -->
                       </div>
                       <div class="tab-pane" id="claimed-biz">
-                          <div class="company-ratings">
-                              <h3 class="text-uppercase m10-top">Claimed Businesses</h3>
-                              <div class="rating-with-details">
-                                  @unless ( $user->reviews->isEmpty() )
-                                      @foreach($user->reviews as $review)
-                                          <div class="single-content">
-                                              <div class="company-rating-box">
-                                                  <ul class="list-inline">
-                                                      @for($i=1; $i <= 5 ; $i++)
-                                                          <li><a href="#"><i class="fa fa-star{{ ($i <= $review->rating)
-                                                           ? '' : '-o'}}"></i></a></li>
+                          <div class="favourite-biz">
+                          <h3 class="text-uppercase m10-top">Claimed Businesses</h3>
+                          <div class="row clearfix">
+                            @unless ( $owner->isEmpty() )
+                            @foreach ($owner as $biz)
+                                <div class="col-md-6 col-sm-6">
+                                  <div class="single-product">
+                                      <figure><a href="/review/biz/{{$biz->slug}}">
+                                          <img src="{{isset($biz->profilePhoto->image) ? asset($biz->profilePhoto->image) : 
+                                               asset('img/content/post-img-10.jpg') }}" alt="">
+                                          <div class="rating">
+                                              <ul class="list-inline">
+                                                  <li>
+                                                      @for ($i=1; $i <= 5 ; $i++)
+                                                          <span class="glyphicon glyphicon-star{{ ($i <= $biz->rating_cache) ? '' : '-empty'}}"></span>
                                                       @endfor
-                                                  </ul>
-                                              </div>
-                                              <div class="rating-details">
-                                                  <div class="meta">
-                                                      <a href="#"><strong>{{$review->biz->name  }}</strong></a>
-                                                      - {{ $review->timeago}}
-                                                  </div>
-                                                  <div class="content">
-                                                      <p>{{$review->comment}}</p>
-                                                  </div>
-                                              </div>
-                                          </div> <!-- end .single-content -->
-                                      @endforeach
-                                  @endunless
-
-
-                              </div> <!-- end .rating-with-details -->
-                          </div> <!-- end .company-rating -->
+                                                  </li>
+                                              </ul>
+                                              <p class="">{{$biz->rating_count}} {{ Str::plural('review', $biz->rating_count)}}</p>
+                                          </div></a>
+                                      </figure>
+                                      <h4><a href="/review/biz/{{$biz->slug}}">{{$biz->name}}</a></h4>
+                                      <p class="m5-bttm"><span data-toggle="modal" data-target="#delClaimModal" 
+                                        data-bizid="{{$biz->id}}" data-claimbiz="{{$biz->name}}" title="Remove from claimed biz">
+                                        <a><i class="fa fa-trash"></i></a></span></p>
+                                  </div> <!-- end .single-product -->
+                                </div>
+                            @endforeach
+                            @endunless
+                          </div>  <!-- end .row -->
+                        </div>  <!-- end -->
                       </div>
                       <div class="tab-pane" id="edit">
                           <div class="company-ratings">
                               <h3 class="text-uppercase m10-top">Edit Profile</h3>
                               <div class="rating-with-details">
                                   @include('admin.partials.errors')
-                                  <form class="form-horizontal" role="form" method="POST" action="">
+                                  <form class="form-horizontal" role="form" method="POST" action="/profile/edit/{{$user->id}}">
                                       <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                      <input type="hidden" name="_method" value="PUT">
                                       <input type="hidden" name="id" value="{{$user->id}}">
                                       <div class="form-group">
                                           <label for="cat" class="col-md-3 control-label">User Name</label>
@@ -271,25 +277,41 @@
                                               <input type="email" id="email" value="{{ $user->email}}" name="email" class="form-control"
                                                      placeholder="">
                                           </div>
-                                      </div>
+                                      </div> 
+
                                       <div class="form-group">
-                                          <label for="location" class="col-md-3 control-label">Location</label>
-                                          <div class="col-md-8">
-                                              <input type="text" id="location" value="{{ $user->state}}" name="location" class="form-control"
-                                                     placeholder="Lagos, Nigeria">
+                                        <label for="email" class="col-md-3 control-label">Select cities you want periodic Updates on</label>
+                                           <div class="col-md-8">                                             
+                                                  {!!Form::select('state[]', $stateIds, Input::old('state'), ['class'=>'form-control','id'=>'stateList',
+                                                    'multiple']) !!}
+                                              
                                           </div>
                                       </div>
+
+                                      <div class="form-group">
+                                           <label for="email" class="col-md-3 control-label">Select categories you want periodic Updates On</label>
+                                           <div class="col-md-8">                    
+                                                  {!!Form::select('cats[]', $catIds,Input::old('cats[]') , ['class'=>'form-control','id'=>'category3','multiple']) !!}
+                                             </div>
+                                      </div>
+                                      
+
+                                     <div class="form-group">
+                                        <label for="notify" class="col-md-3 control-label">Notify me of periodic updates</label>
+                                           <div class="col-md-8">
+                                             <p class="checkbox">
+                                                <label>{!!Form::checkbox('notify',$user->notify,['id'=>'notify']) !!} 
+                                            </p>
+                                        </div>
+                                     </div>
+
                                       <div class="col-md-7 col-md-offset-3">
                                           <ul class="list-inline">
                                               <li><button type="submit" class="btn btn-default btn-md">
                                                   <i class="fa fa-save"></i>
                                                   Save Changes
                                               </button></li>
-                                              <li><button type="button" class="btn btn-default-inverse btn-md"
-                                                      data-toggle="modal" data-target="#modal-delete">
-                                                  <i class="fa fa-times-circle"></i>
-                                                  Delete Account
-                                              </button></li>
+                                              
                                           </ul>
                                       </div>
                                   </form>
@@ -302,70 +324,7 @@
           </div>
             {{--SIDEBAR RIGHT--}}
             <div class="col-md-4">
-                <div class="post-sidebar">
-                    <!-- AD BAR MINI -->
-                    <div class="recently-added ad-mini">
-                        <div class="category-item">
-                            <h1 class="text-center m5-bttm"> <small>Advertisement</small>
-                                <p class="rotate m10-top">
-                                    <span>GTBank Flex Account</span>
-                                    <span>Jevniks restaurants</span>
-                                    <span>Oriental Hotel</span>
-                                    <span>UBA</span>
-                                </p>
-                            </h1>
-                        </div>
-                    </div>
-                    <!-- FEATURED BUSINESSES -->
-                    <div class="latest-post-content">
-                        <h2>Featured Businesses</h2>
-                        @if ( ! $featured-> isEmpty() )
-                            @foreach ($featured as $feature)
-                                <div class="latest-post clearfix">
-                                    <div class="post-image">
-                                        <img src="{{asset('img/content/latest_post_1.jpg') }}" alt="">
-                                    </div>
-                                    <h4><a href="/review/biz/{{$feature->id}}">{{$feature->name}}</a></h4>
-                                    <p>Check out this great business on Ndibiz.</p>
-                                    <a class="read-more" href="/review/biz/{{$feature->id}}"><i class="fa fa-angle-right"></i>View profile</a>
-                                </div> <!-- end .latest-post -->
-                            @endforeach
-                        @endif
-                    </div>
-                    <!-- RECENTLY ADDED BUSINESSES -->
-                    <div class="recently-added">
-                        <h2>Recently Added</h2>
-                        @if ( ! $recent-> isEmpty() )
-                            @foreach ($recent as $new)
-                                <div class="latest-post clearfix">
-                                    <div class="post-image">
-                                        <img src="{{asset('img/content/latest_post_1.jpg') }}" alt="">
-                                        <p><span>12</span>Sep</p>
-                                    </div>
-                                    <h4><a href="/review/biz/{{$new->id}}">{{$new->name}}</a></h4>
-                                    <p>Recent Biz added on Ndibiz</p>
-                                    <a class="read-more" href="/review/biz/{{$new->id}}"><i class="fa fa-angle-right"></i>View profile</a>
-                                </div> <!-- end .latest-post -->
-                            @endforeach
-                        @endif
-                    </div>
-                    <!-- AD BAR MEDIUM -->
-                    <div class="ad-midi">
-                        <h1 class="text-center m5-bttm"> <small>Advertisement</small></h1>
-                        <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel">
-                            <!-- Carousel items -->
-                            <div class="carousel-inner">
-                                <div class="active item"><img src="../img/content/ad1.png" alt=""></div>
-                                <div class="item"><img src="{{asset ('img/content/ad1.jpg')}}" alt=""></div>
-                                <div class="item"><img src="{{asset ('img/content/ad1.jpg')}}" alt=""></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- RECENT REVIEWS -->
-                    <div class="recently-added">
-                        <h2>Recent Reviews</h2>
-                    </div>
-                </div>
+             @include('includes.sidebar')
             </div>
         </div>
       </div> <!-- end .home-with-slide -->
@@ -385,6 +344,7 @@
                <h3>Add new Photos</h3>
                <form id="uploadFile" action"" method="POST" class="dropzone">
                 {{csrf_field()}}
+
                </form>
            </div>
            <div class = "modal-footer">
@@ -393,6 +353,54 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
+
+  {{--MODAL DELETE FAVOURITE BIZ--}}
+  <div class="modal fade" id="favModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class = "modal-dialog">
+        <div class = "modal-content">
+           <div class = "modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class = "modal-title" id="myModalLabel">Confirm Delete</h4>
+           </div>
+           <div class = "modal-body">
+               <h4>Are you sure you want to delete this favourite business</h4>
+           </div>
+           <div class = "modal-footer">
+             <form class="form-horizontal" role="form" method="POST" action="/deleteFav">
+              <input type="hidden" name="userId" value="{{ $user->id}}">
+              {{csrf_field()}}
+             <button type="submit" name="yes" class="btn btn-danger">Yes</button>
+             </form>
+             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+           </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+    {{--MODAL DELETE CLAIMED BIZ--}}
+  <div class="modal fade" id="delClaimModal" tabindex="-1" role="dialog" aria-labelledby="myClaimLabel" aria-hidden="true">
+    <div class = "modal-dialog">
+        <div class = "modal-content">
+           <div class = "modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class = "modal-title" id="myClaimLabel">Confirm Delete</h4>
+           </div>
+           <div class = "modal-body">
+               <h4>Are you sure you want to delete this claimed business</h4>
+           </div>
+           <div class = "modal-footer">
+             <form class="form-horizontal" role="form" method="POST" action="/deleteClaimed">
+              <input type="hidden" name="userId" value="{{ $user->id}}">
+              {{csrf_field()}}
+             <button type="submit" name="yes" class="btn btn-danger">Yes</button>
+             </form>
+             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+           </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+
   {{--MODAL PROFILE PHOTO UPLOAD--}}
   <div class = "modal fade" id = "myProfile" tabindex = "-1" role = "dialog" aria-labelledby = "myModalLabel" aria-hidden = "true">
     <div class = "modal-dialog">
@@ -439,10 +447,11 @@
 <!-- FOOTER ENDS -->
 
 @section('scripts')
+  <script src="{{asset('plugins/select2/select2.min.js')}}"></script>
   <script src="{{asset('plugins/nanogallery/jquery.nanogallery.min.js')}}"></script>
   <script src="{{asset('js/dropzone.js')}}"></script>
   <script src="{{ asset('plugins/jasny-bootstrap/js/jasny-bootstrap.min.js') }}"></script>
-  <script type="text/javascript" src="{{asset('https://maps.googleapis.com/maps/api/js')}}"></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
   <script type="text/javascript">
         {{--DROPZONE PHOTO UPLOAD--}}
         $(document).ready(function() {
@@ -460,6 +469,34 @@
               });
           });
         });
+
+        $(document).ready(function() {
+            // show active tab on reload
+            if (location.hash !== '') $('a[href="' + location.hash + '"]').tab('show');
+            // remember the hash in the URL without jumping
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+               if(history.pushState) {
+                    history.pushState(null, null, '#'+$(e.target).attr('href').substr(1));
+               } else {
+                    location.hash = '#'+$(e.target).attr('href').substr(1);
+               }
+            });
+        });
+
+        $(document).ready(function() {
+           $("#category3").select2({
+             placeholder: 'select business category',
+            // tags: true,
+           });
+        });
+
+        $(document).ready(function() {
+          $("#stateList").select2({
+           placeholder: 'select state',
+         //  tags: true,
+          });
+        });
+
         //GOOGLE MAPS
         $(document).ready(function() {
           function initialize() {
@@ -486,6 +523,37 @@
                 thumbnailWidth: 200
             });
         });
+         $(document).ready(function () {
+          $('#favModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+    var bizid = button.data('id') // Extract info from data-* attributes
+    var bizname = button.data('bizname')
+    
+    var title = 'Confirm Delete  Biz #' + bizid + ' from favourite';
+    var content = 'Are you sure want to remove ' + bizname + ' from favourites?';
+    
+    // Update the modal's content.
+    var modal = $(this)
+    modal.find('.modal-title').text(title);
+    modal.find('.modal-body').text(content);
+    modal.find('button.btn-danger').val(bizid);
+           });
+
+           $('#delClaimModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+    var bizid = button.data('bizid') // Extract info from data-* attributes
+    var bizname = button.data('claimbiz')
+    
+    var title = 'Confirm Delete  Biz #' + bizid + ' from favourite';
+    var content = 'Are you sure want to remove ' + bizname + ' from Climed Biz?';
+    
+    // Update the modal's content.
+    var modal = $(this)
+    modal.find('.modal-title').text(title);
+    modal.find('.modal-body').text(content);
+    modal.find('button.btn-danger').val(bizid);
+           });
+          });
   </script>
   <script src="{{asset('js/scripts.js')}}"></script>
 @endsection

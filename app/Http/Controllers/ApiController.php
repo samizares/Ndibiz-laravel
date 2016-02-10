@@ -163,6 +163,24 @@ class ApiController extends Controller
         return \Response::json(array('status'=>'error','msg'=>'could not be updated'));
     }
 
+    public function subscribe()
+    {
+      $email=\Input::get('email');    
+      $subscribe=\App\Subscribe::whereEmail($email)->first();
+  
+     if($subscribe) {
+       $data[]= array('id'=>'0','text'=>'This Email has already been subscribed');
+       return \Response::json(['data'=> $data]);
+     }
+    else {
+         $new= new \App\Subscribe();
+         $new->email= $email;
+         $new->save();
+         $data[]= array('id'=>'1','text'=>'Email subscribe successfully');
+           return \Response::json(['data'=> $data]);
+           }
+      }
+
     public function opened()
     {
       $bh_id=\Input::get('id');

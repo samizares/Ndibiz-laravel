@@ -13,7 +13,7 @@ class Lga extends Model
 
 
 	public function state(){
-		return $this->belongsTo('App\State');
+		return $this->belongsTo('App\State','state_id');
 	}
 	
 	 public function areas()

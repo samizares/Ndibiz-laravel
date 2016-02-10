@@ -3,8 +3,8 @@
 @section('title', 'Business Profile')
 @section('stylesheets')
    <link  rel="stylesheet" href="{{asset('css/dropzone.css')}}">
-    <link  rel="stylesheet" href="{{asset('plugins/jasny-bootstrap/css/jasny-bootstrap.min.css')}}">
-   <link rel="stylesheet" type="text/css" href="{{asset('../plugins/nanogallery/css/nanogallery.min.css')}}">
+  <link  rel="stylesheet" href="{{asset('plugins/jasny-bootstrap/css/jasny-bootstrap.min.css')}}">
+   <link rel="stylesheet" type="text/css" href="{{asset('plugins/nanogallery/css/nanogallery.min.css')}}">
 @endsection
 <!-- HEADER -->
 <!-- search -->
@@ -54,9 +54,9 @@
 @endsection
 <!-- CONTENT -->
 @section('content')
+
      <div id="page-content" class="company-profile page-content">
         <div class="container">
-            @include('partials.notifications')
             <div class="home-with-slide business-profile">
                 <div class="row">
 
@@ -118,20 +118,20 @@
                                                 <a class="btn btn-border" href="#">{{$cat->name}}</a></span> @endforeach
                                         @foreach($biz->subcats as $sub)<span><a class="btn btn-border" href="#">{{$sub->name}}</a></span>@endforeach</p>
                                         {{--ADDRESS--}}
-                                        <p class="biz-profile-address"><i class="fa fa-map-marker"></i> <span>{{$biz->address{0}->street}}
-                                            </span>, <span>{{$biz->address{0}->lga->name}}</span>, <span>{{ $biz-> address{0}->state->name}}</span>, Nigeria.</p>
+                                        <p class="biz-profile-address"><i class="fa fa-map-marker"></i> <span>{{$biz->address->street}}
+                                            </span>, <span>{{$biz->address->lga->name}}</span>, <span>{{ $biz-> address->state->name}}</span>, Nigeria.</p>
                                         {{--PHONE 1--}}
-                                        <p class="biz-profile-phone1"><i class="fa fa-phone"></i> (+234)-{{$biz->phone1}}</p>
+                                        <p class="biz-profile-phone1"><i class="fa fa-phone"></i> (+234)-{{$biz->address->phone1}}</p>
                                         {{--PHONE 2--}}
-                                        <p class="biz-profile-phone2"> <i class="fa fa-phone"></i> (+234)-{{$biz->phone2}}</p>
+                                        <p class="biz-profile-phone2"> <i class="fa fa-phone"></i> (+234)-{{$biz->address->phone2}}</p>
                                         {{--WEBSITE--}}
                                         <p class="biz-profile-site"><i class="fa fa-external-link"></i> <a class="link"
                                            href="{{$biz->website}}" target="_blank">{{$biz->website}}</a></p>
                                         <hr class="hidden-lg hidden-md hidden-sm">
                                         {{--COUNTERS TABLET & DESKTOP--}}
                                         <ul class="list-inline user-counter hidden-xs">
-                                            {{--<li><i class="fa fa-heart"></i> {{$favCount= $biz->favoured->count()}}--}}
-                                                {{--{{str_plural('Favourite', $favCount) }}</li>--}}
+                                            <li><i class="fa fa-heart"></i> {{$favCount= $biz->favoured->count()}}
+                                                {{str_plural('Favourite', $favCount) }}</li>
                                             <li><i class="fa fa-comments"></i>{{$biz->rating_count}}
                                                 {{ Str::plural('review', $biz->rating_count)}}</li>
                                             <li><i class="fa fa-camera"></i>{{$photosCount=$biz->photos->count()}}
@@ -141,24 +141,36 @@
                                     {{--ACTION BUTTONS--}}
                                     <div class="col-md-4 action-btns m0-bttm">
                                         <ul class="list-inline m0-bttm">
-                                            {{--FAVOURITES BUTTON--}}
+                                            @if(Auth::guest())
+                                             <a href="/favourites" type="submit" class="btn btn-border not-favorited">
+                                            <i class="fa fa-heart"></i>Favourite<span class="badge badge-inverse">
+                                                        {{$biz->favoured->count()}}</span></a>
+                                              @endif
+
+                                          @if(Auth::check())
                                             <li>
-                                                @if($favourited=in_array($biz->id, $favourites))
-                                                    <form method="POST" action ="/favourites/{{ $biz->id}}">
-                                                        {!! csrf_field() !!}
-                                                        <input type="hidden" name="_method" value="DELETE">
-                                                        @else
-                                                            <form method="POST" action="/favourites">
-                                                                {!! csrf_field() !!}
-                                                                <input type="hidden" name="biz_id" value="{{$biz->id}}">
-                                                                @endif
-                                                                <a href="#" type="submit" class="btn btn-border {{ $favourited ? 'favorited' : 'not-favorited' }}">
-                                                                    <i class="fa fa-heart"></i>
-                                                                    {{ $favourited ? 'Unfavourite' : 'Favorite' }}</a>
-                                                            </form>
+                                                {{--*/ $favourites= Auth::user()->favours->lists('id')->all() /*--}}
+                                                {{--*/ $favourited= in_array($biz->id, $favourites) /*--}}
+                                                    <form id="favourForm" action="">
+                                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                             <input type="hidden" id="bizID" name="biz_id" value="{{$biz->id}}">
+                            
+                                                        <button type="submit" id="favourBtn" class="btn btn-border {{$favourited ? 'favorited' : 'not-favorited'}}">
+                                                        <i class="fa fa-heart"></i>
+                                                        {{ $favourited ? 'Unfavourite' : 'Favourite' }}<span class="badge badge-inverse">
+                                                        {{$biz->favoured->count()}}</span></button>
+                                                    </form>
                                             </li>
+                                            @endif
                                             {{--SHARE BUTTON--}}
-                                            <li><a href="" type="button" class="btn btn-border"><i class="fa fa-share-alt"></i> Share</a></li>
+                                            <li><a title="" data-original-title="" data-placement="bottom" data-toggle="popover" data-container="body" type="button" 
+                                                data-html="true" href="#" class="btn btn-border">Share <i class="fa fa-share-alt"></i></a>
+                                                <div id="popover-content" class="hide">
+                                                  <span class='st_facebook_large' displayText='Facebook'></span>
+                                                   <span class='st_twitter_large' displayText='Tweet'></span>
+                                                     <span class='st_googleplus_large' displayText='Google +'></span>
+                                                </div>                                            
+                                            </li>
                                             {{--EDIT PROFILE--}}
                                             <li>
                                                 @if(Auth::check() && (Auth::user()->id == $biz->owner))
@@ -166,14 +178,40 @@
                                                     Edit profile</a>
                                                 @endif
                                             </li>
+
+                                             @if(Auth::check())
                                             {{--ADD PHOTO--}}
                                             <li><a href="" type="button" class="btn btn-border" data-toggle="modal" data-target="#myModal" title="Add Photo">
                                                     <i class="fa fa-camera"></i> Add photo</a></li>
+                                            @endif
+                                            @if(Auth::guest())
+                                                    <a href="/profile/photo" type="button" class="btn btn-border">
+                                                           <i class="fa fa-camera"></i> Add Photo</a>
+                                                    @endif
+
                                             {{--CLAIM BUSINESS--}}
                                             <li>
                                                 @if(! $biz->claimed)
-                                                    <a href="#" type="button" class="btn btn-border" data-toggle="modal" data-target="#myClaim">
+                                                    @if(Auth::check())
+                                                        <a href="#" type="button" class="btn btn-border" data-toggle="modal" data-target="#myClaim">
                                                             Claim Business</a>
+                                                    @endif
+                                                    @if(Auth::guest())
+                                                    <a href="/claimbiz" type="button" class="btn btn-border">
+                                                            Claim Business</a>
+                                                    @endif
+                                                @endif
+                                            </li>
+
+                                            <li>
+                                                @if(Auth::check())
+                                                <a href="" type="button" class="btn btn-border" data-toggle="modal" data-target="#reportModal"
+                                                title="Report this biz"><i class="fa fa-microphone"></i>Report this biz</a>
+
+                                                @endif
+                                                @if(Auth::guest())
+                                                <a href="/report" type="button" class="btn btn-border"><i class="fa fa-microphone"></i>Report this 
+                                                    biz</a>
                                                 @endif
                                             </li>
                                         </ul>
@@ -197,6 +235,11 @@
                                   <li>
                                     <a href="#reviews" role="tab" data-toggle="tab"><i class="fa fa-comments"></i> <span class="">Reviews</span></a>
                                   </li>
+                                  @if(Auth::check() && (Auth::user()->id == $biz->owner))
+                                  <li>
+                                    <a href="#edit" role="tab" data-toggle="tab"><i class="fa fa-building-o"></i> <span class="">Edit Biz</span></a>
+                                 </li>
+                                 @endif
                                 </ul>
                               </div> <!-- end .page-sidebar -->
                             </div> <!-- end .main-grid layout -->
@@ -228,9 +271,9 @@
                                                         <div class="address-details clearfix">
                                                             <i class="fa fa-map-marker"></i>
                                                             <p>
-                                                                <span>{{$biz->address{0}->street}}</span>
-                                                                <span>{{$biz->address{0}->lga->name}}</span>
-                                                                <span>{{$biz->address{0}->state->name}}, Nigeria.</span>
+                                                                <span>{{$biz->address->street}}</span>
+                                                                <span>{{$biz->address->lga->name}}</span>
+                                                                <span>{{$biz->address->state->name}}, Nigeria.</span>
                                                             </p>
                                                         </div>
                                                         <div class="address-details clearfix">
@@ -373,6 +416,96 @@
                                          </div> <!-- end .rating-with-details -->
                                      </div> <!-- end .company-rating -->
                                     </div>
+                                    <div class="tab-pane" id="edit">
+                          <div class="company-ratings">
+                              <h3 class="text-uppercase m10-top">Edit Biz Profile</h3>
+                              <div class="rating-with-details">
+                                  @include('admin.partials.errors')
+                                  <form class="form-horizontal" role="form" method="POST" action="/biz/{{$biz->id}}">
+                                      <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                      <input type="hidden" name="_method" value="PUT">
+                                      <input type="hidden" name="id" value="{{$biz->id}}">
+                                      <div class="form-group">
+                                          <label for="cat" class="col-md-3 control-label">Business Name</label>
+                                          <div class="col-md-8">
+                                              <input required="required" type="text" value="{{ $biz->name}}" id="name" name="name"
+                                                 class="form-control" placeholder="name">
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="cat" class="col-md-3 control-label">Business Description</label>
+                                          <div class="col-md-8">
+                                              <input required="required" type="text" value="{{ $biz->description}}" id="description" name="description"
+                                                 class="form-control" placeholder="description">
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="cat" class="col-md-3 control-label">Business tagline</label>
+                                          <div class="col-md-8">
+                                              <input required="required" type="text" value="{{ $biz->tagline}}" id="tagline" name="tagline"
+                                                 class="form-control" placeholder="business slogan/tagline">
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="email" class="col-md-3 control-label">Business Address</label>
+                                          <div class="col-md-8">
+                                              <input type="text" id="address" value="{{ $biz->address->street}}" name="address" class="form-control"
+                                                     placeholder="Business Address">
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="email" class="col-md-3 control-label">Business Email</label>
+                                          <div class="col-md-8">
+                                              <input type="email" id="email" value="{{ $biz->address->email}}" name="email" class="form-control"
+                                                     placeholder="Business Email">
+                                          </div>
+                                      </div>
+                                      
+                                      <div class="form-group">
+                                            <label for="cat" class="col-md-3 control-label">Business state</label>
+                                            <div class="col-md-8">
+                                                @if($state=$biz->address->state)@endif
+                                                 {!!Form::select('state', $stateList, $state->name, ['class'=>'form-control','id'=>'stateList',
+                                                    'placeholder'=>'select state']) !!}
+                                            </div>
+                                     </div>
+
+                                     {{--REGION--}}
+                                    <div class="form-group">
+                                            <label for="image_class" class="col-md-3 control-label">
+                                                 Create Region/area</label>
+                                           <div class="col-md-8">
+                                                 {!!Form::select('lga[]', $state->lgas->lists('name','id'), $biz->address->lga_id,
+                                                  ['class'=>'form-control','id'=>'lga','placeholder'=>'Edit Regions','multiple']) !!}
+                                          </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cat" class="col-md-3 control-label">Business Category</label>
+                                        <div class="col-md-8">
+                                              {!!Form::select('cats[]', $catList, $cat, ['class'=>'form-control','id'=>'category_edit', 'multiple']) !!}     
+                                         </div>
+                                    </div>
+            <div class="form-group">
+              <label for="image_class" class="col-md-3 control-label">
+                Sub categories</label>
+                  <div class="col-md-8">
+                    {!!Form::select('sub[]', $subList, $sub, ['class'=>'form-control','id'=>'sub_edit','multiple']) !!} 
+                  </div>
+            </div>
+
+                                      <div class="col-md-7 col-md-offset-3">
+                                          <ul class="list-inline">
+                                              <li><button type="submit" class="btn btn-default btn-md">
+                                                  <i class="fa fa-save"></i>
+                                                  Save Changes
+                                              </button></li>
+                                              
+                                          </ul>
+                                      </div>
+                                  </form>
+                              </div> <!-- end .rating-with-details -->
+                          </div> <!-- end .company-rating -->
+                      </div>
                                 </div> <!-- end .tab-content -->
                             </div> <!-- end .main-grid layout -->
                         </div> <!-- end .row -->
@@ -380,77 +513,16 @@
                     {{--MAIN CONTENT ENDS--}}
                     {{--SIDEBAR RIGHT--}}
                     <div class="col-md-4">
-                       <div class="post-sidebar">
-                           <!-- AD BAR MINI -->
-                           <div class="recently-added ad-mini">
-                               <div class="category-item">
-                                   <h1 class="text-center m5-bttm"> <small>Advertisement</small>
-                                       <p class="rotate m10-top">
-                                           <span>GTBank Flex Account</span>
-                                           <span>Jevniks restaurants</span>
-                                           <span>Oriental Hotel</span>
-                                           <span>UBA</span>
-                                       </p>
-                                   </h1>
-                               </div>
-                           </div>
-                           <!-- FEATURED BUSINESSES -->
-                           <div class="latest-post-content">
-                               <h2>Featured Businesses</h2>
-                               @if ( ! $featured-> isEmpty() )
-                                   @foreach ($featured as $feature)
-                                       <div class="latest-post clearfix">
-                                           <div class="post-image">
-                                               <img src="{{asset('img/content/latest_post_1.jpg') }}" alt="">
-                                           </div>
-                                           <h4><a href="/review/biz/{{$feature->id}}">{{$feature->name}}</a></h4>
-                                           <p>Check out this great business on Ndibiz.</p>
-                                           <a class="read-more" href="/review/biz/{{$feature->id}}"><i class="fa fa-angle-right"></i>View profile</a>
-                                       </div> <!-- end .latest-post -->
-                                   @endforeach
-                               @endif
-                           </div>
-                           <!-- RECENTLY ADDED BUSINESSES -->
-                           <div class="recently-added">
-                               <h2>Recently Added</h2>
-                               @if ( ! $recent-> isEmpty() )
-                                   @foreach ($recent as $new)
-                                       <div class="latest-post clearfix">
-                                           <div class="post-image">
-                                               <img src="{{asset('img/content/latest_post_1.jpg') }}" alt="">
-                                               <p><span>12</span>Sep</p>
-                                           </div>
-                                           <h4><a href="/review/biz/{{$new->id}}">{{$new->name}}</a></h4>
-                                           <p>Recent Biz added on Ndibiz</p>
-                                           <a class="read-more" href="/review/biz/{{$new->id}}"><i class="fa fa-angle-right"></i>View profile</a>
-                                       </div> <!-- end .latest-post -->
-                                   @endforeach
-                               @endif
-                           </div>
-                           <!-- AD BAR MEDIUM -->
-                           <div class="ad-midi">
-                               <h1 class="text-center m5-bttm"> <small>Advertisement</small></h1>
-                               <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel">
-                                   <!-- Carousel items -->
-                                   <div class="carousel-inner">
-                                       <div class="active item"><img src="{{asset('img/content/ad1.png')}}" alt=""></div>
-                                       <div class="item"><img src="{{asset ('img/content/ad1.jpg')}}" alt=""></div>
-                                       <div class="item"><img src="{{asset ('img/content/ad1.jpg')}}" alt=""></div>
-                                   </div>
-                               </div>
-                           </div>
-                           <!-- RECENT REVIEWS -->
-                           <div class="recently-added">
-                               <h2>Recent Reviews</h2>
-                           </div>
-                       </div>
-                   </div>
+                    @include('includes.sidebar')
+                    </div>
                 </div>
             </div>  <!-- end .home-with-slide -->
         </div> <!-- end .container -->
      </div> <!-- end #page-content -->
+
     {{--CLAIM BUSINESS FORM MODAL--}}
-    <div class="modal fade" id = "myClaim" tabindex = "-1" role = "dialog" aria-labelledby = "myModalLabel" aria-hidden = "true">
+    @if(Auth::check())
+    <div class="modal fade" id ="myClaim" tabindex= "-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class = "modal-dialog">
             <div class = "modal-content">
                 <div class="modal-header">
@@ -460,25 +532,26 @@
                     </h4>
                 </div>
                 <div class="modal-body">
+                     @include('admin.partials.errors')
                     <p>Enter your details below(You must be the business owner or staff of the company to own this business)</p>
                     {!! Form::open( array('url' =>'/claimbiz/'.$biz->id, 'files'=> true, 'method'=>'post')) !!}
-                    {!!Form::hidden('id', $biz->id)!!}
+                    {!!Form::hidden('biz_id', $biz->id) !!}
                     <div class="form-group">
                         <div class="col-md-5">Full Name</div>
                         <div class="col-md-7">
-                            <input required type="text" id="name" name="name" class="form-control" placeholder="Full name" value="{{ old('name')}}">
+                            <input required type="text" id="fullname" name="fullname" class="form-control" placeholder="Full name" value="{{ old('name')}}">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-md-5">Email Address</div>
                         <div class="col-md-7">
-                             <input required type="text" id="address" name="address" class="form-control" placeholder="Email" value="{{ old('address')}}">
+                             <input required type="text" id="email" name="email" class="form-control" placeholder="Email" value="{{ old('address')}}">
                         </div>
                     </div>
                     <div class="form-group">
                       <div class="col-md-5">Are you the owner of this business?</div>
-                      <div class="col-md-7"><input type="radio" name="owner" value="YES">YES
-                        <input type="radio" name="owner" value="NO">NO
+                      <div class="col-md-7"><input type="radio" name="ownership" value="YES">YES
+                        <input type="radio" name="ownership" value="NO">NO
                       </div>
                     </div>
                     <div class="form-group">
@@ -501,12 +574,76 @@
                     </div>
                     <button type = "button" class = "btn btn-default" data-dismiss = "modal">Close</button>
                     {!!Form::submit('Submit', array('class' => 'btn btn-primary btn-sm') ) !!}
-               </form>
+               {!! Form::close() !!}
            </div>
                 <div class="modal-footer"></div>
             </div><!-- /.modal-content -->
        </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+
+    @endif
+
+     {{--Report Modal--}}
+    <div class="modal fade" id="reportModal" tabindex ="-1" role ="dialog" aria-labelledby="myReportModal" aria-hidden ="true" >
+        <div class = "modal-dialog">
+            <div class = "modal-content">
+               <div class = "modal-header">
+                  <button type = "button" class = "close" data-dismiss = "modal" aria-hidden = "true">&times;</button>
+                  <h3 class = "modal-title" id = "myModalLabel">Report This Biz</h3>
+               </div>
+               <div class = "modal-body">
+                    <div class="container-fluid">
+                        {!! Form::open( array('url' =>'/reportBiz','method'=>'post')) !!}
+                        {!!Form::hidden('id', $biz->id)!!}
+                            <div class="panel panel-default text-center">
+                                <div class="panel-heading">
+                                    <h2 class="panel-title">Report this biz</h2>
+                                    @if (Session::get('errors'))
+                                    <div class="alert alert-error alert-danger"><a name="error">{{{ Session::get('errors') }}}</a></div>
+                                    @endif
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <div class="col-md-5">What are you reporting?</div>
+                                        <div class="col-md-7">
+                                            <select name="complaint">
+                                                 <option value="wrong business details">wrong business details</option>
+                                                 <option value="business does not exists">business does not exists</option>
+                                                 <option value="i want to own this business">i want to own this business</option>
+                                                 <option value="other reasons">other reasons</option>
+                                            </select>
+                                        </div>
+                                 </div>
+                                 <br/>
+
+                                 <div class="form-group">
+                                        <div class="col-md-5">Explain your reason</div>
+                                        <div class="col-md-7">
+                                            <textarea name="explain" rows="5" required>
+                                            </textarea>
+                                        </div>
+                                 </div>
+                                 <br></br>
+
+                                 <div class="form-group">
+                                        <div class="col-md-5">Email address</div>
+                                        <div class="col-md-7">
+                                            <input type="email" class="form-control" name="email" placeholder="Enter email address to contact you!!!" id="email" required/>
+                                        </div>
+                                 </div>
+                                </div>
+                                <div class="panel-footer">
+                                    <span>{!!Form::submit('Submit', array('class' => 'btn btn-primary btn-sm') ) !!}</span>
+                                </div>
+                            </div>
+                        {!!Form::close() !!}
+                    </div>
+               </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    
+
     {{--BUSINESS LOGO--}}
     <div class = "modal fade" id = "myModal" tabindex = "-1" role = "dialog" aria-labelledby = "myModalLabel" aria-hidden = "true">
         <div class="modal-dialog">
@@ -527,6 +664,9 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+
+
+
     {{--BUSINESS PICTIURES--}}
     <div class = "modal fade" id = "myBizProfile" tabindex = "-1" role = "dialog" aria-labelledby = "myModalLabel" aria-hidden = "true" >
         <div class = "modal-dialog">
@@ -572,6 +712,7 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+
 @endsection
 
 <!-- FOOTER STARTS -->
@@ -581,13 +722,43 @@
 <!-- FOOTER ENDS -->
 
 @section('scripts')
-    <script type="text/javascript" src="{{asset('plugins/nanogallery/jquery.nanogallery.min.js')}}"></script>
+    <script src="{{asset('plugins/nanogallery/jquery.nanogallery.min.js')}}"></script>
     <script src="{{asset('js/dropzone.js')}}"></script>
-    <script src="{{ asset('plugins/jasny-bootstrap/js/jasny-bootstrap.min.js') }}"></script>
-    <script type="text/javascript" src="{{asset('https://maps.googleapis.com/maps/api/js')}}"></script>
-    {{--CUSTOM PAGE SCRIPTS--}}
+    <script src="{{asset('plugins/jasny-bootstrap/js/jasny-bootstrap.min.js') }}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+
+    @if(!empty(Session::has('error_code')) && Session::get('error_code') == 5)
     <script type="text/javascript">
-        {{--DROPZONE--}}
+        $(function() {
+         $('#myClaim').modal('show');
+            });
+    </script>
+    @endif
+
+    @if(Session::has('success_code') && Session::get('success_code') == 220)
+    <script type="text/javascript">
+    $(function() {
+        swal({ title: "Success!", 
+                text: "{{ Session::get('report')}}",
+                type: "success"
+            });
+    });
+    </script>
+    @endif
+
+    @if(Session::has('success_code') && Session::get('success_code') == 230)
+    <script type="text/javascript">
+    $(function() {
+        swal({ title: "Success!", 
+                text: "{{ Session::get('success_claim')}}",
+                type: "success"
+            });
+    });
+    </script>
+    @endif
+
+     {{--DROPZONE--}}
+    <script type="text/javascript">
         $(document).ready(function() {
             Dropzone.autoDiscover = false;
             $(document).on('click','#myClaim',function(){
@@ -596,8 +767,36 @@
             $(document).on('click','#myModal',function(){
                 var myDropzone = new Dropzone("form#uploadFile2", { url: "/biz/{{$biz->id}}/upload", autoProcessQueue: true});
             });
+
+            $('#favourForm').submit(function() {                
+              var biz_id= $('#bizID').val();
+              
+              $.ajax({ url: "{{ URL::to('/favourites')}}",
+                    data: {biz_id: biz_id},
+                    dataType: 'json',
+                    type: 'post',
+                 success: function(output) {
+                     $.each(output.data, function(){
+                        if(this.id==0){
+                            console.log(this.text);
+                            $('#favourBtn').empty().html('<button id="favourBtn" type="submit" class="btn btn-border favorited"><i class="fa fa-heart"></i>favourite<span class="badge badge-inverse">' +this.count+ '</span></button>');
+                      }
+
+                        if(this.id==1){
+                         console.log(this.text);
+                      $('#favourBtn').empty().html('<button id="favourBtn" type="submit" class="btn btn-border not-favorited"><i class="fa fa-heart"></i>Unfavourite <span class="badge badge-inverse">' + this.count + '</span></button>');
+                      }
+
+                  });
+                     
+                         }
+                });
+
+               return false;
+                }); // end submit()
         });
-        //SET ACTIVE TAB ON RELOAD
+        
+        {{--SET ACTIVE TAB ON RELOAD--}}
         $(document).ready(function() {
             // show active tab on reload
             if (location.hash !== '') $('a[href="' + location.hash + '"]').tab('show');
@@ -673,8 +872,44 @@
 
             var __slice=[].slice;(function(e,t){var n;n=function(){function t(t,n){var r,i,s,o=this;this.options=e.extend({},this.defaults,n);this.$el=t;s=this.defaults;for(r in s){i=s[r];if(this.$el.data(r)!=null){this.options[r]=this.$el.data(r)}}this.createStars();this.syncRating();this.$el.on("mouseover.starrr","span",function(e){return o.syncRating(o.$el.find("span").index(e.currentTarget)+1)});this.$el.on("mouseout.starrr",function(){return o.syncRating()});this.$el.on("click.starrr","span",function(e){return o.setRating(o.$el.find("span").index(e.currentTarget)+1)});this.$el.on("starrr:change",this.options.change)}t.prototype.defaults={rating:void 0,numStars:5,change:function(e,t){}};t.prototype.createStars=function(){var e,t,n;n=[];for(e=1,t=this.options.numStars;1<=t?e<=t:e>=t;1<=t?e++:e--){n.push(this.$el.append("<span class='glyphicon .glyphicon-star-empty'></span>"))}return n};t.prototype.setRating=function(e){if(this.options.rating===e){e=void 0}this.options.rating=e;this.syncRating();return this.$el.trigger("starrr:change",e)};t.prototype.syncRating=function(e){var t,n,r,i;e||(e=this.options.rating);if(e){for(t=n=0,i=e-1;0<=i?n<=i:n>=i;t=0<=i?++n:--n){this.$el.find("span").eq(t).removeClass("glyphicon-star-empty").addClass("glyphicon-star")}}if(e&&e<5){for(t=r=e;e<=4?r<=4:r>=4;t=e<=4?++r:--r){this.$el.find("span").eq(t).removeClass("glyphicon-star").addClass("glyphicon-star-empty")}}if(!e){return this.$el.find("span").removeClass("glyphicon-star").addClass("glyphicon-star-empty")}};return t}();return e.fn.extend({starrr:function(){var t,r;r=arguments[0],t=2<=arguments.length?__slice.call(arguments,1):[];return this.each(function(){var i;i=e(this).data("star-rating");if(!i){e(this).data("star-rating",i=new n(e(this),r))}if(typeof r==="string"){return i[r].apply(i,t)}})}})})(window.jQuery,window);$(function(){return $(".starrr").starrr()})
 
+            $(document).ready(function() {
+             $("#stateList").select2({
+                 tags: true
+                });
+                });
+
+         $(document).ready(function() {
+             $("#lga").select2({
+             tags: true
+            });
+         });
+    </script>
+    <!-- FB PLUGIN JAVASCRIPT CODE -->
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=221153544678812";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <!-- ./ FB PLUGIN -->
+    <!-- Sharing plugin -->
+    <script type="text/javascript">var switchTo5x=true;</script>
+    <script type="text/javascript" src="https://ws.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">stLight.options(
+                {publisher: "462b8e41-098f-4d6e-af7f-52472fed576a", doNotHash: false,
+                    doNotCopy: false, hashAddressBar: true, displayText: "27Colours"});
+    </script>
+    <script>
+        $("[data-toggle=popover]").popover({
+            html: true,
+            content: function() {
+                return $('#popover-content').html();
+            }
+        });
     </script>
     {{--CUSTOM PAGE SCRIPTS ENDS--}}
-    <script src="{{asset('js/xeditable.js')}}"></script>
     <script src="{{asset('js/scripts.js')}}"></script>
-@stop
+@endsection

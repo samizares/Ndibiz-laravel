@@ -52,8 +52,19 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function favours()
     {
-        return $this->belongsToMany('App\Biz','favourites');
+        return $this->belongsToMany('App\Biz','favourites','user_id','biz_id');
     }
+
+     public function subscribeBiz()
+    {
+      return $this->belongsToMany('App\Biz', 'biz_user_pivot','user_id','biz_id');
+    }
+
+     public function subscribeCat()
+    {
+      return $this->belongsToMany('App\Cat', 'cat_user_pivot','user_id','cat_id');
+    }
+
     public function biz()
     {
         return $this->hasMany('App\Biz');
@@ -62,6 +73,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function reviews()
     {
         return $this->hasMany('App\Review');
+    }
+
+    public function claims()
+    {
+
+        return $this->hasMany('App\Biz','owner');
     }
 
     public function messages()

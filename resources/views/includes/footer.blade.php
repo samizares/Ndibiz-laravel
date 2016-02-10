@@ -18,11 +18,11 @@
               <h3>Popular Categories</h3>
 
               <ul>
-                <li><a href="#"><i class="fa fa-shopping-cart"></i>Shopping</a></li>
+                <li><a href="/categories#Shopping"><i class="fa fa-shopping-cart"></i>Shopping</a></li>
                 <li><a href="#"><i class="fa fa-paper-plane-o"></i>Hotels</a></li>
-                <li><a href="#"><i class="fa fa-cogs"></i>Entertainment</a></li>
-                <li><a href="#"><i class="fa fa-book"></i> Taxi Service</a></li>
-                <li><a href="#"><i class="fa fa-building-o"></i>Real Estate</a></li>
+                <li><a href="/categories#cars"><i class="fa fa-cogs"></i>Cars</a></li>
+                <li><a href="/categories#BankingandFinance"><i class="fa fa-book"></i> Banks</a></li>
+                <li><a href="/categories#Restaurants"><i class="fa fa-building-o"></i>Restaurants</a></li>
               </ul>
             </div> <!-- end .popular-categories-->
           </div> <!-- end Grid layout-->
@@ -32,7 +32,7 @@
               <h3>Business Owners</h3>
 
               <ul>
-                <li><a href="#"><i class="fa "></i>Add a Business</a></li>
+                <li><a href="/biz/create"><i class="fa "></i>Add a Business</a></li>
                 <li><a href="#"><i class="fa "></i>Claim your Business Page</a></li>
                 <li><a href="#"><i class="fa "></i>Advertise with Us</a></li>
                 <li><a href="#"><i class="fa "></i> Login to your account</a></li>
@@ -42,12 +42,15 @@
 
           <div class="col-md-3 col-sm-6">
             <div class="newsletter">
-              <h3>Subscribe</h3>
+                <div id="sub-form">
+                  <h3>Subscribe</h3>
 
-              <form action="#">
-                <input type="Email" placeholder="Email address">
-                <button><i class="fa fa-plus"></i></button>
-              </form>
+                  <form id="subscribe" action="">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="Email" id="email" placeholder="Email address">
+                    <button type="submit"><i class="fa fa-plus"></i></button>
+                  </form>
+                 </div>
 
               <h3>Keep In Touch</h3>
 
