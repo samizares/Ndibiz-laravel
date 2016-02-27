@@ -6,7 +6,10 @@
 <!-- HEADER -->
 <!-- search -->
 @section('search')
-  @include('partials.search')
+    <div class="header-search map">
+        <div class="header-search-bar">
+            <h2 class="text-center m20-bttm text-color-white text-uppercase" style="font-weight: 300;">Business Listings</h2>
+        </div> <!-- END .header-search-bar -->
 @endsection
 @section('header-navbar')
     <div class="header-nav-bar">
@@ -33,14 +36,7 @@
                             <li><a class="btn" href="/auth/register" class=""><i class="fa fa-plus-square"></i> <span>Register</span></a></li>
                         @endif
                         {{--<li class="text-center"><a href="/businesses" class=""><i class="fa fa-building"></i> Explore</a></li>--}}
-                        <li class="dropdown text-center">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-building-o"></i> Explore</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="/businesses" class=""><i class="fa fa-building"></i> Businesses</a></li>
-                                <li><a href="/categories" class=""><i class="fa fa-sort"></i> Categories</a></li>
-                                <li><a href="/locations" class=""><i class="fa fa-map-marker"></i> Locations</a></li>
-                            </ul>
-                        </li>
+                        <li class="text-center"><a href="/businesses"><i class="fa fa-building-o"></i> Explore</a></li>
                         <li class="text-center"><a href="/biz/create" class=""><i class="fa fa-plus"></i> Add a Business</a></li>
                 </ul>
             </nav>
@@ -62,40 +58,67 @@
               </div>
               <div class="col-md-4 text-right"></div>
             </div>
+              {{--filters--}}
+              <hr class="m5">
+              <h4>Filters</h4>
+            <div class="row m15-top m5-left m5-right">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <select class="form-control" id="sel1">
+                            <option>All Locations</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <select class="form-control" id="sel1">
+                            <option>All Categories</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <select class="form-control" id="sel1">
+                            <option>All Tags</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+              <hr class="m5">
+              {{--business listings--}}
             <div class="row businesses">
-              <div class="col-md-8 col-md-push-4">
+              <div class="col-md-12">
                 <div class="page-content">
                   <div class="product-details view-switch">
                     <div class="tab-content">
-                      @unless ( $cats->isEmpty() )
-                      @foreach ($cats as $cat)
-                      <div class="tab-pane" id="<?php $find = array(' & ',' And ',' and ',' ');$replace = array('');
-                   echo str_replace($find, $replace, $cat->name); ?>">
+
+                      <div class="tab-pane" id="">
                         <div class="row p0-top">
-                          <div class="col-md-8">
-                            <h3 class="m0-top">{{$cat->name}}</h3>
-                          </div>
                           <div class="col-md-4">
-                              {{--<div class="">--}}
-                                  {{--<select class="instafilta-trigger">--}}
-                                      {{--<option value="">Show all</option>--}}
-                                      {{--<option value="machine" selected="selected">Machines</option>--}}
-                                      {{--<option value="human">Humans</option>--}}
-                                      {{--<option value="non-fictional">Non-fictional</option>--}}
-                                  {{--</select>--}}
-                              {{--</div>--}}
-                            <div class="change-view pull-right">
+                            {{--<h3 class="m0-top">{{$bizs->name}}</h3>--}}
+                          </div>
+                          <div class="col-md-8">
+                            <div class="change-view pull-right hidden">
                                 <button class="grid-view active"><i class="fa fa-th"></i></button>
                                 <button class="list-view"><i class="fa fa-bars"></i></button>
-                            </div> 
+                            </div>
                           </div>
-                        </div>                                         
+                        </div>
                         <div class="row clearfix p5-top">
-                              @foreach ($cat->biz as $biz) 
-                              <div class="col-md-6 col-sm-4">
+                              @foreach ($bizs as $biz)
+                              <div class="col-md-4 col-sm-3">
                                 <div class="single-product">
                                   <figure>
-                                    <img src="{{isset($biz->profilePhoto->image) ? asset($biz->profilePhoto->image) : 
+                                    <img src="{{isset($biz->profilePhoto->image) ? asset($biz->profilePhoto->image) :
                                                asset('img/content/post-img-10.jpg') }}" alt="">
                                       <div class="rating">
                                           <ul class="list-inline">
@@ -110,45 +133,22 @@
                                   </figure>
                                   <h4><a href="/review/biz/{{$biz->slug}}">{{$biz->name}}</a></h4>
                                     <p class="biz-tagline m20-bttm text-left">{{$biz->description}}</p>
-                                    <p><span class="p0-bttm">@foreach( $biz->subcats as $sub) <span><a class="btn btn-border btn-xs" href="/biz/subcat/{{$sub->slug}}">
-                                        <i class="fa fa-tags"></i> {{$sub->name}}</a></span> @endforeach</span></p>
-                                  <p class="address-preview"><i class="fa fa-map-marker"></i> {{$biz->address->street}}, {{ $biz-> address->state->name}}</p>
+                                    <p class="m5-bttm"><span class="p0-bttm">@foreach( $biz->subcats as $sub) <span><a class="btn btn-border btn-xs" href="/biz/subcat/{{$sub->slug}}">
+                                        <i class="fa fa-tags"></i> {{$sub->name}}</a></span> @endforeach</span>
+                                    </p>
                                 </div> <!-- end .single-product -->
                               </div> <!-- end .col-sm-4 grid layout -->
-                              {!! $cat->biz()->paginate(6)->render() !!} 
-                              @endforeach 
+                              @endforeach
+                              <div class="clearfix container">
+                                  <?php echo $bizs->render(); ?>
+                              </div>
                           </div> <!-- end .row -->
-                      </div> <!-- end .tabe-pane -->  
-                      @endforeach
-                      @endunless               
+                      </div> <!-- end .tabe-pane -->
+
                     </div> <!-- end .tabe-content -->
                   </div> <!-- end .product-details -->
                 </div> <!-- end .page-content -->
               </div>
-
-              <affix offset="20" class="col-md-4 col-md-pull-8 category-toggle">
-                <button v-on="click:showLeft = true"><i class="fa fa-filter"></i> Filter </button>
-                <sidebar show="{{@showLeft}}" placement="left" header="Title" width="350">
-                    <div class="page-sidebar sidebar">
-                      <!-- Category accordion -->
-                      <div id="categories">
-                        <div class="accordion">
-                          <ul class="nav nav-tabs home-tab" role="tablist">
-                             @foreach ($cats as $cat)
-                              <li>
-                                <a class="" href="#<?php $find = array(' & ',' And ',' and ',' ');$replace = array('');
-                                  echo str_replace($find, $replace, $cat->name); ?>"
-                                 role="tab" data-toggle="tab"><i class="fa fa-{{$cat->image_class}}"></i>
-                                {{ $cat->name }}</a>
-                              </li>
-                              @endforeach
-
-                          </ul>
-                        </div> <!-- end .accordion -->
-                      </div> <!-- end #categories -->
-                    </div> <!-- end .page-sidebar -->
-                </sidebar>
-              </affix> <!-- end grid layout-->
             </div> <!-- end .row -->
           </div>
           <!-- SIDEBAR RIGHT -->

@@ -14,27 +14,39 @@
     <div id="homepage" class="slider-content">
         <div id="home-slider" class="">
             <div class="item">
-                <img src="{{asset('img/content/lagosnight.jpg')}}" alt="">
+                <img src="{{asset('img/content/preview.jpg')}}" alt="">
                 <div class="slide-content">
                     <div class="lp-content">
                         <h1 class="text-center page-title hidden-xs m5-bttm"> {{$settings->title1}} <br>
                             <p style="min-height: 55px;font-weight: 200;" class="m5-bttm"><span class="rotate">
-                        <span>{{$settings->span1}}</span>
-                        <span>{{$settings->span2}}</span>
-                        <span>{{$settings->span3}}</span>
-                        <span>{{$settings->span4}}</span>
-                        <span>{{$settings->span5}}</span>
+                            <span>{{$settings->span1}}</span>
+                            <span>{{$settings->span2}}</span>
+                            <span>{{$settings->span3}}</span>
+                            <span>{{$settings->span4}}</span>
+                            <span>{{$settings->span5}}</span>
                     </span></p>
                         </h1>
                         <h1 class="page-title hidden-lg hidden-md hidden-sm m5-bttm">{{$settings->title2}}</h1>
                         <h3 class="page-subtitle m5-top">{{$settings->subtitle}}</h3>
-                        <h1><a class="btn btn-default btn-lg" href="/businesses"><i class="fa fa-plus-square"></i> Explore Businesses</a></h1>
+                        <div class="col-md-12">
+                            <form class="navbar-form" role="search">
+                                <div class="input-group input-group-lg stylish-input-group2">
+                                    <input type="text" class="form-control"  placeholder="Search Businesses" >
+                                    <span class="input-group-addon">
+                                        <button type="submit">
+                                            <span class="fa fa-search"></span>
+                                        </button>
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
+                        {{--<h1 class="clearfix"><a class="btn btn-default btn-lg" href="/businesses"><i class="fa fa-plus-square"></i> Explore Businesses</a></h1>--}}
                     </div>
                 </div>
             </div>
         </div>
     </div> <!-- END .slider-content -->
-    @endsection
+@endsection
             <!-- navigation -->
 @section('header-navbar')
     <div class="header-nav-bar">
@@ -73,16 +85,105 @@
             </nav>
         </div> <!-- end .container -->
     </div> <!-- end .header-nav-bar -->
-    @endsection
+@endsection
             <!-- CONTENT -->
 @section('content')
-
     @include('partials.notifications')
-    <div class="register-content">
-        <div class="reg-heading hidden">
-            <h3>List a business for <strong class="text-color-yellowFFD231">Free</strong> now <br> <span class="btn btn-default"><a href="/biz/create">
-                        <i class="fa fa-plus"></i> Add a Business</a></span></h3>
-        </div>
+    {{--Featured Businesses--}}
+    <section id="page-content" class="home-slider-content">
+        <div class="container">
+            <div class="home-with-slide category-listing">
+                <h3 class="section-title m0 p0"><strong>Featured</strong> Businesses</h3>
+                <p class="section-subtitle text-color-grey444 m0-bttm">Explore featured businesses.</p>
+                <div class="row featured-category">
+                    @unless ( $featured->isEmpty() )
+                        @foreach($featured as $feature)
+                             <div class="col-md-3">
+                              <div class="single-product">
+                                  <a href="/review/biz/{{$feature->slug}}">
+                                      <figure style="margin: 0;">
+                                          <img src="{{asset('img/content/post-img-1.jpg')}}" alt="">
+                                          <div class="rating">
+                                              <ul class="list-inline">
+                                                  <li>
+                                                      @for ($i=1; $i <= 5 ; $i++)
+                                                          <span class="glyphicon glyphicon-star{{ ($i <= $feature->rating_cache) ? '' : '-empty'}}"></span>
+                                                      @endfor
+                                                  </li>
+                                              </ul>
+                                              <p>
+                                                  @foreach($feature->cats as $cat)
+                                                      {{ $cat->name }}
+                                                  @endforeach
+                                              </p>
+                                          </div>
+                                      </figure>
+                                      <h4 class="text-left">{{$feature->name}}</h4>
+                                      <p class="biz-tagline m20-bttm text-left">{{$feature->description}}</p>
+                                      <p class="text-left m0-bttm">
+                                          @foreach($feature->subcats as $sub)
+                                              <span class="btn btn-border btn-xs btn-tags" role="button"><i class="fa fa-tags"></i> {{$sub->name}}</span>
+                                          @endforeach
+                                      </p>
+                                  </a>
+                              </div>
+                             </div>
+                        @endforeach
+                    @endunless
+                </div>
+                <div class="discover-more text-center m20-bttm p10-bttm"><a class="btn btn-default btn-lg" href="/categories">More Categories</a></div>
+            </div> <!-- end .home-with-slide -->
+        </div> <!-- end .container -->
+    </section>  <!-- end #page-content -->
+    {{--Recent Businesses Carousel--}}
+    <section class="featured-listing" id="featured-list">
+        <div class="container">
+            <h3 class="section-title"><strong>Recent</strong> Businesses</h3>
+            <span class="section-subtitle text-color-greyddd">Explore recently added businesses.</span>
+            <div id="businesses-slider" class="owl-carousel owl-theme clearfix p20-top">
+                @unless ( $recentBiz->isEmpty() )
+                    @foreach ($recentBiz as $recent)
+                        <div class="item">
+                            <div class="single-product">
+                                <a href="/review/biz/{{$recent->slug}}">
+                                    <figure>
+                                        <img src="{{asset('img/content/post-img-1.jpg')}}" alt="">
+                                        <div class="rating">
+                                            <ul class="list-inline">
+                                                <li>
+                                                    @for ($i=1; $i <= 5 ; $i++)
+                                                        <span class="glyphicon glyphicon-star{{ ($i <= $recent->rating_cache) ? '' : '-empty'}}"></span>
+                                                    @endfor
+                                                </li>
+                                            </ul>
+                                            <p>@foreach($recent->cats as $cat){{ $cat->name }}@endforeach</p>
+                                        </div>
+                                    </figure>
+                                    <h4 class="text-left">{{$recent->name}}</h4>
+                                    <p class="biz-tagline m20-bttm text-left">{{$recent->description}}</p>
+                                    <p class="text-left m0-bttm">
+                                        @foreach($recent->subcats as $sub)
+                                            <span class="btn btn-border btn-xs btn-tags" role="button"><i class="fa fa-tags"></i> {{$sub->name}}</span>
+                                        @endforeach
+                                    </p>
+                                </a>
+                            </div> <!-- end .single-product -->
+                        </div>
+                    @endforeach
+                @endunless
+            </div>  <!-- end .row -->
+            <div class="discover-more m20-bttm">
+                <a class="btn btn-default btn-lg text-center" href="/businesses">View All Businesses</a>
+            </div>
+        </div>  <!-- end .container -->
+    </section>  <!-- end .featured-listing -->
+    {{--Register business--}}
+    <section class="reg-heading text-center">
+            <h3 class="text-uppercase">List a business for <strong class="text-color-grey333">Free</strong> now </h3>
+            <a href="/biz/create"class="btn btn-default btn-lg m15-top"><i class="fa fa-plus"></i> Add a Business</a>
+    </section>
+    {{--help section--}}
+    <section class="register-content" style="background: rgba(238, 238, 238, 0.32);">
         <div class="registration-details">
             <div class="container">
                 <h3 class="section-title"><strong>See How It Works</strong></h3>
@@ -114,117 +215,7 @@
             <!-- END .CONTAINER -->
         </div>
         <!-- END .REGISTRATION-DETAILS -->
-    </div>
-    <!-- END REGISTER-CONTENT -->
-    <div id="page-content" class="home-slider-content">
-        <div class="container">
-            <div class="home-with-slide category-listing">
-                <h3 class="section-title"><strong>Featured</strong> Categories</h3>
-                <p class="section-subtitle text-color-grey444 m0-bttm">Explore our most popular business categories.</p>
-                <div class="row featured-category">
-                    @unless ( $featured->isEmpty() )
-                        @foreach($featured as $feature)
-                            @foreach ($feature->cats as $cat)
-                                <div class="col-md-3">
-                                    <div class="category-item">
-                                        <a class="btn" href="/biz/cat/{{$cat->id}}">
-                                            <span><i class="fa fa-{{$cat->image_class}}"></i> <br>
-                                            <span class="biz-counter"> ({{$cat->biz->count()}}) </span> {{$cat->name}}</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            @endforeach
-                        @endforeach
-                    @endunless
-                </div>
-                <div class="discover-more text-center m20-bttm p10-bttm"><a class="btn btn-default" href="/categories">Discover More Categories</a></div>
-            </div> <!-- end .home-with-slide -->
-        </div> <!-- end .container -->
-    </div>  <!-- end #page-content -->
-
-    <div class="featured-listing" id= "featured-list">
-        <div class="container">
-            <h3 class="section-title"><strong>Featured</strong> Businesses</h3>
-            <span class="section-subtitle text-color-greyddd">Explore top rated businesses based on customers' ratings.</span>
-            <div id="businesses-slider" class="owl-carousel owl-theme clearfix p20-top">
-                @unless ( $featured->isEmpty() )
-                    @foreach ($featured as $feature)
-                        <div class="item">
-                            <div class="single-product">
-                                <a href="/review/biz/{{$feature->slug}}">
-                                    <figure>
-                                        <img src="{{asset('img/content/post-img-1.jpg')}}" alt="">
-                                        <div class="rating">
-                                            <ul class="list-inline">
-                                                <li>
-                                                    @for ($i=1; $i <= 5 ; $i++)
-                                                        <span class="glyphicon glyphicon-star{{ ($i <= $feature->rating_cache) ? '' : '-empty'}}"></span>
-                                                    @endfor
-                                                </li>
-                                            </ul>
-                                            <p>
-                                                @foreach($feature->cats as $cat)
-                                                    {{ $cat->name }}
-                                                @endforeach
-                                            </p>
-                                        </div>
-                                    </figure>
-                                    <h4 class="text-left">{{$feature->name}}</h4>
-                                    <p class="biz-tagline m20-bttm text-left">{{$feature->description}}</p>
-                                    <p class="text-left m0-bttm">
-                                        @foreach($feature->subcats as $sub)
-                                            <span class="btn btn-border btn-xs btn-tags" role="button"><i class="fa fa-tags"></i> {{$sub->name}}</span>
-                                        @endforeach
-                                    </p>
-                                </a>
-                            </div> <!-- end .single-product -->
-                        </div>
-                    @endforeach
-                @endunless
-            </div>  <!-- end .row -->
-            <div class="discover-more m20-bttm">
-                <a class="btn btn-default text-center" href="/businesses">Discover More Businesses</a>
-            </div>
-        </div>  <!-- end .container -->
-    </div>  <!-- end .featured-listing -->
-
-    <div class="register-content">
-        <div class="reg-heading">
-            <h3>List a business for <strong class="text-color-grey333">Free</strong> now <br> <span class="btn btn-default"><a href="/biz/create">
-                        <i class="fa fa-plus"></i> Add a Business</a></span></h3>
-        </div>
-        <div class="registration-details hidden">
-            <div class="container">
-                <h3 class="section-title"><strong>See How It Works</strong></h3>
-                <span class="section-subtitle text-color-grey222 text-center">Discover how easy our directory can help you connect with businesses around you.</span>
-                <div class="row m20-top m20-bttm">
-                    <div class="col-md-4 m20-bttm">
-                        <div class="box regular-member">
-                            <i class="fa fa-user m10-bttm"></i>
-                            <h4 class="p5-bttm">Choose What To Do</h4>
-                            <p>Lorem ipsum dolor sit amet, wisi constituto vim in. An eum audire verterem, an rebum adipiscing has. </p>
-                        </div>
-                    </div>
-                    <div class="col-md-4 m20-bttm">
-                        <div class="box business-member">
-                            <i class="fa fa-search m10-bttm"></i>
-                            <h4 class="p5-bttm">Find What You Want</h4>
-                            <p>Lorem ipsum dolor sit amet, wisi constituto vim in. An eum audire verterem, an rebum adipiscing has. </p>
-                        </div>
-                    </div>
-                    <div class="col-md-4 m20-bttm">
-                        <div class="box business-member">
-                            <i class="fa fa-building m10-bttm"></i>
-                            <h4 class="p5-bttm">Explore local businesses</h4>
-                            <p>Lorem ipsum dolor sit amet, wisi constituto vim in. An eum audire verterem, an rebum adipiscing has. </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- END .CONTAINER -->
-        </div>
-        <!-- END .REGISTRATION-DETAILS -->
-    </div>
+    </section>
     <!-- END REGISTER-CONTENT -->
     @endsection
     <!-- FOOTER STARTS -->
