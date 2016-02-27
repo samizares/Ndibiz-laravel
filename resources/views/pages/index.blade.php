@@ -97,41 +97,33 @@
                 <p class="section-subtitle text-color-grey444 m0-bttm">Explore featured businesses.</p>
                 <div class="row featured-category">
                     @unless ( $featured->isEmpty() )
-                        @foreach($featured as $feature)
-                             <div class="col-md-3">
-                              <div class="single-product">
-                                  <a href="/review/biz/{{$feature->slug}}">
-                                      <figure style="margin: 0;">
-                                          <img src="{{asset('img/content/post-img-1.jpg')}}" alt="">
-                                          <div class="rating">
-                                              <ul class="list-inline">
-                                                  <li>
-                                                      @for ($i=1; $i <= 5 ; $i++)
-                                                          <span class="glyphicon glyphicon-star{{ ($i <= $feature->rating_cache) ? '' : '-empty'}}"></span>
-                                                      @endfor
-                                                  </li>
-                                              </ul>
-                                              <p>
-                                                  @foreach($feature->cats as $cat)
-                                                      {{ $cat->name }}
-                                                  @endforeach
-                                              </p>
-                                          </div>
-                                      </figure>
-                                      <h4 class="text-left">{{$feature->name}}</h4>
-                                      <p class="biz-tagline m20-bttm text-left">{{$feature->description}}</p>
-                                      <p class="text-left m0-bttm">
-                                          @foreach($feature->subcats as $sub)
-                                              <span class="btn btn-border btn-xs btn-tags" role="button"><i class="fa fa-tags"></i> {{$sub->name}}</span>
-                                          @endforeach
-                                      </p>
-                                  </a>
-                              </div>
-                             </div>
+                        @foreach($featured as $biz)
+                            <div class="col-md-3">
+                                <div class="single-product">
+                                    <figure>
+                                        <img src="{{isset($biz->profilePhoto->image) ? asset($biz->profilePhoto->image) :
+                                               asset('img/content/post-img-10.jpg') }}" alt="">
+                                        <div class="rating">
+                                            <ul class="list-inline">
+                                                <li>
+                                                    @for ($i=1; $i <= 5 ; $i++)
+                                                        <span class="glyphicon glyphicon-star{{ ($i <= $biz->rating_cache) ? '' : '-empty'}}"></span>
+                                                    @endfor
+                                                </li>
+                                            </ul>
+                                            <p class="">{{$biz->rating_count}} {{ Str::plural('review', $biz->rating_count)}}</p>
+                                        </div>
+                                    </figure>
+                                    <h4><a href="/review/biz/{{$biz->slug}}">{{$biz->name}}</a></h4>
+                                    <p class="biz-tagline m20-bttm text-left">{{$biz->description}}</p>
+                                    <p class="m5-bttm"><span class="p0-bttm">@foreach( $biz->subcats as $sub) <span><a class="btn btn-border btn-xs" href="/biz/subcat/{{$sub->slug}}">
+                                                    <i class="fa fa-tags"></i> {{$sub->name}}</a></span> @endforeach</span>
+                                    </p>
+                                </div> <!-- end .single-product -->
+                            </div> <!-- end .col-sm-4 grid layout -->
                         @endforeach
                     @endunless
                 </div>
-                <div class="discover-more text-center m20-bttm p10-bttm"><a class="btn btn-default btn-lg" href="/categories">More Categories</a></div>
             </div> <!-- end .home-with-slide -->
         </div> <!-- end .container -->
     </section>  <!-- end #page-content -->

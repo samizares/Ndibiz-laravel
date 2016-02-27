@@ -39,13 +39,13 @@ class HomeController extends Controller
 		$catList   = SubCat::lists('name','id')->take(4);
 
           $featured= Biz::whereFeatured('YES')
-			  ->where('rating_cache', '>', '3')
-			  ->take(4)
+			  ->where('rating_cache', '>', '2')
+			  ->take(8)
 			  ->get();
           $settings=Setting::findOrFail(1);
 
-		return view('pages.index', compact('stateList','settings','catList','cats','featured', 'recentBiz', 'totalCat', 'totalSubCat',
-		 'subs'));
+		return view('pages.index', compact('stateList','settings','catList','cats','featured', 'recentBiz',
+			'totalCat', 'totalSubCat', 'subs'));
 	}
 
 	public function home()
@@ -56,8 +56,8 @@ class HomeController extends Controller
 		$totalSubCat=subCat::count();
 		$stateList= State::lists('name','id');
 		$catList   = SubCat::lists('name','id')->take(4);
-	    $featured= Biz::whereFeatured('YES')->take(12)->get();
-		return view('pages.index', compact('stateList','catList','cats','featured', 'totalCat', 'totalSubCat',
+	    $featured= Biz::whereFeatured('YES')->take(8)->get();
+		return view('pages.index', compact('stateList','catList','cats', 'bizs','featured', 'totalCat', 'totalSubCat',
 		 'subs'));
 	}
 
