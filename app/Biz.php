@@ -57,7 +57,7 @@ class Biz extends Model
          }
     }
 
-     protected function setUniqueSlug($name, $extra)
+   /*  protected function setUniqueSlug($name, $extra)
     {
         $slug = str_slug($name.'-'.$extra);
 
@@ -68,6 +68,7 @@ class Biz extends Model
 
         $this->attributes['slug'] = $slug;
     }
+    */
     
     public function cats()
     {

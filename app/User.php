@@ -43,7 +43,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	{
 		$user = User::where('confirmation_code', '=', $code)->first();
 		$user->confirmed = 1;
-		$user->confirmation_code = '';
+		$user->confirmation_code = null;
 		if($user->save()) {
 		\Auth::login($user);
 		}
