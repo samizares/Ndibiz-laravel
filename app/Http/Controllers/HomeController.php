@@ -39,7 +39,7 @@ class HomeController extends Controller
 		$catList   = SubCat::lists('name','id')->take(4);
 
           $featured= Biz::whereFeatured('YES')
-			  ->where('rating_cache', '>', '2')
+              ->where('rating_cache', '>', '2')
 			  ->take(8)
 			  ->get();
           $settings=Setting::findOrFail(1);
