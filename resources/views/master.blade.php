@@ -11,13 +11,13 @@
   <title> @yield('title') | NdiBiz Directory</title>
   <meta name="description" content="@yield('description')" />
 
-  <!-- Stylesheets -->  
+  <!-- Stylesheets -->
       @yield('stylesheets')
 
     <link href="{{asset('plugins/Bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/animate.css')}}">
-    <link rel="stylesheet" href="{{ asset('plugins/selectize/selectize.default.css')}}">
+    <link rel="stylesheet" href="{{ asset('plugins/selectize/selectize.bootstrap3.css')}}">
     <link href="{{asset('plugins/select2/select2.min.css')}}" rel="stylesheet">
     <link href="{{asset('css/sweetalert.css')}}" rel="stylesheet">
 
@@ -36,7 +36,7 @@
 <body>
 <div id="main-wrapper">
 <!-- HEADER STARTS -->
-        @include('includes.header')  
+        @include('includes.header')
 <!-- HEADER ENDS -->
 
 <!-- CONTENT STARTS -->
@@ -71,10 +71,11 @@
       //-------------------------------------------------
       $(document).ready(function() {
           $('.rotate').rotaterator({fadeSpeed:2000, pauseSpeed:80});
-           $('#subscribe').submit(function() {
+
+          $('#subscribe').submit(function() {
                 if ($('#email').val() == '') {
                     swal("Error!", "Please supply an email address!", "warning");
-            
+
                        } else {
               var email= $('#email').val();
               $.ajax({ url: "{{ URL::to('api/subscribe')}}",
@@ -86,7 +87,7 @@
                         if(this.id==0){
                       console.log(this.text);
                       swal("Error!", this.text, "warning");
-                        } 
+                        }
                         if(this.id==1){
                          console.log(this.text);
                       swal("Success!", this.text, "success");
@@ -96,7 +97,7 @@
                       }
 
                   });
-                     
+
                          }
                 });
           }
@@ -126,7 +127,7 @@
                       },
                       success: function(res) {
                         callback(res.data);
-                        } 
+                        }
                     });
                   }
               });
@@ -174,17 +175,17 @@
           $('.tab-pane:first-child ').addClass('active animated zoomIn');
        });
 
-       
+
   </script>
   @yield('scripts')
 <!-- SCRIPTS ENDS -->
-            
+
 </body>
 </html>
 
 
 
-   
+
 
 
 

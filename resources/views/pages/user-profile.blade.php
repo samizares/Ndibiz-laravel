@@ -78,7 +78,7 @@
                        @if(Auth::check() && (Auth::user()->id == $user->id))
                         <a href="#" data-toggle="modal" data-target="#myProfile">
                       <p class="pic-edit">
-                        <i class="mdi-image-camera-alt"></i> 
+                        <i class="mdi-image-camera-alt"></i>
                          <span class="text-uppercase">Change Picture</span>
                       </p></a>
                       @endif
@@ -90,7 +90,7 @@
                     <div class="col-md-8">
                       <h2 class="username hidden-xs">{{$user->username}}</h2>
                         <p class="m5-bttm address"><i class="fa fa-map-marker"></i> Lagos, Nigeria.</p>
-                        
+
                       <ul class="list-inline user-counter hidden-xs">
                         <li><i class="fa fa-heart"></i> {{$favCount= $user->favours->count()}}
                           {{str_plural('Favourite', $favCount) }}</li>
@@ -131,7 +131,7 @@
                         <li>
                             <a href="#claimed-biz" role="tab" data-toggle="tab"><i class="fa fa-building-o"></i> <span class="">Claimed Businesses</span></a>
                         </li>
-                         
+
                         <li>
                             <a href="#edit" role="tab" data-toggle="tab"><i class="fa fa-building-o"></i> <span class="">Edit Profile</span></a>
                         </li>
@@ -167,9 +167,9 @@
                                 <div class="col-md-6 col-sm-6">
                                   <div class="single-product">
                                       <figure><a href="/review/biz/{{$biz->slug}}">
-                                        <img src="{{isset($biz->profilePhoto->image) ? asset($biz->profilePhoto->image) : 
+                                        <img src="{{isset($biz->profilePhoto->image) ? asset($biz->profilePhoto->image) :
                                                asset('img/content/post-img-10.jpg') }}" alt="">
-                                    
+
                                           <div class="rating">
                                               <ul class="list-inline">
                                                   <li>
@@ -182,7 +182,7 @@
                                           </div></a>
                                       </figure>
                                       <h4><a href="/review/biz/{{$biz->slug}}">{{$biz->name}}</a></h4>
-                                      <p class="m5-bttm"><span data-toggle="modal" data-target="#favModal" 
+                                      <p class="m5-bttm"><span data-toggle="modal" data-target="#favModal"
                                         data-id="{{$biz->id}}" data-bizname="{{$biz->name}}" title="Remove from favourites">
                                         <a><i class="fa fa-trash"></i></a></span></p>
                                   </div> <!-- end .single-product -->
@@ -232,7 +232,7 @@
                                 <div class="col-md-6 col-sm-6">
                                   <div class="single-product">
                                       <figure><a href="/review/biz/{{$biz->slug}}">
-                                          <img src="{{isset($biz->profilePhoto->image) ? asset($biz->profilePhoto->image) : 
+                                          <img src="{{isset($biz->profilePhoto->image) ? asset($biz->profilePhoto->image) :
                                                asset('img/content/post-img-10.jpg') }}" alt="">
                                           <div class="rating">
                                               <ul class="list-inline">
@@ -246,7 +246,7 @@
                                           </div></a>
                                       </figure>
                                       <h4><a href="/review/biz/{{$biz->slug}}">{{$biz->name}}</a></h4>
-                                      <p class="m5-bttm"><span data-toggle="modal" data-target="#delClaimModal" 
+                                      <p class="m5-bttm"><span data-toggle="modal" data-target="#delClaimModal"
                                         data-bizid="{{$biz->id}}" data-claimbiz="{{$biz->name}}" title="Remove from claimed biz">
                                         <a><i class="fa fa-trash"></i></a></span></p>
                                   </div> <!-- end .single-product -->
@@ -277,30 +277,30 @@
                                               <input type="email" id="email" value="{{ $user->email}}" name="email" class="form-control"
                                                      placeholder="">
                                           </div>
-                                      </div> 
+                                      </div>
 
                                       <div class="form-group">
                                         <label for="email" class="col-md-3 control-label">Select cities you want periodic Updates on</label>
-                                           <div class="col-md-8">                                             
+                                           <div class="col-md-8">
                                                   {!!Form::select('state[]', $stateIds, Input::old('state'), ['class'=>'form-control','id'=>'stateList',
                                                     'multiple']) !!}
-                                              
+
                                           </div>
                                       </div>
 
                                       <div class="form-group">
                                            <label for="email" class="col-md-3 control-label">Select categories you want periodic Updates On</label>
-                                           <div class="col-md-8">                    
+                                           <div class="col-md-8">
                                                   {!!Form::select('cats[]', $catIds,Input::old('cats[]') , ['class'=>'form-control','id'=>'category3','multiple']) !!}
                                              </div>
                                       </div>
-                                      
+
 
                                      <div class="form-group">
                                         <label for="notify" class="col-md-3 control-label">Notify me of periodic updates</label>
                                            <div class="col-md-8">
                                              <p class="checkbox">
-                                                <label>{!!Form::checkbox('notify',$user->notify,['id'=>'notify']) !!} 
+                                                <label>{!!Form::checkbox('notify',$user->notify,['id'=>'notify']) !!}
                                             </p>
                                         </div>
                                      </div>
@@ -311,7 +311,7 @@
                                                   <i class="fa fa-save"></i>
                                                   Save Changes
                                               </button></li>
-                                              
+
                                           </ul>
                                       </div>
                                   </form>
@@ -319,7 +319,7 @@
                           </div> <!-- end .company-rating -->
                       </div>
                   </div> <!-- end .tab-content -->
-              </div> <!-- end .main-grid layout -->            
+              </div> <!-- end .main-grid layout -->
             </div> <!-- end .row -->
           </div>
             {{--SIDEBAR RIGHT--}}
@@ -528,10 +528,10 @@
             var button = $(event.relatedTarget) // Button that triggered the modal
     var bizid = button.data('id') // Extract info from data-* attributes
     var bizname = button.data('bizname')
-    
+
     var title = 'Confirm Delete  Biz #' + bizid + ' from favourite';
     var content = 'Are you sure want to remove ' + bizname + ' from favourites?';
-    
+
     // Update the modal's content.
     var modal = $(this)
     modal.find('.modal-title').text(title);
@@ -543,10 +543,10 @@
             var button = $(event.relatedTarget) // Button that triggered the modal
     var bizid = button.data('bizid') // Extract info from data-* attributes
     var bizname = button.data('claimbiz')
-    
+
     var title = 'Confirm Delete  Biz #' + bizid + ' from favourite';
     var content = 'Are you sure want to remove ' + bizname + ' from Climed Biz?';
-    
+
     // Update the modal's content.
     var modal = $(this)
     modal.find('.modal-title').text(title);

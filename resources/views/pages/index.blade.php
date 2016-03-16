@@ -98,7 +98,7 @@
                 <div class="row featured-category">
                     @unless ( $featured->isEmpty() )
                         @foreach($featured as $biz)
-                            <div class="col-md-3">
+                            <div class="col-md-3 col-sm-4 col-xs-6">
                                 <div class="single-product">
                                     <figure>
                                         <img src="{{isset($biz->profilePhoto->image) ? asset($biz->profilePhoto->image) :
