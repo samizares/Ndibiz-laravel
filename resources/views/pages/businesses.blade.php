@@ -2,6 +2,7 @@
 <!-- HEAD -->
 @section('title', 'Business Listings')
 @section('stylesheets')
+<link href="{{asset('plugins/select2/select2.min.css')}}" rel="stylesheet">
 @endsection
 <!-- HEADER -->
 <!-- search -->
@@ -64,32 +65,28 @@
             <div class="row m15-top m5-left m5-right">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <select class="form-control" id="sel1">
+                        <!--<select class="form-control" id="sel1">
                             <option>All Locations</option>
                             <option>2</option>
                             <option>3</option>
                             <option>4</option>
-                        </select>
+                        </select> -->
+                         {!!Form::select('loc', $stateListID, Input::old('state'), ['class'=>'form-control','id'=>'stateList',
+                          'placeholder'=>'All Locations']) !!}
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <select class="form-control" id="sel1">
-                            <option>All Categories</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                        </select>
+                       {!!Form::select('cat', $catListID,Input::old('cats[]') , ['class'=>'form-control','id'=>'cat',
+                       'placeholder'=>'All categories']) !!}
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <select class="form-control" id="sel1">
-                            <option>All Tags</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                        </select>
+                       <!-- <select id="sub2" name="sub" value="{{ old('sub[]')}}" class="form-control" placeholder="Select subcategories">
+                         </select> -->
+                          {!!Form::select('sub', $subListID,Input::old('cats[]') , ['class'=>'form-control','id'=>'sub2',
+                       'placeholder'=>'Select subcategories']) !!}
                     </div>
                 </div>
             </div>
@@ -113,7 +110,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="row clearfix p5-top">
+                        <div id="result" class="row clearfix p5-top">
                               @foreach ($bizs as $biz)
                               <div class="col-md-4 col-sm-3">
                                 <div class="single-product">
@@ -141,7 +138,8 @@
                               </div> <!-- end .col-sm-4 grid layout -->
                               @endforeach
                               <div class="clearfix container">
-                                  <?php echo $bizs->render(); ?>
+                                 <!-- <?php echo $bizs->render(); ?> -->
+                                      {!! $bizs->appends(Input::except('page'))->render() !!}
                               </div>
                           </div> <!-- end .row -->
                       </div> <!-- end .tabe-pane -->
@@ -169,6 +167,7 @@
 <!-- FOOTER ENDS -->
 
 @section('scripts')
+    <script src="{{asset('plugins/select2/select2.min.js')}}"></script>
     {{--<script src="{{asset('../node_modules/vue/dist/vue.js')}}"></script>--}}
     {{--<script src="{{asset('../node_modules/vu-strap/dist/vue-strap.js')}}"></script>--}}
     {{--VUE JS COMPONENTS--}}
@@ -185,7 +184,102 @@
         {{--})--}}
     {{--</script>--}}
     {{--JQUERY PLUGINS--}}
+
     <script type="text/javascript">
+
+    $(document).ready(function() {
+      $("#stateList").select2({
+        placeholder: 'All states'
+      });
+
+      $("#cat").select2({
+        placeholder: 'All categories'
+      });
+
+      $("#sub2").select2({
+        placeholder: 'Select subcategories',
+       // tags: true,
+      });
+
+    
+
+     $('#stateList').change(function(){
+          if($(this).val() !== "All states") {   
+           $.get('{{ URL::to('api/ajax/location')}}', {z: $(this).val()}, function(result){
+              console.log(result);
+              if(! result.error) {
+             $('#result').empty().html(result);
+                 }else {
+                  console.log(result.error);
+                  $('#result').empty().append(result.error);
+                 }
+
+           });
+         }
+      });
+
+     $('#cat').change(function(e){
+      //e.stopPropagation();
+      // var model=$('#sub2');
+       //  model.select2("val", "");
+        if($(this).val() != "All categories"){
+           $.get('{{URL::to('api/ajax/category')}}',{cat: $(this).val()}, function(result){
+           // console.log(result);
+            if(!result.error) {
+              $('#result').empty().html(result);
+            }else{
+             // console.log(result.error);
+              $('#result').empty().append(result.error);
+             }
+
+           });          
+          //  model.empty();
+          // $.get('{{ URL::to('api/subcat2') }}', {y: $(this).val()}, function(result){
+          //   $.each(result.data,function(){
+               //       model.append('<option value="'+this.id+'">'+this.text+'</option>');
+
+               //    });
+          // });
+      
+        }
+        
+        
+     });
+
+     $('#sub2').change(function(){
+          if($(this).val() !== "Select subcategories") {
+             $.get('{{URL::to('api/ajax/subcategory')}}',{sub: $(this).val()}, function(result){
+           // console.log(result);
+            if(!result.error) {
+              $('#result').empty().html(result.html);
+            }else{
+             // console.log(result.error);
+              $('#result').empty().append(result.error);
+             }
+
+           }); 
+
+          }
+        });
+
+      $('#result').on('click', '.pagination a', function (e) {
+                getBizs($(this).attr('href').split('page=')[1]);
+                e.preventDefault();
+            });
+
+      function getBizs(page) {
+            $.ajax({
+                url : '?page=' + page,
+                dataType: 'json',
+            }).done(function (data) {
+                $('#result').html(data);
+            }).fail(function () {
+                alert('Bizs could not be loaded.');
+            });
+        }
+
+
+    });
         $(document).ready(function() {
             $('li:first-child').addClass('active');
             $('.tab-pane:first-child').addClass('active');

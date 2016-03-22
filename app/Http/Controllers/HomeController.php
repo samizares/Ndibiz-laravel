@@ -63,43 +63,22 @@ class HomeController extends Controller
 
 	public function businesses()
 	{
-		$cats = Cat::all();
-		$totalBiz=Biz::count();
-		$totalCat=Cat::count();
 		$bizs = Biz::orderBy('created_at', 'desc')->paginate(9);
-		$stateList= State::lists('name','name');
-		$catList   = Cat::lists('name','name');
-		 $featured= Biz::whereFeatured('YES')->paginate(3);
-		 $recent= Biz::orderBy('created_at', 'desc')->paginate(2);
-		// dd($featured);
-		return view('pages.businesses', compact('stateList','catList','cats','bizs','featured','recent', 'totalBiz', 'totalCat'));
+		if (\Request::ajax()) {
+            return \Response::json(\View::make('partials.ajax-result')->with(compact('bizs'))->render());
+        }
+		return view('pages.businesses', compact('bizs'));
 	}
 	public function map()
 	{
-		$cats = Cat::all();
-		$totalBiz=Biz::count();
-		$totalCat=Cat::count();
 		$bizs = Biz::orderBy('created_at', 'desc')->paginate(6);
-		$stateList= State::lists('name','name');
-		$catList   = Cat::lists('name','name');
-		$featured= Biz::whereFeatured('YES')->paginate(3);
-		$recent= Biz::orderBy('created_at', 'desc')->paginate(2);
-		// dd($featured);
-		return view('pages.map', compact('stateList','catList','cats','bizs','featured','recent', 'totalBiz', 'totalCat'));
+		return view('pages.map', compact('bizs'));
 	}
 
 	public function categories()
 	{
-		$cats=  Cat::all();
-		$totalBiz=Biz::count();
-		$totalCat=Cat::count();
-		$totalSubCat=subCat::count();
-		$stateList= State::lists('name','name');
-		$catList  = Cat::lists('name','name');
-		$featured= Biz::whereFeatured('YES')->paginate(3);
-		$recent= Biz::orderBy('created_at', 'desc')->paginate(2);
-		return view('pages.categories', compact('stateList','catList','featured','cats','recent', 'totalBiz', 'totalCat',
-		 'totalSubCat'));
+		
+		return view('pages.categories');
 	}
 
 	public function locations()
@@ -133,10 +112,10 @@ class HomeController extends Controller
 	public function searchResult()
 	{
 		$cats = Cat::all();
-		$stateList= State::lists('name','name');
-		$catList   = Cat::lists('name','name');
-		$featured= Biz::whereFeatured('YES')->paginate(3);
-		$recent= Biz::orderBy('created_at', 'desc')->paginate(1);
+		//$stateList= State::lists('name','name');
+		//$catList   = Cat::lists('name','name');
+		//$featured= Biz::whereFeatured('YES')->paginate(3);
+		//$recent= Biz::orderBy('created_at', 'desc')->paginate(1);
 		$val= Input::get('category');
 		$loc=Input::get('location');
 		if( $sub= SubCat::whereName($val)->first()){
@@ -146,10 +125,10 @@ class HomeController extends Controller
 	      				$areaID=$area->id;
 	      				$bizs= Biz::bySub($subID)->byArea($areaID)->get();
 	      				if($bizs -> count() > 0){
-	      					return view('pages.search-page',compact('bizs','stateList','catList','cats','featured','recent','val','loc'));
+	      					return view('pages.search-page',compact('bizs','cats','val','loc'));
 	  					}else{
 	  						$bizs=$sub->biz;
-	  						return view('pages.no-search',compact('bizs','stateList','catList','cats','featured','recent','val','loc'));
+	  						return view('pages.no-search',compact('bizs','cats','val','loc'));
 	  					}
 
 	       			} else {
@@ -157,10 +136,10 @@ class HomeController extends Controller
 	      			 	$stateID=$state->id;
 	      			 	$bizs= Biz::bySub($subID)->byState($stateID)->get();
 	      				if($bizs -> count() > 0){
-	      					return view('pages.search-page',compact('bizs','stateList','catList','cats','featured','recent','val','loc'));
+	      					return view('pages.search-page',compact('bizs','cats','val','loc'));
 	  					}else{
 	  						$bizs=$sub->biz;
-	  						return view('pages.no-search',compact('bizs','stateList','catList','cats','featured','recent','key','loc'));
+	  						return view('pages.no-search',compact('bizs','cats','val','loc'));
 	  					}
 	  				}
 
@@ -282,27 +261,16 @@ class HomeController extends Controller
 	 {
 	 	$sub= SubCat::whereSlug($slug)->firstOrFail();
 	 	$bizs=$sub->biz;
-	 	$cats = Cat::all();
-		$stateList= State::lists('name','name');
-		$catList   = Cat::lists('name','name');
 		$loc=Input::get('location');
-		$featured= Biz::whereFeatured('YES')->paginate(3);
-		$recent= Biz::orderBy('created_at', 'desc')->paginate(1);
 
-		return view('pages.biz-sub',compact('bizs','stateList','catList','loc','cats','featured','recent','sub'));
+		return view('pages.biz-sub',compact('bizs','loc','sub'));
 	 }
 
 	  public function bizCat($slug)
 	 {
 	 	$cat= Cat::whereSlug($slug)->firstOrFail();
 	 	$bizs=$cat->biz;
-	 	$cats = Cat::all();
-		$stateList= State::lists('name','name');
-		$catList   = Cat::lists('name','name');
-		$featured= Biz::whereFeatured('YES')->paginate(3);
-		$recent= Biz::orderBy('created_at', 'desc')->paginate(1);
-
-		return view('pages.biz-cat',compact('bizs','stateList','catList','cats','featured','recent','cat'));
+	 	return view('pages.biz-cat',compact('bizs','cat'));
 	 }
 
 

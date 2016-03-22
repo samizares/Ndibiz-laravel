@@ -66,10 +66,14 @@ Route::get('confirm','HomeController@confirm');
 Route::get('auth/logout', 'Auth\AuthController@getLogout');
 
 Route::get('api/location', 'ApiController@location');
+Route::get('api/ajax/location', 'ApiController@ajxlocation');
 Route::get('api/category', 'ApiController@category');
+Route::get('api/ajax/category', 'ApiController@ajxcategory');
+Route::get('api/ajax/subcategory', 'ApiController@ajxsubcategory');
 Route::get('api/company', 'ApiController@company');
 Route::get('api/lga', 'ApiController@lga');
 Route::get('api/subcat', 'ApiController@subcat');
+Route::get('api/subcat2', 'ApiController@subcat2');
 Route::get('api/featured', 'ApiController@featured');
 Route::get('api/admin', 'ApiController@admin');
 Route::post('api/subscribe', 'ApiController@subscribe');

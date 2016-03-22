@@ -50,7 +50,7 @@
                   <div class="form-group">
                       <label for="cat" class="col-md-3 control-label">Business Category</label>
                       <div class="col-md-8">
-                          {!!Form::select('cats[]', $catList,Input::old('cats[]') , ['class'=>'form-control','id'=>'category3','multiple']) !!}
+                          {!!Form::select('cats[]', $catListID,Input::old('cats[]') , ['class'=>'form-control','id'=>'category3','multiple']) !!}
                       </div>
                   </div>
                   {{--SUB-CATEGORY / TAGS--}}
@@ -82,7 +82,7 @@
                   <div class="form-group">
                        <label for="cat" class="col-md-3 control-label">Business state</label>
                        <div class="col-md-8">
-                           {!!Form::select('state', $stateList, Input::old('state'), ['class'=>'form-control','id'=>'stateList',
+                           {!!Form::select('state', $stateListID, Input::old('state'), ['class'=>'form-control','id'=>'stateList',
                           'placeholder'=>'select state']) !!}
                       </div>
                   </div>
