@@ -102,7 +102,7 @@
                                 <div class="single-product">
                                     <figure>
                                         <img src="{{isset($biz->profilePhoto->image) ? asset($biz->profilePhoto->image) :
-                                               asset('img/content/post-img-10.jpg') }}" alt="">
+                                               asset('img/content/office.png') }}" alt="">
                                         <div class="rating">
                                             <ul class="list-inline">
                                                 <li>
@@ -139,7 +139,7 @@
                             <div class="single-product">
                                 <a href="/review/biz/{{$recent->slug}}">
                                     <figure>
-                                        <img src="{{asset('img/content/post-img-1.jpg')}}" alt="">
+                                        <img src="{{asset('img/content/office.png')}}" alt="">
                                         <div class="rating">
                                             <ul class="list-inline">
                                                 <li>
