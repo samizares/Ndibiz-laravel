@@ -4507,13 +4507,18 @@ header.header {
     padding: 0 24px 0 24px;
   }
 }
-/* header-siler content */
+/* header-slider content */
 /* ----------------------------------- */
 .slider-home {
   position: relative;
 }
 .slider-home #map_canvas {
   display: none;
+}
+.slide-content .input-group-lg > .form-control,
+.slide-content .input-group-lg > .input-group-addon,
+.slide-content .input-group-lg > .input-group-btn > .btn {
+  height:50px !important;
 }
 .slider-content {
   position: relative;
