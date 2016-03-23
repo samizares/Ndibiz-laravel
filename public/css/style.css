@@ -4764,10 +4764,47 @@ h1.page-title, h3.page-subtitle {
   font-family: 'Roboto', sans-serif;
 }
 
-/*PAge contents*/
+/*Page contents*/
 
 .page-forms {
   min-height: 250px;
+}
+.page-forms .dropzone {
+    border: none;
+}
+.reg-info-img {
+    height: 300px;
+    width: 290px;
+}
+.reg-info-img img {
+    height: auto;
+    width: 100%;
+}
+.reg-info .post-sidebar h2 {
+    font-size: 14px;
+}
+.reg-info ul {
+    padding-left: 20px;
+    list-style-position: outside;
+}
+.reg-info ul li {
+    margin-bottom: 10px;
+}
+.reg-info .reg-guide ul li img {
+    width: 70px;
+    height: 70px;
+    margin-right: 10px;
+}
+.reg-info .reg-guide ul li {
+    height: 80px;
+    border: none;
+    padding-left: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.reg-info .reg-guide ul li h4 {
+    padding: 15px 0;
+    color: #555;
 }
 #auth-page .login .rem-check input {
   width: auto;
