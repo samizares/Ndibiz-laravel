@@ -3395,7 +3395,6 @@ fieldset[disabled] .btn-default-inverse.active {
 }
 .btn-border {
   border: solid 1px #333;
-  padding: 0px 3px;
   margin-right: 3px;
   margin-bottom: 3px;
 }
@@ -5110,8 +5109,14 @@ h1.page-title, h3.page-subtitle {
 }
 /* post-sidebar style begin */
 /* --------------------------------------- */
+@media (min-width: 768px) {
+    .post-sidebar {
+        margin-top: 0 !important;
+    }
+}
 .post-sidebar {
-  position: relative;
+    position: relative;
+    margin-top: 20px;
 }
 .post-sidebar h2 {
   display: block;

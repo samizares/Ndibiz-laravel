@@ -198,12 +198,11 @@
                             <div class="col-md-3 col-sm-3 col-xs-12">
                               <div class="page-sidebar company-sidebar">
                                 <ul class="company-category nav nav-tabs home-tab" role="tablist">
-
-                                  <li class=""><a href="#gallery" role="tab" data-toggle="tab"><i class="fa fa-camera"></i> <span class="">Gallery</span></a></li>
+                                    <li class="active"><a href="#reviews" role="tab" data-toggle="tab"><i class="fa fa-comments"></i> <span class="">Reviews</span></a></li>
+                                  <li><a href="#gallery" role="tab" data-toggle="tab"><i class="fa fa-camera"></i> <span class="">Gallery</span></a></li>
                                   <li><a href="#contact" role="tab" data-toggle="tab"><i class="fa fa-envelope-o"></i> <span class="">Contact</span></a></li>
-                                    <li><a href="#reviews" role="tab" data-toggle="tab"><i class="fa fa-comments"></i> <span class="">Reviews</span></a></li>
                                     @if(Auth::check() && (Auth::user()->id == $biz->owner))
-                                    <li><a href="#edit" role="tab" data-toggle="tab"><i class="fa fa-comments"></i> <span class="">Edit Profile</span></a></li>
+                                        <li><a href="#edit" role="tab" data-toggle="tab"><i class="fa fa-comments"></i> <span class="">Edit Profile</span></a></li>
                                     @endif
 
                                 </ul>
@@ -212,8 +211,84 @@
                             {{--TAB CONTENT RIGHT--}}
                             <div class="col-md-9 col-sm-9 col-xs-12">
                                 <div class="tab-content">
+                                    {{--REVIEWS--}}
+                                    <div class="tab-pane active fade in" id="reviews">
+                                        <div class="company-ratings m20-top">
+                                            <h3 class="text-uppercase m10-top">Reviews (5 star ratings)</h3>
+                                            <div class="rating-with-details">
+                                                <div class="ratings">
+                                                    <p class="pull-right">{{$ratingCount=$biz->rating_count}} {{ Str::plural('Review', $ratingCount)}}</p>
+                                                    <p>
+                                                        @for ($i=1; $i <= 5 ; $i++)
+                                                            <span class="glyphicon glyphicon-star{{ ($i <= $biz->rating_cache) ? '' : '-empty'}}"></span>
+                                                        @endfor
+                                                        {{ number_format($biz->rating_cache, 1)}} stars
+                                                    </p>
+                                                </div>
+                                                <div class="container-fluid">
+                                                    <div class="row" style="margin-top:40px;">
+                                                        <div class="col-md-12">
+                                                            <div class="well well-sm">
+                                                                <div class="text-right">
+                                                                    <a class="btn btn-default" href="#reviews-anchor" id="open-review-box">Leave a Review</a>
+                                                                </div>
+                                                                <div class="row" id="post-review-box" style="display:none;">
+                                                                    <div class="col-md-12">
+                                                                        <form accept-charset="UTF-8" method="POST" action="/review/biz/{{$biz->id}}">
+                                                                            <div class="form-group">
+                                                                            <input type="hidden" name="_token" value="{{ csrf_token() }}"></div>
+                                                                            <div class="form-group">
+                                                                            <input class="form-control" id="ratings-hidden" name="rating" type="hidden" value="{{old('rating')}}"></div>
+                                                                            <div class="form-group">
+                                                                    <textarea class="form-control animated" cols="50" id="new-review" name="comment"
+                                                                              value="{{old('comment')}}" placeholder="Enter your review here..." rows="5">
+                                                                    </textarea>
+                                                                                </div>
+                                                                            <div class="stars starrr" data-rating="0"></div>
+                                                                            <div class="text-right form-group">
+                                                                                <div class="col-md-6">
+                                                                                    <button class="btn btn-default btn-md btn-block" type="submit">Save</button>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                <button class="btn btn-border btn-md btn-block"  id="close-review-box" style="display:none; margin-right: 10px;"><span class="glyphicon glyphicon-remove"></span>Cancel</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @include('admin.partials.errors')
+                                                @include('admin.partials.success')
+                                                @foreach($reviews as $review)
+                                                    <hr>
+                                                    <div class="single-content">
+                                                        <div class="company-rating-box">
+                                                            <ul class="list-inline">
+                                                                @for ($i=1; $i <= 5 ; $i++)
+                                                                    <li><a href="#"><i class="fa fa-star{{ ($i <= $review->rating) ? '' : '-o'}}"></i></a></li>
+                                                                @endfor
+                                                            </ul>
+                                                        </div>
+                                                        <div class="rating-details">
+                                                            <div class="meta">
+                                                                <a href="#"><strong>{{$review->user->username  }}</strong></a>
+                                                                - {{ $review->timeago}}
+                                                            </div>
+                                                            <div class="content">
+                                                                <p>{{$review->comment}}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div> <!-- end .single-content -->
+                                                @endforeach
+                                                {!! $reviews->render() !!}
+                                            </div> <!-- end .rating-with-details -->
+                                        </div> <!-- end .company-rating -->
+                                    </div>
                                     {{--GALLERY--}}
-                                    <div class="tab-pane active" id="gallery">
+                                    <div class="tab-pane" id="gallery">
                                         <div class="company-product m20-top">
                                           <h3 class="text-uppercase m10-top">Gallery</h3>
                                           <div class="row">
@@ -231,9 +306,11 @@
                                               <div class="row">
                                                   <h3 class="text-uppercase m10-top">Contact Us</h3>
                                                     <div class="col-md-12">
+                                                        {{--MAP--}}
                                                         <div class="contact-map-company">
                                                             <div id="map"></div>
                                                         </div> <!-- end .map-section -->
+                                                        {{--ADDRESS--}}
                                                         <div class="address-details clearfix">
                                                             <i class="fa fa-map-marker"></i>
                                                             <p>
@@ -242,6 +319,7 @@
                                                                 <span>{{$biz->address->state->name}}, Nigeria.</span>
                                                             </p>
                                                         </div>
+                                                        {{--PHONES--}}
                                                         <div class="address-details clearfix">
                                                             <i class="fa fa-phone"></i>
                                                             <p>
@@ -249,6 +327,7 @@
                                                                 <span> (+234)-{{$biz->address->phone2}}</span>
                                                             </p>
                                                         </div>
+                                                        {{--EMAIL & WEBSITE--}}
                                                         <div class="address-details clearfix">
                                                             <i class="fa fa-envelope-o"></i>
                                                             <p>
@@ -291,6 +370,7 @@
                                                         </div>
                                                     </div>
                                               </div>
+                                            {{--CONTACT FORM--}}
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <h3>Send Us A Message</h3>
@@ -313,76 +393,6 @@
                                             </div>
                                         </div> <!-- end .company-contact -->
                                     </div> <!-- end .tab-pane -->
-                                    {{--REVIEWS--}}
-                                    <div class="tab-pane" id="reviews">
-                                         <div class="company-ratings m20-top">
-                                            <h3 class="text-uppercase m10-top">Reviews (5 star ratings)</h3>
-                                            <div class="rating-with-details">
-                                                <div class="ratings">
-                                                    <p class="pull-right">{{$ratingCount=$biz->rating_count}} {{ Str::plural('Review', $ratingCount)}}</p>
-                                                    <p>
-                                                        @for ($i=1; $i <= 5 ; $i++)
-                                                          <span class="glyphicon glyphicon-star{{ ($i <= $biz->rating_cache) ? '' : '-empty'}}"></span>
-                                                        @endfor
-                                                        {{ number_format($biz->rating_cache, 1)}} stars
-                                                    </p>
-                                                </div>
-                                                <div class="container">
-                                                     <div class="row" style="margin-top:40px;">
-                                                       <div class="col-md-6">
-                                                         <div class="well well-sm">
-                                                            <div class="text-right">
-                                                                <a class="btn btn-success btn-green" href="#reviews-anchor" id="open-review-box">Leave a Review</a>
-                                                            </div>
-                                                            <div class="row" id="post-review-box" style="display:none;">
-                                                              <div class="col-md-12">
-                                                                 <form accept-charset="UTF-8" method="POST" action="/review/biz/{{$biz->id}}">
-                                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                                    <input id="ratings-hidden" name="rating" type="hidden" value="{{old('rating')}}">
-                                                                    <textarea class="form-control animated" cols="50" id="new-review" name="comment"
-                                                                              value="{{old('comment')}}" placeholder="Enter your review here..." rows="5">
-                                                                    </textarea>
-                                                                     <div class="text-right">
-                                                                         <div class="stars starrr" data-rating="0"></div>
-                                                                            <a class="btn btn-danger btn-sm" href="#" id="close-review-box" style="display:none; margin-right: 10px;">
-                                                                            <span class="glyphicon glyphicon-remove"></span>Cancel</a>
-                                                                            <button class="btn btn-success btn-sm" type="submit">Save</button>
-                                                                     </div>
-                                                                 </form>
-                                                              </div>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                     </div>
-                                                </div>
-                                                @include('admin.partials.errors')
-                                                @include('admin.partials.success')
-                                                @foreach($reviews as $review)
-                                                    <hr>
-                                                <div class="single-content">
-                                                      <div class="company-rating-box">
-                                                        <ul class="list-inline">
-                                                           @for ($i=1; $i <= 5 ; $i++)
-                                                          <li><a href="#"><i class="fa fa-star{{ ($i <= $review->rating) ? '' : '-o'}}"></i></a></li>
-                                                          @endfor
-                                                        </ul>
-                                                      </div>
-                                                      <div class="rating-details">
-                                                        <div class="meta">
-                                                          <a href="#"><strong>{{$review->user->username  }}</strong></a>
-                                                          - {{ $review->timeago}}
-                                                        </div>
-                                                        <div class="content">
-                                                          <p>{{$review->comment}}</p>
-                                                        </div>
-                                                      </div>
-                                                </div> <!-- end .single-content -->
-                                            @endforeach
-                                            {!! $reviews->render() !!}
-                                         </div> <!-- end .rating-with-details -->
-                                     </div> <!-- end .company-rating -->
-                                    </div>
-
                                     {{--EDIT PROFILE--}}
                                     @if(Auth::check() && (Auth::user()->id == $biz->owner))
 

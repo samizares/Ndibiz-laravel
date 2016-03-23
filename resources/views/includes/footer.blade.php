@@ -10,8 +10,9 @@
                    <div class="form-group">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input class="form-control" type="Email" id="email" placeholder="Email address">
+                       <button type="submit" class="btn btn-default btn-block"> Subscribe</button>
                    </div>
-                   <button type="submit" class="btn btn-default btn-block"> Subscribe</button>
+
                   </form>
                 </div>
             </div> <!-- end .newsletter-->
