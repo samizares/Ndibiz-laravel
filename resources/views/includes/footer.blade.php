@@ -29,14 +29,12 @@
                         </script>
                             NdiBiz Directory - All Rights Reserved.
         </p>
-        <p class="pull-right">
-          <ul class="list-inline">
+          <ul class="list-inline pull-right p0">
             <li><a href="#"><i class="fa fa-facebook"></i></a></li>
             <li><a href="#"><i class="fa fa-twitter"></i></a></li>
             <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
             <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
           </ul>
-        </p>
       </div> <!-- END .container -->
     </div> <!-- end .copyright-->
 </footer> <!-- end #footer -->

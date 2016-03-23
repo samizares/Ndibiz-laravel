@@ -8605,8 +8605,13 @@ p.section-subtitle {
   margin-top:80px;
 }
 .profile-pic {
-  height: 100%;
-  width: 100%;
+  height: 150px;
+  width: 150px;
+}
+.profile-pic img {
+    -webkit-border-radius:50%;
+    -moz-border-radius:50%;
+    border-radius:50%;
 }
 .profile-pic a .pic-edit {
   background-color: rgba(0, 0, 0, 0.59);

@@ -3,13 +3,48 @@
 @section('title', 'Business Profile')
 @section('stylesheets')
    <link  rel="stylesheet" href="{{asset('css/dropzone.css')}}">
-  <link  rel="stylesheet" href="{{asset('plugins/jasny-bootstrap/css/jasny-bootstrap.min.css')}}">
+   <link  rel="stylesheet" href="{{asset('plugins/jasny-bootstrap/css/jasny-bootstrap.min.css')}}">
    <link rel="stylesheet" type="text/css" href="{{asset('plugins/nanogallery/css/nanogallery.min.css')}}">
 @endsection
 <!-- HEADER -->
 <!-- search -->
 @section('search')
-  @include('partials.search')
+    <div class="header-search map">
+        <div class="header-search-bar">
+            {{--PROFILE PHOTO--}}
+            <figure class="center-block m0-bttm">
+                <div class="profile-pic center-block"><a href="" data-toggle="modal" data-target="#myBizProfile">
+                        {!!Html::image(isset($biz->profilePhoto->image) ? $biz->profilePhoto->image : 'img/content/post-img-10.jpg',
+                          'Profile Image', array('class'=>'img-responsive center-block'))!!}
+                        @if(Auth::check() && (Auth::user()->id == $biz->owner))
+                            <p class="pic-edit">
+                                <i class="mdi-image-camera-alt"></i>
+                                <span>Change Picture</span>
+                            </p>
+                        @endif
+                    </a>
+                </div>
+            </figure>
+            {{--BIZ NAME--}}
+            <h2 class="text-center m5 text-color-white text-uppercase" style="font-weight: 300;">{{$biz->name}}</h2>
+            {{--BIZ STARS RATING--}}
+            <ul class="list-inline text-center m5-bttm">
+                <li>
+                    @for ($i=1; $i <= 5 ; $i++)
+                        <span class="text-color-white glyphicon glyphicon-star{{ ($i <= $biz->rating_cache) ? '' : '-empty'}}"></span>
+                    @endfor
+                </li>
+            </ul>
+            {{--COUNTERS--}}
+            <ul class="list-inline user-counter text-color-white text-center">
+                <li><i class="fa fa-heart"></i> {{$favCount= $biz->favoured->count()}}
+                    {{str_plural('Favourite', $favCount) }}</li>
+                <li><i class="fa fa-comments"></i> {{$biz->rating_count}}
+                    {{ Str::plural('review', $biz->rating_count)}}</li>
+                <li><i class="fa fa-camera"></i> {{$photosCount=$biz->photos->count()}}
+                    {{ str_plural('Photo', $photosCount)}} </li>
+            </ul>
+        </div> <!-- END .header-search-bar -->
 @endsection
 <!-- navigation -->
 @section('header-navbar')
@@ -20,7 +55,6 @@
                 <ul class="primary-nav list-unstyled">
                     @if (Auth::check())
                         <li class="hidden-lg hidden-md dropdown text-center">
-
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="menu1">
                                 <i class="fa fa-user"></i> {{Auth::user()->username}} <span class="caret"></span></a>
                             <ul class="dropdown-menu text-center" role="menu" aria-labelledby="menu1">
@@ -54,169 +88,107 @@
 @endsection
 <!-- CONTENT -->
 @section('content')
-
      <div id="page-content" class="company-profile page-content">
         <div class="container">
             <div class="home-with-slide business-profile">
                 <div class="row">
-
                     <div class="col-md-8">
                         {{--PROFILE OVERVIEW--}}
                         <div class="row profile-overview">
-                             @include('partials.notifications')
-                            <div class="col-md-3 col-sm-3">
-                                {{--COUNTERS MOBILE--}}
-                                <ul class="list-inline user-counter hidden-md hidden-lg hidden-sm">
-                                    {{--<li><i class="fa fa-heart"></i> {{$favCount= $biz->favoured->count()}}--}}
-                                        {{--{{str_plural('Favourite', $favCount) }}</li>--}}
-                                    <li><i class="fa fa-comments"></i>{{$biz->rating_count}}
-                                        {{ Str::plural('review', $biz->rating_count)}}</li>
-                                    <li><i class="fa fa-camera"></i>{{$photosCount=$biz->photos->count()}}
-                                        {{ str_plural('Photo', $photosCount)}} </li>
-                                </ul>
-                                {{--BIZ NAME MOBILE--}}
-                                <h2 class="username hidden-lg hidden-md hidden-sm">{{$biz->name}}</h2>
-                                {{--BIZ STARS RATING--}}
-                                <ul class=" hidden-lg hidden-md hidden-sm list-inline text-center m5-bttm">
+                            @include('partials.notifications')
+                            <div class="col-md-9">
+                                {{--ADDRESS--}}
+                                <p class="biz-profile-address"><i class="fa fa-map-marker"></i> <span>{{$biz->address->street}}
+                                    </span>, <span>{{$biz->address->lga->name}}</span>, <span>{{ $biz-> address->state->name}}</span>, Nigeria.</p>
+                                {{--PHONE 1--}}
+                                <p class="biz-profile-phone1"><i class="fa fa-phone"></i> (+234)-{{$biz->address->phone1}}</p>
+                                {{--PHONE 2--}}
+                                <p class="biz-profile-phone2"> <i class="fa fa-phone"></i> (+234)-{{$biz->address->phone2}}</p>
+                                {{--WEBSITE--}}
+                                <p class="biz-profile-site"><i class="fa fa-external-link"></i> <a class="link"
+                                   href="{{$biz->website}}" target="_blank">{{$biz->website}}</a></p>
+                                {{--CATEGORIES--}}
+                                <p class="biz-profile-cats m5-bttm"><i class="fa fa-tags" style="margin-top:2px;"></i> @foreach($biz->cats as $cat)<span>
+                                        <a class="btn btn-border" href="#">{{$cat->name}}</a></span> @endforeach
+                                    @foreach($biz->subcats as $sub)<span><a class="btn btn-border" href="#">{{$sub->name}}</a></span>@endforeach</p>
+                                <hr class="hidden-lg hidden-md hidden-sm">
+                            </div>
+                            {{--ACTION BUTTONS--}}
+                            <div class="col-md-3 action-btns m0-bttm">
+                                <ul class="list-inline m0-bttm">
+                                    @if(Auth::guest())
+                                         <a href="/favourites" type="submit" class="btn btn-border not-favorited">
+                                            <i class="fa fa-heart"></i> Favourite
+                                            <span class="badge badge-inverse"> {{$biz->favoured->count()}}</span>
+                                         </a>
+                                    @endif
+                                    @if(Auth::check())
+                                        <li>
+                                        {{--*/ $favourites= Auth::user()->favours->lists('id')->all() /*--}}
+                                        {{--*/ $favourited= in_array($biz->id, $favourites) /*--}}
+                                            <form id="favourForm" action="">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <input type="hidden" id="bizID" name="biz_id" value="{{$biz->id}}">
+                                                <button type="submit" id="favourBtn" class="btn btn-border {{$favourited ? 'favorited' : 'not-favorited'}}">
+                                                 <i class="fa fa-heart"></i>
+                                                 {{ $favourited ? 'Unfavourite' : 'Favourite' }} <span class="badge badge-inverse">
+                                                 {{$biz->favoured->count()}} </span></button>
+                                            </form>
+                                    </li>
+                                    @endif
+                                    {{--SHARE BUTTON--}}
+                                    <li><a title="" data-original-title="" data-placement="bottom" data-toggle="popover" data-container="body" type="button"
+                                        data-html="true" href="#" class="btn btn-border"><i class="fa fa-share-alt"></i> Share</a>
+                                        <div id="popover-content" class="hide">
+                                          <span class='st_facebook_large' displayText='Facebook'></span>
+                                           <span class='st_twitter_large' displayText='Tweet'></span>
+                                             <span class='st_googleplus_large' displayText='Google +'></span>
+                                        </div>
+                                    </li>
+                                    {{--EDIT PROFILE--}}
                                     <li>
-                                        @for ($i=1; $i <= 5 ; $i++)
-                                            <span class="glyphicon glyphicon-star{{ ($i <= $biz->rating_cache) ? '' : '-empty'}}"></span>
-                                        @endfor
+                                        @if(Auth::check() && (Auth::user()->id == $biz->owner))
+                                            <a href="" type="button" class="btn btn-border" data-toggle="tooltip" title="Edit Profile"><i class="fa fa-pencil"></i>
+                                            Edit profile</a>
+                                        @endif
+                                    </li>
+
+                                     @if(Auth::check())
+                                    {{--ADD PHOTO--}}
+                                    <li><a href="" type="button" class="btn btn-border" data-toggle="modal" data-target="#myModal" title="Add Photo">
+                                            <i class="fa fa-camera"></i> Add photo</a></li>
+                                    @endif
+                                    @if(Auth::guest())
+                                            <a href="/profile/photo" type="button" class="btn btn-border">
+                                                   <i class="fa fa-camera"></i> Add Photo</a>
+                                            @endif
+
+                                    {{--CLAIM BUSINESS--}}
+                                    <li>
+                                        @if(! $biz->claimed)
+                                            @if(Auth::check())
+                                                <a href="#" type="button" class="btn btn-border" data-toggle="modal" data-target="#myClaim">
+                                                    Claim Business</a>
+                                            @endif
+                                            @if(Auth::guest())
+                                            <a href="/claimbiz" type="button" class="btn btn-border">
+                                                    Claim Business</a>
+                                            @endif
+                                        @endif
+                                    </li>
+
+                                    <li>
+                                        @if(Auth::check())
+                                        <a href="" type="button" class="btn btn-border" data-toggle="modal" data-target="#reportModal"
+                                        title="Report this biz"><i class="fa fa-microphone"></i>Report this biz</a>
+
+                                        @endif
+                                        @if(Auth::guest())
+                                        <a href="/report" type="button" class="btn btn-border"><i class="fa fa-microphone"></i>Report this
+                                            biz</a>
+                                        @endif
                                     </li>
                                 </ul>
-                                {{--PROFILE PHOTO--}}
-                                <figure class="center-block">
-                                    <div class="profile-pic"><a href="" data-toggle="modal" data-target="#myBizProfile">
-                                      {!!Html::image(isset($biz->profilePhoto->image) ? $biz->profilePhoto->image : 'img/content/post-img-10.jpg',
-                                        'Profile Image', array('class'=>'img-responsive center-block'))!!}
-                                     @if(Auth::check() && (Auth::user()->id == $biz->owner))
-                                      <p class="pic-edit">
-                                        <i class="mdi-image-camera-alt"></i>
-                                         <span>Change Picture</span>
-                                      </p>
-                                      @endif
-                                    </a>
-                                    </div>
-                                </figure>
-
-                            </div>
-                            <div class="col-md-9 col-sm-9 col-xs-12">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        {{--BIZ NAME TABLET & DESKTOP--}}
-                                        <h2 class="username hidden-xs">{{$biz->name}}</h2>
-                                        {{--BIZ STARS RATING--}}
-                                        <ul class=" hidden-xs list-inline m5-bttm">
-                                            <li>
-                                                @for ($i=1; $i <= 5 ; $i++)
-                                                    <span class="glyphicon glyphicon-star{{ ($i <= $biz->rating_cache) ? '' : '-empty'}}"></span>
-                                                @endfor
-                                            </li>
-                                        </ul>
-                                        {{--CATEGORIES--}}
-                                        <p class="biz-profile-cats m5-bttm"><i class="fa fa-tags" style="margin-top:2px;"></i> @foreach($biz->cats as $cat)<span>
-                                                <a class="btn btn-border" href="#">{{$cat->name}}</a></span> @endforeach
-                                        @foreach($biz->subcats as $sub)<span><a class="btn btn-border" href="#">{{$sub->name}}</a></span>@endforeach</p>
-                                        {{--ADDRESS--}}
-                                        <p class="biz-profile-address"><i class="fa fa-map-marker"></i> <span>{{$biz->address->street}}
-                                            </span>, <span>{{$biz->address->lga->name}}</span>, <span>{{ $biz-> address->state->name}}</span>, Nigeria.</p>
-                                        {{--PHONE 1--}}
-                                        <p class="biz-profile-phone1"><i class="fa fa-phone"></i> (+234)-{{$biz->address->phone1}}</p>
-                                        {{--PHONE 2--}}
-                                        <p class="biz-profile-phone2"> <i class="fa fa-phone"></i> (+234)-{{$biz->address->phone2}}</p>
-                                        {{--WEBSITE--}}
-                                        <p class="biz-profile-site"><i class="fa fa-external-link"></i> <a class="link"
-                                           href="{{$biz->website}}" target="_blank">{{$biz->website}}</a></p>
-                                        <hr class="hidden-lg hidden-md hidden-sm">
-                                        {{--COUNTERS TABLET & DESKTOP--}}
-                                        <ul class="list-inline user-counter hidden-xs">
-                                            <li><i class="fa fa-heart"></i> {{$favCount= $biz->favoured->count()}}
-                                                {{str_plural('Favourite', $favCount) }}</li>
-                                            <li><i class="fa fa-comments"></i>{{$biz->rating_count}}
-                                                {{ Str::plural('review', $biz->rating_count)}}</li>
-                                            <li><i class="fa fa-camera"></i>{{$photosCount=$biz->photos->count()}}
-                                                {{ str_plural('Photo', $photosCount)}} </li>
-                                        </ul>
-                                    </div>
-                                    {{--ACTION BUTTONS--}}
-                                    <div class="col-md-4 action-btns m0-bttm">
-                                        <ul class="list-inline m0-bttm">
-                                            @if(Auth::guest())
-                                             <a href="/favourites" type="submit" class="btn btn-border not-favorited">
-                                            <i class="fa fa-heart"></i>Favourite<span class="badge badge-inverse">
-                                                        {{$biz->favoured->count()}}</span></a>
-                                              @endif
-
-                                          @if(Auth::check())
-                                            <li>
-                                                {{--*/ $favourites= Auth::user()->favours->lists('id')->all() /*--}}
-                                                {{--*/ $favourited= in_array($biz->id, $favourites) /*--}}
-                                                    <form id="favourForm" action="">
-                                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                             <input type="hidden" id="bizID" name="biz_id" value="{{$biz->id}}">
-                            
-                                                        <button type="submit" id="favourBtn" class="btn btn-border {{$favourited ? 'favorited' : 'not-favorited'}}">
-                                                        <i class="fa fa-heart"></i>
-                                                        {{ $favourited ? 'Unfavourite' : 'Favourite' }}<span class="badge badge-inverse">
-                                                        {{$biz->favoured->count()}}</span></button>
-                                                    </form>
-                                            </li>
-                                            @endif
-                                            {{--SHARE BUTTON--}}
-                                            <li><a title="" data-original-title="" data-placement="bottom" data-toggle="popover" data-container="body" type="button" 
-                                                data-html="true" href="#" class="btn btn-border">Share <i class="fa fa-share-alt"></i></a>
-                                                <div id="popover-content" class="hide">
-                                                  <span class='st_facebook_large' displayText='Facebook'></span>
-                                                   <span class='st_twitter_large' displayText='Tweet'></span>
-                                                     <span class='st_googleplus_large' displayText='Google +'></span>
-                                                </div>                                            
-                                            </li>
-                                            {{--EDIT PROFILE--}}
-                                            <li>
-                                                @if(Auth::check() && (Auth::user()->id == $biz->owner))
-                                                    <a href="" type="button" class="btn btn-border" data-toggle="tooltip" title="Edit Profile"><i class="fa fa-pencil"></i>
-                                                    Edit profile</a>
-                                                @endif
-                                            </li>
-
-                                             @if(Auth::check())
-                                            {{--ADD PHOTO--}}
-                                            <li><a href="" type="button" class="btn btn-border" data-toggle="modal" data-target="#myModal" title="Add Photo">
-                                                    <i class="fa fa-camera"></i> Add photo</a></li>
-                                            @endif
-                                            @if(Auth::guest())
-                                                    <a href="/profile/photo" type="button" class="btn btn-border">
-                                                           <i class="fa fa-camera"></i> Add Photo</a>
-                                                    @endif
-
-                                            {{--CLAIM BUSINESS--}}
-                                            <li>
-                                                @if(! $biz->claimed)
-                                                    @if(Auth::check())
-                                                        <a href="#" type="button" class="btn btn-border" data-toggle="modal" data-target="#myClaim">
-                                                            Claim Business</a>
-                                                    @endif
-                                                    @if(Auth::guest())
-                                                    <a href="/claimbiz" type="button" class="btn btn-border">
-                                                            Claim Business</a>
-                                                    @endif
-                                                @endif
-                                            </li>
-
-                                            <li>
-                                                @if(Auth::check())
-                                                <a href="" type="button" class="btn btn-border" data-toggle="modal" data-target="#reportModal"
-                                                title="Report this biz"><i class="fa fa-microphone"></i>Report this biz</a>
-
-                                                @endif
-                                                @if(Auth::guest())
-                                                <a href="/report" type="button" class="btn btn-border"><i class="fa fa-microphone"></i>Report this 
-                                                    biz</a>
-                                                @endif
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         <hr>
@@ -258,7 +230,7 @@
                                         <div class="company-profile company-contact m20-top">
                                               <div class="row">
                                                   <h3 class="text-uppercase m10-top">Contact Us</h3>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-12">
                                                         <div class="contact-map-company">
                                                             <div id="map"></div>
                                                         </div> <!-- end .map-section -->
@@ -273,19 +245,19 @@
                                                         <div class="address-details clearfix">
                                                             <i class="fa fa-phone"></i>
                                                             <p>
-                                                                <span><strong>Phone 1:</strong> {{$biz->phone1}}</span>
-                                                                <span><strong>Phone 2:</strong> {{$biz->phone2}}</span>
+                                                                <span> (+234)-{{$biz->address->phone1}}</span>
+                                                                <span> (+234)-{{$biz->address->phone2}}</span>
                                                             </p>
                                                         </div>
                                                         <div class="address-details clearfix">
                                                             <i class="fa fa-envelope-o"></i>
                                                             <p>
-                                                                <span><strong>E-mail:</strong> {{$biz->email}}</span>
-                                                                <span><strong>Website:</strong> {{$biz->website}}</span>
+                                                                <span> {{$biz->email}}</span>
+                                                                <span> {{$biz->website}}</span>
                                                             </p>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-12">
                                                         <div class="opening-hours table-responsive p10 text-center">
                                                             <h3 class="m0 p0"><i class="fa fa-clock-o"></i> Opening Hours</h3>
                                                             <table class="table">
@@ -323,20 +295,20 @@
                                                 <div class="col-md-12">
                                                     <h3>Send Us A Message</h3>
                                                     <form class="comment-form">
-                                                <div class="row">
-                                                  <div class="col-md-4">
-                                                    <input type="text" placeholder="Name *" required>
-                                                  </div>
-                                                  <div class="col-md-4">
-                                                    <input type="email" placeholder="Email *" required>
-                                                  </div>
-                                                  <div class="col-md-4">
-                                                    <input type="url" placeholder="Website">
-                                                  </div>
-                                                </div>
-                                                <textarea placeholder="Your Comment ..." required></textarea>
-                                                <button type="submit" class="btn btn-default"><i class="fa fa-envelope-o"></i> Send Message</button>
-                                              </form>
+                                                        <div class="row">
+                                                          <div class="col-md-4 form-group">
+                                                            <input class="form-control" type="text" placeholder="Name *" required>
+                                                          </div>
+                                                          <div class="col-md-4 form-group">
+                                                            <input class="form-control" type="email" placeholder="Email *" required>
+                                                          </div>
+                                                          <div class="col-md-4 form-group">
+                                                            <input class="form-control" type="url" placeholder="Website">
+                                                          </div>
+                                                        </div>
+                                                        <textarea placeholder="Your Comment ..." required></textarea>
+                                                        <button type="submit" class="btn btn-default"><i class="fa fa-envelope-o"></i> Send Message</button>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div> <!-- end .company-contact -->
@@ -458,7 +430,7 @@
                                                      placeholder="Business Email">
                                           </div>
                                       </div>
-                                      
+
                                       <div class="form-group">
                                             <label for="cat" class="col-md-3 control-label">Business state</label>
                                             <div class="col-md-8">
@@ -480,7 +452,7 @@
                                     <div class="form-group">
                                         <label for="cat" class="col-md-3 control-label">Business Category</label>
                                         <div class="col-md-8">
-                                              {!!Form::select('cats[]', $catList, $cat, ['class'=>'form-control','id'=>'category_edit', 'multiple']) !!}     
+                                              {!!Form::select('cats[]', $catList, $cat, ['class'=>'form-control','id'=>'category_edit', 'multiple']) !!}
                                          </div>
                                     </div>
 
@@ -488,7 +460,7 @@
                                       <label for="image_class" class="col-md-3 control-label">
                                          Sub categories</label>
                                      <div class="col-md-8">
-                                           {!!Form::select('sub[]', $subList, $sub, ['class'=>'form-control','id'=>'sub_edit','multiple']) !!} 
+                                           {!!Form::select('sub[]', $subList, $sub, ['class'=>'form-control','id'=>'sub_edit','multiple']) !!}
                                     </div>
                                  </div>
 
@@ -498,7 +470,7 @@
                                                   <i class="fa fa-save"></i>
                                                   Save Changes
                                               </button></li>
-                                              
+
                                           </ul>
                                       </div>
                                   </form>
@@ -642,7 +614,7 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-    
+
 
     {{--BUSINESS LOGO--}}
     <div class = "modal fade" id = "myModal" tabindex = "-1" role = "dialog" aria-labelledby = "myModalLabel" aria-hidden = "true">
@@ -738,7 +710,7 @@
     @if(Session::has('success_code') && Session::get('success_code') == 220)
     <script type="text/javascript">
     $(function() {
-        swal({ title: "Success!", 
+        swal({ title: "Success!",
                 text: "{{ Session::get('report')}}",
                 type: "success"
             });
@@ -749,7 +721,7 @@
     @if(Session::has('success_code') && Session::get('success_code') == 230)
     <script type="text/javascript">
     $(function() {
-        swal({ title: "Success!", 
+        swal({ title: "Success!",
                 text: "{{ Session::get('success_claim')}}",
                 type: "success"
             });
@@ -768,9 +740,9 @@
                 var myDropzone = new Dropzone("form#uploadFile2", { url: "/biz/{{$biz->id}}/upload", autoProcessQueue: true});
             });
 
-            $('#favourForm').submit(function() {                
+            $('#favourForm').submit(function() {
               var biz_id= $('#bizID').val();
-              
+
               $.ajax({ url: "{{ URL::to('/favourites')}}",
                     data: {biz_id: biz_id},
                     dataType: 'json',
@@ -788,14 +760,14 @@
                       }
 
                   });
-                     
+
                          }
                 });
 
                return false;
                 }); // end submit()
         });
-        
+
         {{--SET ACTIVE TAB ON RELOAD--}}
         $(document).ready(function() {
             // show active tab on reload
