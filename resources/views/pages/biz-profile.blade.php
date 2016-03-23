@@ -12,14 +12,13 @@
     <div class="header-search map">
         <div class="header-search-bar">
             {{--PROFILE PHOTO--}}
-            <figure class="center-block m0-bttm">
+            <figure class="center-block m0-bttm m20-top">
                 <div class="profile-pic center-block"><a href="" data-toggle="modal" data-target="#myBizProfile">
                         {!!Html::image(isset($biz->profilePhoto->image) ? $biz->profilePhoto->image : 'img/content/post-img-10.jpg',
                           'Profile Image', array('class'=>'img-responsive center-block'))!!}
                         @if(Auth::check() && (Auth::user()->id == $biz->owner))
                             <p class="pic-edit">
-                                <i class="mdi-image-camera-alt"></i>
-                                <span>Change Picture</span>
+                                <i class="fa fa-camera"></i>
                             </p>
                         @endif
                     </a>
@@ -395,98 +394,97 @@
                                     </div> <!-- end .tab-pane -->
                                     {{--EDIT PROFILE--}}
                                     @if(Auth::check() && (Auth::user()->id == $biz->owner))
+                                      <div class="tab-pane" id="edit">
+                                          <div class="company-ratings">
+                                              <h3 class="text-uppercase m10-top">Edit Biz Profile</h3>
+                                              <div class="rating-with-details">
+                                                  @include('admin.partials.errors')
+                                                  <form class="form-horizontal" role="form" method="POST" action="/biz/{{$biz->id}}">
+                                                      <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                      <input type="hidden" name="_method" value="PUT">
+                                                      <input type="hidden" name="id" value="{{$biz->id}}">
+                                                      <div class="form-group">
+                                                          <label for="cat" class="col-md-3 control-label">Business Name</label>
+                                                          <div class="col-md-8">
+                                                              <input required="required" type="text" value="{{ $biz->name}}" id="name" name="name"
+                                                                 class="form-control" placeholder="name">
+                                                          </div>
+                                                      </div>
+                                                      <div class="form-group">
+                                                          <label for="cat" class="col-md-3 control-label">Business Description</label>
+                                                          <div class="col-md-8">
+                                                              <input required="required" type="text" value="{{ $biz->description}}" id="description" name="description"
+                                                                 class="form-control" placeholder="description">
+                                                          </div>
+                                                      </div>
+                                                      <div class="form-group">
+                                                          <label for="cat" class="col-md-3 control-label">Business tagline</label>
+                                                          <div class="col-md-8">
+                                                              <input required="required" type="text" value="{{ $biz->tagline}}" id="tagline" name="tagline"
+                                                                 class="form-control" placeholder="business slogan/tagline">
+                                                          </div>
+                                                      </div>
+                                                      <div class="form-group">
+                                                          <label for="email" class="col-md-3 control-label">Business Address</label>
+                                                          <div class="col-md-8">
+                                                              <input type="text" id="address" value="{{ $biz->address->street}}" name="address" class="form-control"
+                                                                     placeholder="Business Address">
+                                                          </div>
+                                                      </div>
+                                                      <div class="form-group">
+                                                          <label for="email" class="col-md-3 control-label">Business Email</label>
+                                                          <div class="col-md-8">
+                                                              <input type="email" id="email" value="{{ $biz->address->email}}" name="email" class="form-control"
+                                                                     placeholder="Business Email">
+                                                          </div>
+                                                      </div>
 
-                                    <div class="tab-pane" id="edit">
-                          <div class="company-ratings">
-                              <h3 class="text-uppercase m10-top">Edit Biz Profile</h3>
-                              <div class="rating-with-details">
-                                  @include('admin.partials.errors')
-                                  <form class="form-horizontal" role="form" method="POST" action="/biz/{{$biz->id}}">
-                                      <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                      <input type="hidden" name="_method" value="PUT">
-                                      <input type="hidden" name="id" value="{{$biz->id}}">
-                                      <div class="form-group">
-                                          <label for="cat" class="col-md-3 control-label">Business Name</label>
-                                          <div class="col-md-8">
-                                              <input required="required" type="text" value="{{ $biz->name}}" id="name" name="name"
-                                                 class="form-control" placeholder="name">
-                                          </div>
-                                      </div>
-                                      <div class="form-group">
-                                          <label for="cat" class="col-md-3 control-label">Business Description</label>
-                                          <div class="col-md-8">
-                                              <input required="required" type="text" value="{{ $biz->description}}" id="description" name="description"
-                                                 class="form-control" placeholder="description">
-                                          </div>
-                                      </div>
-                                      <div class="form-group">
-                                          <label for="cat" class="col-md-3 control-label">Business tagline</label>
-                                          <div class="col-md-8">
-                                              <input required="required" type="text" value="{{ $biz->tagline}}" id="tagline" name="tagline"
-                                                 class="form-control" placeholder="business slogan/tagline">
-                                          </div>
-                                      </div>
-                                      <div class="form-group">
-                                          <label for="email" class="col-md-3 control-label">Business Address</label>
-                                          <div class="col-md-8">
-                                              <input type="text" id="address" value="{{ $biz->address->street}}" name="address" class="form-control"
-                                                     placeholder="Business Address">
-                                          </div>
-                                      </div>
-                                      <div class="form-group">
-                                          <label for="email" class="col-md-3 control-label">Business Email</label>
-                                          <div class="col-md-8">
-                                              <input type="email" id="email" value="{{ $biz->address->email}}" name="email" class="form-control"
-                                                     placeholder="Business Email">
-                                          </div>
-                                      </div>
+                                                      <div class="form-group">
+                                                            <label for="cat" class="col-md-3 control-label">Business state</label>
+                                                            <div class="col-md-8">
+                                                                @if($state=$biz->address->state)@endif
+                                                                 {!!Form::select('state', $stateList, $state->name, ['class'=>'form-control','id'=>'stateList',
+                                                                    'placeholder'=>'select state']) !!}
+                                                            </div>
+                                                     </div>
 
-                                      <div class="form-group">
-                                            <label for="cat" class="col-md-3 control-label">Business state</label>
-                                            <div class="col-md-8">
-                                                @if($state=$biz->address->state)@endif
-                                                 {!!Form::select('state', $stateList, $state->name, ['class'=>'form-control','id'=>'stateList',
-                                                    'placeholder'=>'select state']) !!}
-                                            </div>
-                                     </div>
+                                                     {{--REGION--}}
+                                                    <div class="form-group">
+                                                            <label for="image_class" class="col-md-3 control-label">
+                                                                 Create Region/area</label>
+                                                           <div class="col-md-8">
+                                                                 {!!Form::select('lga[]', $state->lgas->lists('name','id'), $biz->address->lga_id,
+                                                                  ['class'=>'form-control','id'=>'lga','placeholder'=>'Edit Regions','multiple']) !!}
+                                                          </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="cat" class="col-md-3 control-label">Business Category</label>
+                                                        <div class="col-md-8">
+                                                              {!!Form::select('cats[]', $catList, $cat, ['class'=>'form-control','id'=>'category_edit', 'multiple']) !!}
+                                                         </div>
+                                                    </div>
 
-                                     {{--REGION--}}
-                                    <div class="form-group">
-                                            <label for="image_class" class="col-md-3 control-label">
-                                                 Create Region/area</label>
-                                           <div class="col-md-8">
-                                                 {!!Form::select('lga[]', $state->lgas->lists('name','id'), $biz->address->lga_id,
-                                                  ['class'=>'form-control','id'=>'lga','placeholder'=>'Edit Regions','multiple']) !!}
-                                          </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="cat" class="col-md-3 control-label">Business Category</label>
-                                        <div class="col-md-8">
-                                              {!!Form::select('cats[]', $catList, $cat, ['class'=>'form-control','id'=>'category_edit', 'multiple']) !!}
-                                         </div>
-                                    </div>
+                                                  <div class="form-group">
+                                                      <label for="image_class" class="col-md-3 control-label">
+                                                         Sub categories</label>
+                                                     <div class="col-md-8">
+                                                           {!!Form::select('sub[]', $subList, $sub, ['class'=>'form-control','id'=>'sub_edit','multiple']) !!}
+                                                    </div>
+                                                 </div>
 
-                                  <div class="form-group">
-                                      <label for="image_class" class="col-md-3 control-label">
-                                         Sub categories</label>
-                                     <div class="col-md-8">
-                                           {!!Form::select('sub[]', $subList, $sub, ['class'=>'form-control','id'=>'sub_edit','multiple']) !!}
-                                    </div>
-                                 </div>
+                                                      <div class="col-md-7 col-md-offset-3">
+                                                          <ul class="list-inline">
+                                                              <li><button type="submit" class="btn btn-default btn-md">
+                                                                  <i class="fa fa-save"></i>
+                                                                  Save Changes
+                                                              </button></li>
 
-                                      <div class="col-md-7 col-md-offset-3">
-                                          <ul class="list-inline">
-                                              <li><button type="submit" class="btn btn-default btn-md">
-                                                  <i class="fa fa-save"></i>
-                                                  Save Changes
-                                              </button></li>
-
-                                          </ul>
+                                                          </ul>
+                                                      </div>
+                                                  </form>
+                                              </div> <!-- end .rating-with-details -->
+                                          </div> <!-- end .company-rating -->
                                       </div>
-                                  </form>
-                              </div> <!-- end .rating-with-details -->
-                          </div> <!-- end .company-rating -->
-                      </div>
                                     @endif
                                 </div> <!-- end .tab-content -->
                             </div> <!-- end .main-grid layout -->

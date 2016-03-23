@@ -105,7 +105,7 @@
                return false;
                 }); // end submit()
       });
-      $(document).ready(function() {
+       $(document).ready(function() {
             // Enable location search
             $('#location').selectize({
                 valueField: 'name',
@@ -167,15 +167,12 @@
               $("body").addClass('animated fadeIn');
               $("h2.page-title").addClass('animated zoomIn');
           });
-
        $(function () {
             $('[data-toggle="tooltip"]').tooltip()
           });
-       $(function() {
+       $(function () {
           $('.tab-pane:first-child ').addClass('active animated zoomIn');
        });
-
-
   </script>
   @yield('scripts')
 <!-- SCRIPTS ENDS -->

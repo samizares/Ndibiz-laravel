@@ -10,8 +10,36 @@
 <!-- HEADER -->
 <!-- search -->
 @section('search')
-  @include('partials.search')
-@endsection
+    <div class="header-search map">
+        <div class="header-search-bar">
+            {{--PROFILE PHOTO--}}
+            <figure class="center-block m0-bttm m20-top">
+                <div class="profile-pic center-block">
+                    {!!Html::image(isset($user->profilePhoto->image) ? $user->profilePhoto->image : 'img/user.jpg',
+                        'Profile Image', array('class'=>'img-responsive center-block'))!!}
+                    @if(Auth::check() && (Auth::user()->id == $user->id))
+                        <a href="#" data-toggle="modal" data-target="#myProfile">
+                            <p class="pic-edit">
+                                {{--<i class="mdi-image-camera-alt"></i>--}}
+                                <i class="fa fa-camera"></i>
+                            </p>
+                        </a>
+                    @endif
+                </div>
+            </figure>
+            {{--USER NAME--}}
+            <h2 class="text-center m5 text-color-white text-uppercase" style="font-weight: 300;">{{$user->username}}</h2>
+            {{--ADDRESS--}}
+            <p class="text-center m5 text-color-white address"><i class="fa fa-map-marker"></i> Lagos, Nigeria.</p>
+            {{--COUNTERS--}}
+            <ul class="list-inline user-counter text-center text-color-white">
+                <li><i class="fa fa-heart"></i> {{$favCount= $user->favours->count()}}
+                    {{str_plural('Favourite', $favCount) }}</li>
+                <li><i class="fa fa-camera"></i> {{$photosCount=$user->photos->count()}}
+                    {{ str_plural('Photo', $photosCount)}} </li>
+            </ul>
+        </div> <!-- END .header-search-bar -->
+        @endsection
 <!-- navigation -->
 @section('header-navbar')
     <div class="header-nav-bar">
@@ -54,84 +82,49 @@
 @endsection
 <!-- CONTENT -->
 @section('content')
-  <div id="page-content" class="company-profile page-content user-profile">
+  <div id="page-content" class="company-profile page-content m0 user-profile">
     <div class="container">
     @include('partials.notifications')
       <div class="home-with-slide">
         <div class="row">
             {{--MAIN CONTENT--}}
-          <div class="col-md-8">
+            <div class="col-md-8">
               {{--PROFILE OVERVIEW--}}
-            <div class="row profile-overview">
-              <div class="col-md-3 col-sm-3 ">
-                  <ul class="list-inline user-counter hidden-md hidden-lg hidden-sm">
-                      <li><i class="fa fa-heart"></i> {{$favCount= $user->favours->count()}}
-                          {{str_plural('Favourite', $favCount) }}</li>
-                      <li><i class="fa fa-camera"></i>{{$photosCount=$user->photos->count()}}
-                          {{ str_plural('Photo', $photosCount)}} </li>
-                  </ul>
-                  <h2 class="username hidden-md hidden-lg hidden-sm">{{$user->username}}</h2>
-                <figure class="center-block">
-                    <div class="profile-pic">
-                      {!!Html::image(isset($user->profilePhoto->image) ? $user->profilePhoto->image : 'img/user.jpg',
-                        'Profile Image', array('class'=>'img-responsive center-block'))!!}
-                       @if(Auth::check() && (Auth::user()->id == $user->id))
-                        <a href="#" data-toggle="modal" data-target="#myProfile">
-                      <p class="pic-edit">
-                        <i class="mdi-image-camera-alt"></i>
-                         <span class="text-uppercase">Change Picture</span>
-                      </p></a>
-                      @endif
+                @if(Auth::check() && (Auth::user()->id == $user->id))
+                    <div class="row">
+                        {{--ACTION BUTTONS--}}
+                        <div class="col-md-12 action-btns">
+                            <ul class="list-inline m0-bttm">
+                                <li><a href="#" type="button" class="btn btn-border" data-toggle="modal" data-target="#myModal" title="Add Photo"><i class="fa fa-camera"></i>
+                                        Add photo</a></li>
+                            </ul>
+                        </div>
                     </div>
-                </figure>
-              </div>
-              <div class="col-md-9 col-sm-9 col-xs-12">
-                <div class="row">
-                    <div class="col-md-8">
-                      <h2 class="username hidden-xs">{{$user->username}}</h2>
-                        <p class="m5-bttm address"><i class="fa fa-map-marker"></i> Lagos, Nigeria.</p>
-
-                      <ul class="list-inline user-counter hidden-xs">
-                        <li><i class="fa fa-heart"></i> {{$favCount= $user->favours->count()}}
-                          {{str_plural('Favourite', $favCount) }}</li>
-                        <li><i class="fa fa-camera"></i>{{$photosCount=$user->photos->count()}}
-                          {{ str_plural('Photo', $photosCount)}} </li>
-                      </ul>
-                    </div>
-                    <hr class="hidden-lg hidden-md hidden-sm">
-                    {{--ACTION BUTTONS--}}
-                    @if(Auth::check() && (Auth::user()->id == $user->id))
-                    <div class="col-md-4 action-btns">
-                        <ul class="list-inline m0-bttm">
-                            <li><a href="#" type="button" class="btn btn-border" data-toggle="modal" data-target="#myModal" title="Add Photo"><i class="fa fa-camera"></i>
-                                    Add photo</a></li>
-                        </ul>
-                    </div>
-                    @endif
-                </div>
-              </div>
-            </div>
+                @endif
               <hr>
-              {{--TABS CONTENT--}}
+              {{--TABS--}}
             <div class="row businesses profile-tabs">
                 {{--TABS SIDEBAR LEFT--}}
               <div class="col-md-3 col-sm-3 col-xs-12">
                   <div class="page-sidebar company-sidebar">
                     <ul class="company-category nav nav-tabs home-tab" role="tablist">
-                        <li class="active">
-                          <a href="#biz-photos" role="tab" data-toggle="tab"><i class="fa fa-camera"></i> <span class="">Gallery</span></a>
+                        @if(Auth::check() && (Auth::user()->id == $user->id))
+                            <li class="active">
+                                <a href="#claimed-biz" role="tab" data-toggle="tab"><i class="fa fa-building-o"></i> <span class="">Claimed Businesses</span></a>
+                            </li>
+                        @endif
+                        <li>
+                            <a href="#fav" role="tab" data-toggle="tab"><i class="fa fa-heart"></i> <span class="">Favourites</span></a>
                         </li>
                         <li>
-                          <a href="#fav" role="tab" data-toggle="tab"><i class="fa fa-heart"></i> <span class="">Favourites</span></a>
+                            <a href="#company-reviews" role="tab" data-toggle="tab"><i class="fa fa-comments"></i>
+                                <span class="">Business Reviews</span></a>
                         </li>
                         <li>
-                          <a href="#company-reviews" role="tab" data-toggle="tab"><i class="fa fa-comments"></i> <span class="">Business Reviews</span></a>
+                          <a href="#biz-photos" role="tab" data-toggle="tab"><i class="fa fa-camera"></i>
+                              <span class="">Gallery</span></a>
                         </li>
                         @if(Auth::check() && (Auth::user()->id == $user->id))
-                        <li>
-                            <a href="#claimed-biz" role="tab" data-toggle="tab"><i class="fa fa-building-o"></i> <span class="">Claimed Businesses</span></a>
-                        </li>
-
                         <li>
                             <a href="#edit" role="tab" data-toggle="tab"><i class="fa fa-building-o"></i> <span class="">Edit Profile</span></a>
                         </li>
@@ -142,8 +135,110 @@
                 {{--TAB CONTENT RIGHT--}}
               <div class="col-md-9 col-sm-9 col-xs-12">
                   <div class="tab-content">
+                      {{--CLAIMED BUSINESSES--}}
+                      <div class="tab-pane active fade in" id="claimed-biz">
+                          <div class="favourite-biz">
+                              <h3 class="text-uppercase m10-top">Claimed Businesses</h3>
+                              <div class="row clearfix">
+                                  @unless ( $owner->isEmpty() )
+                                      @foreach ($owner as $biz)
+                                          <div class="col-md-6 col-sm-6">
+                                              <div class="single-product">
+                                                  <figure><a href="/review/biz/{{$biz->slug}}">
+                                                          <img src="{{isset($biz->profilePhoto->image) ? asset($biz->profilePhoto->image) :
+                                               asset('img/content/post-img-10.jpg') }}" alt="">
+                                                          <div class="rating">
+                                                              <ul class="list-inline">
+                                                                  <li>
+                                                                      @for ($i=1; $i <= 5 ; $i++)
+                                                                          <span class="glyphicon glyphicon-star{{ ($i <= $biz->rating_cache) ? '' : '-empty'}}"></span>
+                                                                      @endfor
+                                                                  </li>
+                                                              </ul>
+                                                              <p class="">{{$biz->rating_count}} {{ Str::plural('review', $biz->rating_count)}}</p>
+                                                          </div></a>
+                                                  </figure>
+                                                  <h4><a href="/review/biz/{{$biz->slug}}">{{$biz->name}}</a></h4>
+                                                  <p class="m5-bttm"><span data-toggle="modal" data-target="#delClaimModal"
+                                                                           data-bizid="{{$biz->id}}" data-claimbiz="{{$biz->name}}" title="Remove from claimed biz">
+                                        <a><i class="fa fa-trash"></i></a></span></p>
+                                              </div> <!-- end .single-product -->
+                                          </div>
+                                      @endforeach
+                                  @endunless
+                              </div>  <!-- end .row -->
+                          </div>  <!-- end -->
+                      </div>
+                      {{--FAVOURITES--}}
+                      <div class="tab-pane" id="fav">
+                          <div class="favourite-biz">
+                              <h3 class="text-uppercase m10-top">Favourite Businesses</h3>
+                              @include('partials.favourite')
+                              <div class="row clearfix">
+                                  @unless ( $bizs->isEmpty() )
+                                      @foreach ($bizs as $biz)
+                                          <div class="col-md-6 col-sm-6">
+                                              <div class="single-product">
+                                                  <figure><a href="/review/biz/{{$biz->slug}}">
+                                                          <img src="{{isset($biz->profilePhoto->image) ? asset($biz->profilePhoto->image) :
+                                               asset('img/content/post-img-10.jpg') }}" alt="">
+
+                                                          <div class="rating">
+                                                              <ul class="list-inline">
+                                                                  <li>
+                                                                      @for ($i=1; $i <= 5 ; $i++)
+                                                                          <span class="glyphicon glyphicon-star{{ ($i <= $biz->rating_cache) ? '' : '-empty'}}"></span>
+                                                                      @endfor
+                                                                  </li>
+                                                              </ul>
+                                                              <p class="">{{$biz->rating_count}} {{ Str::plural('review', $biz->rating_count)}}</p>
+                                                          </div></a>
+                                                  </figure>
+                                                  <h4><a href="/review/biz/{{$biz->slug}}">{{$biz->name}}</a></h4>
+                                                  <p class="m5-bttm"><span data-toggle="modal" data-target="#favModal"
+                                                                           data-id="{{$biz->id}}" data-bizname="{{$biz->name}}" title="Remove from favourites">
+                                        <a><i class="fa fa-trash"></i></a></span></p>
+                                              </div> <!-- end .single-product -->
+                                          </div>
+                                      @endforeach
+                                  @endunless
+                              </div>  <!-- end .row -->
+                          </div>  <!-- end -->
+                      </div>
+                      {{--REVIEWS--}}
+                      <div class="tab-pane" id="company-reviews">
+                          <div class="company-ratings">
+                              <h3 class="text-uppercase m10-top">Reviews (5 star ratings)</h3>
+                              <div class="rating-with-details">
+                                  @unless ( $user->reviews->isEmpty() )
+                                      @foreach($user->reviews as $review)
+                                          <div class="single-content">
+                                              <div class="company-rating-box">
+                                                  <ul class="list-inline">
+                                                      @for ($i=1; $i <= 5 ; $i++)
+                                                          <li><a href="#"><i class="fa fa-star{{ ($i <= $review->rating) ? '' : '-o'}}"></i></a></li>
+                                                      @endfor
+                                                  </ul>
+                                              </div>
+                                              <div class="rating-details">
+                                                  <div class="meta">
+                                                      <a href="#"><strong>{{$review->biz->name  }}</strong></a>
+                                                      - {{ $review->timeago}}
+                                                  </div>
+                                                  <div class="content">
+                                                      <p>{{$review->comment}}</p>
+                                                  </div>
+                                              </div>
+                                          </div> <!-- end .single-content -->
+                                      @endforeach
+                                  @endunless
+
+
+                              </div> <!-- end .rating-with-details -->
+                          </div> <!-- end .company-rating -->
+                      </div>
                       {{--GALLERY--}}
-                      <div class="tab-pane active" id="biz-photos">
+                      <div class="tab-pane" id="biz-photos">
                         <div class="company-product">
                           <h3 class="text-uppercase m10-top">Gallery</h3>
                           <div class="row">
@@ -155,107 +250,8 @@
                                 </div>
                           </div> <!-- end .row -->
                         </div> <!-- end .company-product -->
-                      </div> <!-- end .tab-pane -->
-                      {{--FAVOURITES--}}
-                      <div class="tab-pane" id="fav">
-                        <div class="favourite-biz">
-                          <h3 class="text-uppercase m10-top">Favourite Businesses</h3>
-                          @include('partials.favourite')
-                          <div class="row clearfix">
-                            @unless ( $bizs->isEmpty() )
-                            @foreach ($bizs as $biz)
-                                <div class="col-md-6 col-sm-6">
-                                  <div class="single-product">
-                                      <figure><a href="/review/biz/{{$biz->slug}}">
-                                        <img src="{{isset($biz->profilePhoto->image) ? asset($biz->profilePhoto->image) :
-                                               asset('img/content/post-img-10.jpg') }}" alt="">
-
-                                          <div class="rating">
-                                              <ul class="list-inline">
-                                                  <li>
-                                                      @for ($i=1; $i <= 5 ; $i++)
-                                                          <span class="glyphicon glyphicon-star{{ ($i <= $biz->rating_cache) ? '' : '-empty'}}"></span>
-                                                      @endfor
-                                                  </li>
-                                              </ul>
-                                              <p class="">{{$biz->rating_count}} {{ Str::plural('review', $biz->rating_count)}}</p>
-                                          </div></a>
-                                      </figure>
-                                      <h4><a href="/review/biz/{{$biz->slug}}">{{$biz->name}}</a></h4>
-                                      <p class="m5-bttm"><span data-toggle="modal" data-target="#favModal"
-                                        data-id="{{$biz->id}}" data-bizname="{{$biz->name}}" title="Remove from favourites">
-                                        <a><i class="fa fa-trash"></i></a></span></p>
-                                  </div> <!-- end .single-product -->
-                                </div>
-                            @endforeach
-                            @endunless
-                          </div>  <!-- end .row -->
-                        </div>  <!-- end -->
-                      </div> <!-- end .tab-pane -->
-                      <div class="tab-pane" id="company-reviews">
-                         <div class="company-ratings">
-                          <h3 class="text-uppercase m10-top">Reviews (5 star ratings)</h3>
-                          <div class="rating-with-details">
-                            @unless ( $user->reviews->isEmpty() )
-                            @foreach($user->reviews as $review)
-                            <div class="single-content">
-                              <div class="company-rating-box">
-                                <ul class="list-inline">
-                                   @for ($i=1; $i <= 5 ; $i++)
-                                  <li><a href="#"><i class="fa fa-star{{ ($i <= $review->rating) ? '' : '-o'}}"></i></a></li>
-                                  @endfor
-                                </ul>
-                              </div>
-                              <div class="rating-details">
-                                <div class="meta">
-                                  <a href="#"><strong>{{$review->biz->name  }}</strong></a>
-                                  - {{ $review->timeago}}
-                                </div>
-                                <div class="content">
-                                  <p>{{$review->comment}}</p>
-                                </div>
-                              </div>
-                            </div> <!-- end .single-content -->
-                            @endforeach
-                            @endunless
-
-
-                          </div> <!-- end .rating-with-details -->
-                        </div> <!-- end .company-rating -->
                       </div>
-                      <div class="tab-pane" id="claimed-biz">
-                          <div class="favourite-biz">
-                          <h3 class="text-uppercase m10-top">Claimed Businesses</h3>
-                          <div class="row clearfix">
-                            @unless ( $owner->isEmpty() )
-                            @foreach ($owner as $biz)
-                                <div class="col-md-6 col-sm-6">
-                                  <div class="single-product">
-                                      <figure><a href="/review/biz/{{$biz->slug}}">
-                                          <img src="{{isset($biz->profilePhoto->image) ? asset($biz->profilePhoto->image) :
-                                               asset('img/content/post-img-10.jpg') }}" alt="">
-                                          <div class="rating">
-                                              <ul class="list-inline">
-                                                  <li>
-                                                      @for ($i=1; $i <= 5 ; $i++)
-                                                          <span class="glyphicon glyphicon-star{{ ($i <= $biz->rating_cache) ? '' : '-empty'}}"></span>
-                                                      @endfor
-                                                  </li>
-                                              </ul>
-                                              <p class="">{{$biz->rating_count}} {{ Str::plural('review', $biz->rating_count)}}</p>
-                                          </div></a>
-                                      </figure>
-                                      <h4><a href="/review/biz/{{$biz->slug}}">{{$biz->name}}</a></h4>
-                                      <p class="m5-bttm"><span data-toggle="modal" data-target="#delClaimModal"
-                                        data-bizid="{{$biz->id}}" data-claimbiz="{{$biz->name}}" title="Remove from claimed biz">
-                                        <a><i class="fa fa-trash"></i></a></span></p>
-                                  </div> <!-- end .single-product -->
-                                </div>
-                            @endforeach
-                            @endunless
-                          </div>  <!-- end .row -->
-                        </div>  <!-- end -->
-                      </div>
+                      {{--PROFILE EDIT--}}
                       <div class="tab-pane" id="edit">
                           <div class="company-ratings">
                               <h3 class="text-uppercase m10-top">Edit Profile</h3>
@@ -324,7 +320,7 @@
           </div>
             {{--SIDEBAR RIGHT--}}
             <div class="col-md-4">
-             @include('includes.sidebar')
+                @include('includes.sidebar')
             </div>
         </div>
       </div> <!-- end .home-with-slide -->

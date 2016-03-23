@@ -18,8 +18,8 @@
                                @if ( ! $featured-> isEmpty() )
                                    @foreach ($featured as $feature)
                                        <div class="latest-post clearfix">
-                                           <div class="post-image">                           
-                                               <img src="{{isset($feature->profilePhoto->image) ? asset($feature->profilePhoto->image) : 
+                                           <div class="post-image">
+                                               <img src="{{isset($feature->profilePhoto->image) ? asset($feature->profilePhoto->image) :
                                                asset('img/content/latest_post_1.jpg') }}" alt="">
                                            </div>
                                            <h4><a href="/review/biz/{{$feature->slug}}">{{$feature->name}}</a></h4>
@@ -36,9 +36,9 @@
                                    @foreach ($recent as $new)
                                        <div class="latest-post clearfix">
                                            <div class="post-image">
-                                               <img src="{{isset($new->profilePhoto->image) ? asset($new->profilePhoto->image) : 
+                                               <img src="{{isset($new->profilePhoto->image) ? asset($new->profilePhoto->image) :
                                                asset('img/content/latest_post_1.jpg') }}" alt="">
-                                               <p><span>12</span>Sep</p>
+                                               {{--<p><span>12</span>Sep</p>--}}
                                            </div>
                                            <h4><a href="/review/biz/{{$new->slug}}">{{$new->name}}</a></h4>
                                            <p>{{$new->description}}</p>
@@ -50,18 +50,17 @@
                            <!-- AD BAR MEDIUM -->
                            <div class="ad-midi">
                                <h1 class="text-center m5-bttm"> <small>Advertisement</small></h1>
-                               <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel">
+                               <div id="carousel" class="carousel slide carousel-fade sidebar-ad2" data-ride="carousel">
                                    <!-- Carousel items -->
                                    <div class="carousel-inner">
-                                       <div class="active item"><img src="{{asset('img/content/ad1.png')}}" alt=""></div>
-                                       <div class="item"><img src="{{asset ('img/content/ad1.jpg')}}" alt=""></div>
-                                       <div class="item"><img src="{{asset ('img/content/ad1.jpg')}}" alt=""></div>
+                                       <div class="active item"><img src="{{asset('img/content/advert1.png')}}" alt=""></div>
+                                       <div class="item"><img src="{{asset ('img/content/advert2.png')}}" alt=""></div>
+                                       <div class="item"><img src="{{asset ('img/content/advert3.png')}}" alt=""></div>
                                    </div>
                                </div>
                            </div>
                            <!-- RECENT REVIEWS -->
-                           <div class="recently-added">
-                               <h2>Recent Reviews</h2>
-                           </div>
+                           {{--<div class="recently-added">--}}
+                               {{--<h2>Recent Reviews</h2>--}}
+                           {{--</div>--}}
                        </div>
-                   

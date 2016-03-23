@@ -16,7 +16,7 @@
       <div class="row m20-bttm">
         <div class="col-md-12">
             <h2 class="section-title"> Add a free business listing to BEAZEA Directory</h2>
-            <span class="section-subtitle"> You're just steps away from setting up a free business profile on the Nigeria's leading online business directory.</span>
+            <span class="section-subtitle"> You're just steps away from setting up a free business profile on Nigeria's leading online business directory.</span>
         </div>
       </div>
         <hr>
@@ -122,7 +122,7 @@
                      {{-- <label for="images" class="col-md-3 control-label">--}}
                      {{--     Upload Business Gallery Images(optional)</label>--}}
                      {{-- <div class="col-md-8">--}}
-                          
+
                         {{-- <div class="dropzone dropzone-previews"></div>--}}
                     {{-- </div> --}}
                  {{-- </div> --}}
@@ -232,19 +232,19 @@
                         </div>
                     </div>
             </div>
-        </div> 
+        </div>
       </div> <!-- end .row -->
     </div> <!-- end .container -->
   </div>  <!-- end form-content -->
 @endsection
-  
+
 @section('scripts')
    <script src="{{asset('plugins/select2/select2.min.js')}}"></script>
    <script src="{{asset('js/dropzone.js')}}"></script>
    <script src="{{ asset('plugins/jasny-bootstrap/js/jasny-bootstrap.min.js') }}"></script>
      {{--CUSTOM PAGE SCRIPTS--}}
     <script type="text/javascript">
-    {{--DROPZONE--}}  
+    {{--DROPZONE--}}
             Dropzone.autoDiscover = false;
             Dropzone.options.myAwesomeDropzone = {
               //previewsContainer: ".dropzone-previews",
@@ -309,7 +309,7 @@
 
       });
     });
-    
+
      $(document).ready(function() {
       $('#category3').change(function(){
         var selection= $(this).val();
@@ -319,7 +319,7 @@
           else {
             $("#sort_code").hide();
           }
-        
+
         });
       });
 
@@ -368,7 +368,7 @@
          $("#lga").select2({
           placeholder: 'select a state first',
         });
-      }); 
+      });
 
          });
   </script>
