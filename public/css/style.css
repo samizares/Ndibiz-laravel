@@ -8651,6 +8651,8 @@ p.section-subtitle {
     -webkit-border-radius:50%;
     -moz-border-radius:50%;
     border-radius:50%;
+    height:100%;
+    width:100%;
 }
 .profile-pic a .pic-edit {
     background-color: transparent;
