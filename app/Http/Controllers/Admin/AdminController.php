@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\User;
 use App\Http\Requests\CatCreateRequest;
 use App\Http\Requests\CatUpdateRequest;
 use App\Http\Requests\BusinessRegRequest;
@@ -22,7 +23,6 @@ use App\Setting;
 
 class AdminController extends Controller
 {
-    
     /**
      * Display a listing of the resource.
      *
@@ -30,19 +30,43 @@ class AdminController extends Controller
      */
     public function index()
     {
-       $cats = Cat::all();
-       $bizs = Biz::all();
-       $states = State::all();
-       $set= Setting::findOrFail(1);
+        $cats = Cat::all();
+        $totalCats=Cat::count();
+        $bizs = Biz::all();
+        $totalBizs = Biz::count();
+        $states = State::all();
+        $totalStates = State::count();
+        $users= User::all();
+        $totalUser=User::count();
+        $set= Setting::findOrFail(1);
 
-    return view('admin.index', compact('biz', 'states', 'featured','set'))->withCats($cats);
+        return view('admin.index', compact('bizs', 'states', 'featured','set', 'users', 'totalUser','totalCats',
+            'totalBizs', 'totalStates'))
+            ->withCats($cats);
+    }
+//   TODO -> testing - remember to delete
+    public function index2()
+    {
+        $cats = Cat::all();
+        $totalCats=Cat::count();
+        $bizs = Biz::all();
+        $totalBizs = Biz::count();
+        $states = State::all();
+        $totalStates = State::count();
+        $users= User::all();
+        $totalUser=User::count();
+        $set= Setting::findOrFail(1);
+
+        return view('admin.index2', compact('bizs', 'states', 'featured','set', 'users', 'totalUser','totalCats',
+            'totalBizs', 'totalStates'))
+            ->withCats($cats);
     }
 
     public function settings(Request $request)
-    {  
+    {
 
       //dd($request->all());
-       
+
         $data = [
            'image' => $request->file('image'),
            'title1'=> $request->get('title1'),
@@ -78,11 +102,11 @@ class AdminController extends Controller
             $settings->save();
 
              return \Redirect::back()
-            ->with('success', 'Home Page Settings updated!!!');         
+            ->with('success', 'Home Page Settings updated!!!');
          }
-         return \Redirect::back()
-        ->with('errors', $validator->messages());
+//        return \Redirect::back()->with('errors', $validator->messages());
+        return view('admin.settings.index')->with('errors', $validator->messages());
     }
 
-   
+
 }

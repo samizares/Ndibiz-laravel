@@ -38,6 +38,7 @@ Route::post('bizprofile/{id}/photo', 'HomeController@bizprofilephoto');
 
 Route::get('categories', 'HomeController@categories');
 Route::get('businesses', 'HomeController@businesses');
+Route::get('businesses2', 'HomeController@businesses2');
 Route::get('map', 'HomeController@map');
 Route::get('locations', 'HomeController@locations');
 //Route::get('search-results', 'HomeController@searchResults');
@@ -89,6 +90,8 @@ $router->group([
   'middleware' => 'admin',
 ], function () {
   get('admin', 'AdminController@index');
+//  TODO -> testing - rem to delete
+  get('admin2', 'AdminController@index2');
   post('admin/settings','AdminController@settings');
   resource('admin/biz', 'BizController');
   resource('admin/cat', 'CatController');

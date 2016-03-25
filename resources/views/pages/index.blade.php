@@ -115,7 +115,7 @@
                                         </div>
                                     </figure>
                                     <h4><a href="/review/biz/{{$biz->slug}}">{{$biz->name}}</a></h4>
-                                    <p class="biz-tagline m20-bttm text-left">{{$biz->description}}</p>
+                                    <p class="biz-tagline m10-bttm text-left">{{$biz->description}}</p>
                                     <p class="m5-bttm"><span class="p0-bttm">@foreach( $biz->subcats as $sub) <span><a class="btn btn-border btn-xs" href="/biz/subcat/{{$sub->slug}}">
                                                     <i class="fa fa-tags"></i> {{$sub->name}}</a></span> @endforeach</span>
                                     </p>
@@ -152,7 +152,7 @@
                                         </div>
                                     </figure>
                                     <h4 class="text-left">{{$recent->name}}</h4>
-                                    <p class="biz-tagline m20-bttm text-left">{{$recent->description}}</p>
+                                    <p class="biz-tagline m10-bttm text-left">{{$recent->description}}</p>
                                     <p class="text-left m0-bttm">
                                         @foreach($recent->subcats as $sub)
                                             <span class="btn btn-border btn-xs btn-tags" role="button"><i class="fa fa-tags"></i> {{$sub->name}}</span>
@@ -216,7 +216,7 @@
     @endsection
     <!-- FOOTER ENDS -->
     <!-- SCRIPTS STARTS -->
-    @section('scripts')
+    @section('scrip1ts')
     <script src="{{asset('js/scripts.js')}}"></script>
     <script src="{{asset('plugins/owl-carousel/owl.carousel.js') }}"></script>
     <script>
@@ -224,7 +224,6 @@
         //-------------------------------------------------
         $(document).ready(function() {
             $('.rotate').rotaterator({fadeSpeed:2000, pauseSpeed:80});
-
         });
     </script>
     @stop

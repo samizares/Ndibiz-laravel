@@ -113,7 +113,7 @@
                 searchField: ['name'],
                 renrender:{
                     option:function(item, escape) {
-                      return '<div><i class="fa fa-map-marker"></i>' + ' ' + escape(item.name) +'</div>';
+                      return '<div>' + escape(item.name) +'</div>';
                     }
                   },
                   load:function(query, callback){
@@ -139,7 +139,7 @@
                 searchField: ['name'],
                 render:{
                   option:function(item, escape) {
-                    return '<div><i class="fa fa-home"></i>' + ' ' + escape(item.name) +'</div>';
+                    return '<div>' + escape(item.name) +'</div>';
                   }
                 },
                 load:function(query, callback) {

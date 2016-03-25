@@ -43,6 +43,11 @@
                 </span></a>
                 <ul class="dropdown-menu">
                     <li><a href="/profile/{{Auth::user()->id}}"><i class="fa fa-user"></i> View Profile</a></li>
+                    @if(Auth::check())
+                        @if(Auth::user()->admin)
+                            <li><a href="/admin"><i class="fa fa-user"></i> View Admin Dashboard</a></li>
+                        @endif
+                    @endif
                     <li><a href="{{ URL::to('auth/logout') }}"><i class="fa fa-power-off"></i> Logout</a></li>
                 </ul>
               </li>

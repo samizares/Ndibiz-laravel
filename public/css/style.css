@@ -9122,3 +9122,82 @@ p.section-subtitle {
   color:#fdc600;
   background: #333;
 }
+
+/*ADMIN STYLES*/
+
+/*Overview Cards*/
+.card {
+    overflow: hidden;
+}
+.card-success {
+    background-color: #5cb85c;
+    border-color: #5cb85c;
+}
+.bg-success, .bg-info, .bg-danger, .bg-warning, .bg-primary, .bg-default {
+  color: #fff!important;
+}
+.bg-success {
+    background-color: #5cb85c !important;
+}
+.bg-info {
+  background-color: #9BD5F3 !important;
+}
+.bg-danger {
+  background-color: #F94040 !important;
+}
+.bg-warning {
+  background-color: #F9AB1C !important;
+}
+.bg-default {
+  background-color: #bbb !important;
+}
+.bg-primary {
+  background-color: #337ab7 !important;
+}
+.card {
+    position: relative;
+    display: block;
+    margin-bottom: .75rem;
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: .25rem;
+}
+.card-block {
+    padding: 1.25rem;
+}
+.card-block h1,
+.card-block h6 {
+    color: #fff;
+}
+.card-block h6 {
+    font-size: 19px;
+    font-weight: 400;
+}
+.card-block h1 {
+    text-align: center;
+    margin:5px 0;
+}
+.card-block .rotate {
+    z-index: 8;
+    float: right;
+    height: 100%;
+}
+.card-block .rotate i {
+    color: rgba(20, 20, 20, 0.15);
+    position: absolute;
+    left: 0;
+    left: auto;
+    right: -5px;
+    bottom: 0;
+    display: block;
+    -webkit-transform: rotate(-44deg);
+    -moz-transform: rotate(-44deg);
+    -o-transform: rotate(-44deg);
+    -ms-transform: rotate(-44deg);
+    transform: rotate(-44deg);
+}
+.display-1 {
+    font-size: 6rem;
+    font-weight: 300;
+}
+

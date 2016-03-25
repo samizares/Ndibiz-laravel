@@ -69,6 +69,14 @@ class HomeController extends Controller
         }
 		return view('pages.businesses', compact('bizs'));
 	}
+	public function businesses2()
+	{
+		$bizs = Biz::orderBy('created_at', 'desc')->paginate(9);
+		if (\Request::ajax()) {
+			return \Response::json(\View::make('partials.ajax-result')->with(compact('bizs'))->render());
+		}
+		return view('pages.businesses2', compact('bizs'));
+	}
 	public function map()
 	{
 		$bizs = Biz::orderBy('created_at', 'desc')->paginate(6);
@@ -77,7 +85,7 @@ class HomeController extends Controller
 
 	public function categories()
 	{
-		
+
 		return view('pages.categories');
 	}
 
