@@ -70,8 +70,9 @@
       //Text rotator
       //-------------------------------------------------
       $(document).ready(function() {
-          $('.rotate').rotaterator({fadeSpeed:2000, pauseSpeed:80});
-
+          $('.rotate').rotaterator({fadeSpeed: 2000, pauseSpeed: 80});
+      });
+      $(document).ready(function() {
           $('#subscribe').submit(function() {
                 if ($('#email').val() == '') {
                     swal("Error!", "Please supply an email address!", "warning");

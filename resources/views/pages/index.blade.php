@@ -216,7 +216,7 @@
     @endsection
     <!-- FOOTER ENDS -->
     <!-- SCRIPTS STARTS -->
-    @section('scrip1ts')
+    @section('scripts')
     <script src="{{asset('js/scripts.js')}}"></script>
     <script src="{{asset('plugins/owl-carousel/owl.carousel.js') }}"></script>
     <script>
