@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
             $view->cats = \App\Cat::all();
             $view->totalBiz=\App\Biz::count();
             $view->totalCat=\App\Cat::count();
-            $view->totalSubCat=\App\SubCat::count();
+            $view->totalSubCat=\App\Subcat::count();
         });
     }
 
