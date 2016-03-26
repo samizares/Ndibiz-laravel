@@ -323,7 +323,7 @@ class HomeController extends Controller
 	 	$file= $request->file('file');
 	 	$name= time(). $file->getClientOriginalName();
 	 	$file->move('bizz/photos', $name);
-	 	$biz= \App\Biz::findOrFail($id);
+	 	$biz= Biz::findOrFail($id);
 	 	$biz->photos()->create(['path'=>"/bizz/photos/{$name}"]);
 	 	return 'Done';
 	 }
@@ -346,7 +346,7 @@ class HomeController extends Controller
          {
 
           $biz_id= $request->get('id');
-          $biz= \App\Biz::findorFail($biz_id);
+          $biz= Biz::findorFail($biz_id);
           $profilePhoto = $biz->profilePhoto;
 
            $image= $request->file('image');
