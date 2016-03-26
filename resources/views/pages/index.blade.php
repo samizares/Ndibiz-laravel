@@ -175,7 +175,7 @@
             <a href="/biz/create"class="btn btn-default btn-lg m15-top"><i class="fa fa-plus"></i> Add a Business</a>
     </section>
     {{--help section--}}
-    <section class="register-content" style="background: rgba(238, 238, 238, 0.32);">
+    <section class="register-content hidden" style="background: rgba(238, 238, 238, 0.32);">
         <div class="registration-details">
             <div class="container">
                 <h3 class="section-title"><strong>See How It Works</strong></h3>
