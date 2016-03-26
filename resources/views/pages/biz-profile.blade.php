@@ -13,15 +13,15 @@
         <div class="header-search-bar">
             {{--PROFILE PHOTO--}}
             <figure class="center-block m0-bttm m20-top">
-                <div class="profile-pic center-block"><a href="" data-toggle="modal" data-target="#myBizProfile">
+                <div class="profile-pic center-block">
                         {!!Html::image(isset($biz->profilePhoto->image) ? $biz->profilePhoto->image : 'img/content/post-img-10.jpg',
                           'Profile Image', array('class'=>'img-responsive center-block'))!!}
                         @if(Auth::check() && (Auth::user()->id == $biz->owner))
                             <p class="pic-edit">
-                                <i class="fa fa-camera"></i>
+                                <a href="" data-toggle="modal" data-target="#myBizProfile"><i class="fa fa-camera"></i></a>
                             </p>
                         @endif
-                    </a>
+                    
                 </div>
             </figure>
             {{--BIZ NAME--}}
@@ -228,9 +228,17 @@
                                                     <div class="row" style="margin-top:40px;">
                                                         <div class="col-md-12">
                                                             <div class="well well-sm">
+                                                                @if(Auth::check())
                                                                 <div class="text-right">
                                                                     <a class="btn btn-default" href="#reviews-anchor" id="open-review-box">Leave a Review</a>
                                                                 </div>
+                                                                  @else 
+                                                                  <div class="alert alert-danger alert-block">
+                                                                    <p>Please <a href="/auth/login">login</a> to drop your reviews</p>
+
+                                                                 </div>
+                                                                @endif
+                                                                <div class-
                                                                 <div class="row" id="post-review-box" style="display:none;">
                                                                     <div class="col-md-12">
                                                                         <form accept-charset="UTF-8" method="POST" action="/review/biz/{{$biz->id}}">
