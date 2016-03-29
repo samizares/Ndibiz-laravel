@@ -28,17 +28,35 @@
                         </h1>
                         <h1 class="page-title hidden-lg hidden-md hidden-sm m5-bttm">{{$settings->title2}}</h1>
                         <h3 class="page-subtitle m5-top">{{$settings->subtitle}}</h3>
-                        <div class="col-md-12">
-                            <form class="navbar-form" role="search">
-                                <div class="input-group input-group-lg stylish-input-group2">
-                                    <input type="text" class="form-control"  placeholder="Search Businesses" >
-                                    <span class="input-group-addon">
-                                        <button type="submit">
-                                            <span class="fa fa-search"></span>
-                                        </button>
-                                    </span>
-                                </div>
-                            </form>
+                        <div class="col-md-offset-2 col-sm-offset-1 col-md-8 col-sm-10 col-lg-offset-3 col-lg-6">
+                            {!!Form::open(['method'=> 'POST', 'url'=>'/search/business', 'class'=>'']) !!}
+                            {{--Keyword Search--}}
+                            <ul class="list-inline search-bar">
+                                <li class="">
+                                    <select type="text" required="required" aria-label="category" class="" id="category" name="category"
+                                            placeholder="Type a Keyword..."></select>
+                                </li>
+                                {{--Location Search--}}
+                                <li class="location-search">
+                                    <select type="text" required="required" class="" id="location" name="location" placeholder="Select a Location"></select>
+                                    {{--Search Button mobile--}}
+                                    <button class="btn btn-default-inverse hidden-lg hidden-md hidden-sm" type="submit"> <i class="fa fa-search"></i> </button>
+                                </li>
+                                {{--Search Button desktop--}}
+                                <button class="btn btn-default-inverse hidden-xs" type="submit">Search <i class="fa fa-search"></i> </button>
+
+                            </ul>
+                            {!!Form::close() !!}
+                            {{--<form class="navbar-form" role="search">--}}
+                                {{--<div class="input-group input-group-lg stylish-input-group2">--}}
+                                    {{--<input type="text" class="form-control"  placeholder="Search Businesses" >--}}
+                                    {{--<span class="input-group-addon">--}}
+                                        {{--<button type="submit">--}}
+                                            {{--<span class="fa fa-search"></span>--}}
+                                        {{--</button>--}}
+                                    {{--</span>--}}
+                                {{--</div>--}}
+                            {{--</form>--}}
                         </div>
                         {{--<h1 class="clearfix"><a class="btn btn-default btn-lg" href="/businesses"><i class="fa fa-plus-square"></i> Explore Businesses</a></h1>--}}
                     </div>
