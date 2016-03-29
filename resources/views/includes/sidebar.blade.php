@@ -48,7 +48,7 @@
                                @endif
                            </div>
                            <!-- AD BAR MEDIUM -->
-                           <div class="ad-midi">
+                           <div class="ad-midi hidden">
                                <h1 class="text-center m5-bttm"> <small>Advertisement</small></h1>
                                <div id="carousel" class="carousel slide carousel-fade sidebar-ad2" data-ride="carousel">
                                    <!-- Carousel items -->

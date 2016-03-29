@@ -5,13 +5,9 @@
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 @endsection
 <!-- HEADER -->
-<!-- breadcrumbs -->
-@section('breadcrumb')
-      <div class="breadcrumb">
-        <div class="featured-listing" style="margin:0;">
-            <h2 class="page-title" style="margin:0;">Business Listings</h2>
-        </div>
-      </div>
+@section('search')
+    @include('partials.search')
+@endsection
 @endsection
 <!-- navigation -->
 @section('header-navbar')
@@ -30,7 +26,7 @@
                 </ul>
               </nav>
             </div> <!-- end .container -->
-        </div> <!-- end .header-nav-bar -->   
+        </div> <!-- end .header-nav-bar -->
 @endsection
 <!-- CONTENT -->
 @section('content')
@@ -45,19 +41,19 @@
           <div class="col-md-9 col-md-push-3">
             <div class="page-content">
               <div class="product-details view-switch">
-                <div class="tab-content">                               
-                  <div class="tab-pane active" id=""> 
+                <div class="tab-content">
+                  <div class="tab-pane active" id="">
                     <div class="change-view">
                         <button class="grid-view active"><i class="fa fa-th"></i></button>
                         <button class="list-view"><i class="fa fa-bars"></i></button>
-                    </div>                     
+                    </div>
                       <div class="row clearfix">
                           <div class="col-sm-4 col-xs-6">
                             <div class="single-product">
                               <figure>
                                 <img src="img/content/post-img-10.jpg" alt="">
                                 <div class="rating">
-                                  
+
                                 </div> <!-- end .rating -->
                                 <figcaption>
                                   <div class="bookmark">
@@ -85,14 +81,14 @@
                               </div>
                               <a class="read-more" href="#"><i class="fa fa-angle-right"></i>Read More</a>
                             </div> <!-- end .single-product -->
-                          </div> <!-- end .col-sm-4 grid layout -->   
+                          </div> <!-- end .col-sm-4 grid layout -->
 
                           <div class="col-sm-4 col-xs-6">
                             <div class="single-product">
                               <figure>
                                 <img src="img/content/post-img-10.jpg" alt="">
                                 <div class="rating">
-                                  
+
                                 </div> <!-- end .rating -->
                                 <figcaption>
                                   <div class="bookmark">
@@ -120,10 +116,10 @@
                               </div>
                               <a class="read-more" href="#"><i class="fa fa-angle-right"></i>Read More</a>
                             </div> <!-- end .single-product -->
-                          </div> <!-- end .col-sm-4 grid layout -->   
-                 
-                      </div> <!-- end .row -->                   
-                  </div> <!-- end .tabe-pane -->                 
+                          </div> <!-- end .col-sm-4 grid layout -->
+
+                      </div> <!-- end .row -->
+                  </div> <!-- end .tabe-pane -->
                 </div> <!-- end .tabe-content -->
               </div> <!-- end .product-details -->
             </div> <!-- end .page-content -->
@@ -233,13 +229,13 @@
 
 @section('scripts')
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    
+
   <script type="text/javascript">
     $(document).ready(function() {
-       
+
        // $('.tab-pane a[href="#fashion"]').tab('show');
        // $('#fashion').tab('show');
-        
+
         $('li:first-child').addClass('active');
         $('.tab-pane:first-child ').addClass('active');
     });

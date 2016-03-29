@@ -7,10 +7,12 @@
 <!-- HEADER -->
 <!-- search -->
 @section('search')
-    <div class="header-search map">
-        <div class="header-search-bar">
-            <h2 class="text-center m20-bttm text-color-white text-uppercase" style="font-weight: 300;">Business Listings</h2>
-        </div> <!-- END .header-search-bar -->
+    @include('partials.search')
+    {{--<div class="header-search map">--}}
+        {{--<div class="header-search-bar">--}}
+            {{--<h2 class="text-center m20-bttm text-color-white text-uppercase" style="font-weight: 300;">Business Listings</h2>--}}
+        {{--</div>--}}
+    <!-- END .header-search-bar -->
 @endsection
 @section('header-navbar')
     <div class="header-nav-bar">
@@ -201,10 +203,10 @@
        // tags: true,
       });
 
-    
+
 
      $('#stateList').change(function(){
-          if($(this).val() !== "All states") {   
+          if($(this).val() !== "All states") {
            $.get('{{ URL::to('api/ajax/location')}}', {z: $(this).val()}, function(result){
               console.log(result);
               if(! result.error) {
@@ -232,7 +234,7 @@
               $('#result').empty().append(result.error);
              }
 
-           });          
+           });
           //  model.empty();
           // $.get('{{ URL::to('api/subcat2') }}', {y: $(this).val()}, function(result){
           //   $.each(result.data,function(){
@@ -240,10 +242,10 @@
 
                //    });
           // });
-      
+
         }
-        
-        
+
+
      });
 
      $('#sub2').change(function(){
@@ -257,7 +259,7 @@
               $('#result').empty().append(result.error);
              }
 
-           }); 
+           });
 
           }
         });

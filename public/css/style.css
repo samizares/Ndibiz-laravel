@@ -3913,6 +3913,32 @@ section {
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
 }
+.header-search .header-search-bar ul.search-bar li {
+  width:40%;
+}
+.header-search .header-search-bar form {
+  padding: 10px 10px 5px 10px ;
+}
+.header-search .header-search-bar .search-bar button {
+  width: 19%;
+  height: 40px;
+  float: right;
+}
+@media (max-width: 767px) {
+  .header-search .header-search-bar ul.search-bar li,
+  .header-search .header-search-bar .search-bar button {
+    width: 100%;
+    padding-right:0;
+    padding-left:0;
+  }
+  .header-search .header-search-bar .search-bar button {
+    float: none;
+  }
+}
+.header-search .header-search-bar ul.search-bar li .selectize-input {
+  min-height: 40px;
+  padding: 9px 12px;
+}
 .header-search .header-search-bar .search-toggle {
   display: none;
   position: absolute;

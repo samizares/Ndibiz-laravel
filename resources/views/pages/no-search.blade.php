@@ -6,7 +6,7 @@
         <!-- HEADER -->
 <!-- search -->
 @section('search')
-@include('partials.search')
+    @include('partials.search')
 @endsection
         <!-- navigation -->
 @section('header-navbar')
@@ -83,9 +83,9 @@
                                               <div class="col-sm-4 col-xs-6">
                                                   <div class="single-product p0-bttm p15-top">
                                                       <figure>
-                                                        <img src="{{isset($biz->profilePhoto->image) ? asset($biz->profilePhoto->image) : 
+                                                        <img src="{{isset($biz->profilePhoto->image) ? asset($biz->profilePhoto->image) :
                                                asset('img/content/post-img-10.jpg') }}" alt="">
-                                                          
+
                                                           <div class="rating">
                                                               <ul class="list-inline">
                                                                   <li>
@@ -124,13 +124,13 @@
 
 @section('scripts')
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    
+
   <script type="text/javascript">
     $(document).ready(function() {
-       
+
        // $('.tab-pane a[href="#fashion"]').tab('show');
        // $('#fashion').tab('show');
-        
+
         $('li:first-child').addClass('active');
         $('.tab-pane:first-child ').addClass('active');
     });

@@ -7,13 +7,8 @@
     <!-- <link href="{{asset('plugins/bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet"> -->
 @endsection
 <!-- HEADER -->
-<!-- breadcrumbs -->
-@section('breadcrumb')
-      <div class="breadcrumb">
-        <div class="featured-listing" style="margin:0;">
-            <h2 class="page-title animated fadeInLeft" style="margin:0;">Business Categories</h2>
-        </div>
-      </div>
+@section('search')
+    @include('partials.search')
 @endsection
 <!-- navigation -->
 @section('header-navbar')
@@ -31,7 +26,7 @@
                 </ul>
               </nav>
             </div> <!-- end .container -->
-        </div> <!-- end .header-nav-bar -->   
+        </div> <!-- end .header-nav-bar -->
 @endsection
 <!-- CONTENT -->
 @section('content')
@@ -47,23 +42,23 @@
           <div class="col-md-9 col-md-push-3 category-toggle">
             <div class="page-content">
               <div class="product-details">
-                <div class="tab-content">   
+                <div class="tab-content">
                 @unless ( $cats->isEmpty() )
-                  @foreach ($cats as $cat)   
+                  @foreach ($cats as $cat)
 
-                  <div class="tab-pane" id="<?php echo str_replace(' ', '', $cat->name); ?>">                      
-                      <div class="row clearfix"> 
-                      @foreach($cat->subcats as $sub)                    
+                  <div class="tab-pane" id="<?php echo str_replace(' ', '', $cat->name); ?>">
+                      <div class="row clearfix">
+                      @foreach($cat->subcats as $sub)
                           <div class="col-md-4 col-sm-4 col-xs-6">
                             <div class="category-item">
                              <a href="/biz/subcat/{{$sub->slug}}"><i class="fa fa-{{$sub->image_class}}"></i>{{ $sub->name}} </a>
                             </div>
                           </div>
-                          @endforeach                 
+                          @endforeach
                           <div class="view-more">
                             <a class="btn btn-default text-center" href="#"><i class="fa fa-plus-square-o"></i>View More</a>
                           </div>
-                      </div> <!-- end .row -->                   
+                      </div> <!-- end .row -->
                   </div> <!-- end .tabe-pane -->
                   @endforeach
                 @endunless
@@ -114,16 +109,16 @@
   <script src="{{asset('plugins/bootstrap-3.3.5/js/bootstrap.js')}}"></script>
     <script src="{{asset('plugins/datatable/js/datatables.js')}}"></script>
   <script type="text/javascript">
-       $(document).ready(function() {        
+       $(document).ready(function() {
         $('li:first-child').addClass('active');
         $('.tab-pane:first-child ').addClass('active');
-    
-       
+
+
       //  $('.tab-pane a[href="#fashion"]').tab('show');
       //  $('#fashion').tab('show');
-        
+
        // $('li:first-child').addClass('active');
-        
+
     });
 
     {{--SET ACTIVE TAB ON RELOAD--}}
@@ -139,7 +134,7 @@
                }
             });
         });
-      
+
   </script>
   <script src="{{asset('js/scripts.js')}}"></script>
 @endsection
