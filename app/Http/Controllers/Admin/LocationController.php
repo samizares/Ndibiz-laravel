@@ -93,9 +93,12 @@ class LocationController extends Controller
     {   $stateList= State::lists('name','name');
         $lgaList   = lga::lists('name','name');
         $state= State::findorFail($id);
-        $areas= $state->lgas->lists('name')->all();
+       // $stateArray=(array) $state->name;
+       $areas=  $state->lgas->lists('name','name');
+        
 
-        return view('admin/location/edit',compact('state','areas','stateList','lgaList'));
+
+        return view('admin/location/edit',compact('state','stateArray','areas','stateList','lgaList'));
     }
 
     /**
@@ -114,19 +117,27 @@ class LocationController extends Controller
         $lgas= $request->input('lga');
          $real= [];
 
-         $state->lgas()->delete();
-          foreach ($lgas as $lga) {
-            if( $existingArea = Lga::where('name', $lga)->first()) {
-                 $real[]= $existingArea;
-                }
-                 else{
-                     $newArea = new Lga();
-                     $newArea ->name  = $lga;
-                     $newArea->save();
-                 $real[]=$newArea;
+         $list=$state->lgas->lists('name')->all();
+
+         if ( $lgas= $request->input('lga'))
+         {
+                foreach ($lgas as $lga) {
+                  if(in_array($lga, $list)) {
+                     $existingArea = Lga::where('name', $lga)->first();
+                     $real[]= $existingArea;
+                    }
+                     else{
+            
+                         $newArea = new Lga();
+                         $newArea ->name  = $lga;
+                         $newArea->save();
+                        $real[]=$newArea;
+                        
+                        }
                  }
-            }
+           
                 $state->lgas()->saveMany($real); 
+            }
 
 
     return redirect("/admin/location/")
@@ -146,5 +157,10 @@ class LocationController extends Controller
         $state->delete();
         return redirect('/admin/location')
         ->withSuccess("The location '$state->name' has been deleted.");
+    }
+
+    public function delSelected()
+    {
+
     }
 }

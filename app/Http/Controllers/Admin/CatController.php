@@ -229,4 +229,30 @@ class CatController extends Controller
     return redirect('/admin/cat')
         ->withSuccess("The '$cat->name' category and its subcategories has been deleted.");
     }
+
+     public function deleteCat(Request $request)
+    {
+        //dd($request->all());
+        $catId =$request->get('yes');
+        $cat= Cat::findorFail($catId);
+        $biz= $cat->biz->lists('id')->all();
+        $cat->biz()->detach($biz);
+        $cat->subcats()->delete();
+        $cat->delete();
+
+     return redirect('/admin/cat')
+        ->withSuccess("The Category '$cat->name' has been deleted.");
+    }
+
+     public function deleteSub(Request $request)
+    {
+        $subId =$request->get('sub');
+        $sub= SubCat::findorFail($subId);
+        $biz= $sub->biz->lists('id')->all();
+        $sub->biz()->detach($biz);
+        $sub->delete();
+
+    return redirect('/admin/cat')
+        ->withSuccess("The Subcategory '$sub->name' has been deleted.");
+    }
 }

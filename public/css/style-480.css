@@ -1,8 +1,0 @@
-/* Extra-small Mobile devices*/
-
-@media (min-width: 480px) {
-  .slider-content #home-slider .item .slide-content h1 {
-    font-size: 25px;
-    top: 39px;
-  }
-}

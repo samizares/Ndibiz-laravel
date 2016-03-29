@@ -1,7 +1,7 @@
-@extends('master')
+@extends('admin.adminlayout')
 <!-- HEAD STARTS-->
   @section('title', 'Admin')
-  @section('stylesheets')     
+  @section('stylesheets')
     <link href="{{asset('plugins/datatable/css/datatables.css')}}" rel="stylesheet">
     <link href="{{asset('plugins/datatable/css/dataTables.bootstrap.css')}}" rel="stylesheet">
     <link href="{{asset('plugins/bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet">
@@ -11,25 +11,58 @@
 <!-- HEAD ENDS-->
 
 <!-- HEADER STARTS -->
-  <!-- breadcrumbs -->
-  @section('breadcrumb')
-        <div class="breadcrumb">
-          <div class="featured-listing" style="margin:0;">
-              <h2 class="page-title animated fadeInLeft" style="margin:0;">Admin >> Business Listings</h2>
-          </div>
-        </div>
-  @endsection
-  <!-- navigation -->
-  @section('header-navbar')
-          <div class="header-nav-bar">
-              <div class="container">
-                <nav>
-                  <button><i class="fa fa-bars"></i></button>
-                  @include('admin.partials.navbar')
-                </nav>
-              </div> <!-- end .container -->
-          </div> <!-- end .header-nav-bar -->   
-  @endsection
+    <!-- search -->
+@section('search')
+    <div class="header-search map">
+        <div class="header-search-bar">
+            <h2 class="text-center m20-bttm text-color-white text-uppercase" style="font-weight: 300;">Create New Category</h2>
+        </div> <!-- END .header-search-bar -->
+@endsection
+<!-- navigation -->
+@section('header-navbar')
+    <div class="header-nav-bar">
+        <div class="container">
+            <nav class="hidden-lg hidden-md">
+                <button><i class="fa fa-bars"></i></button>
+                <ul class="primary-nav list-unstyled">
+                    @if (Auth::check())
+                        <li class="hidden-lg hidden-md dropdown text-center">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="menu1">
+                                <i class="fa fa-user"></i> {{Auth::user()->username}} <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu text-center" role="menu" aria-labelledby="menu1">
+                                <li class=""><a href="#">View Profile</a></li>
+                                <li class="divider"></li>
+                                <li><a class="btn" href="/auth/logout"><i class="fa fa-power-off"></i> Logout</a></li>
+                            </ul>
+                        </li>
+                    @else
+                        <li><a class="btn" href="/auth/login" class=""><i class="fa fa-power-off"></i> <span>Login</span></a></li>
+                        @endif
+                                <!-- HEADER REGISTER -->
+                        @if (Auth::guest())
+                            <li><a class="btn" href="/auth/register" class=""><i class="fa fa-plus-square"></i> <span>Register</span></a></li>
+                        @endif
+                        <li class="hidden-lg hidden-md dropdown text-center">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="menu1">
+                                <i class="fa fa-user"></i> Pages <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu text-center" role="menu" aria-labelledby="menu1">
+                                <li class=""><a href="/admin/biz">Businesses</a></li>
+                                <li class=""><a href="/admin/user">Users</a></li>
+                                <li class=""><a href="/admin/cat">Categories</a></li>
+                                <li class=""><a href="/admin/location">Location</a></li>
+                                <li class=""><a href="/admin/report">Reports</a></li>
+                                <li class=""><a href="/admin/upload">Uploads</a></li>
+                            </ul>
+                        </li>
+                        <li class="text-center"><a href="/biz/create" class=""><i class="fa fa-plus"></i> Add a Business</a></li>
+                        <li class="text-center"><a href="/"><i class="fa fa-arrow-left"></i> go to Site</a></li>
+                </ul>
+            </nav>
+        </div> <!-- end .container -->
+    </div> <!-- end .header-nav-bar -->
+@endsection
 <!-- HEADER ENDS -->
 
 <!-- CONTENT STARTS -->
@@ -63,7 +96,7 @@
 
                   {!!Form::select('category_name', $cats,null,['class'=>'form-control', 'id'=>'cat_name',
                   'placeholder'=>'Create Category']) !!}
-                  
+
               </div>
             </div>
 
@@ -131,7 +164,7 @@
 
 @section('scripts')
   <script src="{{asset('plugins/bootstrap-3.3.5/js/bootstrap.js')}}"></script>
-  <script src="{{asset('plugins/select2/select2.min.js')}}"></script>  
+  <script src="{{asset('plugins/select2/select2.min.js')}}"></script>
   <script>
     $(document).ready(function() {
     /*  $.ajaxSetup({
@@ -178,16 +211,16 @@
                               $('#subcat').append('<option value="'+this.id+'">'+this.text+'</option>');
 
                         });
-              
+
                 $('#meta_description').val(result.desc);
                 console.log(result.desc)
-              
+
            });
          }
       });
     });  */
 
-    
+
   </script>
   <script src="{{asset('js/scripts.js')}}"></script>
 @stop

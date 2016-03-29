@@ -69,9 +69,9 @@
                           <div class="col-md-4">
                               <ul class="list-unstyled">
                               <li>
-                                  <h3 class="text-uppercase">{{$state->name}}</h3>
+                                  <h3 class="text-uppercase">{{$state->name}} <strong>({{$state->biz->count()}})</strong></h3>
                                   @foreach($state->lgas as $area)
-                                  <p><a class="text-capitalize" href="">{{$area->name}} <strong>({{$area->count()}})</strong></a></p>
+                                  <p><a class="text-capitalize" href="">{{$area->name}} <strong>({{$area->biz->count()}})</strong></a></p>
                                   @endforeach
                               </li>
                               </ul>

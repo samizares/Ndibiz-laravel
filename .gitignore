@@ -2,11 +2,9 @@
 /node_modules
 Homestead.yaml
 /bootstrap/compiled.php
-composer.lock
 composer.phar
 .env.php
+.env.*.php
 _ide_helper.php
-
-
-
-resources/views/pages/categories.blade.php
+.DS_Store
+Thumbs.db

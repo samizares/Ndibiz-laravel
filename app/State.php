@@ -11,12 +11,12 @@ class State extends Model
 	protected $fillable = ['name'];
 
 	public function lgas(){
-		return $this->hasMany('App\Lga');
+		return $this->hasMany('App\Lga','state_id');
 	}
 
 	public function biz()
 	{
-		return $this->belongsToMany('App\Biz','biz_state_pivot');
+ 	 return $this->belongsToMany('App\Biz','biz_state_pivot','state_id', 'biz_id');
 	}
 
 	public function address()

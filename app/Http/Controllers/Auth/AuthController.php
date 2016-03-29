@@ -24,7 +24,7 @@ class AuthController extends Controller
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
-	protected $redirectPath = '/home';
+	protected $redirectPath = '/';
      protected $loginPath = '/auth/login';
 
 
@@ -94,7 +94,7 @@ class AuthController extends Controller
             );
             \Mail::queue('emails.activate', ['confirmation_code' => $confirmation_code], function($message) use ($user) {
                 $message->to($user->email, $user->username)
-                    ->subject('Ndibiz: Verify your email address');
+                    ->subject('Beazea: Verify your email address');
             });
             return view('pages.activate');
         }

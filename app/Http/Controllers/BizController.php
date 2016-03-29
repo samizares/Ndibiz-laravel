@@ -7,8 +7,14 @@ use Illuminate\Http\Request;
 use App\Http\Requests\BusinessRegRequest;
 use App\Http\Controllers\Controller;
 use App\Biz;
+use App\Lga;
 use App\State;
+use App\Address;
+use App\BizProfilePhoto;
+use App\SubCat;
 use App\Cat;
+use App\BusinessHour;
+use App\Report;
 
 class BizController extends Controller
 {
@@ -36,12 +42,27 @@ class BizController extends Controller
      */
     public function create()
     {
-         $stateList= State::lists('name','name');
+         $stateList= State::lists('name','id');
          $catList   = Cat::lists('name','id');
          $featured= Biz::whereFeatured('YES')->get();
 
         return view('pages.regbiz', compact('stateList', 'catList','featured'));
         
+    }
+
+    public function reportBiz(Request $request){
+        //dd($request->all());
+        $report= new Report();
+        $report->complaint= $request->get('complaint');
+        $report->explain= $request->get('explain');
+        $report->biz_id=  $request->get('id');
+        $report->contact_email=$request->get('email');
+        $report->user_id= \Auth::id();
+        $report->save();
+        return \Redirect::back()
+        ->with('success_code', 220)
+        ->with('report', 'Thanks your report will be processed shortly');
+
     }
 
     /**
@@ -52,21 +73,70 @@ class BizController extends Controller
      */
     public function store(BusinessRegRequest $request)
     {
+        //dd($request->all());
         $biz = new Biz();
-        $biz->name =$request->name;
-        $biz->address = $request->address;
-        $biz->address2= $request->address2;
-        $biz->contactname= $request->contactname;
-        $biz->email= $request->email;
-        $biz->website= $request->website;
-        $biz->phone1= $request->phone1;
-        $biz->phone2= $request->phone2;
-        $biz->user_id= \Auth::id();
-        $biz->state_id=$request->state;
-        $biz->cat_id= $request->product;
+        $biz->name =         $request->input('name');
+        $biz->tagline=       $request->input('tagline');
+        $biz->description=   $request->input('description');
+        $biz->contactname=   $request->input('contactname');
+        $biz->website=       $request->input('website');
+      
+        $user= \Auth::id();
+        $biz->user_id= $user;
         $biz->save();
 
-        return redirect('/business')
+        $biz2= Biz::where('id', $biz->id)->first();
+            $biz2->claimed=1;
+            $biz2->status="pending";
+            $biz2->owner =$user;
+        $biz2->save();
+         
+
+        $add= new Address();
+        $add->street= $request->input('address');
+        $add->email=  $request->input('email');
+        $add->phone1= $request->input('phone1');
+        $add->phone2= $request->input('phone2');
+        $add->lga_id= $request->input('lga');
+        $add->state_id=$request->input('state');
+
+        if(  $request->exists('sort_code')){
+        $add->sortcode=$request->input('sort_code');
+        }
+        $add->biz_id= $biz->id;
+        $add->save();
+
+        $category=$request->input('cats');
+       
+        $biz->cats()->sync($category);
+
+        $subs= $request->input('sub');
+        $biz->subcats()->sync($subs);
+
+        $lga=$request->input('lga');
+        $biz->lgas()->attach($lga);
+
+        $state=$request->input('state');
+        $biz->states()->attach($state);
+
+        $image= $request->file('image');
+        $name= time(). $image->getClientOriginalName();
+        $image->move('bizz/profile', $name);
+        $pic= new BizProfilePhoto;
+        $pic->image ='bizz/profile/'.$name;
+        $biz->profilePhoto()->save($pic);
+
+
+        $mon = BusinessHour::create(['day' => 'MON','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
+        $tue = BusinessHour::create(['day' => 'TUE','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
+                 $wed = BusinessHour::create(['day' => 'WED','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
+        $thu = BusinessHour::create(['day' => 'THU','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
+        $fri = BusinessHour::create(['day' => 'FRI','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
+        $sat = BusinessHour::create(['day' => 'SAT','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
+        $sun = BusinessHour::create(['day' => 'SUN','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
+
+       
+        return redirect('/review/biz/'.$biz->slug)
          ->withSuccess("The business '$biz->name' has been created.");
     }
 
@@ -101,6 +171,7 @@ class BizController extends Controller
      */
     public function update(Request $request, $id)
     {
+        dd($request->all());
         $biz= Biz::findorFail($id);
         $cat= $biz->cats->lists('id')->all();
         $sub= $biz->subcats->lists('id')->all();

@@ -47,7 +47,7 @@
 <footer id="footer">
     <div class="copyright">
         <div class="container">
-            <p class="pull-left">Copyright &copy;
+            <p class="pull-left text-capitalize">Copyright &copy;
                 <script type="text/javascript">
                     var currentYr = new Date();
                     var insertYr = currentYr.getFullYear();
@@ -55,7 +55,12 @@
                 </script>
                 NdiBiz Directory - All Rights Reserved.
             </p>
-            <p class="pull-right">Powered by  <a href="#">CuriouzMind Tech</a></p>
+            <ul class="list-inline pull-right p0">
+                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+            </ul>
         </div> <!-- END .container -->
     </div> <!-- end .copyright-->
 </footer>
@@ -68,13 +73,13 @@
   <script src="{{asset('../plugins/Bootstrap-3.3.5/js/bootstrap.js')}}"></script>
   @yield('scripts')
 <!-- SCRIPTS ENDS -->
-             
+
 </body>
 </html>
 
 
 
-   
+
 
 
 

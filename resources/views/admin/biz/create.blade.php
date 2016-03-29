@@ -1,4 +1,4 @@
-@extends('master')
+@extends('admin.adminlayout')
 <!-- HEAD STARTS-->
   @section('title', 'Admin')
   @section('stylesheets')
@@ -33,7 +33,7 @@
                 <div class="form-group">
                    <label for="cat" class="col-md-3 control-label">Business Name</label>
                     <div class="col-md-8">
-                     <input required type="text" id="name" name="name" class="form-control" placeholder="Patt's Bar" value="{{ old('name')}}">                  
+                     <input required type="text" id="name" name="name" class="form-control" placeholder="Patt's Bar" value="{{ old('name')}}">
                     </div>
                   </div>
                    <div class="form-group">
@@ -53,7 +53,7 @@
                     <label for="image_class" class="col-md-3 control-label">
                       Business Region/area</label>
                         <div class="col-md-8">
-                          <select id="lga" name="lga" value="{{ old('lga')}}" class="form-control"> </select>  
+                          <select id="lga" name="lga" value="{{ old('lga')}}" class="form-control"> </select>
                         </div>
                   </div>
                    <div class="form-group">
@@ -67,14 +67,14 @@
                     <label for="image_class" class="col-md-3 control-label">
                       Sub categories</label>
                         <div class="col-md-8">
-                          <select id="sub" name="sub[]" value="{{ old('sub[]')}}" class="form-control" multiple="multiple"> </select>  
+                          <select id="sub" name="sub[]" value="{{ old('sub[]')}}" class="form-control" multiple="multiple"> </select>
                         </div>
                   </div>
                   <div class="form-group">
                        <label for="cat" class="col-md-3 control-label">Business website</label>
                        <div class="col-md-8">
                        <input type="text" id="website" name="website" value="{{ old('website')}}" class="form-control" placeholder="www.pattsbar.com.ng">
-                        
+
                       </div>
                   </div>
                   <div class="form-group">
@@ -93,13 +93,13 @@
                        <label for="cat" class="col-md-3 control-label">Phone number 1</label>
                        <div class="col-md-8">
                       <input type="text" id="contact" name="phone1" value="{{ old('phone1')}}" class="form-control" placeholder="Phone number 1">
-                        
+
                       </div>
                   </div>
                   <div class="form-group">
                        <label for="cat" class="col-md-3 control-label">Phone number 2</label>
                           <div class="col-md-8">
-                             <input type="text" id="contact" name="phone2" value="{{ old('phone2')}}" class="form-control" placeholder="Phone number 2">                
+                             <input type="text" id="contact" name="phone2" value="{{ old('phone2')}}" class="form-control" placeholder="Phone number 2">
                           </div>
                   </div>
 
@@ -208,7 +208,7 @@
           if($(this).val() !== "select state") {
              var model=$('#lga');
             model.empty();
-           $.get('{{ URL::to('api/lga')}}', {z: $(this).val()}, function(result){       
+           $.get('{{ URL::to('api/lga')}}', {z: $(this).val()}, function(result){
              $.each(result.data,function(){
                               $('#lga').append('<option value="'+this.id+'">'+this.text+'</option>');
 

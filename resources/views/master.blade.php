@@ -11,14 +11,15 @@
   <title> @yield('title') | NdiBiz Directory</title>
   <meta name="description" content="@yield('description')" />
 
-  <!-- Stylesheets -->  
+  <!-- Stylesheets -->
       @yield('stylesheets')
 
-    <link rel="stylesheet" href="{{asset('node_modules/bootstrap/dist/css/bootstrap.css')}}">
+    <link href="{{asset('plugins/Bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/animate.css')}}">
-    <link rel="stylesheet" href="{{ asset('plugins/selectize/selectize.default.css')}}">
+    <link rel="stylesheet" href="{{ asset('plugins/selectize/selectize.bootstrap3.css')}}">
     <link href="{{asset('plugins/select2/select2.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/sweetalert.css')}}" rel="stylesheet">
 
     {{--FONT AWESOME--}}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -35,7 +36,7 @@
 <body>
 <div id="main-wrapper">
 <!-- HEADER STARTS -->
-        @include('includes.header')  
+        @include('includes.header')
 <!-- HEADER ENDS -->
 
 <!-- CONTENT STARTS -->
@@ -54,10 +55,12 @@
   <!-- Core Scripts -->
 
   <script src="{{asset('js/jquery-2.1.3.min.js') }}"></script>
-  <script src="{{asset('node_modules/bootstrap/dist/js/bootstrap.js')}}"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+  integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   <script src="{{asset('js/jquery.ba-outside-events.min.js') }}"></script>
   <script src="{{asset('plugins/selectize/selectize.min.js')}}" type="text/javascript"></script>
   <script src="{{asset('plugins/select2/select2.min.js')}}"></script>
+  <script src="{{asset('js/sweetalert.min.js')}}"></script>
 
   <!-- Page Scripts -->
   <script type="text/javascript">
@@ -67,9 +70,43 @@
       //Text rotator
       //-------------------------------------------------
       $(document).ready(function() {
-          $('.rotate').rotaterator({fadeSpeed:2000, pauseSpeed:80});
+          $('.rotate').rotaterator({fadeSpeed: 2000, pauseSpeed: 80});
       });
       $(document).ready(function() {
+          $('#subscribe').submit(function() {
+                if ($('#email').val() == '') {
+                    swal("Error!", "Please supply an email address!", "warning");
+
+                       } else {
+              var email= $('#email').val();
+              $.ajax({ url: "{{ URL::to('api/subscribe')}}",
+                    data: {email: email},
+                    dataType: 'json',
+                    type: 'post',
+                 success: function(output) {
+                     $.each(output.data, function(){
+                        if(this.id==0){
+                      console.log(this.text);
+                      swal("Error!", this.text, "warning");
+                        }
+                        if(this.id==1){
+                         console.log(this.text);
+                      swal("Success!", this.text, "success");
+                      }
+                      else{
+                        swal("Error!", "Something went wrong", "warning");
+                      }
+
+                  });
+
+                         }
+                });
+          }
+
+               return false;
+                }); // end submit()
+      });
+       $(document).ready(function() {
             // Enable location search
             $('#location').selectize({
                 valueField: 'name',
@@ -77,7 +114,7 @@
                 searchField: ['name'],
                 renrender:{
                     option:function(item, escape) {
-                      return '<div><i class="fa fa-map-marker"></i>' + ' ' + escape(item.name) +'</div>';
+                      return '<div>' + escape(item.name) +'</div>';
                     }
                   },
                   load:function(query, callback){
@@ -91,7 +128,7 @@
                       },
                       success: function(res) {
                         callback(res.data);
-                        } 
+                        }
                     });
                   }
               });
@@ -103,7 +140,7 @@
                 searchField: ['name'],
                 render:{
                   option:function(item, escape) {
-                    return '<div><i class="fa fa-home"></i>' + ' ' + escape(item.name) +'</div>';
+                    return '<div>' + escape(item.name) +'</div>';
                   }
                 },
                 load:function(query, callback) {
@@ -131,25 +168,22 @@
               $("body").addClass('animated fadeIn');
               $("h2.page-title").addClass('animated zoomIn');
           });
-
        $(function () {
             $('[data-toggle="tooltip"]').tooltip()
           });
-       $(function() {
+       $(function () {
           $('.tab-pane:first-child ').addClass('active animated zoomIn');
        });
-
-       
   </script>
   @yield('scripts')
 <!-- SCRIPTS ENDS -->
-             
+
 </body>
 </html>
 
 
 
-   
+
 
 
 

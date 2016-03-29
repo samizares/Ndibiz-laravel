@@ -19,3 +19,9 @@ function is_image($mimeType)
 {
     return starts_with($mimeType, 'image/');
 }
+
+function flash($message)
+{
+	$flash =app('App\Http\Flash');
+	 return $flash->message($message);
+}
