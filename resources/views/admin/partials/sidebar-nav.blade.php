@@ -1,15 +1,13 @@
-<div id="sidebar" class="sidebar-offcanvas admin-sidebar-nav">
-    <div class="col-md-12">
-        <ul class="nav nav-pills nav-stacked">
-            <li class="m20-top"><a href="/admin">Dashboard</a></li>
-            <li><a href="/admin/user"> Users</a></li>
-            <li><a href="/admin/biz"> Businesses</a></li>
-            <li><a href="/admin/#"> Reviews</a></li>
-            <li><a href="/admin/cat"> Categories</a></li>
-            <li><a href="/admin/location"> Locations</a></li>
-            <li><a href="/admin/report"> Reports</a></li>
-            <li><a href="/admin/upload"> Uploads</a></li>
-            <li><a href="/admin/setting"> Settings</a></li>
-        </ul>
+<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
+    <div class="list-group">
+        <a href="/admin" class="list-group-item">Dashboard</a>
+        <a href="/admin/user" class="list-group-item"> Users</a>
+        <a href="/admin/biz" class="list-group-item"> Businesses</a>
+        <a href="/admin/#" class="list-group-item"> Reviews</a>
+        <a href="/admin/cat" class="list-group-item"> Categories</a>
+        <a href="/admin/location" class="list-group-item"> Locations</a>
+        <a href="/admin/report" class="list-group-item"> Reports</a>
+        <a href="/admin/upload" class="list-group-item"> Uploads</a>
+        <a href="/admin/setting" class="list-group-item"> Settings</a>
     </div>
 </div>

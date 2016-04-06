@@ -9,43 +9,8 @@
   @include('partials.search')
 @endsection
 <!-- navigation -->
-@section('header-navbar')
-    <div class="header-nav-bar">
-        <div class="container">
-            <nav class="hidden-lg hidden-md">
-                <button><i class="fa fa-bars"></i></button>
-                <ul class="primary-nav list-unstyled">
-                    @if (Auth::check())
-                        <li class="hidden-lg hidden-md dropdown text-center">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="menu1">
-                                <i class="fa fa-user"></i> {{Auth::user()->username}} <span class="caret"></span></a>
-                            <ul class="dropdown-menu text-center" role="menu" aria-labelledby="menu1">
-                                <li class=""><a href="#">View Profile</a></li>
-                                <li class="divider"></li>
-                                <li><a class="btn" href="/auth/logout"><i class="fa fa-power-off"></i> Logout</a></li>
-                            </ul>
-                        </li>
-                    @else
-                        <li><a class="btn" href="/auth/login" class=""><i class="fa fa-power-off"></i> <span>Login</span></a></li>
-                        @endif
-                                <!-- HEADER REGISTER -->
-                        @if (Auth::guest())
-                            <li><a class="btn" href="/auth/register" class=""><i class="fa fa-plus-square"></i> <span>Register</span></a></li>
-                        @endif
-                        {{--<li class="text-center"><a href="/businesses" class=""><i class="fa fa-building"></i> Explore</a></li>--}}
-                        <li class="dropdown text-center">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-building-o"></i> Explore</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="/businesses" class=""><i class="fa fa-building"></i> Businesses</a></li>
-                                <li><a href="/categories" class=""><i class="fa fa-sort"></i> Categories</a></li>
-                                <li><a href="/locations" class=""><i class="fa fa-map-marker"></i> Locations</a></li>
-                            </ul>
-                        </li>
-                        <li class="text-center"><a href="/biz/create" class=""><i class="fa fa-plus"></i> Add a Business</a></li>
-                </ul>
-            </nav>
-        </div> <!-- end .container -->
-    </div> <!-- end .header-nav-bar -->
+@section('mobile-header')
+    @include('includes.mobile-header')
 @endsection
 <!-- CONTENT -->
 @section('content')
@@ -82,7 +47,7 @@
                                       <div class="col-sm-4 col-xs-6">
                                           <div class="single-product p0-bttm p15-top">
                                               <figure>
-                                                  <img src="{{isset($biz->profilePhoto->image) ? asset($biz->profilePhoto->image) : 
+                                                  <img src="{{isset($biz->profilePhoto->image) ? asset($biz->profilePhoto->image) :
                                                asset('img/content/post-img-10.jpg') }}" alt="">
                                                   <div class="rating">
                                                       <ul class="list-inline">
@@ -122,9 +87,9 @@
 
 @section('scripts')
   <script src="{{asset('../plugins/text-rotator/jquery.wordrotator.min.js') }}"></script>
-  <script src="{{asset('../plugins/Bootstrap-3.3.5/js/bootstrap.js')}}"></script>    
+  <script src="{{asset('../plugins/Bootstrap-3.3.5/js/bootstrap.js')}}"></script>
   <script type="text/javascript">
-    $(document).ready(function() {        
+    $(document).ready(function() {
         $('li:first-child').addClass('active');
         $('.tab-pane:first-child ').addClass('active');
     });
@@ -151,23 +116,23 @@
 
           $(document).ready(function () {
               $("#ad1").wordsrotator({
-                words: ['Local Restaurants (Mama Put)','Hotels','Mechanic Workshops'], 
-                randomize: true, 
-                animationIn: "fadeIn", 
-                animationOut: "fadeOut", 
-                speed: 5000 
+                words: ['Local Restaurants (Mama Put)','Hotels','Mechanic Workshops'],
+                randomize: true,
+                animationIn: "fadeIn",
+                animationOut: "fadeOut",
+                speed: 5000
               });
               $("#ad2").wordsrotator({
                 words: ['<img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=AD1-IMAGE&w=350&h=150">',
                         '<img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=AD2-IMAGE&w=350&h=140">',
                         '<img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=AD3-IMAGE&w=350&h=130">'],
-                randomize: true, 
-                animationIn: "fadeIn", 
-                animationOut: "fadeOut", 
-                speed: 5000 
+                randomize: true,
+                animationIn: "fadeIn",
+                animationOut: "fadeOut",
+                speed: 5000
               });
-          });  
-      
+          });
+
   </script>
   <script src="{{asset('js/scripts.js')}}"></script>
 @endsection

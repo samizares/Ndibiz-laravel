@@ -6,23 +6,6 @@
               <a href="/"><img src="{{ asset ('img/logo.png') }}" alt="Logo"></a>
           </div>
           <!-- END HEADER LOGO -->
-          {{--EXPLORE DROPDOWN--}}
-          {{--<nav ari-labelledby="navigation" role="navigation" class="pull-left hidden-sm hidden-xs">--}}
-            {{--<ul class="nav navbar m0-bttm">--}}
-                {{--<div class="col-sm-offset-6" style="margin-top: 7px;margin-left: 25px;">--}}
-                    {{--<form class="navbar-form" role="search">--}}
-                        {{--<div class="input-group stylish-input-group">--}}
-                            {{--<input type="text" class="form-control"  placeholder="Search Businesses" >--}}
-                            {{--<span class="input-group-addon">--}}
-                                {{--<button type="submit">--}}
-                                    {{--<span class="fa fa-search"></span>--}}
-                                {{--</button>--}}
-                            {{--</span>--}}
-                        {{--</div>--}}
-                    {{--</form>--}}
-                {{--</div>--}}
-            {{--</ul>--}}
-          {{--</nav>--}}
         <nav aria-labelledby="user-navigation" class="pull-right hidden-sm hidden-xs" role="navigation">
           <ul class="nav navbar m0-bttm">
               <li><a href="/businesses"><i class="fa fa-building-o"></i> Explore</a></li>
@@ -66,5 +49,5 @@
     @yield('search')
     @yield('slider')
     @yield('breadcrumb')
-    @yield('header-navbar')
+    @yield('mobile-header')
 </header> <!-- end #header -->

@@ -1,11 +1,13 @@
-@extends('admin.layout')
+@extends('master')
 <!-- HEAD -->
 @section('title', 'Register')
-
+@section('mobile-header')
+    @include('includes.mobile-header')
+@endsection
 <!-- CONTENT -->
 @section('content')
     <div class="form-content">
-          <div class="container">         
+          <div class="container">
             <div class="row">
                   <div class="col-md-6 col-md-offset-3">
                       @include('partials.notifications')
@@ -42,8 +44,14 @@
                           </div>
                       </div>
                       {!! Form::close() !!}
-                  </div>               
-            </div>   
+                  </div>
+            </div>
           </div> <!-- end .container -->
     </div>
+@endsection
+@section('footer')
+    @include('includes.footer')
+@endsection
+@section('scripts')
+    <script src="{{asset('js/scripts.js')}}"></script>
 @endsection

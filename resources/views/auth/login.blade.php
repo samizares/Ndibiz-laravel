@@ -1,9 +1,9 @@
-@extends('admin.layout')
+@extends('master')
 <!-- HEAD -->
 @section('title', 'Login')
-
-<!-- HEADER -->
-
+@section('mobile-header')
+    @include('includes.mobile-header')
+@endsection
 <!-- CONTENT -->
 @section('content')
     <div class="form-content">
@@ -42,8 +42,15 @@
                     </div>
                   </div>
                   {!! Form::close() !!}
-                </div>               
+                </div>
             </div>
       </div> <!-- end .container -->
     </div>  <!-- end form-content -->
 @endsection
+@section('footer')
+    @include('includes.footer')
+@endsection
+@section('scripts')
+    <script src="{{asset('js/scripts.js')}}"></script>
+@endsection
+

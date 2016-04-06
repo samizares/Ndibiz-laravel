@@ -1,32 +1,13 @@
 @extends('master')
 <!-- HEAD -->
-@section('title', 'Categories')
-@section('stylesheets')
-    <!-- <link href="{{asset('plugins/datatable/css/datatables.css')}}" rel="stylesheet"> -->
-    <!-- <link href="{{asset('plugins/datatable/css/dataTables.bootstrap.css')}}" rel="stylesheet"> -->
-    <!-- <link href="{{asset('plugins/bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet"> -->
-@endsection
+@section('title', 'Business Categories')
 <!-- HEADER -->
+<!-- search -->
 @section('search')
     @include('partials.search')
 @endsection
-<!-- navigation -->
-@section('header-navbar')
-        <div class="header-nav-bar">
-            <div class="container">
-              <nav>
-                <button><i class="fa fa-bars"></i></button>
-                <ul class="primary-nav list-unstyled">
-                  <li class=""><a href="/">Home<i class="fa fa-home"></i></a></li>
-                  <li class="bg-color active"><a href="/categories">Categories</a></li>
-                  <li class=""><a href="/businesses">Businesses</a></li>
-                  <li><a href="#">About Us</a></li>
-                  <li><a href="#">Contact Us</a></li>
-                   <li><a href="/admin">Admin</a></li>
-                </ul>
-              </nav>
-            </div> <!-- end .container -->
-        </div> <!-- end .header-nav-bar -->
+@section('mobile-header')
+    @include('includes.mobile-header')
 @endsection
 <!-- CONTENT -->
 @section('content')

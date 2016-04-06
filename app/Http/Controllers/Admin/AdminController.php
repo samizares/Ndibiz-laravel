@@ -101,7 +101,8 @@ class AdminController extends Controller
              }
             $settings->save();
 
-             return \Redirect::back()
+//             return \Redirect::back()
+             return view('admin.settings.index')
             ->with('success', 'Home Page Settings updated!!!');
          }
 //        return \Redirect::back()->with('errors', $validator->messages());

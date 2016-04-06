@@ -72,6 +72,65 @@
   <script src="{{asset('../js/jquery-2.1.3.min.js') }}"></script>
   <script src="{{asset('../plugins/Bootstrap-3.3.5/js/bootstrap.js')}}"></script>
   @yield('scripts')
+<script>
+    //    selectize search
+    $(document).ready(function() {
+        // Enable location search
+        $('#location').selectize({
+            valueField: 'name',
+            labelField: 'name',
+            searchField: ['name'],
+            renrender:{
+                option:function(item, escape) {
+                    return '<div>' escape(item.name) +'</div>';
+                }
+            },
+            load:function(query, callback){
+                if(!query.length) return callback();
+                $.ajax({
+                    url: '{{URL::to('api/location')}}',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: {
+                        l: query
+                    },
+                    success: function(res) {
+                        callback(res.data);
+                    }
+                });
+            }
+        });
+        // Enable category search
+        $('#category, #category2').selectize({
+            valueField: 'name',
+            labelField: 'name',
+            searchField: ['name'],
+            render:{
+                option:function(item, escape) {
+                    return '<div>' escape(item.name) +'</div>';
+                }
+            },
+            load:function(query, callback) {
+                if(!query.length) return callback();
+                $.ajax({
+                    url: '{{URL::to('api/category')}}',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: {
+                        q: query
+                    },
+                    success: function(res) {
+                        callback(res.data);
+                    }
+                });
+            }
+        });
+        $('#category3').select2({
+            placeholder: 'search category',
+            tags: true
+        });
+    });
+</script>
 <!-- SCRIPTS ENDS -->
 
 </body>

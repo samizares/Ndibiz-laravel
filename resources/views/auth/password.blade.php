@@ -1,7 +1,9 @@
-@extends('admin.layout')
+@extends('master')
 <!-- HEAD -->
-@section('title', 'Password reset')
-
+@section('title', 'Password Reset')
+@section('mobile-header')
+    @include('includes.mobile-header')
+@endsection
 <!-- CONTENT -->
 @section('content')
     <div class="form-content">
@@ -27,4 +29,10 @@
           </div>
       </div> <!-- end .container -->
     </div>
+@endsection
+@section('footer')
+    @include('includes.footer')
+@endsection
+@section('scripts')
+    <script src="{{asset('js/scripts.js')}}"></script>
 @endsection

@@ -1,26 +1,36 @@
-@extends('admin.layout')
+@extends('master')
 <!-- HEAD STARTS-->
-  @section('title', 'Register A Business')
-  @section('stylesheets')
-      <link href="{{asset('plugins/select2/select2.min.css')}}" rel="stylesheet">
-      <link  rel="stylesheet" href="{{asset('plugins/jasny-bootstrap/css/jasny-bootstrap.min.css')}}">
-      <link  rel="stylesheet" href="{{asset('css/dropzone.css')}}">
-  @endsection
+@section('title', 'Register A Business')
+@section('stylesheets')
+    <link href="{{asset('plugins/select2/select2.min.css')}}" rel="stylesheet">
+    <link  rel="stylesheet" href="{{asset('plugins/jasny-bootstrap/css/jasny-bootstrap.min.css')}}">
+    <link  rel="stylesheet" href="{{asset('css/dropzone.css')}}">
+@endsection
+<!-- search -->
+@section('search')
+    <div class="header-search map">
+        <div class="header-search-bar">
+            <div class="container">
+                <div class="row m20-bttm text-center">
+                    <div class="col-md-12">
+                        <h2 class="section-title text-color-white"> Add a free business listing to BEAZEA Directory</h2>
+                        <span class="section-subtitle text-color-white"> You're just steps away from setting up a free business profile on Nigeria's leading online business directory.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+@endsection
+@section('mobile-header')
+    @include('includes.mobile-header')
+@endsection
 <!-- HEAD ENDS-->
 <!-- CONTENT STARTS -->
 @section('content')
   <div class="m20-bttm">
     <div class="container">
-      @include('admin.partials.errors')
-      @include('admin.partials.success')
-      <div class="row m20-bttm">
-        <div class="col-md-12">
-            <h2 class="section-title"> Add a free business listing to BEAZEA Directory</h2>
-            <span class="section-subtitle"> You're just steps away from setting up a free business profile on Nigeria's leading online business directory.</span>
-        </div>
-      </div>
-        <hr>
-      <div class="row m20-bttm">
+        @include('admin.partials.errors')
+        @include('admin.partials.success')
+      <div class="row m20-bttm m20-top">
           {{--REGISTRATION FORM--}}
         <div class="col-md-8 reg-form">
           <div class="page-forms">
@@ -217,9 +227,14 @@
     </div> <!-- end .container -->
   </div>  <!-- end form-content -->
 @endsection
-
+<!-- CONTENT ENDS-->
+<!-- FOOTER STARTS -->
+@section('footer')
+    @include('includes.footer')
+@endsection
+<!-- FOOTER ENDS -->
+{{--PAGE SCRIPTS--}}
 @section('scripts')
-   <script src="{{asset('plugins/select2/select2.min.js')}}"></script>
    <script src="{{asset('js/dropzone.js')}}"></script>
    <script src="{{ asset('plugins/jasny-bootstrap/js/jasny-bootstrap.min.js') }}"></script>
      {{--CUSTOM PAGE SCRIPTS--}}
@@ -352,4 +367,5 @@
 
          });
   </script>
+    <script src="{{asset('js/scripts.js')}}"></script>
 @stop

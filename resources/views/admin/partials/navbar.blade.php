@@ -9,20 +9,20 @@
       <nav aria-labelledby="user-navigation" class="pull-right hidden-sm hidden-xs" role="navigation">
         <ul class="nav navbar m0-bttm">
           <li><a href="/"><i class="fa fa-arrow-left"></i> go to Site</a></li>
-          {{--<li class="dropdown">--}}
-            {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> Pages--}}
-              {{--<span class="caret"></span></a>--}}
-            {{--<ul class="dropdown-menu">--}}
-                {{--<li><a href="/admin"> Overview</a></li>--}}
-                {{--<li><a href="/admin/user"> Users</a></li>--}}
-                {{--<li><a href="/admin/biz"> Businesses</a></li>--}}
-                {{--<li><a href="/admin/cat"> Categories</a></li>--}}
-                {{--<li><a href="/admin/location"> Locations</a></li>--}}
-                {{--<li><a href="/admin/report"> Reports</a></li>--}}
-                {{--<li><a href="/admin/upload"> Uploads</a></li>--}}
-                {{--<li><a href="/admin/setting"> Settings</a></li>--}}
-            {{--</ul>--}}
-          {{--</li>--}}
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> Pages
+              <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="/admin"> Overview</a></li>
+                <li><a href="/admin/user"> Users</a></li>
+                <li><a href="/admin/biz"> Businesses</a></li>
+                <li><a href="/admin/cat"> Categories</a></li>
+                <li><a href="/admin/location"> Locations</a></li>
+                <li><a href="/admin/report"> Reports</a></li>
+                <li><a href="/admin/upload"> Uploads</a></li>
+                <li><a href="/admin/setting"> Settings</a></li>
+            </ul>
+          </li>
           <!-- HEADER-LOGIN -->
           @if(Auth::check())
             <li class="dropdown">

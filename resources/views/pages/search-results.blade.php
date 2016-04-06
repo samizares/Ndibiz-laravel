@@ -10,23 +10,8 @@
 @endsection
 @endsection
 <!-- navigation -->
-@section('header-navbar')
-        <div class="header-nav-bar">
-            <div class="container">
-              <nav>
-                <button><i class="fa fa-bars"></i></button>
-                <ul class="primary-nav list-unstyled">
-                  <li class=""><a href="/">Home<i class="fa fa-home"></i></a></li>
-                  <li><a href="/categories">Categories</a></li>
-                  <li><a href="/businesses">Businesses</a></li>
-                  <li><a href="#">About Us</a></li>
-                  <li><a href="#">Contact Us</a></li>
-                   <li><a href="/admin">Admin</a></li>
-                   <li class="bg-color active"><a href="/search-results">Search results</a></li>
-                </ul>
-              </nav>
-            </div> <!-- end .container -->
-        </div> <!-- end .header-nav-bar -->
+@section('mobile-header')
+    @include('includes.mobile-header')
 @endsection
 <!-- CONTENT -->
 @section('content')

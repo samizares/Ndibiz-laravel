@@ -21,7 +21,6 @@
                                 <a href="" data-toggle="modal" data-target="#myBizProfile"><i class="fa fa-camera"></i></a>
                             </p>
                         @endif
-                    
                 </div>
             </figure>
             {{--BIZ NAME--}}
@@ -46,48 +45,12 @@
         </div> <!-- END .header-search-bar -->
 @endsection
 <!-- navigation -->
-@section('header-navbar')
-    <div class="header-nav-bar">
-        <div class="container">
-            <nav class="hidden-lg hidden-md">
-                <button><i class="fa fa-bars"></i></button>
-                <ul class="primary-nav list-unstyled">
-                    @if (Auth::check())
-                        <li class="hidden-lg hidden-md dropdown text-center">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="menu1">
-                                <i class="fa fa-user"></i> {{Auth::user()->username}} <span class="caret"></span></a>
-                            <ul class="dropdown-menu text-center" role="menu" aria-labelledby="menu1">
-                                <li><a href="/profile/{{Auth::user()->id}}">View Profile</a></li>
-                                <li><a class="btn" href="/auth/logout"><i class="fa fa-power-off"></i> Logout</a></li>
-                            </ul>
-                        </li>
-                    @else
-                        <li><a class="btn" href="/auth/login" class=""><i class="fa fa-power-off"></i> <span>Login</span></a></li>
-                        @endif
-                                <!-- HEADER REGISTER -->
-                        @if (Auth::guest())
-                            <li><a class="btn" href="/auth/register" class=""><i class="fa fa-plus-square"></i> <span>Register</span></a></li>
-                        @endif
-                        {{--<li class="text-center"><a href="/businesses" class=""><i class="fa fa-building"></i> Explore</a></li>--}}
-                        <li class="dropdown text-center">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-building-o"></i> Explore</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="/businesses" class=""><i class="fa fa-building"></i> Businesses</a></li>
-                                <li><a href="/categories" class=""><i class="fa fa-sort"></i> Categories</a></li>
-                                <li><a href="/locations" class=""><i class="fa fa-map-marker"></i> Locations</a></li>
-                            </ul>
-                        </li>
-                        <li class="text-center"><a href="/biz/create" class=""><i class="fa fa-plus"></i> Add a Business</a></li>
-
-                        <li class="divider"></li>
-                </ul>
-            </nav>
-        </div> <!-- end .container -->
-    </div> <!-- end .header-nav-bar -->
+@section('mobile-header')
+    @include('includes.mobile-header')
 @endsection
 <!-- CONTENT -->
 @section('content')
-     <div id="page-content" class="company-profile page-content">
+    <div id="page-content" class="company-profile page-content">
         <div class="container">
             <div class="home-with-slide business-profile">
                 <div class="row">
@@ -232,7 +195,7 @@
                                                                 <div class="text-right">
                                                                     <a class="btn btn-default" href="#reviews-anchor" id="open-review-box">Leave a Review</a>
                                                                 </div>
-                                                                  @else 
+                                                                  @else
                                                                   <div class="alert alert-danger alert-block">
                                                                     <p>Please <a href="/auth/login">login</a> to drop your reviews</p>
 
@@ -507,7 +470,6 @@
             </div>  <!-- end .home-with-slide -->
         </div> <!-- end .container -->
      </div> <!-- end #page-content -->
-
     {{--CLAIM BUSINESS FORM MODAL--}}
     @if(Auth::check())
     <div class="modal fade" id ="myClaim" tabindex= "-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -568,10 +530,8 @@
             </div><!-- /.modal-content -->
        </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-
     @endif
-
-     {{--Report Modal--}}
+    {{--Report Modal--}}
     <div class="modal fade" id="reportModal" tabindex ="-1" role ="dialog" aria-labelledby="myReportModal" aria-hidden ="true" >
         <div class = "modal-dialog">
             <div class = "modal-content">
@@ -630,8 +590,6 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-
-
     {{--BUSINESS LOGO--}}
     <div class = "modal fade" id = "myModal" tabindex = "-1" role = "dialog" aria-labelledby = "myModalLabel" aria-hidden = "true">
         <div class="modal-dialog">
@@ -652,9 +610,6 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-
-
-
     {{--BUSINESS PICTIURES--}}
     <div class = "modal fade" id = "myBizProfile" tabindex = "-1" role = "dialog" aria-labelledby = "myModalLabel" aria-hidden = "true" >
         <div class = "modal-dialog">
@@ -700,21 +655,17 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-
 @endsection
-
 <!-- FOOTER STARTS -->
     @section('footer')
         @include('includes.footer')
     @endsection
 <!-- FOOTER ENDS -->
-
 @section('scripts')
     <script src="{{asset('plugins/nanogallery/jquery.nanogallery.min.js')}}"></script>
     <script src="{{asset('js/dropzone.js')}}"></script>
     <script src="{{asset('plugins/jasny-bootstrap/js/jasny-bootstrap.min.js') }}"></script>
-    <script src="https://maps.googleapis.com/maps/api/js"></script>
-
+    <script src="{{asset('https://maps.googleapis.com/maps/api/js') }}"></script>
     @if(!empty(Session::has('error_code')) && Session::get('error_code') == 5)
     <script type="text/javascript">
         $(function() {
@@ -722,7 +673,6 @@
             });
     </script>
     @endif
-
     @if(Session::has('success_code') && Session::get('success_code') == 220)
     <script type="text/javascript">
     $(function() {
@@ -733,7 +683,6 @@
     });
     </script>
     @endif
-
     @if(Session::has('success_code') && Session::get('success_code') == 230)
     <script type="text/javascript">
     $(function() {

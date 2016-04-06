@@ -66,43 +66,8 @@
     </div> <!-- END .slider-content -->
 @endsection
             <!-- navigation -->
-@section('header-navbar')
-    <div class="header-nav-bar">
-        <div class="container">
-            <nav class="hidden-lg hidden-md">
-                <button><i class="fa fa-bars"></i></button>
-                <ul class="primary-nav list-unstyled">
-                    @if (Auth::check())
-                        <li class="hidden-lg hidden-md dropdown text-center">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="menu1">
-                                <i class="fa fa-user"></i> {{Auth::user()->username}} <span class="caret"></span></a>
-                            <ul class="dropdown-menu text-center" role="menu" aria-labelledby="menu1">
-                                <li><a href="/profile/{{Auth::user()->id}}">View Profile</a></li>
-                                <li><a class="btn" href="/auth/logout"><i class="fa fa-power-off"></i> Logout</a></li>
-                            </ul>
-                        </li>
-                    @else
-                        <li class=""><a class="btn" href="/auth/login" class=""><i class="fa fa-power-off"></i> <span>Login</span></a></li>
-                        @endif
-                                <!-- HEADER REGISTER -->
-                        @if (Auth::guest())
-                            <li><a class="btn" href="/auth/register" class=""><i class="fa fa-plus-square"></i> <span>Register</span></a></li>
-                        @endif
-                        <li class="dropdown text-center">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-building-o"></i> Explore</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="/businesses" class=""><i class="fa fa-building"></i> Businesses</a></li>
-                                <li><a href="/categories" class=""><i class="fa fa-sort"></i> Categories</a></li>
-                                <li><a href="/locations" class=""><i class="fa fa-map-marker"></i> Locations</a></li>
-                            </ul>
-                        </li>
-                        <li class="text-center"><a href="/biz/create" class=""><i class="fa fa-plus"></i> Add a Business</a></li>
-
-                        <li class="divider"></li>
-                </ul>
-            </nav>
-        </div> <!-- end .container -->
-    </div> <!-- end .header-nav-bar -->
+@section('mobile-header')
+    @include('includes.mobile-header')
 @endsection
             <!-- CONTENT -->
 @section('content')
@@ -116,7 +81,7 @@
                 <div class="row featured-category">
                     @unless ( $featured->isEmpty() )
                         @foreach($featured as $biz)
-                            <div class="col-md-3 col-sm-4 col-xs-6">
+                            <div class="col-md-3 col-sm-4">
                                 <div class="single-product">
                                     <figure>
                                         <img src="{{isset($biz->profilePhoto->image) ? asset($biz->profilePhoto->image) :

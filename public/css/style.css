@@ -965,11 +965,11 @@ th {
 
 .font-normal {font-weight:normal;}
 
-.text-color-white {color:#fff;}
-.text-color-greyddd {color:#ddd;}
-.text-color-grey444 {color:#444;}
-.text-color-grey333 {color:#333;}
-.text-color-yellowFFD231 {color:#FFD231;}
+.text-color-white {color:#fff !important;}
+.text-color-greyddd {color:#ddd !important;}
+.text-color-grey444 {color:#444 !important;}
+.text-color-grey333 {color:#333 !important;}
+.text-color-yellowFFD231 {color:#FFD231 !important;}
 
 
 .dataTables_filter {
@@ -4870,6 +4870,10 @@ h1.page-title, h3.page-subtitle {
   padding: 10px 15px;
   margin: 10px 0;
 }
+.form-content {
+  min-height: 600px;
+  margin: 40px 0;
+}
 
 
 /* page sidebar */
@@ -6511,6 +6515,9 @@ h1.page-title, h3.page-subtitle {
 .page-content {
   position: relative;
   margin:20px 0;
+}
+.content {
+    min-height:400px;
 }
 .home-with-slide {
   margin: 20px 0;
