@@ -66,6 +66,17 @@
                         <div class="card card-inverse card-primary">
                             <div class="card-block bg-primary">
                                 <div class="rotate">
+                                    <i class="fa fa-user fa-5x"></i>
+                                </div>
+                                <h6 class="text-uppercase">Subcategories</h6>
+                                <h1 class="display-1">{{$totalSubCat}}</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="card card-inverse card-default">
+                            <div class="card-block bg-default">
+                                <div class="rotate">
                                     <i class="fa fa-map-marker fa-5x"></i>
                                 </div>
                                 <h6 class="text-uppercase">Locations</h6>
@@ -73,6 +84,7 @@
                             </div>
                         </div>
                     </div>
+                    <!--
                     <div class="col-md-3 col-sm-6">
                         <div class="card card-inverse card-default">
                             <div class="card-block bg-default">
@@ -83,7 +95,7 @@
                                 <h1 class="display-1">86</h1>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div> <!-- end main content -->
             </div><!--/.col-xs-6.col-lg-4-->
         </div><!--/row-->
