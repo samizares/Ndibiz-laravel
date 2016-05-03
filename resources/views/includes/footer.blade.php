@@ -25,7 +25,7 @@
       <div class="container">
         <div class="row">
             <div class="col-md-6 text-left text-capitalize">
-                <ul class="list-inline footer-nav">
+                <ul class="list-inline footer-nav hidden">
                     <li><a href="/faqs">FAQs</a></li>
                     <li>|</li>
                     <li><a href="/tos">Terms &amp; Conditions</a></li>
