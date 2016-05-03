@@ -62,10 +62,13 @@
 <script src="{{asset('js/sweetalert.min.js')}}"></script>
 <script src="{{ asset('plugins/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
 <script>
+    $(document).ready(function() {
+        $("a[href='" + location.pathname + "']").addClass('active');
+    });
     $(document).ready(function () {
-        $('[data-toggle="offcanvas"]').click(function () {
-            $('.row-offcanvas').toggleClass('active')
-        });
+//        $('[data-toggle="offcanvas"]').click(function () {
+//            $('.row-offcanvas').toggleClass('active')
+//        });
         $('[data-toggle="tooltip"]').tooltip();
     });
 </script>

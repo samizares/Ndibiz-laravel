@@ -42,6 +42,10 @@ Route::get('businesses2', 'HomeController@businesses2');
 Route::get('map', 'HomeController@map');
 Route::get('locations', 'HomeController@locations');
 Route::get('contact', 'HomeController@contact');
+Route::get('aboutus', 'HomeController@aboutus');
+Route::get('tos', 'HomeController@tos');
+Route::get('faqs', 'HomeController@faqs');
+Route::get('privacy', 'HomeController@privacy');
 //Route::get('search-results', 'HomeController@searchResults');
 
 Route::post('favourites', 'HomeController@favoured');
@@ -79,7 +83,8 @@ Route::get('api/subcat2', 'ApiController@subcat2');
 Route::get('api/featured', 'ApiController@featured');
 Route::get('api/admin', 'ApiController@admin');
 Route::post('api/subscribe', 'ApiController@subscribe');
-
+Route::resource('task/api', 'ApiiController');
+Route::get('task/api/delete/{id}', 'ApiiController@del');
 
 // Admin area
 //get('admin', function () {

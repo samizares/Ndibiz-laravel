@@ -8,7 +8,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <!--  <meta name="_token" content="{!! csrf_token() !!}"/> -->
 
-  <title> @yield('title') | NdiBiz Directory</title>
+  <title> @yield('title') | BEAZEA Directory</title>
   <meta name="description" content="@yield('description')" />
 
   <!-- Stylesheets -->
@@ -65,6 +65,17 @@
             $('[data-toggle="tooltip"]').tooltip();
 //            $('li:first-child').addClass('active');
 //            $('.tab-pane:first-child').addClass('active');
+        });
+        $(document).ready(function() {
+            $('').hover(
+                    function() {
+                        (this).addClass('active')
+                    },
+                    function() {
+                        (this).removeClass('active')
+                    }
+            );
+            $("a[href*='" + location.pathname + "']").addClass('active');
         });
         $(document).ready(function() {
             $('#subscribe').submit(function() {

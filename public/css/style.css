@@ -4242,7 +4242,8 @@ header.header {
   position: relative;
   width: 100%;
   height: 500px;
-  background-color: #fdc600;
+  /*background-color: #fdc600;*/
+  border: solid 1px #fdc600;
 }
 .map-section #map_canvas {
   width: 100%;
@@ -4286,7 +4287,8 @@ header.header {
   position: relative;
   width: 100%;
   height: 250px;
-  background-color: #fdc600;
+  /*background-color: #fdc600;*/
+  border: solid 1px #fdc600;
 }
 .company-contact .contact-map-company #contact_map_canvas_two,
 .company-contact .contact-map-company #contact_map_canvas_one {
@@ -4779,17 +4781,17 @@ h1.page-title, h3.page-subtitle {
 
 /*breadcrumbs*/
 
-.breadcrumb {
-  min-height: 150px;
-  background: transparent url("../img/content/feature-bg.jpg") no-repeat fixed center top / cover;
-  text-align: center;
-  margin-top:70px;
-  border-radius: 0;
-}
-.breadcrumb-inner {
-  padding: 20px 0;
-  text-align: center;
-}
+/*.breadcrumb {*/
+  /*min-height: 150px;*/
+  /*background: transparent url("../img/content/feature-bg.jpg") no-repeat fixed center top / cover;*/
+  /*text-align: center;*/
+  /*margin-top:70px;*/
+  /*border-radius: 0;*/
+/*}*/
+/*.breadcrumb-inner {*/
+  /*padding: 20px 0;*/
+  /*text-align: center;*/
+/*}*/
 .breadcrumb, .featured-listing {margin: 0;}
 .breadcrumb h2 {
   padding:10px;margin-top: 60px;
@@ -8965,6 +8967,8 @@ p.section-subtitle {
 #footer .copyright p {
   margin: 0;
   float: left;
+  color: #505050;
+  font-size: 12px;
 }
 #footer .copyright p a {
   color: #e4b200;
@@ -8978,6 +8982,16 @@ p.section-subtitle {
 }
 #footer .copyright ul li a:hover {
   color: #fdc600;
+}
+.copyright ul.footer-nav {
+  float: none !important;
+}
+.copyright ul.footer-nav li:first-child {
+  padding-left: 0 !important;
+  margin-bottom: 10px !important;
+}
+.copyright ul.footer-nav li a {
+  padding: 0 !important;
 }
 @media (max-width: 1200px) {
   #footer .copyright ul {

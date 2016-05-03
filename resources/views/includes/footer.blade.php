@@ -1,6 +1,7 @@
 <footer id="footer">
     <div class="main-footer">
       <div class="container">
+          {{--newsletter subscription--}}
         <div class="row">
           <div class="col-md-12">
             <div class="newsletter text-center">
@@ -22,20 +23,37 @@
     </div> <!-- end .main-footer -->
     <div class="copyright">
       <div class="container">
-        <p class="pull-left text-capitalize">Copyright &copy;
-                        <script type="text/javascript">
-                            var currentYr = new Date();
-                            var insertYr = currentYr.getFullYear();
-                            document.write(insertYr);
-                        </script>
-                            NdiBiz Directory - All Rights Reserved.
-        </p>
-          <ul class="list-inline pull-right p0">
-            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-          </ul>
+        <div class="row">
+            <div class="col-md-6 text-left text-capitalize">
+                <ul class="list-inline footer-nav">
+                    <li><a href="/faqs">FAQs</a></li>
+                    <li>|</li>
+                    <li><a href="/tos">Terms &amp; Conditions</a></li>
+                    <li>|</li>
+                    <li><a href="/privacy">Privacy Policy</a></li>
+                    <li>|</li>
+                    <li><a href="/aboutus">About Us</a></li>
+                    <li>|</li>
+                    <li><a href="/contact">Contact Us</a></li>
+                </ul>
+                <p class="">Copyright &copy;
+                                <script type="text/javascript">
+                                    var currentYr = new Date();
+                                    var insertYr = currentYr.getFullYear();
+                                    document.write(insertYr);
+                                </script>
+                                    NdiBiz Directory - All Rights Reserved.
+                </p>
+            </div>
+            <div class="col-md-6">
+                <ul class="list-inline pull-right p0">
+                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                </ul>
+            </div>
+        </div>
       </div> <!-- END .container -->
     </div> <!-- end .copyright-->
 </footer> <!-- end #footer -->

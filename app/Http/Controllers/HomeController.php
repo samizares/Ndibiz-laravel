@@ -30,6 +30,7 @@ class HomeController extends Controller
    public function index()
 	{
 		$cats = Cat::all()->take(8);
+		$bizs = Biz::orderBy('created_at', 'desc')->take(6);
 		$recentBiz = Biz::orderBy('created_at', 'desc')
 			->whereNotNull('claimed')
 			->take(12)->get();
@@ -38,13 +39,10 @@ class HomeController extends Controller
 		$stateList= State::lists('name','id');
 		$catList   = SubCat::lists('name','id')->take(4);
 
-          $featured= Biz::whereFeatured('YES')
-              ->where('rating_cache', '>', '2')
-			  ->take(8)
-			  ->get();
+          $featured = Biz::whereFeatured('YES')->get();
           $settings=Setting::findOrFail(1);
 
-		return view('pages.index', compact('stateList','settings','catList','cats','featured', 'recentBiz',
+		return view('pages.index', compact('stateList','settings','catList', 'bizs','cats','featured', 'recentBiz',
 			'totalCat', 'totalSubCat', 'subs'));
 	}
 
@@ -56,7 +54,7 @@ class HomeController extends Controller
 		$totalSubCat=subCat::count();
 		$stateList= State::lists('name','id');
 		$catList   = SubCat::lists('name','id')->take(4);
-	    $featured= Biz::whereFeatured('YES')->take(8)->get();
+//	    $featured= Biz::whereFeatured('YES')->take(8)->get();
 		return view('pages.index', compact('stateList','catList','cats', 'bizs','featured', 'totalCat', 'totalSubCat',
 		 'subs'));
 	}
@@ -388,6 +386,26 @@ class HomeController extends Controller
 	public function contact()
 	{
 		return view('pages.contact');
+	}
+
+	public function aboutus()
+	{
+		return view('pages.aboutus');
+	}
+
+	public function tos()
+	{
+		return view('pages.tos');
+	}
+
+	public function faqs()
+	{
+		return view('pages.faqs');
+	}
+
+	public function privacy()
+	{
+		return view('pages.privacy');
 	}
 
 }
