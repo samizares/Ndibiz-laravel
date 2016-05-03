@@ -971,6 +971,9 @@ th {
 .text-color-grey333 {color:#333 !important;}
 .text-color-yellowFFD231 {color:#FFD231 !important;}
 
+.pull-none {
+  float: none !important;
+}
 
 .dataTables_filter {
   float: right;
