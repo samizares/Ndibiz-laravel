@@ -66,6 +66,16 @@
 //            $('li:first-child').addClass('active');
 //            $('.tab-pane:first-child').addClass('active');
         });
+        // footer copyright
+        //-------------------------------------------------------
+        $(document).ready(function() {
+            var currentDate = new Date();
+            var currentYear = currentDate.getFullYear();
+
+            $("p#copyright").append('&#169;' + " BEAZEA Directory " + currentYear + " " + ". All Rights Reserved.");
+        });
+
+        //-----------------------------------------------------------------
         $(document).ready(function() {
             $('').hover(
                     function() {
