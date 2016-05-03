@@ -3294,7 +3294,7 @@ fieldset[disabled] .btn {
 .btn-default.active,
 .open > .dropdown-toggle.btn-default {
   color: #333333;
-  background-color: #ca9e00 !important;
+  background-color: #fdc600 !important;
   border-color: #adadad;
 }
 .btn-default:active,
@@ -3408,7 +3408,7 @@ fieldset[disabled] .btn-default-inverse.active {
 .btn-default.active,
 .open > .dropdown-toggle.btn-default {
   color: #333333;
-  background-color: #ca9e00;
+  background-color: #fdc600;
   border-color: #adadad;
 }
 .btn-default:active,
