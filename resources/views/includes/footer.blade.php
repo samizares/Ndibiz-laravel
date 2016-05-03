@@ -23,9 +23,14 @@
     </div> <!-- end .main-footer -->
     <div class="copyright">
       <div class="container">
-        <div class="row">
+          <div class="row">
+              <div class="col-md-12 text-center">
+                  <p id="copyright" class="text-capitalize text-center pull-none"></p>
+              </div>
+          </div>
+        <div class="row hidden">
             <div class="col-md-6 text-left text-capitalize">
-                <ul class="list-inline footer-nav hidden">
+                <ul class="list-inline footer-nav">
                     <li><a href="/faqs">FAQs</a></li>
                     <li>|</li>
                     <li><a href="/tos">Terms &amp; Conditions</a></li>
@@ -36,12 +41,10 @@
                     <li>|</li>
                     <li><a href="/contact">Contact Us</a></li>
                 </ul>
-                <p id="copyright">
-
-                </p>
+                <p id="copyright"></p>
             </div>
             <div class="col-md-6">
-                <ul class="list-inline pull-right p0">
+                <ul class="list-inline pull-right p0 hidden">
                     <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                     <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                     <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
