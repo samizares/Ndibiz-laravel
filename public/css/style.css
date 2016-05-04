@@ -4288,10 +4288,15 @@ header.header {
 }
 .company-contact .contact-map-company {
   position: relative;
+  overflow: hidden;
   width: 100%;
   height: 250px;
   /*background-color: #fdc600;*/
   border: solid 1px #fdc600;
+}
+.company-contact .contact-map-company .map {
+    width: 100%;
+    height: 250px;
 }
 .company-contact .contact-map-company #contact_map_canvas_two,
 .company-contact .contact-map-company #contact_map_canvas_one {

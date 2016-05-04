@@ -37,8 +37,8 @@
                         <div class="col-md-4 text-right"></div>
                     </div>
                     <div class="row">
-                        <div class="col-md-8">
-                            <h2>10 Things You Should Know About BEAZEA.</h2>
+                        <div class="col-md-12">
+                            <h2>Things You Should Know About BEAZEA.</h2>
                             <div class="row">
                                 <div class="col-md-12">
                                     <hr class="m10">

@@ -25,6 +25,11 @@
       <div class="container">
           <div class="row">
               <div class="col-md-12 text-center">
+                  <ul class="list-inline footer-nav">
+                      <li><a href="/aboutus">About Us</a></li>
+                      <li>|</li>
+                      <li><a href="/contact">Contact Us</a></li>
+                  </ul>
                   <p id="copyright" class="text-capitalize text-center pull-none"></p>
               </div>
           </div>
