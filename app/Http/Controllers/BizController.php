@@ -45,12 +45,13 @@ class BizController extends Controller
          $stateList= State::lists('name','id');
          $catList   = Cat::lists('name','id');
          $featured= Biz::whereFeatured('YES')->get();
+        // dd($catList);
 
         return view('pages.regbiz', compact('stateList', 'catList','featured'));
         
     }
 
-    public function reportBiz(Request $request){
+    public function reportBiz(Request $request) {
         //dd($request->all());
         $report= new Report();
         $report->complaint= $request->get('complaint');
@@ -73,7 +74,7 @@ class BizController extends Controller
      */
     public function store(BusinessRegRequest $request)
     {
-        //dd($request->all());
+       // dd($request->get('cats'));
         $biz = new Biz();
         $biz->name =         $request->input('name');
         $biz->tagline=       $request->input('tagline');
@@ -119,13 +120,15 @@ class BizController extends Controller
         $state=$request->input('state');
         $biz->states()->attach($state);
 
-        $image= $request->file('image');
-        $name= time(). $image->getClientOriginalName();
-        $image->move('bizz/profile', $name);
-        $pic= new BizProfilePhoto;
-        $pic->image ='bizz/profile/'.$name;
-        $biz->profilePhoto()->save($pic);
-
+        if($request->has('image'))
+        {
+            $image= $request->file('image');
+            $name= time(). $image->getClientOriginalName();
+            $image->move('bizz/profile', $name);
+            $pic= new BizProfilePhoto;
+            $pic->image ='bizz/profile/'.$name;
+            $biz->profilePhoto()->save($pic);
+        }
 
         $mon = BusinessHour::create(['day' => 'MON','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
         $tue = BusinessHour::create(['day' => 'TUE','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);

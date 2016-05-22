@@ -14,15 +14,6 @@ Route::get('/', 'HomeController@index');
 //Route::get('home', 'HomeController@home');
 Route::post('search/business', 'HomeController@searchResult');
 
-
-Route::get('testing1', function () {
-return response()->json(['name' => 'Sanjib', 'location' => 'Pluto']);
-});
-Route::resource('people', 'PeopleController');
-Route::bind('people', function ($id){
-return App\User::where('id', $id)->first();
-});
-
 Route::get('profile/{id}', 'UsersController@profile');
 Route::post('profile/edit/{id}','UsersController@edit');
 Route::post('profile/{id}/upload','UsersController@userphotos');
@@ -70,6 +61,8 @@ Route::post('auth/login', 'Auth\AuthController@postLogin');
 Route::get('activate/{confirmation_code}', 'Auth\AuthController@activateAccount');
 Route::get('confirm','HomeController@confirm');
 Route::get('auth/logout', 'Auth\AuthController@getLogout');
+
+Route::get('testing/email','EmailController@sendTest');
 
 Route::get('api/location', 'ApiController@location');
 Route::get('api/ajax/location', 'ApiController@ajxlocation');

@@ -47,31 +47,45 @@
                   <div class="form-group">
                       <label for="cat" class="col-md-3 control-label">Tagline</label>
                       <div class="col-md-8">
-                          <input required type="text" id="tagline" name="tagline" class="form-control" placeholder="e.g. Bar & Nightclub" value="{{ old('name')}}">
+                          <input type="text" id="tagline" name="tagline" class="form-control" placeholder="e.g. Bar & Nightclub" value="{{ old('tagline')}}">
                       </div>
                   </div>
                   {{--DESCRIPTION--}}
                   <div class="form-group">
                       <label for="cat" class="col-md-3 control-label">Description</label>
                       <div class="col-md-8">
-                          <input required type="text" id="description" name="description" class="form-control" placeholder="e.g. A brief description of the business" value="{{ old('name')}}">
+                          <input type="text" id="description" name="description" class="form-control" placeholder="e.g. A brief description of the business" value="{{ old('description')}}">
                       </div>
                   </div>
                   {{--CATEGORY--}}
                   <div class="form-group">
-                      <label for="cat" class="col-md-3 control-label">Business Category</label>
+                      <label for="cats" class="col-md-3 control-label">Business Category</label>
                       <div class="col-md-8">
-                          {!!Form::select('cats[]', $catListID,Input::old('cats[]') , ['class'=>'form-control','id'=>'category3','multiple']) !!}
+                          <select id="cat3" name="cats[]" multiple class="form-control" required="required">
+                          <option></option>  
+                              @if(old('cats'))
+                                
+                                  <option selected value="">Choose Again</option>
+                                         
+                              @else
+                                @foreach ($catList as $key =>$value)
+                                  <option value="{{$key}}">{{ $value }}</option>
+                                @endforeach
+                              @endif
+                                 
+                             </select>
                       </div>
                   </div>
+
                   {{--SUB-CATEGORY / TAGS--}}
                   <div class="form-group">
-                      <label for="image_class" class="col-md-3 control-label">
+                      <label for="sub" class="col-md-3 control-label">
                           Sub categories</label>
                       <div class="col-md-8">
-                          <select id="sub" name="sub[]" value="{{ old('sub[]')}}" class="form-control" multiple="multiple"> </select>
+                          <select id="sub" name="sub[]" value="{{ old('sub[]')}}" class="form-control" multiple> </select>
                       </div>
                   </div>
+
                   {{--Displaying bank Sort Code field if Category is banking and finance --}}
                   <div id="sort_code" class="form-group" style="display:none;">
                       <label for="sort_code" class="col-md-3 control-label">
@@ -82,17 +96,27 @@
                   </div>
                   {{--STREET ADDRESS--}}
                    <div class="form-group">
-                       <label for="cat" class="col-md-3 control-label">Business Address</label>
+                       <label for="address" class="col-md-3 control-label">Business Address</label>
                        <div class="col-md-8">
-                       <input required type="text" id="address" name="address" class="form-control" placeholder="e.g. Ajose Adeogun street" value="{{ old('address')}}">
+                       <input type="text" id="address" required name="address" class="form-control" placeholder="e.g. Ajose Adeogun street" value="{{ old('address')}}">
                       </div>
                   </div>
                   {{--STATE--}}
                   <div class="form-group">
                        <label for="cat" class="col-md-3 control-label">Business state</label>
-                       <div class="col-md-8">
-                           {!!Form::select('state', $stateListID, Input::old('state'), ['class'=>'form-control','id'=>'stateList',
-                          'placeholder'=>'select state']) !!}
+                       <div class="col-md-8">                    
+                          <select id="stateList" name="state" placeholder="select state" class="form-control">
+                            <option></option>
+                             @foreach ($stateList as $key =>$value)  
+                                  @if(old('state') == $key) 
+                                      <option selected value="{{ $key }}">{{ $stateList[$key] }}</option>   
+                                  @else 
+                                      <option value="{{ $key}}">{{ $value }}</option>      
+                                  @endif
+                                       
+                             @endforeach
+                          </select>
+
                       </div>
                   </div>
                   {{--REGION--}}
@@ -135,7 +159,7 @@
                   </div>
                   {{--EMAIL--}}
                   <div class="form-group">
-                       <label for="email" class="col-md-3 control-label">Business Email Address</label>
+                       <label for="email" class="col-md-3 control-label">Business Email</label>
                        <div class="col-md-8">
                         <input type="email" id="email" name="email" value="{{ old('email')}}" class="form-control" placeholder="e.g. info@pattsbar.com.ng">
                       </div>
@@ -144,7 +168,7 @@
                   <div class="form-group">
                        <label for="contactname" class="col-md-3 control-label">Contact Name</label>
                        <div class="col-md-8">
-                       <input type="text" id="contactname" name=" contactname" value="{{ old('contactname')}}" class="form-control" placeholder="Mr Patt" required="required">
+                       <input type="text" id="contactname" name=" contactname" value="{{ old('contactname')}}" class="form-control" placeholder="Mr Patt">
                       </div>
                   </div>
                   {{--PHONE 1--}}
@@ -238,6 +262,7 @@
    <script src="{{asset('js/dropzone.js')}}"></script>
    <script src="{{ asset('plugins/jasny-bootstrap/js/jasny-bootstrap.min.js') }}"></script>
      {{--CUSTOM PAGE SCRIPTS--}}
+
     <script type="text/javascript">
     {{--DROPZONE--}}
             Dropzone.autoDiscover = false;
@@ -263,27 +288,30 @@
         }
 
     $(document).ready(function() {
-      $("#category3").select2({
+      $("#cat3").select2({
          placeholder: 'select business category',
       });
     });
-    $(document).ready(function() {
-      var y=[];
-     $('#category3').click(function(){
+
+    
+     
+     $('#cat3').click(function(){
+          // var y=[]; 
           if($(this).val() !== "select business category") {
              var model=$('#sub');
             model.empty();
-           $.get('{{ URL::to('api/subcat') }}', {y: $(this).val()}, function(result){
+           $.get('{{ URL::to('api/subcat') }}', { y: $(this).val() }, function(result){
              $.each(result.data,function(){
                               $('#sub').append('<option value="'+this.id+'">'+this.text+'</option>');
                         });
            });
          }
       });
-    });
-    $(document).ready(function() {
-      var y=[];
-     $('#category3').change(function(){
+  
+    
+      
+     $('#cat3').change(function(){
+     // var y=[];
          var selection= $(this).val();
           if(selection !== "select business category") {
              var model=$('#sub');
@@ -303,27 +331,12 @@
           }
 
       });
-    });
 
-     $(document).ready(function() {
-      $('#category3').change(function(){
-        var selection= $(this).val();
-        if(selection == 44) {
-          $("#sort_code").show();
-          }
-          else {
-            $("#sort_code").hide();
-          }
-
-        });
-      });
-
-    $(document).ready(function() {
+     
       $("#stateList").select2({
-        placeholder: 'select state',
-      });
+        placeholder: 'select state'
     });
-    $(document).ready(function() {
+    
      $('#stateList').change(function(){
           if($(this).val() !== "select state") {
              var model=$('#lga');
@@ -336,9 +349,9 @@
            });
          }
       });
-    });
+    
 
-    $(document).ready(function() {
+    
      $('#stateList').click(function(){
           if($(this).val() !== "select state") {
              var model=$('#lga');
@@ -351,21 +364,19 @@
            });
          }
       });
-    });
+   
 
-    $(document).ready(function() {
+   
       $("#sub").select2({
-        placeholder: 'select or create subcategories',
+        placeholder: 'select a category first',
        // tags: true,
       });
 
-       $(document).ready(function() {
+       
          $("#lga").select2({
           placeholder: 'select a state first',
         });
-      });
-
-         });
+        
   </script>
     <script src="{{asset('js/scripts.js')}}"></script>
 @stop

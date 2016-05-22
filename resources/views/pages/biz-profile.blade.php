@@ -36,11 +36,27 @@
             {{--COUNTERS--}}
             <ul class="list-inline user-counter text-color-white text-center">
                 <li><i class="fa fa-heart"></i> {{$favCount= $biz->favoured->count()}}
-                    {{str_plural('Favourite', $favCount) }}</li>
-                <li><i class="fa fa-comments"></i> {{$biz->rating_count}}
-                    {{ Str::plural('review', $biz->rating_count)}}</li>
-                <li><i class="fa fa-camera"></i> {{$photosCount=$biz->photos->count()}}
-                    {{ str_plural('Photo', $photosCount)}} </li>
+                 @if($favCount == 0)
+                    {{str_singular('Favourite', $favCount) }}
+                @else
+                    {{str_plural('Favourite', $favCount) }}
+                @endif
+                    </li>
+                <li><i class="fa fa-comments"></i> 
+                @if($biz->rating_count == 0)
+                    {{str_singular('review',$biz->rating_count) }}
+                @else
+                    {{ Str::plural('review', $biz->rating_count) }}
+                @endif
+                    </li>
+                    
+                <li><i class="fa fa-camera"></i> {{$photoCount=$biz->photos->count()}}
+                @if($photoCount == 0)
+                   {{str_singular('review',$photoCount) }}
+                @else
+                    {{ str_plural('Photo', $photoCount) }} 
+                @endif
+                </li>
             </ul>
         </div> <!-- END .header-search-bar -->
 @endsection

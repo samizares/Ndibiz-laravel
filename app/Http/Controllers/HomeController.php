@@ -62,10 +62,17 @@ class HomeController extends Controller
 	public function businesses()
 	{
 		$bizs = Biz::orderBy('created_at', 'desc')->paginate(9);
+		//$cats=  Cat::lists('name','id');
+		$catt= Cat::lists('name','id')->all();
+		$subcatt=SubCat::lists('name','id')->all();
+		$new=array_merge($catt,$subcatt);
+		//$cats = \DB::table('cats')->lists('name', 'id');
 		if (\Request::ajax()) {
-            return \Response::json(\View::make('partials.ajax-result')->with(compact('bizs'))->render());
+            return \Response::json(\View::make('partials.ajax-result')
+            	->with(compact('bizs'))
+            	->render());
         }
-		return view('pages.businesses', compact('bizs'));
+		return view('pages.businesses', compact('bizs','new'));
 	}
 	public function businesses2()
 	{
@@ -105,14 +112,6 @@ class HomeController extends Controller
 		$featured= Biz::whereFeatured('YES')->get();
 
          return view('pages.search-results', compact('stateList','catList','cats','featured'));
-	}
-
-	public function regbiz()
-	{
-		$stateList= State::lists('name','name');
-		$catList   = Cat::lists('name','name');
-
-		return view('pages.regbiz', compact('stateList', 'catList'));
 	}
 
 	public function searchResult()
