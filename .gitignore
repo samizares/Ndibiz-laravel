@@ -2,7 +2,11 @@
 /node_modules
 Homestead.yaml
 /bootstrap/compiled.php
+/build/logs
 composer.phar
+/app/tests/_log
+/build/logs
+.env
 .env.php
 .env.*.php
 _ide_helper.php
