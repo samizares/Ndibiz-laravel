@@ -32,7 +32,7 @@
                         <div class="form-group">
                             <label for="cat" class="col-md-3 control-label">Category</label>
                             <div class="col-md-8">
-                                {!!Form::select('name', $cats,$cat->name,['class'=>'form-control', 'id'=>'cat_name']) !!}
+                                {!!Form::select('name', $catList,$cat->name,['class'=>'form-control', 'id'=>'cat_name']) !!}
                             </div>
                         </div>
 

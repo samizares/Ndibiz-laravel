@@ -14,14 +14,9 @@ use DB;
 
 class CatController extends Controller
 {
-    protected $fields = [
-         'name' => '',
-         'meta_description' => '',
-         'image_class' => '',
-   
-    ];
+
     /**
-     * Display a listing of the resource.
+     * Display a listing of the categories.
      *
      * @return Response
      */

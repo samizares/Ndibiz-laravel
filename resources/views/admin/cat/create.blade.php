@@ -29,7 +29,7 @@
                             <label for="cat" class="col-md-3 control-label">Category Names</label>
                             <div class="col-md-8">
 
-                                {!!Form::select('category_name', $cats,null,['class'=>'form-control', 'id'=>'cat_name',
+                                {!!Form::select('category_name', $catList,null,['class'=>'form-control', 'id'=>'cat_name',
                                 'placeholder'=>'Create Category']) !!}
 
                             </div>

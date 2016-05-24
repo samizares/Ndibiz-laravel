@@ -34,20 +34,19 @@
                           'placeholder'=>'All Locations']) !!}
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-8">
                     <div class="form-group">
-                       {!!Form::select('cat', $catListID,Input::old('cats[]') , ['class'=>'form-control','id'=>'cat',
+                       {!!Form::select('cat', $new,Input::old('cat') , ['class'=>'form-control','id'=>'cat',
                        'placeholder'=>'All categories']) !!}
                     </div>
                 </div>
-                <div class="col-md-4">
+              <!--  <div class="col-md-4">
                     <div class="form-group">
                        <!-- <select id="sub2" name="sub" value="{{ old('sub[]')}}" class="form-control" placeholder="Select subcategories">
-                         </select> -->
-                          {!!Form::select('sub', $subListID,Input::old('cats[]') , ['class'=>'form-control','id'=>'sub2',
-                       'placeholder'=>'Select subcategories']) !!}
+                         </select> 
+                          
                     </div>
-                </div>
+                </div> -->
             </div>
               <hr class="m5">
               {{--business listings--}}
@@ -134,6 +133,10 @@
             });
 
             $("#cat").select2({
+                placeholder: 'All categories'
+            });
+
+            $("#cat2").select2({
                 placeholder: 'All categories'
             });
 
