@@ -147,7 +147,7 @@
                 <td bgcolor="#ffffff" align="center" style="padding: 20px 30px 60px 30px;">
                   <table border="0" cellspacing="0" cellpadding="0">
                     <tr>
-                      <td align="center" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #E60707; display: inline-block;background-color:#E60707"><a href="{{url('/testing/activation/'.$confirmation_code)}}" target="_blank">Confirm Email</a></td>
+                      <td align="center" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #E60707; display: inline-block;background-color:#E60707"><a href="{{url('/testing/activation/'.$data['confirmation_code'])}}" target="_blank">Confirm Email</a></td>
                     </tr>
                   </table>
                 </td>
