@@ -3,6 +3,7 @@
 Homestead.yaml
 /bootstrap/compiled.php
 /build/logs
+/storage
 composer.phar
 /app/tests/_log
 /build/logs
