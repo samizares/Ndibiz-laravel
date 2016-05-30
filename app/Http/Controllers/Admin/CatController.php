@@ -36,13 +36,14 @@ class CatController extends Controller
      */
     public function create()
     {
-        $cats   = Cat::lists('name','name'); 
+        $catList   = Cat::lists('name','name')->all(); 
         $image_class= Cat::lists('image_class','image_class');
         $all_image= DB::table('subcategory')->lists('name','name');
         $subcats= SubCat::lists('name','name');
+        //$catList=$view->catList= \App\Cat::lists('name','name');
        // $subcats_image=SubCat::lists('image_class','image_class');
 
-         return view('admin.cat.create', compact('cats','image_class','subcats','all_image'));
+         return view('admin.cat.create', compact('catList','image_class','subcats','all_image'));
     
     }
 
