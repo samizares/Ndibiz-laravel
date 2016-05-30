@@ -13,6 +13,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        if (!\App::environment('local')) {
+          \URL::forceSchema('https');
+             }
        \View::composer('*', function($view)
         {
            // $view->stateList= \App\State::lists('name','name');
