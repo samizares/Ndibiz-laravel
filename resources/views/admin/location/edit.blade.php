@@ -38,13 +38,13 @@
                             <label for="image_class" class="col-md-3 control-label">
                                 Create Region/area</label>
                             <div class="col-md-8">
-                                {!!Form::select('lga[]', $areas, $areas, ['class'=>'form-control','id'=>'lga','placeholder'=>'Edit Regions','multiple']) !!}
+                                {!!Form::select('lga[]', $areas, null, ['class'=>'form-control','id'=>'lga','multiple']) !!}
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-md-7 col-md-offset-3">
-                                <button type="submit" class="btn btn-primary btn-md">
+                                <button type="submit" name="save" value="save" class="btn btn-primary btn-md">
                                     <i class="fa fa-save"></i>
                                     Save Changes
                                 </button>
@@ -53,8 +53,7 @@
                                     <i class="fa fa-times-circle"></i>
                                     Delete State and All Regions
                                 </button>
-                                <button type="button" class="btn btn-danger btn-md"
-                                        data-toggle="modal" data-target="#modal-deleteArea">
+                                <button type="submit" class="btn btn-danger btn-md" name="delete" value="delete">
                                     <i class="fa fa-times-circle"></i>
                                     Delete Selected Regions
                                 </button>
@@ -108,7 +107,7 @@
                 <div class="modal-body">
                     <p class="lead">
                         <i class="fa fa-question-circle fa-lg"></i>
-                        Are you sure you want to delete the selected Areas this state?
+                        Are you sure you want to delete the selected LGA from this state?
                     </p>
                 </div>
                 <div class="modal-footer">

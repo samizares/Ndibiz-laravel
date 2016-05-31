@@ -79,6 +79,8 @@ Route::post('api/subscribe', 'ApiController@subscribe');
 Route::resource('task/api', 'ApiiController');
 Route::get('task/api/delete/{id}', 'ApiiController@del');
 
+Route::get('login/facebook', 'Auth\AuthController@facebook');
+
 // Admin area
 //get('admin', function () {
 //  return redirect('/admin/');
@@ -87,23 +89,23 @@ Route::get('task/api/delete/{id}', 'ApiiController@del');
 $router->group([
   'namespace' => 'Admin',
   'middleware' => 'admin',
-], function () {
-  get('admin', 'AdminController@index');
+], function ($router) {
+  $router->get('admin', 'AdminController@index');
 //  TODO -> testing - rem to delete
-  get('admin2', 'AdminController@index2');
-  post('admin/settings','AdminController@settings');
-  resource('admin/biz', 'BizController');
-  resource('admin/cat', 'CatController');
-  resource('admin/user','UsersController');
-  resource('admin/report','ReportController');
-  resource('admin/location', 'LocationController');
-  delete('admin/location/delete','LocationController@delSelected');
-  get('admin/upload', 'UploadController@index');
-  post('admin/sub', 'SubCatController@deleteSub');
-  post('admin/upload/file', 'UploadController@uploadFile');
-  delete('admin/upload/file', 'UploadController@deleteFile');
-  post('admin/upload/folder', 'UploadController@createFolder');
-  delete('admin/upload/folder', 'UploadController@deleteFolder');
+   $router->get('admin2', 'AdminController@index2');
+  $router->post('admin/settings','AdminController@settings');
+  $router->resource('admin/biz', 'BizController');
+  $router->resource('admin/cat', 'CatController');
+  $router->resource('admin/user','UsersController');
+  $router->resource('admin/report','ReportController');
+  $router->resource('admin/location', 'LocationController');
+  $router->delete('admin/location/delete','LocationController@delSelected');
+  $router->get('admin/upload', 'UploadController@index');
+  $router->post('admin/sub', 'SubCatController@deleteSub');
+  $router->post('admin/upload/file', 'UploadController@uploadFile');
+  $router->delete('admin/upload/file', 'UploadController@deleteFile');
+  $router->post('admin/upload/folder', 'UploadController@createFolder');
+  $router-> delete('admin/upload/folder', 'UploadController@deleteFolder');
 
   Route::post('admin/biz/delete','BizController@deleteBiz');
   Route::post('admin/cat/delete','CatController@deleteCat');

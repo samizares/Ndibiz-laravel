@@ -63,6 +63,7 @@ class HomeController extends Controller
 	{
 		$bizs = Biz::orderBy('created_at', 'desc')->paginate(9);
 		//$cats=  Cat::lists('name','id');
+		$stateListID= State::lists('name','id');
 		$catt= Cat::lists('name','id')->all();
 		$subcatt=SubCat::lists('name','id')->all();
 		$new=array_merge($catt,$subcatt);
@@ -72,15 +73,16 @@ class HomeController extends Controller
             	->with(compact('bizs'))
             	->render());
         }
-		return view('pages.businesses', compact('bizs','new'));
+		return view('pages.businesses', compact('bizs','new','stateListID'));
 	}
 	public function businesses2()
 	{
 		$bizs = Biz::orderBy('created_at', 'desc')->paginate(9);
+		$stateListID= State::lists('name','id');
 		if (\Request::ajax()) {
 			return \Response::json(\View::make('partials.ajax-result')->with(compact('bizs'))->render());
 		}
-		return view('pages.businesses2', compact('bizs'));
+		return view('pages.businesses2', compact('bizs','stateListID'));
 	}
 	public function map()
 	{

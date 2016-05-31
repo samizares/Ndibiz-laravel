@@ -15,7 +15,8 @@
             <div class="col-md-12">
                 <div class="row page-title-row">
                     <div class="col-md-6">
-                        <h3><a href="/admin">Admin</a> <small>» states ({{ $totalState}})</small></h3>
+                        <h3><a href="/admin">Admin</a> <small>» states ({{ $totalState}}) » Lgas({{$totalLga}})
+                            </small> </h3>
                     </div>
                     <div class="col-md-6 text-right m20-top">
                         <a href="/admin/location/create" class="btn btn-default-inverse btn-md">

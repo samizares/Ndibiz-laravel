@@ -23,9 +23,10 @@ class LocationController extends Controller
     public function index()
     {
         $states= State::all();
-        $totalState=State::count();          
+        $totalState=State::count(); 
+        $totalLga=Lga::count();         
      //  dd($state->name);
-       return view('admin.location.index', compact('states','totalState'));
+       return view('admin.location.index', compact('states','totalState','totalLga'));
     }
 
     /**
@@ -93,7 +94,6 @@ class LocationController extends Controller
     {   $stateList= State::lists('name','name');
         $lgaList   = lga::lists('name','name');
         $state= State::findorFail($id);
-       // $stateArray=(array) $state->name;
        $areas=  $state->lgas->lists('name','name');
         
 
@@ -110,6 +110,9 @@ class LocationController extends Controller
      */
     public function update(LocationUpdateRequest $request, $id)
     {
+        //dd($request->get('lga'));
+        if($request->has('save'))
+        {
         $state = State::findOrFail($id);
         $state->name=$request->input('state');
         $state->save();
@@ -119,8 +122,8 @@ class LocationController extends Controller
 
          $list=$state->lgas->lists('name')->all();
 
-         if ( $lgas= $request->input('lga'))
-         {
+            if ( $lgas= $request->input('lga'))
+            {
                 foreach ($lgas as $lga) {
                   if(in_array($lga, $list)) {
                      $existingArea = Lga::where('name', $lga)->first();
@@ -140,8 +143,21 @@ class LocationController extends Controller
             }
 
 
-    return redirect("/admin/location/")
-        ->withSuccess("Changes saved.");
+            return redirect("/admin/location/")
+            ->withSuccess("Changes saved.");
+        }
+        if($request->has('delete'))
+            {
+                $lgas=$request->get('lga');
+                foreach ($lgas as $lga) 
+                {
+                    $lga=Lga::where('name',$lga)->first();
+
+                    $lga->delete();
+                }
+                 return redirect("/admin/location/")
+                 ->withSuccess("LGA deleted.");
+            }
     }
 
     /**
