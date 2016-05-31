@@ -14,7 +14,7 @@
                   {!! Form::open(array('url' => '/auth/login', 'class' => 'form')) !!}
                   <div class="panel panel-default">
                     <div class="panel-heading">
-                      <h3 class="panel-title"><i class="fa fa-power-off"></i> Login</h3>
+                      <h3 class="panel-title"><i class="fa fa-power-off"></i> Login below or Connect with <a class="btn btn-primary" href="/login/facebook">Facebook</a> </h3>
                     </div>
                     <div class="panel-body">
                           <div class="form-group">
