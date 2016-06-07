@@ -32,13 +32,13 @@ class AuthenticateUser{
 			\Auth::login($user, true);
 			session()->flash('alert','You are logged in with Facebook');
         	session()->flash('alert_type','alert-success');
-			return redirect('/profile');
+			return redirect('/profile/'.$user->id);
 		}
 
 		\Auth::login($user, true);
 		session()->flash('alert','Thanks for registering with Facebook');
         session()->flash('alert_type','alert-success');
-		return redirect('/profile');
+		return redirect('/profile/'.$user->id);
 		
 	}
 
@@ -50,15 +50,15 @@ class AuthenticateUser{
 
 	private function getSocialUser()
 	{
-		//if($this->request->has('error') =='access_denied'){
-       //   return redirect('login');
-       // }
+		if($this->request->has('error') =='access_denied'){
+          return redirect('login');
+        }
 
-		//$state = $this->request->get('state');
-    	//$this->request->session()->put('state',$state);
-    	//if(\Auth::check()==false){
-        //  session()->regenerate();
-       // }
+		$state = $this->request->get('state');
+    	$this->request->session()->put('state',$state);
+    	if(\Auth::check()==false){
+          session()->regenerate();
+        }
 
 		$user=$this->socialite->driver('facebook')
 				->fields([ 
@@ -66,12 +66,11 @@ class AuthenticateUser{
                     'name',
                     'email',
                     'last_name', 
-                    'link',
                     'gender', 
                     'verified'
                 ])->user();
               return  $user; 
 		return $this->socialite->with('facebook')->user();
-		//dd($user2);
+	
 	}					
 }

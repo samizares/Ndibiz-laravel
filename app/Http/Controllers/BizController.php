@@ -15,6 +15,7 @@ use App\SubCat;
 use App\Cat;
 use App\BusinessHour;
 use App\Report;
+use App\Events\BizWasAdded;
 
 class BizController extends Controller
 {
@@ -74,7 +75,11 @@ class BizController extends Controller
      */
     public function store(BusinessRegRequest $request)
     {
-       // dd($request->get('cats'));
+        $data=$request->all();
+        event(new BizWasAdded($data));
+       /**dd($request->all());
+        $data=$request->all();
+        event(new BizWasAdded($data));
         $biz = new Biz();
         $biz->name =         $request->input('name');
         $biz->tagline=       $request->input('tagline');
@@ -82,40 +87,54 @@ class BizController extends Controller
         $biz->contactname=   $request->input('contactname');
         $biz->website=       $request->input('website');
       
-        $user= \Auth::id();
-        $biz->user_id= $user;
+        $user= \Auth::user();
+        $biz->user_id= $user->id;
         $biz->save();
 
+        //Change biz to cliamed and status to pending if a Non-admin registered the business
+        //because the business needs to be verified even though it has been claimed already.
+        if(! isset($user->admin))
+        {
         $biz2= Biz::where('id', $biz->id)->first();
             $biz2->claimed=1;
             $biz2->status="pending";
-            $biz2->owner =$user;
+            $biz2->owner =$user->id;
         $biz2->save();
-         
+        }
 
+        //store user added or system generated local government area/or region 
+        $area=$request->get('lga');
+        if($existingArea=Lga::where('name',$area)->first())
+        {
+            $newArea=$existingArea;
+        }
+        else{
+            $newArea=new Lga();
+            $newArea->name=$area;
+            $newArea->save();
+        }
+        //store the adress in the address table and link to the specific business
         $add= new Address();
         $add->street= $request->input('address');
         $add->email=  $request->input('email');
         $add->phone1= $request->input('phone1');
-        $add->phone2= $request->input('phone2');
-        $add->lga_id= $request->input('lga');
+        $add->phone2= $request->input('phone2');    
         $add->state_id=$request->input('state');
-
-        if(  $request->exists('sort_code')){
+        $add->lga_id=$newArea->id;
+        if(  $request->has('sort_code')){
         $add->sortcode=$request->input('sort_code');
         }
         $add->biz_id= $biz->id;
         $add->save();
 
-        $category=$request->input('cats');
-       
+        //add the lists of categories and subcategories and link to biz
+        $category=$request->input('cats');       
         $biz->cats()->sync($category);
-
         $subs= $request->input('sub');
         $biz->subcats()->sync($subs);
 
-        $lga=$request->input('lga');
-        $biz->lgas()->attach($lga);
+        //LINK THE BUSINESS TO THE LGA/REGION
+        $biz->lgas()->attach($newArea->id);
 
         $state=$request->input('state');
         $biz->states()->attach($state);
@@ -130,17 +149,17 @@ class BizController extends Controller
             $biz->profilePhoto()->save($pic);
         }
 
-        $mon = BusinessHour::create(['day' => 'MON','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
-        $tue = BusinessHour::create(['day' => 'TUE','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
-                 $wed = BusinessHour::create(['day' => 'WED','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
-        $thu = BusinessHour::create(['day' => 'THU','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
-        $fri = BusinessHour::create(['day' => 'FRI','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
-        $sat = BusinessHour::create(['day' => 'SAT','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
-        $sun = BusinessHour::create(['day' => 'SUN','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
+       // $mon = BusinessHour::create(['day' => 'MON','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
+       // $tue = BusinessHour::create(['day' => 'TUE','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
+        // $wed = BusinessHour::create(['day' => 'WED','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
+        //$thu = BusinessHour::create(['day' => 'THU','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
+        //$fri = BusinessHour::create(['day' => 'FRI','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
+       // $sat = BusinessHour::create(['day' => 'SAT','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
+       // $sun = BusinessHour::create(['day' => 'SUN','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
 
        
-        return redirect('/review/biz/'.$biz->slug)
-         ->withSuccess("The business '$biz->name' has been created.");
+        return redirect('/biz/profile/'.$biz->slug.'/'.$biz->id)
+         ->withSuccess("The business '$biz->name' has been created."); **/
     }
 
     /**

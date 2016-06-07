@@ -32,8 +32,8 @@ class UserMailer extends Mailer
 
     public function facebookWelcome($user)
     {
-        $subject ='Thank you for registering with 27colours';
-        $sender  ='support@27colours.com';
+        $subject ='Thank you for registering with Beazea.com';
+        $sender  ='support@beazea.com';
         $view    ='emails.facebookWelcome';
         $data    =['username'=> $user->username];
         $this->emailTo($user, $view, $data, $subject,$sender);
@@ -43,8 +43,8 @@ class UserMailer extends Mailer
     {
         $data=[];
         $data['confirmation_code'] = $code;
-        $subject ='Activate your 27colours account';
-        $sender  ='support@27colours.com';
+        $subject ='Activate your beazea account';
+        $sender  ='support@beazea.com';
         $view    ='emails.activate';
         $data['username']= $user->username;
         $this->emailTo($user, $view, $data, $subject,$sender);
@@ -56,9 +56,9 @@ class UserMailer extends Mailer
       $data['username']="sammy and bolaji";
       $data['confirmation_code'] = str_random(6);
       $subject ='Testing activation emails';
-      $sender= 'support@27colours.com';
+      $sender= 'support@beazea.com';
       $view ='emails.activate';
-      $user=['gbolahanalade@gmail.com','samizares@beazea.com'];
+      $user='samizares@beazea.com';
        $this->sendTo($user, $view, $data, $subject,$sender);
     }
     

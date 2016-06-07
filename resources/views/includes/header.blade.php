@@ -42,8 +42,19 @@
               <li class="m15-left"><a href="/biz/create" class="btn btn-default p5 p10-left p10-right"><i class="fa fa-plus"></i> Add a Business</a></li>
            </ul>
         </nav>
+
       </div><!-- END .CONTAINER -->
     </div>
+     @if ( Auth::check()  &&  ! Auth::user()->confirmed)
+      <div class="bs-info" style="text-align:center">
+            <div class="alert alert-info fade in">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+               <p> <b>Note!</b> Please confirm your account before you begin/continue to upload files.
+                Please click <a href="/confirm"><b>HERE</b></a> on how to</p>
+             </div>
+      </div>
+   @endif
+
     <!-- END .HEADER-TOP-BAR -->
 
     @yield('search')

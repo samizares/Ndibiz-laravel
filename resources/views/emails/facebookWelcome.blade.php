@@ -112,7 +112,7 @@
       <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;" >
         <tr>
           <td bgcolor="#ffffff" align="center" valign="top" style="padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 0px; color: #111111; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; line-height: 48px;">
-            <h1 style="font-size: 48px; font-weight: 400; margin: 0;">Welcome {{ $data['username']}}!</h1>
+            <h1 style="font-size: 48px; font-weight: 400; margin: 0;">Welcome {{ isset($data['username']) ? $data['username'] : 'Newbie' }}!</h1>
           </td>
         </tr>
       </table>
@@ -135,8 +135,8 @@
         <!-- COPY -->
         <tr>
           <td bgcolor="#ffffff" align="left" style="padding: 20px 30px 40px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
-            <p style="">Thanks for registering with Beazea.com. You are one step away from letting the world know about your business.</p>
-            <p style="margin: 0;">We're really excited to have you get started. First, you need to confirm your email. Just press the button below.</p>
+            <p style="">Thanks for registering with Beazea with your Facebook details.</p>
+            <p style="margin: 0;">You are one step away from letting the world know about your business.Don't forget to update your personal profile and share your business page with your friends on Facebook,Twitter and Google ++.</p>
           </td>
         </tr>
         <!-- BULLETPROOF BUTTON -->
@@ -147,7 +147,7 @@
                 <td bgcolor="#ffffff" align="center" style="padding: 20px 30px 60px 30px;">
                   <table border="0" cellspacing="0" cellpadding="0">
                     <tr>
-                      <td align="center" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #E60707; display: inline-block;background-color:#E60707"><a href="{{url('/testing/activation/'.$data['confirmation_code'])}}" target="_blank">Confirm Email</a></td>
+                    
                     </tr>
                   </table>
                 </td>
@@ -158,13 +158,11 @@
         <!-- COPY -->
         <tr>
           <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 0px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
-            <p style="margin: 0;">If that doesn't work, copy and paste the following link in your browser:</p>
           </td>
         </tr>
         <!-- COPY -->
         <tr>
-          <td bgcolor="#ffffff" align="left" style="padding: 20px 30px 20px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
-            <p style="margin: 0;"><a href="{{url('http://localhost:8090/testing/activation/'.$data['confirmation_code'])}}" target="_blank" style="color: #E60707;">Here</a></p>
+          
           </td>
         </tr>
         <!-- COPY -->
@@ -201,7 +199,7 @@
           <td bgcolor="#E69A97" align="center" style="padding: 30px 30px 30px 30px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
             <h2 style="font-size: 20px; font-weight: 400; color: #111111; margin: 0 0 10px 0;">Need more help?</h2>
               <p style="margin: 0;"><span style="color: #E60707;">Email Us - info@beazea.com</span></p>
-              <p style="margin: 0;"><span style="color: #E60707;">Holla @ Us - (+234)</span></p>
+              <p style="margin: 0;"><span style="color: #E60707;">Holla @ Us - (+234)808-304-4714</span></p>
           </td>
         </tr>
       </table>
@@ -234,14 +232,14 @@
         <!-- PERMISSION REMINDER -->
         <tr>
           <td bgcolor="#f4f4f4" align="left" style="padding: 0px 30px 30px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 400; line-height: 18px;" >
-            <p style="margin: 0;">You received this email because you just signed up for a new account. If you didn't,then take no further action. 
+            <p style="margin: 0;">You received this email because you just signed up for a new account with your Facebook details. If you didn't,then take no further action. 
           </td>
         </tr>
         
         <!-- ADDRESS -->
         <tr>
           <td bgcolor="#f4f4f4" align="left" style="padding: 0px 30px 30px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 400; line-height: 18px;" >
-            <p style="margin: 0;text-transform: capitalize;">Beazea -  - Lagos, Nigeria</p>
+            <p style="margin: 0;text-transform: capitalize;">Beazea  Lagos, Nigeria</p>
           </td>
         </tr>
       </table>

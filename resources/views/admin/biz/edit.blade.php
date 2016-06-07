@@ -52,7 +52,7 @@
                             <label for="image_class" class="col-md-3 control-label">
                                 Business Region/area</label>
                             <div class="col-md-8">
-                                {!!Form::select('lga', $lgaList, $biz->address->lga_id, ['class'=>'form-control',
+                                {!!Form::select('lga', $lgaList, $biz->address->lga->name, ['class'=>'form-control',
                                  'id'=>'lga','placeholder'=>'select state']) !!}
                             </div>
                         </div>

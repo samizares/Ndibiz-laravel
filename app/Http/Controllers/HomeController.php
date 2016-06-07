@@ -15,6 +15,7 @@ use App\SubCat;
 use Input;
 use App\Review;
 use App\Setting;
+use App\BizPhoto;
 
 class HomeController extends Controller
 {
@@ -188,7 +189,7 @@ class HomeController extends Controller
 	}
 	public function confirm()
 	{
-		return view('pages.activate');
+		return view('emails.confirm');
 	}
 
 	public function getBusiness($catId)
@@ -201,7 +202,7 @@ class HomeController extends Controller
          return view('pages.biz-result', array('biz'=>$biz,'reviews'=>$reviews));
     }
 
-	 public function getBizreview($slug)
+	 public function getBizreview($slug,$id)
 	 {
 
 	 	  $stateList= State::lists('name','name');
@@ -209,7 +210,7 @@ class HomeController extends Controller
 		  $subList= SubCat::lists('name','id');
 		  $catList   = Cat::lists('name','name');
 	 	  //$biz = Biz::findOrFail($id);
-	 	  $biz= Biz::whereSlug($slug)->firstOrFail();
+	 	  $biz= Biz::where(['id'=>$id,'slug'=>$slug])->firstOrFail();
 	 	  $sub= $biz->subcats->lists('id')->all();
 
 	 	   $favours= $biz->favoured->count();
@@ -218,14 +219,14 @@ class HomeController extends Controller
 	 	  // $favourites= \Auth::user()->favours->lists('id')->all();
 	 	  //dd($favourites);
 
-	 	  $hours=$biz->hours;
-	 	  $mon=$biz->hours->where('day','MON')->first();
-	 	  $tue=$biz->hours->where('day','TUE')->first();
-	 	  $wed=$biz->hours->where('day','WED')->first();
-	 	  $thu=$biz->hours->where('day','THU')->first();
-	 	  $fri=$biz->hours->where('day','FRI')->first();
-	 	  $sat=$biz->hours->where('day','SAT')->first();
-	 	  $sun=$biz->hours->where('day','SUN')->first();
+	 	 // $hours=$biz->hours;
+	 	 // $mon=$biz->hours->where('day','MON')->first();
+	 	 // $tue=$biz->hours->where('day','TUE')->first();
+	 	 // $wed=$biz->hours->where('day','WED')->first();
+	 	 // $thu=$biz->hours->where('day','THU')->first();
+	 	 // $fri=$biz->hours->where('day','FRI')->first();
+	 	 // $sat=$biz->hours->where('day','SAT')->first();
+	 	 // $sun=$biz->hours->where('day','SUN')->first();
 	 	  //dd($mon->open_time);
 
 	 	 // $mon=\App\BusinessHour::all();
@@ -237,7 +238,7 @@ class HomeController extends Controller
 
          return view('pages.biz-profile', array('biz'=>$biz,'reviews'=>$reviews,'sub'=>$sub,'stateList'=>$stateList,'lgaList'=>$lgaList,
 				 'subList'=>$subList,'favours'=>$favours,
-         	'catList'=>$catList), compact('featured','recent','mon','tue','wed','thu','fri','sat','sun'));
+         	'catList'=>$catList), compact('featured','recent'));
 	 }
 
 	 public function postReview($id)
@@ -249,20 +250,22 @@ class HomeController extends Controller
 
 	 	$review = new Review();
 	 	$validator = \Validator::make( $input, $review->getCreateRules());
+	 	$biz=Biz::where('id',$id)->first();
 
 	 	if ($validator->passes()) {
 	 		$review->storeReviewForBiz($id, $input['comment'], $input['rating']);
-				return redirect('review/biz/'.$id.'#company-reviews')->with('success','Review Submitted successfully');
+				return redirect('biz/profile/'.$biz->slug.'/'.$id.'#company-reviews')->with('success','Review Submitted successfully');
 	         		  }
 
-	       		return redirect('review/biz/'.$id.'#company-reviews')->with('errors', $validator->messages())->withInput();
+	       		return redirect('biz/profile/'.$biz->slug.'/'.$id.'#company-reviews')->with('errors', $validator->messages())->withInput();
 	 }
 
 	 public function postMessage(MessageRequest $request, $id)
 	 {
 	 	$review = new Review();
+	 	$biz=Biz::where('id',$id)->first();
 	 	$review->storeReviewForBiz($id, $request->comment, $request->rating);
-		return redirect('review/biz/'.$id.'#company-reviews')->with('success','Review Submitted successfully');
+		return redirect('biz/profile/'.$biz->slug.'/'.$id.'#company-reviews')->with('success','Review Submitted successfully');
 	 }
 	 public function bizSub($slug)
 	 {

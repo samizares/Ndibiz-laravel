@@ -16,7 +16,11 @@ class EmailController extends Controller
     public function __construct(UserMailer $mailer)
      {
         $this->mailer= $mailer;
-        $this->middleware(['auth'],['except'=>['sendTest']]);
+        $this->middleware(['auth'],['except'=>['sendTest','checkView']]);
+    }
+    public function checkView()
+    {
+        return view('emails.facebookWelcome');
     }
 
     public function sendTest()

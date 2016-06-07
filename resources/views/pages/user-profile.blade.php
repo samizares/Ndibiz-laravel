@@ -3,7 +3,6 @@
 @section('title', 'User Profile')
 @section('stylesheets')
    <link  rel="stylesheet" href="{{asset('css/dropzone.css')}}">
-   <link href="{{asset('plugins/select2/select2.min.css')}}" rel="stylesheet">
    <link  rel="stylesheet" href="{{asset('plugins/jasny-bootstrap/css/jasny-bootstrap.min.css')}}">
    <link rel="stylesheet" type="text/css" href="{{asset('plugins/nanogallery/css/nanogallery.min.css')}}">
 @endsection
@@ -104,11 +103,13 @@
                           <div class="favourite-biz">
                               <h3 class="text-uppercase m10-top">Claimed Businesses</h3>
                               <div class="row clearfix">
-                                  @unless ( $owner->isEmpty() )
+                                  @if ( $owner->isEmpty() )
+                                  <p>No claimed business</p>
+                                  @else
                                       @foreach ($owner as $biz)
                                           <div class="col-md-6 col-sm-6">
                                               <div class="single-product">
-                                                  <figure><a href="/review/biz/{{$biz->slug}}">
+                                                  <figure><a href="/biz/profile/{{$biz->slug}}/{{$biz->id}}">
                                                           <img src="{{isset($biz->profilePhoto->image) ? asset($biz->profilePhoto->image) :
                                                asset('img/content/post-img-10.jpg') }}" alt="">
                                                           <div class="rating">
@@ -122,14 +123,14 @@
                                                               <p class="">{{$biz->rating_count}} {{ Str::plural('review', $biz->rating_count)}}</p>
                                                           </div></a>
                                                   </figure>
-                                                  <h4><a href="/review/biz/{{$biz->slug}}">{{$biz->name}}</a></h4>
+                                                  <h4><a href="/biz/profile/{{$biz->slug}}/{{$biz->id}}">{{$biz->name}}</a></h4>
                                                   <p class="m5-bttm"><span data-toggle="modal" data-target="#delClaimModal"
                                                                            data-bizid="{{$biz->id}}" data-claimbiz="{{$biz->name}}" title="Remove from claimed biz">
                                         <a><i class="fa fa-trash"></i></a></span></p>
                                               </div> <!-- end .single-product -->
                                           </div>
                                       @endforeach
-                                  @endunless
+                                  @endif
                               </div>  <!-- end .row -->
                           </div>  <!-- end -->
                       </div>
@@ -139,11 +140,13 @@
                               <h3 class="text-uppercase m10-top">Favourite Businesses</h3>
                               @include('partials.favourite')
                               <div class="row clearfix">
-                                  @unless ( $bizs->isEmpty() )
+                                  @if ( $bizs->isEmpty() )
+                                  <p>No favourite businesses yet!</p>
+                                  @else
                                       @foreach ($bizs as $biz)
                                           <div class="col-md-6 col-sm-6">
                                               <div class="single-product">
-                                                  <figure><a href="/review/biz/{{$biz->slug}}">
+                                                  <figure><a href="/biz/profile/{{$biz->slug}}/{{$biz->id}}">
                                                           <img src="{{isset($biz->profilePhoto->image) ? asset($biz->profilePhoto->image) :
                                                asset('img/content/post-img-10.jpg') }}" alt="">
 
@@ -158,14 +161,15 @@
                                                               <p class="">{{$biz->rating_count}} {{ Str::plural('review', $biz->rating_count)}}</p>
                                                           </div></a>
                                                   </figure>
-                                                  <h4><a href="/review/biz/{{$biz->slug}}">{{$biz->name}}</a></h4>
+                                                  <h4><a href="/biz/profile/{{$biz->slug}}/{{$biz->id}}">{{$biz->name}}</a></h4>
                                                   <p class="m5-bttm"><span data-toggle="modal" data-target="#favModal"
                                                                            data-id="{{$biz->id}}" data-bizname="{{$biz->name}}" title="Remove from favourites">
                                         <a><i class="fa fa-trash"></i></a></span></p>
                                               </div> <!-- end .single-product -->
                                           </div>
                                       @endforeach
-                                  @endunless
+
+                                  @endif
                               </div>  <!-- end .row -->
                           </div>  <!-- end -->
                       </div>
@@ -174,7 +178,9 @@
                           <div class="company-ratings">
                               <h3 class="text-uppercase m10-top">Reviews (5 star ratings)</h3>
                               <div class="rating-with-details">
-                                  @unless ( $user->reviews->isEmpty() )
+                                  @if ( $user->reviews->isEmpty() )
+                                  <p>You haven't review any businesses yet!</p>
+                                  @else
                                       @foreach($user->reviews as $review)
                                           <div class="single-content">
                                               <div class="company-rating-box">
@@ -195,7 +201,7 @@
                                               </div>
                                           </div> <!-- end .single-content -->
                                       @endforeach
-                                  @endunless
+                                  @endif
 
 
                               </div> <!-- end .rating-with-details -->
@@ -207,10 +213,14 @@
                           <h3 class="text-uppercase m10-top">Gallery</h3>
                           <div class="row">
                                 <div class="col-md-12" id="nanoGallery3">
+                                @if($user->photos->isEmpty())
+                                <p>You have no pictures yet!</p>
+                                @else
                                   @foreach($user->photos as $photo)
                                     <a href="{{$photo->path}}" data-ngthumb="{{$photo->path}}"
                                     data-ngdesc="Description1">Title Image1</a>
                                   @endforeach
+                                @endif
                                 </div>
                           </div> <!-- end .row -->
                         </div> <!-- end .company-product -->
@@ -241,11 +251,10 @@
 
                                       <div class="form-group">
                                         <label for="email" class="col-md-3 control-label">Select cities you want periodic Updates on</label>
-                                           <div class="col-md-8">
-                                                  {!!Form::select('state[]', $stateIds, Input::old('state'), ['class'=>'form-control','id'=>'stateList',
-                                                    'multiple']) !!}
-
-                                          </div>
+                                           <div class="col-md-9">
+                                                  {!!Form::select('state[]', $stateIds, null, ['class'=>'form-control','id'=>'stateList',
+                                                    'multiple','placeholder'=>'select cities']) !!}
+                                           </div>
                                       </div>
 
                                       <div class="form-group">
@@ -407,7 +416,6 @@
 <!-- FOOTER ENDS -->
 
 @section('scripts')
-  <script src="{{asset('plugins/select2/select2.min.js')}}"></script>
   <script src="{{asset('plugins/nanogallery/jquery.nanogallery.min.js')}}"></script>
   <script src="{{asset('js/dropzone.js')}}"></script>
   <script src="{{ asset('plugins/jasny-bootstrap/js/jasny-bootstrap.min.js') }}"></script>
@@ -429,6 +437,12 @@
               });
           });
         });
+         $(document).ready(function() {
+             $("#stateList").select2({
+                 tags: true,
+                 placeholder:'choose cities'
+                });
+             });
 
         $(document).ready(function() {
             // show active tab on reload

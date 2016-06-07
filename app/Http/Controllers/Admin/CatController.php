@@ -24,8 +24,9 @@ class CatController extends Controller
     {
        $cats = Cat::all();
        $totalCat=Cat::count();
+       $totalSub=SubCat::count();
 
-    return view('admin.cat.index',compact('cats','totalCat'));
+    return view('admin.cat.index',compact('cats','totalCat','totalSub'));
         
     }
 
@@ -154,8 +155,8 @@ class CatController extends Controller
         $cat =  Cat::findOrFail($id);
         $list= $cat->subcats->lists('name')->all();
         $image_class= Cat::lists('image_class','image_class');
-        $cats  = Cat::lists('name', 'name'); 
-        $subcats= SubCat::lists('name','name');
+        $catList  = Cat::lists('name', 'name')->all(); 
+        $subcats= SubCat::lists('name','name')->all();
         
 
      // dd($cat->subcats->lists('id')->all());
@@ -164,12 +165,7 @@ class CatController extends Controller
     //  $data[$field] = old($field, $cat->$field);
    // }
 
-    return view('admin.cat.edit')
-    ->withCats($cats)
-    ->withCat($cat)
-    ->withSubcats($subcats)
-    ->withList($list)
-    ->withImage_class($image_class);
+    return view('admin.cat.edit',compact('cat','list','image_class','catList','subcats'));
   }
 
     /**

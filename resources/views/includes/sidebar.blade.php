@@ -24,7 +24,7 @@
                                            </div>
                                            <h4><a href="/review/biz/{{$feature->slug}}">{{$feature->name}}</a></h4>
                                            <p>{{$feature->description}}</p>
-                                           <a class="read-more" href="/review/biz/{{$feature->slug}}"><i class="fa fa-angle-right"></i>View profile</a>
+                                           <a class="read-more" href="/biz/profile/{{$feature->slug}}/{{$feature->id}}"><i class="fa fa-angle-right"></i>View profile</a>
                                        </div> <!-- end .latest-post -->
                                    @endforeach
                                @endif
@@ -40,7 +40,7 @@
                                                asset('img/content/latest_post_1.jpg') }}" alt="">
                                                {{--<p><span>12</span>Sep</p>--}}
                                            </div>
-                                           <h4><a href="/review/biz/{{$new->slug}}">{{$new->name}}</a></h4>
+                                           <h4><a href="/biz/profile/{{$new->slug}}/{{$new->id}}">{{$new->name}}</a></h4>
                                            <p>{{$new->description}}</p>
                                            <a class="read-more" href="/review/biz/{{$new->slug}}"><i class="fa fa-angle-right"></i>View profile</a>
                                        </div> <!-- end .latest-post -->

@@ -97,7 +97,7 @@
                                             <p class="">{{$biz->rating_count}} {{ Str::plural('review', $biz->rating_count)}}</p>
                                         </div>
                                     </figure>
-                                    <h4><a href="/review/biz/{{$biz->slug}}">{{$biz->name}}</a></h4>
+                                    <h4><a href="/biz/profile/{{$biz->slug}}/{{$biz->id}}">{{$biz->name}}</a></h4>
                                     <p class="biz-tagline m10-bttm text-left">{{$biz->description}}</p>
                                     <p class="m5-bttm"><span class="p0-bttm">@foreach( $biz->subcats as $sub) <span><a class="btn btn-border btn-xs" href="/biz/subcat/{{$sub->slug}}">
                                                     <i class="fa fa-tags"></i> {{$sub->name}}</a></span> @endforeach</span>
@@ -120,7 +120,7 @@
                     @foreach ($recentBiz as $recent)
                         <div class="item">
                             <div class="single-product">
-                                <a href="/review/biz/{{$recent->slug}}">
+                                <a href="/biz/profile/{{$recent->slug}}/{{$recent->id}}">
                                     <figure>
                                         <img src="{{asset('img/content/office.png')}}" alt="">
                                         <div class="rating">

@@ -18,7 +18,7 @@ abstract class Mailer
 	{
 		\Mail::queue($view, ['data' =>$data ], function ($message) use($sender,$subject,$users)
         {
-            $message->from($sender, '27colours')
+            $message->from($sender, 'Beazea')
             		->subject($subject)
 					->to($users);
 

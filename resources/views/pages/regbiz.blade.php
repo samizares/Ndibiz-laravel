@@ -45,7 +45,7 @@
                   </div>
                   {{--TAGLINE--}}
                   <div class="form-group">
-                      <label for="cat" class="col-md-3 control-label">Tagline</label>
+                      <label for="cat" class="col-md-3 control-label">Tagline/Slogan</label>
                       <div class="col-md-8">
                           <input type="text" id="tagline" name="tagline" class="form-control" placeholder="e.g. Bar & Nightclub" value="{{ old('tagline')}}">
                       </div>
@@ -343,7 +343,7 @@
             model.empty();
            $.get('{{ URL::to('api/lga')}}', {z: $(this).val()}, function(result){
              $.each(result.data,function(){
-                              $('#lga').append('<option value="'+this.id+'">'+this.text+'</option>');
+                              $('#lga').append('<option value="'+this.text+'">'+this.text+'</option>');
 
                  });
            });
@@ -375,6 +375,7 @@
        
          $("#lga").select2({
           placeholder: 'select a state first',
+          tags:true
         });
         
   </script>

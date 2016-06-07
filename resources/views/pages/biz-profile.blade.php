@@ -74,21 +74,36 @@
                         {{--PROFILE OVERVIEW--}}
                         <div class="row profile-overview">
                             @include('partials.notifications')
+                            @if (Session::has('alert'))
+        <div class="bs-info" style="text-align:center">
+            <div class="alert {{session('alert_type')}} fade in">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+               {{Session::get('alert')}}
+             </div>
+        </div>
+        @endif
                             <div class="col-md-9">
                                 {{--ADDRESS--}}
-                                <p class="biz-profile-address"><i class="fa fa-map-marker"></i> <span>{{$biz->address->street}}
+                                <p class="biz-profile-address"><i class="fa fa-map-marker"></i> <span>
+                                {{$biz->address->street}}
                                     </span>, <span>{{$biz->address->lga->name}}</span>, <span>{{ $biz-> address->state->name}}</span>, Nigeria.</p>
                                 {{--PHONE 1--}}
-                                <p class="biz-profile-phone1"><i class="fa fa-phone"></i> (+234)-{{$biz->address->phone1}}</p>
+                                <p class="biz-profile-phone1"><i class="fa fa-phone"></i> {{$biz->address->phone1}}</p>
                                 {{--PHONE 2--}}
-                                <p class="biz-profile-phone2"> <i class="fa fa-phone"></i> (+234)-{{$biz->address->phone2}}</p>
+                                <p class="biz-profile-phone2"> <i class="fa fa-phone"></i> {{$biz->address->phone2}}</p>
                                 {{--WEBSITE--}}
                                 <p class="biz-profile-site"><i class="fa fa-external-link"></i> <a class="link"
                                    href="{{$biz->website}}" target="_blank">{{$biz->website}}</a></p>
                                 {{--CATEGORIES--}}
-                                <p class="biz-profile-cats m5-bttm"><i class="fa fa-tags" style="margin-top:2px;"></i> @foreach($biz->cats as $cat)<span>
+                                <p class="biz-profile-cats m5-bttm"><i class="fa fa-tags" style="margin-top:2px;"></i> @if( $biz->cats->isEmpty())
+                                                @else
+                                             @foreach($biz->cats as $cat)<span>
                                         <a class="btn btn-border" href="#">{{$cat->name}}</a></span> @endforeach
-                                    @foreach($biz->subcats as $sub)<span><a class="btn btn-border" href="#">{{$sub->name}}</a></span>@endforeach</p>
+                                        @endif
+                                    @if( $biz->subcats->isEmpty())
+                                    @else
+                                    @foreach($biz->subcats as $sub)<span><a class="btn btn-border" href="#">{{$sub->name}}</a></span>@endforeach
+                                    @endif</p>
                                 <hr class="hidden-lg hidden-md hidden-sm">
                             </div>
                             {{--ACTION BUTTONS--}}
@@ -248,6 +263,10 @@
                                                 </div>
                                                 @include('admin.partials.errors')
                                                 @include('admin.partials.success')
+
+                                                @if($reviews->isEmpty())
+                                                <p>No reviews for this business here,you can add now!!!</p>
+                                                @else
                                                 @foreach($reviews as $review)
                                                     <hr>
                                                     <div class="single-content">
@@ -260,7 +279,9 @@
                                                         </div>
                                                         <div class="rating-details">
                                                             <div class="meta">
-                                                                <a href="#"><strong>{{$review->user->username  }}</strong></a>
+                                                                <a href="#"><strong>
+                                                                @if(isset($review->user))
+                                                                {{$review->username  }}@endif</strong></a>
                                                                 - {{ $review->timeago}}
                                                             </div>
                                                             <div class="content">
@@ -269,6 +290,7 @@
                                                         </div>
                                                     </div> <!-- end .single-content -->
                                                 @endforeach
+                                                @endif
                                                 {!! $reviews->render() !!}
                                             </div> <!-- end .rating-with-details -->
                                         </div> <!-- end .company-rating -->
@@ -279,9 +301,13 @@
                                           <h3 class="text-uppercase m10-top">Gallery</h3>
                                           <div class="row">
                                                 <div id="nanoGallery3">
+                                                @if($biz->photos->isEmpty())
+                                                  <p>No photos for this business</p>
+                                                  @else
                                                     @foreach($biz->photos as $photo)
                                                         <a href="{{$photo->path}}" data-ngthumb="{{$photo->path}}" data-ngdesc="Description1">Title Image1</a>
                                                     @endforeach
+                                                    @endif
                                                 </div>
                                           </div> <!-- end .row -->
                                         </div> <!-- end .company-product -->
@@ -309,8 +335,8 @@
                                                         <div class="address-details clearfix">
                                                             <i class="fa fa-phone"></i>
                                                             <p>
-                                                                <span> (+234)-{{$biz->address->phone1}}</span>
-                                                                <span> (+234)-{{$biz->address->phone2}}</span>
+                                                                <span> {{$biz->address->phone1}}</span>
+                                                                <span> {{$biz->address->phone2}}</span>
                                                             </p>
                                                         </div>
                                                         {{--EMAIL & WEBSITE--}}
@@ -322,7 +348,7 @@
                                                             </p>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-12">
+                                                 {{--  <div class="col-md-12">
                                                         <div class="opening-hours table-responsive p10 text-center">
                                                             <h3 class="m0 p0"><i class="fa fa-clock-o"></i> Opening Hours</h3>
                                                             <table class="table">
@@ -354,7 +380,7 @@
                                                                 </tbody>
                                                             </table>
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
                                               </div>
                                             {{--CONTACT FORM--}}
                                             <div class="row">

@@ -18,7 +18,7 @@
                         <h3><a href="/admin">Admin</a> <small>» Business Listings({{ $totalBiz}})</small></h3>
                     </div>
                     <div class="col-md-6 text-right m20-top">
-                        <a href="/admin/biz/create" class="btn btn-default-inverse btn-md">
+                        <a href="/biz/create" class="btn btn-default-inverse btn-md">
                             <i class="fa fa-plus-circle"></i> New Business
                         </a>
                     </div>
@@ -41,6 +41,9 @@
                         </tr>
                         </thead>
                         <tbody>
+                        @if($bizs->isEmpty())
+                        <p>No business</p>
+                        @else
                         @foreach ($bizs as $biz)
                             <tr>
                                 <td>{{ $biz-> name }}</td>
@@ -70,6 +73,7 @@
                                 </td>
                             </tr>
                         @endforeach
+                        @endif
                         </tbody>
                     </table>
                 </div>
@@ -156,14 +160,7 @@
                         alert('Error Processing your Request!!');
                     }
                 });
-                /*  type:'text',
-                 title:'Edit Featured',
-                 url: '{{ URL::to('api/featured')}}',
-                 pk: '{{$biz->id}}',
-                 ajaxOptions: {
-                 dataType: 'json'
-                 }  */
-
+    
             });
         });
         $(document).ready(function () {

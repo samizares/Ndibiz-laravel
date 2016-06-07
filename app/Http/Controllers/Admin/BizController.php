@@ -15,6 +15,7 @@ use App\SubCat;
 use App\Biz_Subcat_pivot;
 use App\Cat;
 use App\BusinessHour;
+use App\Events\BizWasDeleted;
 class BizController extends Controller
 {
     /**
@@ -53,7 +54,7 @@ class BizController extends Controller
      */
     public function store(BusinessRegRequest $request)
     {
-       // dd($request->input('sub'));
+        dd($request->all());
         $biz = new Biz();
         $biz->name =         $request->input('name');
         $biz->contactname=   $request->input('contactname');
@@ -64,9 +65,20 @@ class BizController extends Controller
         $biz->user_id=       \Auth::id();
         $biz->save();
 
+        $area=$request->get('lga');
+        if($existingArea=Lga::where('name',$area)->first())
+        {
+            $newArea=$existingArea;
+        }
+        else{
+            $newArea=new Lga();
+            $newArea->name=$area;
+            $newArea->save();
+        }
+
         $add= new Address();
         $add->street= $request->input('address');
-        $add->lga_id= $request->input('lga');
+        $add->lga_id= $newArea->id;
         $add->state_id=$request->input('state');
         $add->biz_id= $biz->id;
         $add->save();
@@ -78,19 +90,19 @@ class BizController extends Controller
         $subs= $request->input('sub');
         $biz->subcats()->sync($subs);
 
-        $lga=$request->input('lga');
-        $biz->lgas()->attach($lga);
+        //$lga=$request->input('lga');
+        $biz->lgas()->attach($newArea->id);
 
         $state=$request->input('state');
         $biz->states()->attach($state);
 
-        $mon = BusinessHour::create(['day' => 'MON','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
-        $tue = BusinessHour::create(['day' => 'TUE','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
-        $wed = BusinessHour::create(['day' => 'WED','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
-        $thu = BusinessHour::create(['day' => 'THU','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
-        $fri = BusinessHour::create(['day' => 'FRI','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
-        $sat = BusinessHour::create(['day' => 'SAT','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
-        $sun = BusinessHour::create(['day' => 'SUN','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
+        //$mon = BusinessHour::create(['day' => 'MON','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
+       // $tue = BusinessHour::create(['day' => 'TUE','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
+       // $wed = BusinessHour::create(['day' => 'WED','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
+       // $thu = BusinessHour::create(['day' => 'THU','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
+       // $fri = BusinessHour::create(['day' => 'FRI','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
+       // $sat = BusinessHour::create(['day' => 'SAT','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
+       // $sun = BusinessHour::create(['day' => 'SUN','open_time'=>9,'close_time'=>5,'biz_id'=>$biz->id]);
 
        
         return redirect('/admin/biz')
@@ -124,7 +136,7 @@ class BizController extends Controller
         $subList= SubCat::lists('name','id');
        // dd($subList);
         $stateList= State::lists('name','id');
-        $lgaList= Lga::lists('name','id');
+        $lgaList= Lga::lists('name','name');
         //$area= Address::lists
 
         //dd($biz->address->state->name);
@@ -156,17 +168,30 @@ class BizController extends Controller
         $biz->website=       $request->input('website');
         $biz->phone1=        $request->input('phone1');
         $biz->phone2=        $request->input('phone2');
-        $biz->user_id=       \Auth::id();
+        //No need to update the user
+        //$biz->user_id=       \Auth::id();
         $biz->save();
+
+        //get the lga/region of the business
+        $area=$request->get('lga');
+        if($existingArea=Lga::where('name',$area)->first())
+        {
+            $newArea=$existingArea;
+        }
+        else{
+            $newArea=new Lga();
+            $newArea->name=$area;
+            $newArea->save();
+        }
 
         $add= Address::where('biz_id', $biz->id)->first();
         $add->street= $request->input('address');
-        $add->lga_id= $request->input('lga');
+        $add->lga_id= $newArea->id;
         $add->state_id=$request->input('state');
         $add->save();
 
-        $lga=$request->input('lga');
-        $biz->lgas()->attach($lga);
+        //store the link between biz and lga/region
+        $biz->lgas()->attach($newArea->id);
         
         $state=$request->input('state');
         $biz->states()->attach($state);
@@ -189,22 +214,7 @@ class BizController extends Controller
        
         $biz->cats()->sync($category);
         $subs= $request->input('sub');
-        // $real= [];
-
-        // $biz->subcats()->delete();
-         /* foreach ($subs as $sub) {
-            if( $existingSub = SubCat::where('name', $sub)->first()) {
-                 $real[]= $existingSub;
-                }
-                 else{
-                     $newSub = new SubCat();
-                     $newSub ->name = $sub;
-                     $newCat->save();
-                     $real[]=$newSub;
-                 }
-            }
-                $biz->subcats()->saveMany($real);  */
-       $biz->subcats()->sync($subs);
+        $biz->subcats()->sync($subs);
 
         return redirect("/admin/biz/")
         ->withSuccess("Changes Updated");
@@ -218,11 +228,17 @@ class BizController extends Controller
      */
     public function destroy($id, Request $request)
     {
-        dd($request->all());
+        //find the business
         $biz = Biz::findOrFail($id);
+        //Find all the categories linking this biz
         $cat= $biz->cats->lists('id')->all();
-       // dd($cat);
+        //Find all the subcategories linking this business
         $sub= $biz->subcats->lists('id')->all();
+        //Find the Lga/region of the business
+        $lga=$biz->address->lga_id;
+        //Find the state ID of the business
+        $state_id=$biz->address->state_id;
+
         $biz->cats()->detach($cat);
         $biz->subcats()->detach($sub);
         $biz->address()->delete();
@@ -234,17 +250,12 @@ class BizController extends Controller
 
      public function deleteBiz(Request $request)
     {
-       // dd($request->all());
+       // get the ID of the business
         $bizId =$request->get('yes');
+        //find the business, so we can clean up the database
         $biz= Biz::findorFail($bizId);
-        $cat= $biz->cats->lists('id')->all();
-        $sub= $biz->subcats->lists('id')->all();
-        $biz->cats()->detach($cat);
-        $biz->subcats()->detach($sub);
-        $biz->address()->delete();
-        $biz->delete();
+        \Event::fire(new BizWasDeleted($biz));
 
-    return redirect('/admin/biz')
-        ->withSuccess("The business '$biz->name' has been deleted.");
+        
     }
 }

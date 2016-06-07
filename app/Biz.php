@@ -125,7 +125,7 @@ class Biz extends Model
 
     public function profilePhoto()
     {
-        return $this->hasOne('App\BizProfilePhoto');
+        return $this->hasOne('App\BizProfilePhoto','biz_id');
     }
 
     public function claim()

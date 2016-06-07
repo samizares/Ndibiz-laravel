@@ -15,7 +15,7 @@
             <div class="col-md-12">
                 <div class="row page-title-row">
                     <div class="col-md-6">
-                        <h3><a href="/admin">Admin</a> <small>» Categories ({{ $totalCat}})</small></h3>
+                        <h3><a href="/admin">Admin</a> <small> » Categories ({{ $totalCat}})» Subcategories({{$totalSub}})</small></h3>
                     </div>
                     <div class="col-md-6 text-right">
                         <h3><a href="/admin/cat/create" class="btn btn-default-inverse btn-md">

@@ -24,8 +24,6 @@ Route::get('report', 'UsersController@report');
 Route::post('claimbiz/{id}', 'UsersController@claimbiz');
 Route::post('deleteFav', 'UsersController@deletefav');
 Route::post('deleteClaimed', 'UsersController@deleteclaim');
-Route::post('biz/{id}/upload','HomeController@bizphotos');
-Route::post('bizprofile/{id}/photo', 'HomeController@bizprofilephoto');
 
 Route::get('categories', 'HomeController@categories');
 Route::get('businesses', 'HomeController@businesses');
@@ -44,14 +42,21 @@ Route::get('favourites', 'HomeController@favours');
 Route::delete('favourites/{biz_id}', 'HomeController@unfavoured');
 Route::get('users/{userId}/favourites', 'HomeController@favourites');
 
+Route::resource('biz', 'BizController');
+
 //Route::get('bizreg', 'HomeController@regbiz');
-Route::get('review/biz/{slug}', 'HomeController@getBizreview');
+Route::get('biz/profile/{slug}/{id}', 'HomeController@getBizreview')->name('bizprofile');
+Route::post('bizprofile/{id}/photo', 'HomeController@bizprofilephoto');
+Route::post('biz/{id}/upload','HomeController@bizphotos');
 Route::post('review/biz/{id}', 'HomeController@postReview');
 Route::get('biz/subcat/{slug}', 'HomeController@bizSub');
 Route::get('biz/cat/{slug}', 'HomeController@bizCat');
 
 Route::post('reportBiz','BizController@reportBiz');
-Route::resource('biz', 'BizController');
+
+Route::get('/error',function(){
+   abort(404);
+});
 
 //Route::get('search', 'HomeController@search');
 Route::get('auth/register', 'Auth\AuthController@getRegister');
@@ -62,7 +67,9 @@ Route::get('activate/{confirmation_code}', 'Auth\AuthController@activateAccount'
 Route::get('confirm','HomeController@confirm');
 Route::get('auth/logout', 'Auth\AuthController@getLogout');
 
+Route::get('testing/email/view','EmailController@checkView');
 Route::get('testing/email','EmailController@sendTest');
+Route::get('confirmation/resend','EmailController@resendConfirmation');
 
 Route::get('api/location', 'ApiController@location');
 Route::get('api/ajax/location', 'ApiController@ajxlocation');

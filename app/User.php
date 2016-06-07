@@ -13,6 +13,7 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract
 {
     use Authenticatable, CanResetPassword;
+    public $sessionValue=null;
 
     public function updateCredentials($input)
     {
@@ -33,7 +34,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @var array
      */
     protected $fillable = ['username', 'email', 'password', 'confirmation_code','gender','first_name',
-        'last_name','facebookID','facebook'];
+        'last_name'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -99,18 +100,17 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
      public function updateCreateUser($userData)
     {   
-        
+        //dd($userData->avatar_original);
         $mailer=new UserMailer();
         $user = User::where('email',$userData->email)->first();
         if( $user )
         {
 
-            $oldUser=$this->updateUser($user,$userData);
+            $oldUser=$this->updateUser($user,$userData,$mailer);
             return $oldUser;
-                return redirect('/profile');
         }
         else{
-              if( ! isset($userData->email) || ! $userData->user['verified'])
+              if( ! isset($userData->email) || ! isset($userData->user['verified']))
                  {
                     \Session::flash('error', 'Your email is not set/verified in Facebook, please register by providing your email and password below.');
                     return redirect('register');
@@ -119,12 +119,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
                 $user2= $this->creatNewUser($userData); 
                 $user2->confirmed=1;          
                 $user2->save();
-                $mailer->facebookWelcome($user2);
+               // $mailer->facebookWelcome($user2);
             return $user2;
         }
     }
 
-    public function updateUser($user, $userData)
+    public function updateUser($user, $userData,$mailer)
     {
         if(isset($userData->nickname))
             {
@@ -146,30 +146,27 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
                 $user->gender= $userData->user['gender'];
                 
             }
-            if(isset($userData->user['link']))
+
+            if (isset($userData->avatar_original))
             {
-                $user->facebook=$userData->user['link'];
-            }
-
-            if(isset($userData->id))
-            {
-                $user->facebookID= $userData->id;
-
-            }
-
-
-            if (isset($userData->avatar))
-            {
+                if(! isset($user->profilePhoto))
+                {
                 $pic = new ProfilePhoto();
-                $pic->image=$userData->avatar;
+                $pic->image=$userData->avatar_original;
                 $user->profilePhoto()->save($pic);
+                }
+                else{
+                $pic2=ProfilePhoto::where('image',$user->profilePhoto->image)->first();
+                $pic2->image=$userData->avatar_original;
+                $user->profilePhoto()->save($pic2);
+                }
 
-             }
+            }
              if(!isset($user->confirmed))
-             {
+            {
                 $mailer->facebookWelcome($user);
                  $user->confirmed=1;
-             }
+            }
              $user->sessionValue='You logged in with Facebook';
                 $user->save();
              return $user;
@@ -182,16 +179,14 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
                  'email' =>$userData->email,
                  'first_name'=>$userData->user['first_name'],
                  'last_name'=>$userData->user['last_name'],
-                 'gender'=>$userData->user['gender'],
-                 'facebook'=>$userData->user['link'],
-                 'facebookID'=>$userData->id
+                 'gender'=>$userData->user['gender']
             ]);
 
-            if ($userData->avatar)
+            if (isset($userData->avatar_original))
             {
 
                 $picc = new ProfilePhoto();
-                $picc->image=$userData->avatar;
+                $picc->image=$userData->avatar_original;
                 $newUser->profilePhoto()->save($picc);                
             }
 
