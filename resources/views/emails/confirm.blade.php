@@ -32,7 +32,7 @@
                     <!-- inner breadcrumb -->
                     <div class="row p10-bttm page-title-row">
                         <div class="col-md-8">
-                            <h3 class="m0-top"><a href="/"><i class="fa fa-home"></i> </a> » <small class="text-capitalize">About Us</small></h3>
+                            <h3 class="m0-top"><a href="/"><i class="fa fa-home"></i> </a> » <small class="text-capitalize">Confirmation</small></h3>
                         </div>
                         <div class="col-md-4 text-right"></div>
                     </div>

@@ -9,7 +9,7 @@ use App\Biz;
 
 class BizWasDeleted extends Event
 {
-    public $biz;
+    public $biz_id;
     use SerializesModels;
 
     /**
@@ -17,9 +17,9 @@ class BizWasDeleted extends Event
      *
      * @return void
      */
-    public function __construct(Biz $biz)
+    public function __construct($biz_id)
     {
-        $this->biz =$biz;
+        $this->biz_id =$biz_id;
     }
 
     /**

@@ -18,10 +18,12 @@ abstract class Mailer
 	{
 		\Mail::queue($view, ['data' =>$data ], function ($message) use($sender,$subject,$users)
         {
-            $message->from($sender, 'Beazea')
+            $message->from($sender, '27colours')
             		->subject($subject)
 					->to($users);
 
         });
 	}
+
+	
 }

@@ -5,10 +5,11 @@ namespace App\Listeners;
 use App\Events\BizWasDeleted;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Biz;
 
 class BizWasDeletedlistener
 {
-    protected $biz;
+    protected $biz_id;
     /**
      * Create the event listener.
      *
@@ -27,40 +28,38 @@ class BizWasDeletedlistener
      */
     public function handle(BizWasDeleted $event)
     {
-        $this->biz=$event->biz;
+        $this->biz_id=$event->biz_id;
+        $biz=Biz::where('id',$this->biz_id)->first();
         //find array of categories ID linking this business
-        $cat= $this->biz->cats->lists('id')->all();
+        $cat= $biz->cats->lists('id')->all();
         //find array of subcategories ID linking this business
-        $sub= $this->biz->subcats->lists('id')->all();
+        $sub= $biz->subcats->lists('id')->all();
         //Find the LGA/Region ID  of the buiness
-        $area_id=$this->biz->address->lga_id;
+        $area_id=$biz->address->lga_id;
         //find the state ID of the business
-        $state_id=$this->biz->address->state_id;
+        $state_id=$biz->address->state_id;
         //find all the photos for the biz
-        $photos=$this->biz->photos();
+        $photos=$biz->photos();
         //Detach the categories from biz,that is deleting their pivot table link
-        $this->biz->cats()->detach($cat);
+        $biz->cats()->detach($cat);
         //Detach the area/region ID from the biz.
-        $this->biz->lgas()->detach($area_id);
+        $biz->lgas()->detach($area_id);
         //Detach the stateID from the business
-        $this->biz->states()->detach($state_id);
+        $biz->states()->detach($state_id);
         //Detach the subcategories from the biz
-        $this->biz->subcats()->detach($sub);
+        $biz->subcats()->detach($sub);
         //Delete the address of the biz from the address table
-        $this->biz->address()->delete();
+        $biz->address()->delete();
         //Delete all photos associated with photos
-        if(isset($this->photos))
+        if(isset($biz->photos))
         {
-             $this->biz->photos()->delete();
+             $biz->photos()->delete();
         }
         //Delete the profile picture associated with the biz
-        if(isset($this->biz->profilePhoto))
+        if(isset($biz->profilePhoto))
         {
-            $this->biz->profilePhoto()->delete();
+            $biz->profilePhoto()->delete();
         }
-        $this->biz->delete();
-
-    return redirect('/admin/biz')
-        ->withSuccess("The business has been deleted.");
+        $biz->delete();
     }
 }

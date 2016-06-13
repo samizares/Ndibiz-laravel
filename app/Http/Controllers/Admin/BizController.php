@@ -251,10 +251,12 @@ class BizController extends Controller
      public function deleteBiz(Request $request)
     {
        // get the ID of the business
-        $bizId =$request->get('yes');
+        $biz_id =$request->get('yes');
         //find the business, so we can clean up the database
-        $biz= Biz::findorFail($bizId);
-        \Event::fire(new BizWasDeleted($biz));
+       // $biz= Biz::findorFail($bizId);
+        \Event::fire(new BizWasDeleted($biz_id));
+        return redirect('/admin/biz')
+        ->withSuccess("The business has been deleted.");
 
         
     }
