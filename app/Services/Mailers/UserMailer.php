@@ -81,7 +81,7 @@ class UserMailer extends Mailer
       $subject='A new user '.$user->username.' has been registered';
       $view='emails.informAdmin_user';
       $sender='info@beazea.com';
-      $admins='support@beazea.com';
+      $admins='samizares@beazea.com';
       $this->sendTo($admins, $view, $data, $subject,$sender);
 
 
@@ -90,7 +90,7 @@ class UserMailer extends Mailer
      public function informAdminBiz($biz)
     {
       $data=[];
-      $data['title']=$biz->title;
+      $data['name']=$biz->name;
       //$owner_id=
       $data['owner']=$biz->ownerbiz->username;
       $data['profile_link']=url('/biz/profile/'.$biz->slug.'/'.$biz->id);
@@ -98,7 +98,7 @@ class UserMailer extends Mailer
       $subject='A new business '.$biz->title.' has been registered by '.$data['owner'];
       $view='emails.informAdmin_biz';
       $sender='info@beazea.com';
-      $admins='support@beazea.com';
+      $admins='samizares@beazea.com';
       $this->sendTo($admins, $view, $data, $subject,$sender);
 
     }

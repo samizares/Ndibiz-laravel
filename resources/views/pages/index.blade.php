@@ -122,7 +122,8 @@
                             <div class="single-product">
                                 <a href="/biz/profile/{{$recent->slug}}/{{$recent->id}}">
                                     <figure>
-                                        <img src="{{asset('img/content/office.png')}}" alt="">
+                                        <img src="{{isset($recent->profilePhoto->image) ? asset($recent->profilePhoto->image) :
+                                               asset('img/content/office.png') }}" alt="">
                                         <div class="rating">
                                             <ul class="list-inline">
                                                 <li>

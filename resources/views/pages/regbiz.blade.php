@@ -63,16 +63,14 @@
                       <div class="col-md-8">
                           <select id="cat3" name="cats[]" multiple class="form-control" required="required">
                           <option></option>  
-                              @if(old('cats'))
-                                
-                                  <option selected value="">Choose Again</option>
-                                         
-                              @else
+                            
                                 @foreach ($catList as $key =>$value)
-                                  <option value="{{$key}}">{{ $value }}</option>
-                                @endforeach
-                              @endif
-                                 
+                                    @if(old('cats') == $key) 
+                                     <option selected value="{{ $key }}">{{ $catList[$key] }}</option>   
+                                    @else
+                                     <option value="{{$key}}">{{ $value }}</option>
+                                    @endif
+                                @endforeach                 
                              </select>
                       </div>
                   </div>

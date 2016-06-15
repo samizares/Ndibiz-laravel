@@ -28,7 +28,7 @@ class UsersController extends Controller
     {
         $cats = Cat::all();
         $user= User::where(['username'=>$username,'id'=>$id])->first();
-        $owner= $user->claims;
+        $owner= $user->claims()->orderBy('created_at', 'desc')->get();
         $bizs= $user->favours;
         $favourites=\DB::table('favourites')->whereUserId(\Auth::user()->id)->lists('biz_id');
         //$bizs = Biz::orderBy('created_at', 'desc')->paginate(6);

@@ -170,7 +170,7 @@
                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                     <td align="center" valign="top" class="featured-text" style="border-collapse: collapse; color: #fba92b; font-family: 'Arial', 'Helvetica', sans-serif; font-size: 30px; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; line-height: 30px; mso-line-height-rule: exactly; text-decoration: none;">
-                                        {{$data['title']}}
+                                        {{$data['name']}}
                                     </td>
                                 </tr>
                             </table>

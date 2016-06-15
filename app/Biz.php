@@ -86,6 +86,11 @@ class Biz extends Model
        return $this->belongsToMany('App\Lga','biz_lga_pivot','biz_id', 'lga_id');
     }
 
+    public function profilePhoto()
+    {
+        return $this->hasOne('App\BizProfilePhoto','biz_id');
+    }
+
     public function recalculateRating()
   {
       $reviews = $this->reviews()->notSpam()->approved();
@@ -121,11 +126,6 @@ class Biz extends Model
     public function photos()
     {
       return $this->hasMany('App\BizPhoto');
-    }
-
-    public function profilePhoto()
-    {
-        return $this->hasOne('App\BizProfilePhoto','biz_id');
     }
 
     public function claim()
