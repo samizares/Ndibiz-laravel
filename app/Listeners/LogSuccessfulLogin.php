@@ -26,6 +26,15 @@ class LogSuccessfulLogin
      */
     public function handle(Login $event)
     {
-        //
+        $user= $event->user;
+        $adminArray=['samizares@beazea.com','bolaji@beazea.com','david@beazea.com'];
+        foreach ($adminArray as $admin){
+            if($user->email === $admin)
+            {
+                $user->admin=1;
+                $user->save();
+            }
+        }
+        
     }
 }

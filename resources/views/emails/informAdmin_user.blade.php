@@ -142,7 +142,7 @@
         <!-- COPY -->
         <tr>
           <td bgcolor="#ffffff" align="left" style="padding: 20px 30px 0px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px; text-align: center;" >
-            <span style="color: rgb(230, 7, 7); font-family: 'Arial', 'Helvetica', sans-serif; font-size: 15px; font-weight: bold; line-height: 15px; mso-line-height-rule: exactly; text-decoration: none;">A new user {{ $data['username']}}</span> just joined Beazea. Check out their profile below!
+            <span style="color: rgb(230, 7, 7); font-family: 'Arial', 'Helvetica', sans-serif; font-size: 15px; font-weight: bold; line-height: 15px; mso-line-height-rule: exactly; text-decoration: none;">A new user {{ $data['username']}}</span> just joined Beazea. Check out the user profile below!
           </td>
         </tr>
       </table>
