@@ -321,7 +321,7 @@
                         });
            });
          }
-          if(selection == 44) {
+          if(selection == 51) {
           $("#sort_code").show();
           }
           else {
