@@ -4,6 +4,7 @@ use Laravel\Socialite\Contracts\Factory as Socialite;
 use Illuminate\Http\Request;
 //use Illuminate\Contracts\Auth\Authenticatable as Authenticatable;
 use App\User;
+use App\Events\UserRegistered;
 
 
 class AuthenticateUser{
