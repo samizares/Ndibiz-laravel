@@ -63,7 +63,7 @@ Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
-Route::get('activating/profile/{code}', 'UsersController@activateAccount');
+Route::get('activating/profile/{code}', 'UsersController@activate');
 Route::get('confirm','HomeController@confirm');
 Route::get('auth/logout', 'Auth\AuthController@getLogout');
 

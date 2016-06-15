@@ -268,7 +268,7 @@ class UsersController extends Controller
          else{
             session()->flash('alert','Sorry,you are already activated');
               session()->flash('alert_type','alert-danger');
-                return redirect('/profile/'.$user->username.'/'.$user->id);
+                  return redirect('/profile/'.$user->username.'/'.$user->id);
               
          }
     }
