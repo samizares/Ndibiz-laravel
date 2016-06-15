@@ -9,7 +9,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 class UserWasRegistered extends Event
 {
     use SerializesModels;
-    public $userId;
+    public $id;
 
     /**
      * Create a new event instance.
@@ -18,7 +18,7 @@ class UserWasRegistered extends Event
      */
     public function __construct($id)
     {
-        $this->userId= $id;
+        $this->id= $id;
     }
 
     /**

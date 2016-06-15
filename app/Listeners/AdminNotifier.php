@@ -10,7 +10,7 @@ use App\User;
 
 class AdminNotifier
 {
-    protected $userID;
+    protected $id;
     protected $mailer;
     /**
      * Create the event listener.
@@ -30,7 +30,7 @@ class AdminNotifier
      */
     public function handle(UserWasRegistered $event)
     {
-        $user= User::where('id',$event->userID)->first();
+        $user= User::where('id',$event->id)->first();
         $this->mailer->informAdminUser($user);
     }
 }
