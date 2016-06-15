@@ -91,7 +91,7 @@ class UserMailer extends Mailer
     {
       $data=[];
       $data['name']=$biz->name;
-      //$owner_id=
+      $data['area']=$biz->address->lga->name;
       $data['owner']=$biz->ownerbiz->username;
       $data['profile_link']=url('/biz/profile/'.$biz->slug.'/'.$biz->id);
       $data['biz_image']=isset($biz->profilePhoto) ? asset($biz->profilePhoto->image) : asset('img/finish4.PNG');
