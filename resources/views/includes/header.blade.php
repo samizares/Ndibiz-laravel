@@ -25,7 +25,7 @@
                   <span class="fa fa-user fa-fw"></span> {{Auth::user()->username}}<span class="fa fa-angle-down">
                 </span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="/profile/{{Auth::user()->id}}"><i class="fa fa-user"></i> View Profile</a></li>
+                    <li><a href="/profile/{{Auth::user()->username}}/{{Auth::user()->id}}"><i class="fa fa-user"></i> View Profile</a></li>
                     @if(Auth::check())
                         @if(Auth::user()->admin)
                             <li><a href="/admin"><i class="fa fa-user"></i> View Admin Dashboard</a></li>

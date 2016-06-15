@@ -76,7 +76,10 @@ class BizController extends Controller
     public function store(BusinessRegRequest $request)
     {
         $data=$request->all();
-        event(new BizWasAdded($data));
+        $biz=$this->saveBiz($data);
+         event(new BizWasAdded($biz->id));
+
+         return redirect()->route('bizprofile',['slug'=>$biz->slug,'id'=>$biz->id])->withSuccess('A new business has been added.');
        /**dd($request->all());
         $data=$request->all();
         event(new BizWasAdded($data));
@@ -227,5 +230,88 @@ class BizController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function saveBiz(Array $request)
+    {
+        $biz = new Biz();
+        $biz->name =         $request['name'];
+        $biz->tagline=       $request['tagline'];
+        $biz->description=   $request['description'];
+        $biz->contactname=   $request['contactname'];
+        $biz->website=       $request['website'];
+      
+        $user= \Auth::user();
+        $biz->user_id= $user->id;
+        $biz->save();
+
+        //Change biz to cliamed and status to pending if a Non-admin registered the business
+        //because the business needs to be verified even though it has been claimed already.
+        if(! isset($user->admin))
+        {
+        $biz2= Biz::where('id', $biz->id)->first();
+            $biz2->claimed=1;
+            $biz2->status="pending";
+            $biz2->owner =$user->id;
+        $biz2->save();
+        }
+
+        //store user added or system generated local government area/or region 
+        $area=$request['lga'];
+        if($existingArea=Lga::where('name',$area)->first())
+        {
+            $newArea=$existingArea;
+        }
+        else{
+            $newArea=new Lga();
+            $newArea->name=$area;
+            $newArea->save();
+        }
+
+        //store the adress in the address table and link to the specific business
+        $add= new Address();
+        $add->street= $request['address'];
+        $add->email=  $request['email'];
+        $add->phone1= $request['phone1'];
+        $add->phone2= $request['phone2'];    
+        $add->state_id=$request['state'];
+        $add->lga_id= $newArea->id;
+
+        //Check if a bank is added
+        if( isset($request['sort_code']))
+        {
+            $add->sortcode=$request['sort_code'];
+        }
+        $add->biz_id= $biz->id;
+        $add->save();
+
+         //add the lists of categories and subcategories and link to biz
+        $category=$request['cats'];       
+        $biz->cats()->sync($category);
+        $subs= $request['sub'];
+        $biz->subcats()->sync($subs);
+
+        //LINK THE BUSINESS TO THE LGA/REGION
+        $biz->lgas()->attach($newArea->id);
+
+        $state=$request['state'];
+        $biz->states()->attach($state);
+
+        if(isset($request['image']))
+        {
+            $image= $request['image'];
+            $name= time(). $image->getClientOriginalName();
+            $image->move('bizz/profile', $name);
+            $pic= new BizProfilePhoto;
+            $pic->image ='bizz/profile/'.$name;
+            $biz->profilePhoto()->save($pic);
+        }
+        
+           $biz->save();
+           return $biz;
+        
+    
+         
+    
     }
 }

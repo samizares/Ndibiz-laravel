@@ -20,7 +20,7 @@ class EmailController extends Controller
     }
     public function checkView()
     {
-        return view('emails.facebookWelcome');
+        return view('emails.informAdmin_biz');
     }
 
     public function sendTest()

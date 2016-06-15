@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Beazea</title>
+  <title>27Colours</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -13,6 +13,13 @@
         font-style: normal;
         font-weight: 400;
         src: local('Lato Regular'), local('Lato-Regular'), url(https://fonts.gstatic.com/s/lato/v11/qIIYRU-oROkIk8vfvxw6QvesZW2xOQ-xsNqO47m55DA.woff) format('woff');
+      }
+
+      @font-face {
+        font-family: 'mdi';
+        font-style: normal;
+        font-weight: 400;
+        src: local('mdi'), local('mdi'), url(https://cdn.materialdesignicons.com/1.6.50/css/materialdesignicons.min.css) format('icon');
       }
 
       @font-face {
@@ -79,7 +86,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
   <!-- LOGO -->
   <tr>
-    <td bgcolor="#fff" align="center">
+    <td bgcolor="#fdc600" align="center">
       <!--[if (gte mso 9)|(IE)]>
       <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
         <tr>
@@ -112,7 +119,7 @@
       <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;" >
         <tr>
           <td bgcolor="#ffffff" align="center" valign="top" style="padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 0px; color: #111111; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; line-height: 48px;">
-            <h1 style="font-size: 48px; font-weight: 400; margin: 0;">Welcome {{ $data['username']}}!</h1>
+            <h1 style="font-size: 48px; font-weight: 400; margin: 0;">Hi Admin!</h1>
           </td>
         </tr>
       </table>
@@ -134,49 +141,8 @@
       <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;" >
         <!-- COPY -->
         <tr>
-          <td bgcolor="#ffffff" align="left" style="padding: 20px 30px 40px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
-            <p style="">Thanks for registering with Beazea.com. You are one step away from letting the world know about your business.</p>
-            <p style="margin: 0;">We're really excited to have you get started. First, you need to confirm your email. Just press the button below.</p>
-          </td>
-        </tr>
-        <!-- BULLETPROOF BUTTON -->
-        <tr>
-          <td bgcolor="#ffffff" align="left">
-            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-              <tr>
-                <td bgcolor="#ffffff" align="center" style="padding: 20px 30px 60px 30px;">
-                  <table border="0" cellspacing="0" cellpadding="0">
-                    <tr>
-                      <td align="center" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #E60707; display: inline-block;background-color:#E60707"><a href="{{url('/activating/profile/'.$data['confirmation_code'])}}" target="_blank">Confirm Email</a></td>
-                    </tr>
-                  </table>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-        <!-- COPY -->
-        <tr>
-          <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 0px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
-            <p style="margin: 0;">If that doesn't work, copy and paste the following link in your browser:</p>
-          </td>
-        </tr>
-        <!-- COPY -->
-        <tr>
-          <td bgcolor="#ffffff" align="left" style="padding: 20px 30px 20px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
-            <p style="margin: 0;"><a href="{{url('/activating/profile/'.$data['confirmation_code'])}}" target="_blank" style="color: #E60707;">Here</a></p>
-          </td>
-        </tr>
-        <!-- COPY -->
-        <tr>
-          <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 20px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
-            <p style="margin: 0;">If you have any questions, just reply to this email—we're always happy to help out.</p>
-          </td>
-        </tr>
-        <!-- COPY -->
-        <tr>
-          <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 40px 30px; border-radius: 0px 0px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
-            <p style="margin: 0;">Cheers,<br>The Beazea Team</p>
+          <td bgcolor="#ffffff" align="left" style="padding: 20px 30px 0px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px; text-align: center;" >
+            <span style="color: rgb(230, 7, 7); font-family: 'Arial', 'Helvetica', sans-serif; font-size: 15px; font-weight: bold; line-height: 15px; mso-line-height-rule: exactly; text-decoration: none;">A new business </span> titled  has been added to Beazea. Check out the business profile below!
           </td>
         </tr>
       </table>
@@ -187,7 +153,7 @@
       <![endif]-->
     </td>
   </tr>
-  <!-- SUPPORT CALLOUT -->
+  <!-- RESOURCE LIKED -->
   <tr>
     <td bgcolor="#f4f4f4" align="center" style="padding: 30px 10px 0px 10px;">
       <!--[if (gte mso 9)|(IE)]>
@@ -195,16 +161,47 @@
         <tr>
           <td align="center" valign="top" width="600">
       <![endif]-->
-      <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;" >
-        <!-- HEADLINE -->
-        <tr>
-          <td bgcolor="#E69A97" align="center" style="padding: 30px 30px 30px 30px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
-            <h2 style="font-size: 20px; font-weight: 400; color: #111111; margin: 0 0 10px 0;">Need more help?</h2>
-              <p style="margin: 0;"><span style="color: #E60707;">Email Us - info@beazea.com</span></p>
-              <p style="margin: 0;"><span style="color: #E60707;">Holla @ Us - (+234)</span></p>
-          </td>
-        </tr>
-      </table>
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#f4f4f4">
+          <tr>
+            <td class="top-video-padding" align="center" valign="top" style="border-collapse: collapse; padding-bottom: 40px; padding-left: 0px; padding-right: 0px; padding-top: 40px;">
+                <table width="460" border="0" cellspacing="0" cellpadding="0" class="video-table">
+                    <tr>
+                        <td align="center" valign="top" style="border-collapse: collapse;">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td align="center" valign="top" class="featured-text" style="border-collapse: collapse; color: #fba92b; font-family: 'Arial', 'Helvetica', sans-serif; font-size: 30px; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; line-height: 30px; mso-line-height-rule: exactly; text-decoration: none;">
+                                        {{$data['title']}}
+                                    </td>
+                                </tr>
+                            </table>
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td align="center" valign="top" class="top-video-image" style="border-collapse: collapse; padding-bottom: 25px; padding-left: 0px; padding-right: 0px; padding-top: 25px;">
+                                      <a href="{{$data['profile_link']}}" border="0" style="border: none; outline: none;">
+                                        <img src="{{$data['biz_image']}}" width="200" alt="" class="image-fix" style="-ms-interpolation-mode: bicubic; display: block; outline: none; text-decoration: none;">
+                                      </a>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td align="center" style="border-collapse: collapse;">
+                                        <table width="170" cellspacing="0" cellpadding="0" border="0">
+                                            <tr>
+                                                <td align="center" width="170" height="48" bgcolor="#FBA92B" class="button-wrapper" style="-moz-border-radius: 7px; -webkit-border-radius: 7px; background-clip: padding-box; border-collapse: collapse; border-radius: 7px; color: white; display: block;">
+                                                    <a href="{{$data['profile_link']}}" class="inner-button" style="color: black; display: inline-block; font-family: 'Arial', 'Helvetica', sans-serif; font-size: 17px; line-height: 50px; text-decoration: none; width: 100%;"><span style="color: white;">View  Business Profile</span></a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+          </tr>
+      </table> 
       <!--[if (gte mso 9)|(IE)]>
       </td>
       </tr>
@@ -212,6 +209,7 @@
       <![endif]-->
     </td>
   </tr>
+  
   <!-- FOOTER -->
   <tr>
     <td bgcolor="#f4f4f4" align="center" style="padding: 0px 10px 0px 10px;">
@@ -234,14 +232,14 @@
         <!-- PERMISSION REMINDER -->
         <tr>
           <td bgcolor="#f4f4f4" align="left" style="padding: 0px 30px 30px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 400; line-height: 18px;" >
-            <p style="margin: 0;">You received this email because you just signed up for a new account. If you didn't,then take no further action. 
+            <p style="margin: 0;">You received this email because you are a registered admin for Beazea.IF you are not, please ignore this message </p>
           </td>
         </tr>
         
         <!-- ADDRESS -->
         <tr>
           <td bgcolor="#f4f4f4" align="left" style="padding: 0px 30px 30px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 400; line-height: 18px;" >
-            <p style="margin: 0;text-transform: capitalize;">Beazea -  - Lagos, Nigeria</p>
+            <p style="margin: 0;text-transform: capitalize;">Beazea </p>
           </td>
         </tr>
       </table>

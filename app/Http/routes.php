@@ -14,7 +14,7 @@ Route::get('/', 'HomeController@index');
 //Route::get('home', 'HomeController@home');
 Route::post('search/business', 'HomeController@searchResult');
 
-Route::get('profile/{id}', 'UsersController@profile');
+Route::get('profile/{username}/{id}', 'UsersController@profile')->name('profile');
 Route::post('profile/edit/{id}','UsersController@edit');
 Route::post('profile/{id}/upload','UsersController@userphotos');
 Route::post('profile/{id}/photo', 'UsersController@userprofilephoto');
@@ -63,7 +63,7 @@ Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
-Route::get('activate/{confirmation_code}', 'Auth\AuthController@activateAccount');
+Route::get('activating/profile/{code}', 'UsersController@activateAccount');
 Route::get('confirm','HomeController@confirm');
 Route::get('auth/logout', 'Auth\AuthController@getLogout');
 

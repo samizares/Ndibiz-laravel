@@ -1,17 +1,16 @@
 <?php
 
 namespace App\Listeners;
-
-use App\Events\BizWasAdded;
+use App\Events\UserWasRegistered;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Services\Mailers\UserMailer;
-use App\Biz;
+use App\User;
 
 
-class BizWasAddedListener
+class AdminNotifier
 {
-    protected $id;
+    protected $userID;
     protected $mailer;
     /**
      * Create the event listener.
@@ -26,12 +25,12 @@ class BizWasAddedListener
     /**
      * Handle the event.
      *
-     * @param  BizWasAdded  $event
+     * @param  UserWasRegistered  $event
      * @return void
      */
-    public function handle(BizWasAdded $event)
+    public function handle(UserWasRegistered $event)
     {
-        $biz=Biz::where('id',$event->id)->first();
-        $this->mailer->informAdminBiz($biz);
+        $user= User::where('id',$event->userID)->first();
+        $this->mailer->informAdminUser($user);
     }
 }

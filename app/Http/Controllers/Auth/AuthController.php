@@ -9,6 +9,9 @@ use App\AuthenticateUser;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use App\Services\Mailers\UserMailer;
+use App\Events\UserRegistered;
+use Auth;
 
 class AuthController extends Controller
 {
@@ -24,8 +27,9 @@ class AuthController extends Controller
     */
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
-
-	protected $redirectPath = '/';
+    
+    protected $redirectTo='/';
+    protected $mailer;
     // protected $loginPath = '/auth/login';
 
 
@@ -34,10 +38,12 @@ class AuthController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(UserMailer $mailer)
     {
 
         $this->middleware('guest', ['except' => 'getLogout']);
+        $this->mailer= $mailer;
+       // $this->redirectTo=redirect()->route('/profile/',['slug'=>Auth::user()->username,'id'=>Auth::id()]);
 
     }
 
@@ -68,6 +74,7 @@ class AuthController extends Controller
             'username' => $data['username'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'confirmation_code' => $this->createConfirmationCode(),
         ]);
     }
 
@@ -80,45 +87,31 @@ class AuthController extends Controller
                 $request, $validator
             );
         }
+        $user= $this->create($request->all());
 
-        $confirmation_code = str_random(30) . $request->input('email');
-        $user = new User;
-        $user->username = $request->input('username');
-        $user->email = $request->input('email');
-        $user->password = bcrypt($request->input('password'));
-        $user->confirmation_code = $confirmation_code;
-
-        if ($user->save()) {
-            $data = array(
+        if ($user) {
+             $data = array(
                 'username' => $user->username,
                 'email'     => $user->email,
+                'confirmation_code'=> $user->confirmation_code,
             );
-            \Mail::queue('emails.activate', ['confirmation_code' => $confirmation_code], function($message) use ($user) {
-                $message->to($user->email, $user->username)
-                    ->subject('Beazea: Verify your email address');
-            });
-            return view('pages.activate');
+             $this->mailer->sendEmail($data);
+            event(new UserRegistered($user->id));
         }
-        else {
-            \Session::flash('message', 'Your account couldn\'t be created please try again');
-            return redirect()->back()->withInput();
-        }
+
+            return redirect('/auth/login')
+                        ->with('flash_reg','Thank you for registering.Please check 
+                        your email to activate your account');
 
     }
-
-    public function activateAccount($code, User $user)
+    
+    public function createConfirmationCode()
     {
-
-        if($user->accountIsActive($code)) {
-
-            \Session::flash('message', 'Success, your account has been activated.');
-            return redirect('/');
-
-        }
-
-        \Session::flash('message', 'Your account couldn\'t be activated, please try again');
-        return redirect('home');
+        $confirmation_code = str_random(40);
+        return $confirmation_code;
     }
+
+    
 
     public function facebook(AuthenticateUser $authenticateUser, Request $request)
     {

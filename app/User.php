@@ -43,17 +43,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     protected $hidden = ['password', 'remember_token'];
 	
-	public function accountIsActive($code)
-	{
-		$user = User::where('confirmation_code', '=', $code)->first();
-		$user->confirmed = 1;
-		$user->confirmation_code = null;
-		if($user->save()) {
-		\Auth::login($user);
-		}
-		return true;
-	}
-
     public function favours()
     {
         return $this->belongsToMany('App\Biz','favourites','user_id','biz_id');
@@ -71,7 +60,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function biz()
     {
-        return $this->hasMany('App\Biz');
+        return $this->hasMany('App\Biz','user_id');
     }
 
     public function reviews()

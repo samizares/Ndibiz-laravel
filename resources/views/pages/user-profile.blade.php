@@ -48,6 +48,14 @@
   <div id="page-content" class="company-profile page-content m0 user-profile">
     <div class="container">
     @include('partials.notifications')
+     @if (Session::has('alert'))
+        <div class="bs-info" style="text-align:center">
+            <div class="alert {{session('alert_type')}} fade in">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+               {{Session::get('alert')}}
+             </div>
+        </div>
+        @endif 
       <div class="home-with-slide">
         <div class="row">
             {{--MAIN CONTENT--}}

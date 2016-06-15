@@ -6,19 +6,19 @@ use App\Events\Event;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class BizWasAdded extends Event
+class UserWasRegistered extends Event
 {
-    public $id;
     use SerializesModels;
+    public $userId;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct( $id)
+    public function __construct($id)
     {
-        $this->id= $id;
+        $this->userId= $id;
     }
 
     /**

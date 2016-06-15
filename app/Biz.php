@@ -36,7 +36,7 @@ class Biz extends Model
     }
    public function ownerbiz()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User','user_id');
     }
     public function subcats()
    {

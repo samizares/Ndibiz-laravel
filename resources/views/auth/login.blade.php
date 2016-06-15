@@ -11,6 +11,11 @@
             <div class="row">
                 <div class="col-md-6 col-md-offset-3">
                     @include('partials.notifications')
+                    @if (Session::has('flash_reg'))
+                            <div class="alert alert-error alert-dismissable alert-danger m0" role="alert">
+                               {!! Session('flash_reg') !!}
+                           </div>
+                    @endif
                   {!! Form::open(array('url' => '/auth/login', 'class' => 'form')) !!}
                   <div class="panel panel-default">
                     <div class="panel-heading">

@@ -26,10 +26,10 @@ class UsersController extends Controller
         $this->newsletterList=$newsletterList;
     }
 
-     public function profile($userId)
+     public function profile($username,$id)
     {
         $cats = Cat::all();
-        $user= \App\User::findOrFail($userId);
+        $user= User::where(['username'=>$username,'id'=>$id])->first();
         $owner= $user->claims;
         $bizs= $user->favours;
         $favourites=\DB::table('favourites')->whereUserId(\Auth::user()->id)->lists('biz_id');
@@ -253,5 +253,25 @@ class UsersController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function activate($code)
+    {
+        $user = User::where('confirmation_code', '=', $code)->first();
+          if($user)
+          {
+            $user->confirmed = 1;
+            $user->confirmation_code = null;
+            $user->save();
+            session()->flash('alert','your account has been activated.');
+              session()->flash('alert_type','alert-success');
+             return redirect('/profile/'.$user->username.'/'.$user->id);
+         }
+         else{
+            session()->flash('alert','Sorry,you are already activated');
+              session()->flash('alert_type','alert-danger');
+                return redirect('/profile/'.$user->username.'/'.$user->id);
+              
+         }
     }
 }
