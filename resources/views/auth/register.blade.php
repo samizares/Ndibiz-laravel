@@ -14,7 +14,7 @@
                       {!! Form::open(array('url' => '/auth/register', 'class' => 'form')) !!}
                       <div class="panel panel-default">
                         <div class="panel-heading">
-                          <h3 class="panel-title"><i class="fa fa-plus-square"></i> Register</h3>
+                          <h3 class="panel-title"><i class="fa fa-plus-square"></i> Register below or Connect with <a class="btn btn-primary" href="/login/facebook">Facebook</a></h3>
                         </div>
                         <div class="panel-body">
                                 <div class="form-group">
