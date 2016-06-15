@@ -33,14 +33,14 @@ class AuthenticateUser{
 			\Auth::login($user, true);
 			session()->flash('alert','You are logged in with Facebook');
         	session()->flash('alert_type','alert-success');
-			return redirect('/profile/'.$user->slug.'/'.$user->id);
+			return redirect('/profile/'.$user->username.'/'.$user->id);
 		}
 
 		\Auth::login($user, true);
 		event(new UserWasRegistered($user->id));
 		session()->flash('alert','Thanks for registering with Facebook');
         session()->flash('alert_type','alert-success');
-		return redirect('/profile/'.$user->slug.'/'.$user->id);
+		return redirect('/profile/'.$user->username.'/'.$user->id);
 		
 	}
 
