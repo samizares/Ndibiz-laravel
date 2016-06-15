@@ -96,7 +96,7 @@ class AuthController extends Controller
                 'confirmation_code'=> $user->confirmation_code,
             );
              $this->mailer->sendEmail($data);
-            event(new UserRegistered($user->id));
+            event(new UserWasRegistered($user->id));
         }
 
             return redirect('/auth/login')
