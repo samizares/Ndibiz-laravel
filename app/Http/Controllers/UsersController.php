@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Newsletters\NewsletterList;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -20,10 +19,9 @@ class UsersController extends Controller
 {
      private $newsletterList;
 
-    function __construct(NewsletterList $newsletterList)
+    function __construct()
     {
         $this->middleware('auth');
-        $this->newsletterList=$newsletterList;
     }
 
      public function profile($username,$id)

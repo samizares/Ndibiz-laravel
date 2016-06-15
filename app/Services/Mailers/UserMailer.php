@@ -58,7 +58,7 @@ class UserMailer extends Mailer
       $data['confirmation_code'] = str_random(6);
       $subject ='Testing activation emails';
       $sender= 'support@beazea.com';
-      $view ='emails.activate';
+      $view ='emails.facebookWelcome';
       $user='samizares@beazea.com';
        $this->sendTo($user, $view, $data, $subject,$sender);
     }
