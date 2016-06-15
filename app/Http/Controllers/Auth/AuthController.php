@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use App\Services\Mailers\UserMailer;
-use App\Events\UserRegistered;
+use App\Events\UserWasRegistered;
 use Auth;
 
 class AuthController extends Controller
