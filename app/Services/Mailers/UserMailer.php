@@ -81,7 +81,7 @@ class UserMailer extends Mailer
       $subject='A new user '.$user->username.' has been registered';
       $view='emails.informAdmin_user';
       $sender='info@beazea.com';
-      $admins=['support@beazea.com','olisaamobi111@gmail.com','bolajialade.work@gmail.com','samizares@gmail.com'];
+      $admins='support@beazea.com';
       $this->sendTo($admins, $view, $data, $subject,$sender);
 
 
@@ -98,7 +98,7 @@ class UserMailer extends Mailer
       $subject='A new business '.$biz->title.' has been registered by '.$data['owner'];
       $view='emails.informAdmin_biz';
       $sender='info@beazea.com';
-      $admins=['support@beazea.com','olisaamobi111@gmail.com','bolajialade.work@gmail.com','samizares@gmail.com'];
+      $admins='support@beazea.com';
       $this->sendTo($admins, $view, $data, $subject,$sender);
 
     }
