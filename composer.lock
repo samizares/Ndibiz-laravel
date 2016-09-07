@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "37dfc18840e61998026c44613764ac81",
-    "content-hash": "9e60d9c1a188d8617acddad40763b58c",
+    "hash": "cd7b6fe049f234830d01efc8912f12a6",
+    "content-hash": "a2bcef2b6c80ba52b6462a13dc366f33",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -337,6 +337,7 @@
                 "rest",
                 "web service"
             ],
+            "abandoned": "guzzlehttp/guzzle",
             "time": "2014-01-28 22:29:15"
         },
         {
@@ -1554,6 +1555,7 @@
                 }
             ],
             "description": "Client library for interfacing with the SparkPost API.",
+            "abandoned": "sparkpost/sparkpost",
             "time": "2016-05-27 16:33:25"
         },
         {
@@ -2636,6 +2638,52 @@
                 "test"
             ],
             "time": "2015-05-11 14:41:42"
+        },
+        {
+            "name": "laravel/homestead",
+            "version": "v3.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/homestead.git",
+                "reference": "705449c3dbedbded4bd4f3ed725303c69253cad4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/homestead/zipball/705449c3dbedbded4bd4f3ed725303c69253cad4",
+                "reference": "705449c3dbedbded4bd4f3ed725303c69253cad4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9",
+                "symfony/console": "~2.3|~3.0",
+                "symfony/process": "~2.3|~3.0"
+            },
+            "bin": [
+                "homestead"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\Homestead\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylorotwell@gmail.com"
+                }
+            ],
+            "description": "A virtual machine for web artisans.",
+            "time": "2016-02-16 22:31:00"
         },
         {
             "name": "mockery/mockery",

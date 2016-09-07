@@ -1,6 +1,7 @@
 /vendor
 /node_modules
 Homestead.yaml
+Vagrantfile
 /bootstrap/compiled.php
 /build/logs
 /storage
