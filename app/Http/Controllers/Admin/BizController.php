@@ -16,6 +16,7 @@ use App\Biz_Subcat_pivot;
 use App\Cat;
 use App\BusinessHour;
 use App\Events\BizWasDeleted;
+use App\BizProfilePhoto;
 class BizController extends Controller
 {
     /**
@@ -161,19 +162,18 @@ class BizController extends Controller
      */
     public function update(BusinessRegRequest $request, $id)
     {
+       // dd($request->all());
+        //dd($request->hasfile('image'));
         $biz= Biz::findorFail($id);
-        $biz->name =         $request->input('name');
-        $biz->contactname=   $request->input('contactname');
-        $biz->email=         $request->input('email');
-        $biz->website=       $request->input('website');
-        $biz->phone1=        $request->input('phone1');
-        $biz->phone2=        $request->input('phone2');
-        //No need to update the user
-        //$biz->user_id=       \Auth::id();
+        $biz->name =          strtolower($request->get('name'));
+        $biz->contactname=   $request->get('contactname');
+        $biz->website=       $request->get('website');
+        $biz->tagline=       $request->get('tagline');
+        $biz->description=   $request->get('description');
         $biz->save();
 
-        //get the lga/region of the business
-        $area=$request->get('lga');
+        //store user added or system generated local government area/or region 
+        $area=$request['lga'];
         if($existingArea=Lga::where('name',$area)->first())
         {
             $newArea=$existingArea;
@@ -181,22 +181,27 @@ class BizController extends Controller
         else{
             $newArea=new Lga();
             $newArea->name=$area;
+            $newArea->state_id=$request['state'];
             $newArea->save();
         }
 
+
         $add= Address::where('biz_id', $biz->id)->first();
-        $add->street= $request->input('address');
+        $add->street= $request->get('address');
         $add->lga_id= $newArea->id;
-        $add->state_id=$request->input('state');
+        $add->state_id=$request->get('state');
+        $add->email=  $request->get('email');
+        $add->phone1= $request->get('phone1');
+        $add->phone2= $request->get('phone2'); 
         $add->save();
 
         //store the link between biz and lga/region
         $biz->lgas()->attach($newArea->id);
         
-        $state=$request->input('state');
+        $state=$request->get('state');
         $biz->states()->attach($state);
 
-        $category=$request->input('cats');
+        $category=$request->get('cats');
        // $catNames= [];
         // $biz->cats()->delete();
         /*  foreach ($category as $cat) {
@@ -215,6 +220,18 @@ class BizController extends Controller
         $biz->cats()->sync($category);
         $subs= $request->input('sub');
         $biz->subcats()->sync($subs);
+
+        if($request->hasfile('image'))
+        {
+            $pic=new BizProfilePhoto();
+            $image= $request->file('image');
+            $name= time().$image->getClientOriginalName();
+            $desPath = public_path('bizz/profile/');
+            $upload_success =$image->move($desPath, $name);
+            $pic->image='bizz/profile/'.$name;
+            $pic->biz_id=$biz->id;
+            $pic->save();
+        }
 
         return redirect("/admin/biz/")
         ->withSuccess("Changes Updated");

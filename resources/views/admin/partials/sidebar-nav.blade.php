@@ -7,7 +7,6 @@
         <a href="/admin/cat" class="list-group-item"> Categories</a>
         <a href="/admin/location" class="list-group-item"> Locations</a>
         <a href="/admin/report" class="list-group-item"> Reports</a>
-        <a href="/admin/upload" class="list-group-item"> Uploads</a>
-        <a href="/admin/setting" class="list-group-item"> Settings</a>
+        <a href="#" class="list-group-item"> Settings</a>
     </div>
 </div>

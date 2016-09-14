@@ -33,6 +33,7 @@
                         <thead>
                         <tr>
                             <th>Business name</th>
+                            <th>Profile Pic </th>
                             <th>Featured</th>
                             <th>category</th>
                             <th>Sub-Category</th>
@@ -47,6 +48,8 @@
                         @foreach ($bizs as $biz)
                             <tr>
                                 <td>{{ $biz-> name }}</td>
+                                <td> {!!Html::image(isset($biz->profilePhoto->image) ? $biz->profilePhoto->image : 'img/content/post-img-10.jpg',
+                          'Profile Image', array('class'=>'img-responsive center-block','width'=>50,'height'=>50))!!}</td>
                                 <td>
                                     <span class="featured" id="{{$biz->id}}">{{ $biz->featured }}</span></td>
                                 <td>@foreach($biz->cats as $cat)

@@ -34,7 +34,7 @@ class BusinessRegRequest extends Request
             'sub'          => 'required',
            // 'website'      => 'url',
             'state'        => 'required',
-            'image'=>'image|mimes:jpeg,jpg,bmp,png,gif',
+            'image'=>       'image|mimes:jpeg,jpg,bmp,png,gif',
             'lga'          => 'required',
 
      ];

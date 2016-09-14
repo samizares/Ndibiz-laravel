@@ -22,7 +22,7 @@
                 {{--main-content dataTables--}}
                 <div class="row m15-left m15-right">
                     @include('admin.partials.errors')
-                    <form class="form-horizontal" role="form" method="POST" action="/admin/biz/{{$biz->id}}">
+                    <form class="form-horizontal" role="form" method="POST" action="/admin/biz/{{$biz->id}}" enctype="multipart/form-data">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <input type="hidden" name="_method" value="PUT">
                         <input type="hidden" name="id" value="{{$biz->id}}">
@@ -33,6 +33,20 @@
                                 <input required type="text" value="{{ $biz->name}}" id="name" name="name" class="form-control" placeholder="Patt's Bar">
                             </div>
                         </div>
+                        {{--DESCRIPTION--}}
+                        <div class="form-group">
+                            <label for="cat" class="col-md-3 control-label">Description</label>
+                            <div class="col-md-8">
+                                <input type="text" id="description" value="{{ $biz->description}}" name="description" class="form-control" placeholder="e.g. A brief description of the business" value="{{ old('description')}}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cat" class="col-md-3 control-label">Tagline/Slogan</label>
+                            <div class="col-md-8">
+                            <input type="text" id="tagline" name="tagline" class="form-control" placeholder="e.g. Bar & Nightclub" value="{{ $biz->tagline}}">
+                        </div>
+                  </div>
                         <div class="form-group">
                             <label for="cat" class="col-md-3 control-label">Business Address</label>
                             <div class="col-md-8">
@@ -106,6 +120,25 @@
                                 <input type="text" value="{{ $biz->phone2}}" id="contact" name="phone2"class="form-control" placeholder="Phone number 2">
                             </div>
                         </div>
+                        <div class="form-group">
+                      <label for="images" class="col-md-3 control-label">
+                          Upload Business Profile Image (optional)</label>
+                      <div class="col-md-8">
+                          <div class="panel-body">
+                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                      <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+                                        <img src="{{ isset($biz->profilePhoto) ? asset($biz->profilePhoto->image) : asset('img/user.jpg') }}" alt="...">
+                                      </div>
+                                      <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
+                                      <div>
+                                        <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span>
+                                        <span class="fileinput-exists">Change</span><input type="file" name="image"></span>
+                                        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                      </div>
+                                    </div>
+                                </div>
+                      </div>
+                  </div>
 
 
                         <div class="form-group">
@@ -126,6 +159,7 @@
     </div><!--/.col-xs-12.col-sm-9-->
 @endsection
 @section('scripts')
+ <script src="{{ asset('plugins/jasny-bootstrap/js/jasny-bootstrap.min.js') }}"></script>
     <script>
         $(document).ready(function() {
             $("button.btn-hover").hover(function(){

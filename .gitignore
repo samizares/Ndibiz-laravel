@@ -5,6 +5,7 @@ Vagrantfile
 /bootstrap/compiled.php
 /build/logs
 /storage
+/public/beazeadb
 composer.phar
 /app/tests/_log
 /build/logs
