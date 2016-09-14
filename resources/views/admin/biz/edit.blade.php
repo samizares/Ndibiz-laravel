@@ -103,7 +103,7 @@
                         <div class="form-group">
                             <label for="cat" class="col-md-3 control-label">Contact Name</label>
                             <div class="col-md-8">
-                                <input type="text" id="contactname" value="{{ $biz->contactname}}" name=" contactname" class="form-control" placeholder="Mr Patt" required>
+                                <input type="text" id="contactname" value="{{ $biz->contactname}}" name=" contactname" class="form-control" placeholder="Mr Patt">
 
                             </div>
                         </div>
