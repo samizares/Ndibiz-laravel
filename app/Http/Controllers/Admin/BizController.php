@@ -238,12 +238,15 @@ class BizController extends Controller
             foreach($allBiz as $oneBiz){
                 if($oneBiz->profilePhoto == null){
                     $oneBiz->profilePhoto()->save($pic);
-                }
-                if($oneBiz->profilePhoto != null){
-                    $oldPic = $oneBiz->profilePhoto->image;
-                    $profilePic=BizProfilePhoto::where('image',$oldPic)->first();
+                }else {
+                    //$oneBiz->profilePhoto->image=$picName;
+                    $profilePic=BizProfilePhoto::where('biz_id',$oneBiz->id)->first();
                     $profilePic->image =$picName;
                     $profilePic->save();
+                    //$oldPic = $oneBiz->profilePhoto->image;
+                   // $profilePic=BizProfilePhoto::where('image',$oldPic)->first();
+                   // $profilePic->image =$picName;
+                   // $profilePic->save();
 
                 }
             }
