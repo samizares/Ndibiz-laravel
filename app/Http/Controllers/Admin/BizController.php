@@ -225,29 +225,25 @@ class BizController extends Controller
 
         if($request->hasfile('image'))
         {
-            $pic=new BizProfilePhoto();
             $image= $request->file('image');
             $name= time().$image->getClientOriginalName();
             $desPath = public_path('bizz/profile/');
             $upload_success =$image->move($desPath, $name);
             $picName='bizz/profile/'.$name;
-            $pic->image=$picName;
-           // $pic->save();
-
+           
+           
             $allBiz= Biz::where('name',$bizName)->get();
             foreach($allBiz as $oneBiz){
                 if($oneBiz->profilePhoto == null){
-                    $oneBiz->profilePhoto()->save($pic);
+                    $pic1=new BizProfilePhoto();
+                    $pic1->image=$picName;
+                    //$pic1->save();
+                    $oneBiz->profilePhoto()->save($pic1);
                 }else {
                     //$oneBiz->profilePhoto->image=$picName;
                     $profilePic=BizProfilePhoto::where('biz_id',$oneBiz->id)->first();
                     $profilePic->image =$picName;
                     $profilePic->save();
-                    //$oldPic = $oneBiz->profilePhoto->image;
-                   // $profilePic=BizProfilePhoto::where('image',$oldPic)->first();
-                   // $profilePic->image =$picName;
-                   // $profilePic->save();
-
                 }
             }
         }
