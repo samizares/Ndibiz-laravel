@@ -163,9 +163,11 @@ class BizController extends Controller
     public function update(BusinessRegRequest $request, $id)
     {
        // dd($request->all());
-        //dd($request->hasfile('image'));
+
         $biz= Biz::findorFail($id);
-        $biz->name =          strtolower($request->get('name'));
+        $bizName =  strtolower($request->get('name'));
+        $biz->name = $bizName;
+      // dd(Biz::where('name',$bizName)->get());
         $biz->contactname=   $request->get('contactname');
         $biz->website=       $request->get('website');
         $biz->tagline=       $request->get('tagline');
@@ -228,10 +230,25 @@ class BizController extends Controller
             $name= time().$image->getClientOriginalName();
             $desPath = public_path('bizz/profile/');
             $upload_success =$image->move($desPath, $name);
-            $pic->image='bizz/profile/'.$name;
-            $pic->biz_id=$biz->id;
-            $pic->save();
+            $picName='bizz/profile/'.$name;
+            $pic->image=$picName;
+           // $pic->save();
+
+            $allBiz= Biz::where('name',$bizName)->get();
+            foreach($allBiz as $oneBiz){
+                if($oneBiz->profilePhoto == null){
+                    $oneBiz->profilePhoto()->save($pic);
+                }
+                else{
+                    $oldPic = $oneBiz->profilePhoto->image;
+                    $profilePic=BizProfilePhoto::where('image',$oldPic)->first();
+                    $profilePic->image =$picName;
+                    $profilePic->save();
+
+                }
+            }
         }
+ 
 
         return redirect("/admin/biz/")
         ->withSuccess("Changes Updated");
