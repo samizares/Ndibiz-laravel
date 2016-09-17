@@ -239,7 +239,7 @@ class BizController extends Controller
                 if($oneBiz->profilePhoto == null){
                     $oneBiz->profilePhoto()->save($pic);
                 }
-                else{
+                if($oneBiz->profilePhoto != null){
                     $oldPic = $oneBiz->profilePhoto->image;
                     $profilePic=BizProfilePhoto::where('image',$oldPic)->first();
                     $profilePic->image =$picName;
