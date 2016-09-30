@@ -47,6 +47,10 @@ Route::resource('biz', 'BizController');
 //Route::get('bizreg', 'HomeController@regbiz');
 Route::get('biz/profile/{slug}/{id}', 'HomeController@getBizreview')->name('bizprofile');
 Route::post('bizprofile/{id}/photo', 'HomeController@bizprofilephoto');
+
+Route::get('bizprofile/{id}/edit', 'HomeController@bizedit');
+Route::post('bizprofile/{id}/edit', 'HomeController@postbizedit');
+
 Route::post('biz/{id}/upload','HomeController@bizphotos');
 Route::post('review/biz/{id}', 'HomeController@postReview');
 Route::get('biz/subcat/{slug}', 'HomeController@bizSub');

@@ -97,11 +97,16 @@ class ApiController extends Controller
 
     public function ajxlocation()
     {
-      $query=\Input::get('z');
-      $state=State::findOrFail($query);
+      $query=\Input::get('loc');
+      $query2=\Input::get('cat');
+      dd(($query2));
+      dd($query.'-'.$query2);
+      $state=State::                                                                                findOrFail($query);
+      $cat= Cat::findOrFail($query2);
       $bizs=$state->biz()->paginate(9);
+    
       if (\Request::ajax()) {
-            return \Response::json(\View::make('partials.ajax-result')->with(compact('bizs'))->render());
+            response()->json(\View::make('partials.ajax-result')->with(compact('bizs'))->render());
           }
       if($bizs->count() > 0) {
        // $html= view('partials.ajax-result')->with('bizs', $bizs)->render();
@@ -116,7 +121,9 @@ class ApiController extends Controller
 
     public function ajxcategory()
     {
-      $query=\Input::get('cat');
+      $query=\Input::get('loc');
+      $query2=\Input::get('cat');
+      dd($query.'-'.$query2);
       $cat=Cat::findOrFail($query);
       $bizs=$cat->biz()->paginate(9);
        if (\Request::ajax()) {

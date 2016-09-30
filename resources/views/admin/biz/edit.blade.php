@@ -37,7 +37,9 @@
                         <div class="form-group">
                             <label for="cat" class="col-md-3 control-label">Description</label>
                             <div class="col-md-8">
-                                <input type="text" id="description" value="{{ $biz->description}}" name="description" class="form-control" placeholder="e.g. A brief description of the business" value="{{ old('description')}}">
+                                <textarea rows="4" placeholder="e.g. A brief description of the business"
+                                    cols="50" name="description" class="form-control">{{$biz->description}}
+                                </textarea>
                             </div>
                         </div>
 
@@ -127,7 +129,7 @@
                           <div class="panel-body">
                                     <div class="fileinput fileinput-new" data-provides="fileinput">
                                       <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                                        <img src="{{ isset($biz->profilePhoto) ? asset($biz->profilePhoto->image) : asset('img/user.jpg') }}" alt="...">
+                                        <img src="{{ isset($biz->profilePhoto) ? asset($biz->profilePhoto->image) : asset('img/user.jpg') }}" alt="editing business profile pic">
                                       </div>
                                       <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
                                       <div>

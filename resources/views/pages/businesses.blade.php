@@ -149,7 +149,7 @@
 
             $('#stateList').change(function(){
                 if($(this).val() !== "All states") {
-                    $.get('{{ URL::to('api/ajax/location')}}', {z: $(this).val()}, function(result){
+                    $.get('{{ URL::to('api/ajax/location')}}', {loc: $(this).val(),cat: $('select#cat.form-control').val()}, function(result){
                         console.log(result);
                         if(! result.error) {
                             $('#result').empty().html(result);
@@ -167,7 +167,7 @@
                 // var model=$('#sub2');
                 //  model.select2("val", "");
                 if($(this).val() != "All categories"){
-                    $.get('{{URL::to('api/ajax/category')}}',{cat: $(this).val()}, function(result){
+                    $.get('{{URL::to('api/ajax/category')}}',{cat: $(this).val(),loc: $('select#stateList.form-control').val()}, function(result){
                         // console.log(result);
                         if(!result.error) {
                             $('#result').empty().html(result);

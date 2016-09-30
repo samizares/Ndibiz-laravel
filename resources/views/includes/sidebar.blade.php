@@ -22,7 +22,7 @@
                                                <img src="{{isset($feature->profilePhoto->image) ? asset($feature->profilePhoto->image) :
                                                asset('img/content/latest_post_1.jpg') }}" alt="">
                                            </div>
-                                           <h4><a href="/review/biz/{{$feature->slug}}">{{$feature->name}}</a></h4>
+                                           <h4><a href="/biz/profile/{{$feature->slug}}/{{$feture->id}}">{{$feature->name}}</a></h4>
                                            <p>{{$feature->description}}</p>
                                            <a class="read-more" href="/biz/profile/{{$feature->slug}}/{{$feature->id}}"><i class="fa fa-angle-right"></i>View profile</a>
                                        </div> <!-- end .latest-post -->

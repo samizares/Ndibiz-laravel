@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Http\Requests\BusinessRegRequest;
 use App\Http\Requests\ReviewRequest;
 use App\Http\Controllers\Controller;
 use App\State;
+use App\Address;
 use App\Lga;
 use App\Biz;
 use App\Cat;
@@ -16,6 +18,7 @@ use Input;
 use App\Review;
 use App\Setting;
 use App\BizPhoto;
+use App\BizProfilePhoto;
 
 class HomeController extends Controller
 {
@@ -36,8 +39,11 @@ class HomeController extends Controller
 			->whereNotNull('claimed')
 			->take(12)->get();
 		$totalCat=Cat::count();
+		//dd(response()->json($recentBiz));
 		$totalSubCat=subCat::count();
-		$stateList= State::lists('name','id');
+		$stateList= State::lists('name','id')->all();
+		//dd(json_encode($stateList));
+		//dd(response()->json($stateList));
 		$catList   = SubCat::lists('name','id')->take(4);
 
           $featured = Biz::whereFeatured('YES')->get();
@@ -68,6 +74,7 @@ class HomeController extends Controller
 		$catt= Cat::lists('name','id')->all();
 		$subcatt=SubCat::lists('name','id')->all();
 		$new=array_merge($catt,$subcatt);
+		//dd($new);
 		//$cats = \DB::table('cats')->lists('name', 'id');
 		if (\Request::ajax()) {
             return \Response::json(\View::make('partials.ajax-result')
@@ -202,6 +209,93 @@ class HomeController extends Controller
          return view('pages.biz-result', array('biz'=>$biz,'reviews'=>$reviews));
     }
 
+    public function bizedit($id)
+    {
+    	$biz= Biz::findorFail($id);
+        $cat= $biz->cats->lists('id')->all();
+        $sub= $biz->subcats->lists('id')->all();
+       // dd($sub);
+        $catList= Cat::lists('name', 'id');
+        $subList= SubCat::lists('name','id');
+       // dd($subList);
+        $stateList= State::lists('name','id');
+        $lgaList= Lga::lists('name','name');
+
+        return view('pages.editbiz',compact('biz','catList','subList','stateList','cat','lgaList','sub'));
+    }
+    public function postbizedit(BusinessRegRequest $request, $id)
+    {
+    	$biz= Biz::findorFail($id);
+        $bizName =  strtolower($request->get('name'));
+        $biz->name = $bizName;
+        $biz->contactname=   $request->get('contactname');
+        $biz->website=       $request->get('website');
+        $biz->tagline=       $request->get('tagline');
+        $biz->description=   $request->get('description');
+        $biz->save();
+
+        //store user added or system generated local government area/or region 
+        $area=$request['lga'];
+        if($existingArea=Lga::where('name',$area)->first())
+        {
+            $newArea=$existingArea;
+        }
+        else{
+            $newArea=new Lga();
+            $newArea->name=$area;
+            $newArea->state_id=$request['state'];
+            $newArea->save();
+        }
+
+        $add= Address::where('biz_id', $biz->id)->first();
+        $add->street= $request->get('address');
+        $add->lga_id= $newArea->id;
+        $add->state_id=$request->get('state');
+        $add->email=  $request->get('email');
+        $add->phone1= $request->get('phone1');
+        $add->phone2= $request->get('phone2'); 
+        $add->save();
+        //store the link between biz and lga/region
+        $biz->lgas()->attach($newArea->id);
+        
+        $state=$request->get('state');
+        $biz->states()->attach($state);
+
+        $category=$request->get('cats');
+        $biz->cats()->sync($category);
+        $subs= $request->input('sub');
+        $biz->subcats()->sync($subs);
+
+        if($request->hasfile('image'))
+        {
+            $image= $request->file('image');
+            $name= time().$image->getClientOriginalName();
+            $desPath = public_path('bizz/profile/');
+            $upload_success =$image->move($desPath, $name);
+            $picName='bizz/profile/'.$name;
+           
+           
+            $allBiz= Biz::where('name',$bizName)->get();
+            foreach($allBiz as $oneBiz){
+                if($oneBiz->profilePhoto == null){
+                    $pic1=new BizProfilePhoto();
+                    $pic1->image=$picName;
+                    //$pic1->save();
+                    $oneBiz->profilePhoto()->save($pic1);
+                }else {
+                    //$oneBiz->profilePhoto->image=$picName;
+                    $profilePic=BizProfilePhoto::where('biz_id',$oneBiz->id)->first();
+                    $profilePic->image =$picName;
+                    $profilePic->save();
+                }
+            }
+        }
+ 
+
+        return redirect("/biz/profile/$biz->slug/$biz->id")
+        ->withSuccess("Changes Updated");
+    }
+
 	 public function getBizreview($slug,$id)
 	 {
 
@@ -271,7 +365,7 @@ class HomeController extends Controller
 	 {
 	 	$sub= SubCat::whereSlug($slug)->firstOrFail();
 	 	$bizs=$sub->biz;
-		$loc=Input::get('location');
+		$loc=\Input::get('location');
 
 		return view('pages.biz-sub',compact('bizs','loc','sub'));
 	 }

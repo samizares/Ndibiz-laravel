@@ -13,8 +13,9 @@
             <div class="container">
                 <div class="row m20-bttm text-center">
                     <div class="col-md-12">
-                        <h2 class="section-title text-color-white"> Add a free business listing to BEAZEA Directory</h2>
-                        <span class="section-subtitle text-color-white"> You're just steps away from setting up a free business profile on Nigeria's leading online business directory.</span>
+                        <h2 class="section-title text-color-white"> Edit business listing</h2>
+                        <span class="section-subtitle text-color-white"> You're responsible for maintaining 
+                        this business profile on Nigeria's leading online business directory.</span>
                     </div>
                 </div>
             </div>
@@ -34,20 +35,20 @@
           {{--REGISTRATION FORM--}}
         <div class="col-md-8 reg-form">
           <div class="page-forms">
-              <form id="myAwesomeDropzone" class="form-horizontal dropzone" role="form" method="POST" action="/biz" enctype="multipart/form-data">
+              <form id="editBizForm" class="form-horizontal" role="form" method="POST" action="/bizprofile/{{$biz->id}}/edit" enctype="multipart/form-data">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                   {{--BUSINESS NAME--}}
                   <div class="form-group">
                    <label for="cat" class="col-md-3 control-label">Business Name</label>
                     <div class="col-md-8">
-                     <input required type="text" id="name" name="name" class="form-control" placeholder="e.g. Patt's Bar" value="{{ old('name')}}">
+                     <input required type="text" id="name" name="name" class="form-control" placeholder="e.g. Patt's Bar" value="{{ $biz->name}}">
                     </div>
                   </div>
                   {{--TAGLINE--}}
                   <div class="form-group">
                       <label for="cat" class="col-md-3 control-label">Tagline/Slogan</label>
                       <div class="col-md-8">
-                          <input type="text" id="tagline" name="tagline" class="form-control" placeholder="e.g. Bar & Nightclub" value="{{ old('tagline')}}">
+                          <input type="text" id="tagline" name="tagline" class="form-control" placeholder="e.g. Bar & Nightclub" value="{{ $biz->tagline}}"">
                       </div>
                   </div>
                   {{--DESCRIPTION--}}
@@ -55,7 +56,7 @@
                       <label for="cat" class="col-md-3 control-label">Description</label>
                       <div class="col-md-8">
                           <textarea rows="4" placeholder="e.g. A brief description of the business"
-                            cols="50" name="description" class="form-control">
+                            cols="50" name="description" class="form-control">{{$biz->description}}
                           </textarea>
                       </div>
                   </div>
@@ -63,17 +64,7 @@
                   <div class="form-group">
                       <label for="cats" class="col-md-3 control-label">Business Category</label>
                       <div class="col-md-8">
-                          <select id="cat3" name="cats[]" multiple class="form-control" required="required">
-                          <option></option>  
-                            
-                                @foreach ($catList as $key =>$value)
-                                    @if(old('cats') == $key) 
-                                     <option selected value="{{ $key }}">{{ $catList[$key] }}</option>   
-                                    @else
-                                     <option value="{{$key}}">{{ $value }}</option>
-                                    @endif
-                                @endforeach                 
-                             </select>
+                          {!!Form::select('cats[]', $catList, $cat, ['class'=>'form-control','id'=>'category_edit', 'multiple']) !!}
                       </div>
                   </div>
 
@@ -82,7 +73,7 @@
                       <label for="sub" class="col-md-3 control-label">
                           Sub categories</label>
                       <div class="col-md-8">
-                          <select id="sub" name="sub[]" value="{{ old('sub[]')}}" class="form-control" multiple> </select>
+                          {!!Form::select('sub[]', $subList, $sub, ['class'=>'form-control','id'=>'sub_edit','multiple']) !!}
                       </div>
                   </div>
 
@@ -98,24 +89,15 @@
                    <div class="form-group">
                        <label for="address" class="col-md-3 control-label">Business Address</label>
                        <div class="col-md-8">
-                       <input type="text" id="address" required name="address" class="form-control" placeholder="e.g. Ajose Adeogun street" value="{{ old('address')}}">
+                       <input type="text" id="address" required name="address" class="form-control" placeholder="e.g. Ajose Adeogun street" value="{{$biz->address->street}}">
                       </div>
                   </div>
                   {{--STATE--}}
                   <div class="form-group">
                        <label for="cat" class="col-md-3 control-label">Business state</label>
                        <div class="col-md-8">                    
-                          <select id="stateList" name="state" placeholder="select state" class="form-control">
-                            <option></option>
-                             @foreach ($stateList as $key =>$value)  
-                                  @if(old('state') == $key) 
-                                      <option selected value="{{ $key }}">{{ $stateList[$key] }}</option>   
-                                  @else 
-                                      <option value="{{ $key}}">{{ $value }}</option>      
-                                  @endif
-                                       
-                             @endforeach
-                          </select>
+                           {!!Form::select('state', $stateList, $biz->address->state_id, ['class'=>'form-control',
+                                'id'=>'stateList','placeholder'=>'select state']) !!}
 
                       </div>
                   </div>
@@ -124,21 +106,56 @@
                     <label for="lga" class="col-md-3 control-label">
                       Region/area</label>
                         <div class="col-md-8">
-                          <select id="lga" name="lga" value="{{ old('lga')}}" class="form-control"> </select>
+                          {!!Form::select('lga', $lgaList, $biz->address->lga->name, ['class'=>'form-control',
+                                 'id'=>'lga','placeholder'=>'select state']) !!}
                         </div>
+                  </div>
+                  
+                  {{--WEBSITE--}}
+                  <div class="form-group">
+                       <label for="website" class="col-md-3 control-label">Business website</label>
+                       <div class="col-md-8">
+                       <input type="text" id="website" name="website" value="{{ $biz->website}}" class="form-control" placeholder="e.g. www.pattsbar.com.ng">
+                      </div>
+                  </div>
+                  {{--EMAIL--}}
+                  <div class="form-group">
+                       <label for="email" class="col-md-3 control-label">Business Email</label>
+                       <div class="col-md-8">
+                        <input type="email" id="email" name="email" value="{{ $biz->email}}" class="form-control" placeholder="e.g. info@pattsbar.com.ng">
+                      </div>
+                  </div>
+                  {{--CONTACT PERSON / OWNER NAME--}}
+                  <div class="form-group">
+                       <label for="contactname" class="col-md-3 control-label">Contact Name</label>
+                       <div class="col-md-8">
+                       <input type="text" id="contactname" name=" contactname" value="{{ $biz->contactname}}" class="form-control" placeholder="Mr Patt">
+                      </div>
+                  </div>
+                  {{--PHONE 1--}}
+                  <div class="form-group">
+                       <label for="phone1" class="col-md-3 control-label">Phone number 1</label>
+                       <div class="col-md-8">
+                      <input type="text" id="phone1" name="phone1" value="{{ $biz->phone1}}" class="form-control" placeholder="Phone number 1">
+                      </div>
+                  </div>
+                  {{--PHONE 2--}}
+                  <div class="form-group">
+                       <label for="phone2" class="col-md-3 control-label">Phone number 2</label>
+                          <div class="col-md-8">
+                             <input type="text" id="phone2" name="phone2" value="{{ $biz->phone2}}" class="form-control" placeholder="Phone number 2">
+                          </div>
                   </div>
                   {{--IMAGES--}}
                   <div class="form-group">
                       <label for="images" class="col-md-3 control-label">
                           Upload Business Profile Image (optional)</label>
                       <div class="col-md-8">
-                          {{--<input type="file"> --}}
-                         {{--<div class="dropzone-previews"></div> --}}
-                          {{--<div class="dropzone dropzone-previews" id="myAwesomeDropzone"></div> --}}
+          
                           <div class="panel-body">
                                     <div class="fileinput fileinput-new" data-provides="fileinput">
                                       <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                                        <img src="{{asset('img/user.jpg')}}" alt="...">
+                                        <img src="{{ isset($biz->profilePhoto) ? asset($biz->profilePhoto->image) : asset('img/user.jpg') }}" alt="editing business profile pic">
                                       </div>
                                       <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
                                       <div>
@@ -150,41 +167,7 @@
                                 </div>
                       </div>
                   </div>
-                  {{--WEBSITE--}}
-                  <div class="form-group">
-                       <label for="website" class="col-md-3 control-label">Business website</label>
-                       <div class="col-md-8">
-                       <input type="text" id="website" name="website" value="{{ old('website')}}" class="form-control" placeholder="e.g. www.pattsbar.com.ng">
-                      </div>
-                  </div>
-                  {{--EMAIL--}}
-                  <div class="form-group">
-                       <label for="email" class="col-md-3 control-label">Business Email</label>
-                       <div class="col-md-8">
-                        <input type="email" id="email" name="email" value="{{ old('email')}}" class="form-control" placeholder="e.g. info@pattsbar.com.ng">
-                      </div>
-                  </div>
-                  {{--CONTACT PERSON / OWNER NAME--}}
-                  <div class="form-group">
-                       <label for="contactname" class="col-md-3 control-label">Contact Name</label>
-                       <div class="col-md-8">
-                       <input type="text" id="contactname" name=" contactname" value="{{ old('contactname')}}" class="form-control" placeholder="Mr Patt">
-                      </div>
-                  </div>
-                  {{--PHONE 1--}}
-                  <div class="form-group">
-                       <label for="phone1" class="col-md-3 control-label">Phone number 1</label>
-                       <div class="col-md-8">
-                      <input type="text" id="phone1" name="phone1" value="{{ old('phone1')}}" class="form-control" placeholder="Phone number 1">
-                      </div>
-                  </div>
-                  {{--PHONE 2--}}
-                  <div class="form-group">
-                       <label for="phone2" class="col-md-3 control-label">Phone number 2</label>
-                          <div class="col-md-8">
-                             <input type="text" id="phone2" name="phone2" value="{{ old('phone2')}}" class="form-control" placeholder="Phone number 2">
-                          </div>
-                  </div>
+
                   {{--SUBMIT OR CANCEL--}}
                     <div class="form-group">
                       <div class="col-md-6 col-sm-6 col-xs-6">
@@ -259,57 +242,53 @@
 <!-- FOOTER ENDS -->
 {{--PAGE SCRIPTS--}}
 @section('scripts')
-   <script src="{{asset('js/dropzone.js')}}"></script>
    <script src="{{ asset('plugins/jasny-bootstrap/js/jasny-bootstrap.min.js') }}"></script>
      {{--CUSTOM PAGE SCRIPTS--}}
 
     <script type="text/javascript">
-    {{--DROPZONE--}}
-            Dropzone.autoDiscover = false;
-            Dropzone.options.myAwesomeDropzone = {
-              //previewsContainer: ".dropzone-previews",
-              autoProcessQueue: false,
-              uploadMultiple: true,
-              parallelUploads: 100,
-              maxFiles: 5,
-
-              // The setting up of the dropzone
-     init: function() {
-     var myDropzone = this;
-
-    // First change the button to actually tell Dropzone to process the queue.
-    this.element.querySelector("button[type=submit]").addEventListener("click", function(e) {
-      // Make sure that the form isn't actually being sent.
-      e.preventDefault();
-      e.stopPropagation();
-      myDropzone.processQueue();
-    });
-            }
-        }
 
     $(document).ready(function() {
-      $("#cat3").select2({
-         placeholder: 'select business category',
-      });
-    });
+            $("#category_edit").select2({
+                // tags: true,
+            });
+        });
 
     
      
-     $('#cat3').click(function(){
-          // var y=[]; 
-          if($(this).val() !== "select business category") {
-             var model=$('#sub');
-            model.empty();
-           $.get('{{ URL::to('api/subcat') }}', { y: $(this).val() }, function(result){
-             $.each(result.data,function(){
-                              $('#sub').append('<option value="'+this.id+'">'+this.text+'</option>');
+     $(document).ready(function() {
+            var y=[];
+            $('#category_edit').change(function(){
+                if($(this).val() !== "select business category") {
+                    var model=$('#sub_edit');
+                    model.empty();
+                    $.get('{{ URL::to('api/subcat') }}', {y: $(this).val()}, function(result){
+                        $.each(result.data,function(){
+                            $('#sub_edit').append('<option value="'+this.id+'">'+this.text+'</option>');
                         });
-           });
-         }
-      });
+                    });
+                }
+            });
+        });
+    $(document).ready(function() {
+            $("#stateList").select2({
+            });
+        });
+    
+   
+       $(document).ready(function() {
+            $("#sub_edit").select2({
+                //  tags: true,
+            });
+        });
+
+       
+         $(document).ready(function() {
+            $("#lga").select2({
+            });
+        });
   
     
-      
+    /*  
      $('#cat3').change(function(){
      // var y=[];
          var selection= $(this).val();
@@ -330,14 +309,8 @@
             $("#sort_code").hide();
           }
 
-      });
-
-     
-      $("#stateList").select2({
-        placeholder: 'select state'
-    });
-    
-     $('#stateList').change(function(){
+      }); 
+      $('#stateList').change(function(){
           if($(this).val() !== "select state") {
              var model=$('#lga');
             model.empty();
@@ -364,19 +337,9 @@
            });
          }
       });
-   
+      */
 
-   
-      $("#sub").select2({
-        placeholder: 'select a category first',
-       // tags: true,
-      });
-
-       
-         $("#lga").select2({
-          placeholder: 'select a state first',
-          tags:true
-        });
+     
         
   </script>
     <script src="{{asset('js/scripts.js')}}"></script>
