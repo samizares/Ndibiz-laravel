@@ -42,7 +42,7 @@
                                            </div>
                                            <h4><a href="/biz/profile/{{$new->slug}}/{{$new->id}}">{{$new->name}}</a></h4>
                                            <p>{{$new->description}}</p>
-                                           <a class="read-more" href="/review/biz/{{$new->slug}}"><i class="fa fa-angle-right"></i>View profile</a>
+                                           <a class="read-more" href="/biz/profile/{{$new->slug}}/{{$new->id}}""><i class="fa fa-angle-right"></i>View profile</a>
                                        </div> <!-- end .latest-post -->
                                    @endforeach
                                @endif
