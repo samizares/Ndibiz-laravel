@@ -1,0 +1,1 @@
+{"virtualbox":{"/home/vagrant/beazea":{"type":null,"mount_options":[],"guestpath":"/home/vagrant/beazea","hostpath":"C:/Users/bolaj/projects/work/beazea","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"C:/Users/bolaj/projects/work/beazea","disabled":false,"__vagrantfile":true}}}
