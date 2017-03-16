@@ -12,8 +12,8 @@
             <div class="container">
                 <div class="row m20-bttm text-center">
                     <div class="col-md-12">
-                        <h2 class="section-title text-color-white text-uppercase"> Contact Us</h2>
-                        <span class="section-subtitle text-color-white"> Get in touch!</span>
+                        <h2 class="section-title text-color-white text-uppercase">  Get in touch!</h2>
+                        <!-- <span class="section-subtitle text-color-white"> Get in touch!</span> -->
                     </div>
                 </div>
             </div>
@@ -39,7 +39,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <h2>Talk to Us. we love to listen to feedback.</h2>
+                            <h2 class="text-center">Tell Us. we love feedback.</h2>
                             <div class="row">
                                 <div class="col-md-12">
                                     <hr class="m10">
