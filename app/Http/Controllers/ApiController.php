@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\State;
+use App\Lga;
+use App\Biz;
+use App\Cat;
+use App\User;
+use App\SubCat;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -18,12 +23,12 @@ class ApiController extends Controller
           return \Response::json(['data'=> []], 200);
 
         
-      $cats = \App\Cat::has('biz')->where('name','like','%'.$query.'%')
+      $cats = Cat::has('biz')->where('name','like','%'.$query.'%')
     	->orderBy('name','asc')
     	->take(10)
     	->get(['id','name','image_class'])->toArray();  
 
-      $subcats = \App\SubCat::has('biz')->where('name','like','%'.$query.'%')
+      $subcats = SubCat::has('biz')->where('name','like','%'.$query.'%')
    		 ->orderBy('name','asc')
    		 ->take(10)
    		 ->get(['id','name'])->toArray();
@@ -41,7 +46,7 @@ class ApiController extends Controller
     	if(trim(urldecode($query))=='')
           return \Response::json(['data'=> []], 200);
 
-     	 $data= \App\Biz::where('name','like','%'.$query.'%')
+     	 $data= Biz::where('name','like','%'.$query.'%')
       ->orderBy('name', 'asc')
       ->take(10)
       ->get(['id','name'])->toArray();
@@ -56,12 +61,12 @@ class ApiController extends Controller
     	 if(trim(urldecode($query))=='')
           return \Response::json(['data'=> []], 200);
 
-       $lga=\App\Lga::where('name','like', '%'.$query.'%')
+       $lga=Lga::where('name','like', '%'.$query.'%')
        ->orderBy('name', 'asc')
        ->take(10)
        ->get(['id','name'])->toArray();
 
-       $state= \App\State::where('name','like', '%'.$query.'%')
+       $state= State::where('name','like', '%'.$query.'%')
        ->orderBy('name', 'asc')
        ->take(5)
        ->get(['id','name'])->toArray();
@@ -76,7 +81,7 @@ class ApiController extends Controller
 
     	$query=\Input::get('z');
 
-    	$list=\App\Lga::where('state_id', '=', $query)
+    	$list=Lga::where('state_id', '=', $query)
     	->lists('name','id')->all();
       if(count($list) > 0) {
     	    foreach( $list as $key => $value) {
@@ -90,6 +95,67 @@ class ApiController extends Controller
 
     }
 
+    public function ajxlocation()
+    {
+      $query=\Input::get('loc');
+      $query2=\Input::get('cat');
+      dd(($query2));
+      dd($query.'-'.$query2);
+      $state=State::                                                                                findOrFail($query);
+      $cat= Cat::findOrFail($query2);
+      $bizs=$state->biz()->paginate(9);
+    
+      if (\Request::ajax()) {
+            response()->json(\View::make('partials.ajax-result')->with(compact('bizs'))->render());
+          }
+      if($bizs->count() > 0) {
+       // $html= view('partials.ajax-result')->with('bizs', $bizs)->render();
+        return view('partials.ajax-result',['bizs'=>$bizs]);
+       // return json_encode(['success'=>true,'html'=>$html]);
+        //dd(response()->json( array('success' => true, 'html'=>$html)));
+         // return join($html);
+       } else{
+        return response()->json([ 'error'=>'Sorry,No business for this selection']);
+      }
+    }
+
+    public function ajxcategory()
+    {
+      $query=\Input::get('loc');
+      $query2=\Input::get('cat');
+      dd($query.'-'.$query2);
+      $cat=Cat::findOrFail($query);
+      $bizs=$cat->biz()->paginate(9);
+       if (\Request::ajax()) {
+            return \Response::json(\View::make('partials.ajax-result')->with(compact('bizs'))->render());
+          }
+      if($bizs->count() > 0){
+         return \Response::json(\View::make('partials.ajax-result')->with(compact('bizs'))->render());
+      } else{
+        return \Response::json(['error'=>'Sorry, no business for this category yet']);
+      }
+    }
+
+    public function ajxsubcategory() 
+    {
+
+      $query=\Input::get('sub');
+      $sub =Subcat::find($query);
+      $bizs=$sub->biz()->paginate(9);
+     
+     if (\Request::ajax()) {
+            return \Response::json(\View::make('partials.ajax-result')->with(compact('bizs'))->render());
+          }
+      if($bizs->count() > 0){
+       // dd($bizs);
+        $html=\View::make('partials.ajax-result')->with(compact('bizs'))->render();
+         return \Response::json(['success'=>'Worked','html'=>$html]);
+      } else{
+        return \Response::json(['error'=>'Sorry, no business for this subcategory yet']);
+      }
+
+    }
+
     public function subcat() {
 
       $query=\Input::get('y');
@@ -97,7 +163,7 @@ class ApiController extends Controller
        foreach($query as $q){
      // $catId=\App\Cat::whereId($q)->first();
      // $desc=$catId->meta_description
-      $list=\App\SubCat::where('cat_id', '=', $q)
+      $list=SubCat::where('cat_id', '=', $q)
       ->lists('name','id')->all();
       if(count($list) > 0) {
           foreach( $list as $key => $value) {
@@ -116,10 +182,9 @@ class ApiController extends Controller
 
       $query=\Input::get('y');
 
-      $catId=\App\Cat::whereId($query)->first();
-      $desc=$catId->meta_description;
+      $catId=Cat::whereId($query)->first();
 
-      $list=\App\SubCat::where('cat_id', '=', $query)
+      $list=SubCat::where('cat_id', '=', $query)
       ->lists('name','id')->all();
       if(count($list) > 0) {
           foreach( $list as $key => $value) {
@@ -131,7 +196,7 @@ class ApiController extends Controller
 
       
     
-      return \Response::json(['data'=>$data, 'desc'=>$desc]);
+      return \Response::json(['data'=>$data]);
 
     }
 
@@ -140,7 +205,7 @@ class ApiController extends Controller
       $biz_id=\Input::get('id');
       $newValue=\Input::get('data');
 
-      $biz=\App\Biz::whereId($biz_id)->first();
+      $biz=Biz::whereId($biz_id)->first();
       $biz->featured = $newValue;
 
      if($biz->save()) 
@@ -154,7 +219,7 @@ class ApiController extends Controller
       $user_id=\Input::get('id');
       $newValue=\Input::get('data');
 
-      $user=\App\User::whereId($user_id)->first();
+      $user=User::whereId($user_id)->first();
       $user->admin = $newValue;
 
      if($user->save()) 
@@ -162,6 +227,24 @@ class ApiController extends Controller
     else 
         return \Response::json(array('status'=>'error','msg'=>'could not be updated'));
     }
+
+    public function subscribe()
+    {
+      $email=\Input::get('email');    
+      $subscribe=\App\Subscribe::whereEmail($email)->first();
+  
+     if($subscribe) {
+       $data[]= array('id'=>'0','text'=>'This Email has already been subscribed');
+       return \Response::json(['data'=> $data]);
+     }
+    else {
+         $new= new \App\Subscribe();
+         $new->email= $email;
+         $new->save();
+         $data[]= array('id'=>'1','text'=>'Email subscribe successfully');
+           return \Response::json(['data'=> $data]);
+           }
+      }
 
     public function opened()
     {

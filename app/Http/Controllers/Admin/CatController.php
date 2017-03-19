@@ -14,14 +14,9 @@ use DB;
 
 class CatController extends Controller
 {
-    protected $fields = [
-         'name' => '',
-         'meta_description' => '',
-         'image_class' => '',
-   
-    ];
+
     /**
-     * Display a listing of the resource.
+     * Display a listing of the categories.
      *
      * @return Response
      */
@@ -29,8 +24,9 @@ class CatController extends Controller
     {
        $cats = Cat::all();
        $totalCat=Cat::count();
+       $totalSub=SubCat::count();
 
-    return view('admin.cat.index',compact('cats','totalCat'));
+    return view('admin.cat.index',compact('cats','totalCat','totalSub'));
         
     }
 
@@ -41,13 +37,14 @@ class CatController extends Controller
      */
     public function create()
     {
-        $cats   = Cat::lists('name','name'); 
+        $catList   = Cat::lists('name','name')->all(); 
         $image_class= Cat::lists('image_class','image_class');
         $all_image= DB::table('subcategory')->lists('name','name');
         $subcats= SubCat::lists('name','name');
+        //$catList=$view->catList= \App\Cat::lists('name','name');
        // $subcats_image=SubCat::lists('image_class','image_class');
 
-         return view('admin.cat.create', compact('cats','image_class','subcats','all_image'));
+         return view('admin.cat.create', compact('catList','image_class','subcats','all_image'));
     
     }
 
@@ -158,8 +155,8 @@ class CatController extends Controller
         $cat =  Cat::findOrFail($id);
         $list= $cat->subcats->lists('name')->all();
         $image_class= Cat::lists('image_class','image_class');
-        $cats  = Cat::lists('name', 'name'); 
-        $subcats= SubCat::lists('name','name');
+        $catList  = Cat::lists('name', 'name')->all(); 
+        $subcats= SubCat::lists('name','name')->all();
         
 
      // dd($cat->subcats->lists('id')->all());
@@ -168,12 +165,7 @@ class CatController extends Controller
     //  $data[$field] = old($field, $cat->$field);
    // }
 
-    return view('admin.cat.edit')
-    ->withCats($cats)
-    ->withCat($cat)
-    ->withSubcats($subcats)
-    ->withList($list)
-    ->withImage_class($image_class);
+    return view('admin.cat.edit',compact('cat','list','image_class','catList','subcats'));
   }
 
     /**
@@ -228,5 +220,31 @@ class CatController extends Controller
 
     return redirect('/admin/cat')
         ->withSuccess("The '$cat->name' category and its subcategories has been deleted.");
+    }
+
+     public function deleteCat(Request $request)
+    {
+        //dd($request->all());
+        $catId =$request->get('yes');
+        $cat= Cat::findorFail($catId);
+        $biz= $cat->biz->lists('id')->all();
+        $cat->biz()->detach($biz);
+        $cat->subcats()->delete();
+        $cat->delete();
+
+     return redirect('/admin/cat')
+        ->withSuccess("The Category '$cat->name' has been deleted.");
+    }
+
+     public function deleteSub(Request $request)
+    {
+        $subId =$request->get('sub');
+        $sub= SubCat::findorFail($subId);
+        $biz= $sub->biz->lists('id')->all();
+        $sub->biz()->detach($biz);
+        $sub->delete();
+
+    return redirect('/admin/cat')
+        ->withSuccess("The Subcategory '$sub->name' has been deleted.");
     }
 }

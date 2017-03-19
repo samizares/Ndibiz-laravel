@@ -42,7 +42,7 @@ class AdminAuthentication {
 				return $next($request);
 			}
 		}
-          return redirect('/home');
+          return redirect()->intended('/');
 		//return new RedirectResponse(url('/home'));
 
 	}

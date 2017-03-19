@@ -5,15 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Http\Requests\BusinessRegRequest;
 use App\Http\Requests\ReviewRequest;
 use App\Http\Controllers\Controller;
 use App\State;
+use App\Address;
 use App\Lga;
 use App\Biz;
 use App\Cat;
 use App\SubCat;
 use Input;
 use App\Review;
+use App\Setting;
+use App\BizPhoto;
+use App\BizProfilePhoto;
 
 class HomeController extends Controller
 {
@@ -21,75 +26,82 @@ class HomeController extends Controller
 	public function __construct()
     {
 //        $this->middleware('auth',['only'=>['home','businesses','profile','getBizreview']]);
-        $this->middleware('auth',['only'=>['home','getBizreview']]);
-        $this->middleware('confirm',['only'=>['home','getBizreview']]);
+        $this->middleware('auth',['only'=>['home','favours']]);
+        $this->middleware('confirm',['only'=>['home']]);
+
     }
 
    public function index()
 	{
-		$cats = Cat::all()->take(5);
+		$cats = Cat::all()->take(8);
 		$bizs = Biz::orderBy('created_at', 'desc')->take(6);
+		$recentBiz = Biz::orderBy('created_at', 'desc')
+			->whereNotNull('claimed')
+			->take(12)->get();
 		$totalCat=Cat::count();
+		//dd(response()->json($recentBiz));
 		$totalSubCat=subCat::count();
-		$stateList= State::lists('name','id');
-		$catList   = SubCat::lists('name','id')->take(8);
-        $featured= Biz::whereFeatured('YES')->take(12)->get();
-		return view('pages.index', compact('stateList','catList','cats','featured', 'totalCat', 'totalSubCat',
-		 'subs'));
+		$stateList= State::lists('name','id')->all();
+		//dd(json_encode($stateList));
+		//dd(response()->json($stateList));
+		$catList   = SubCat::lists('name','id')->take(4);
+
+          $featured = Biz::whereFeatured('YES')->get();
+          $settings=Setting::findOrFail(1);
+
+		return view('pages.index', compact('stateList','settings','catList', 'bizs','cats','featured', 'recentBiz',
+			'totalCat', 'totalSubCat', 'subs'));
 	}
 
 	public function home()
 	{
-		$cats = Cat::all()->take(5);
+		$cats = Cat::all()->take(8);
 		$bizs = Biz::orderBy('created_at', 'desc')->take(6);
 		$totalCat=Cat::count();
 		$totalSubCat=subCat::count();
 		$stateList= State::lists('name','id');
-		$catList   = SubCat::lists('name','id')->take(8);
-	    $featured= Biz::whereFeatured('YES')->take(12)->get();
-		return view('pages.index', compact('stateList','catList','cats','featured', 'totalCat', 'totalSubCat',
+		$catList   = SubCat::lists('name','id')->take(4);
+//	    $featured= Biz::whereFeatured('YES')->take(8)->get();
+		return view('pages.index', compact('stateList','catList','cats', 'bizs','featured', 'totalCat', 'totalSubCat',
 		 'subs'));
 	}
 
 	public function businesses()
 	{
-		$cats = Cat::all();
-		$totalBiz=Biz::count();
-		$totalCat=Cat::count();
-		$bizs = Biz::orderBy('created_at', 'desc')->paginate(6);
-		$stateList= State::lists('name','name');
-		$catList   = Cat::lists('name','name'); 
-		 $featured= Biz::whereFeatured('YES')->paginate(3);
-		 $recent= Biz::orderBy('created_at', 'desc')->paginate(2);
-		// dd($featured);
-		return view('pages.businesses', compact('stateList','catList','cats','bizs','featured','recent', 'totalBiz', 'totalCat'));
+		$bizs = Biz::orderBy('created_at', 'desc')->paginate(9);
+		//$cats=  Cat::lists('name','id');
+		$stateListID= State::lists('name','id');
+		$catt= Cat::lists('name','id')->all();
+		$subcatt=SubCat::lists('name','id')->all();
+		$new=array_merge($catt,$subcatt);
+		//dd($new);
+		//$cats = \DB::table('cats')->lists('name', 'id');
+		if (\Request::ajax()) {
+            return \Response::json(\View::make('partials.ajax-result')
+            	->with(compact('bizs'))
+            	->render());
+        }
+		return view('pages.businesses', compact('bizs','new','stateListID'));
+	}
+	public function businesses2()
+	{
+		$bizs = Biz::orderBy('created_at', 'desc')->paginate(9);
+		$stateListID= State::lists('name','id');
+		if (\Request::ajax()) {
+			return \Response::json(\View::make('partials.ajax-result')->with(compact('bizs'))->render());
+		}
+		return view('pages.businesses2', compact('bizs','stateListID'));
 	}
 	public function map()
 	{
-		$cats = Cat::all();
-		$totalBiz=Biz::count();
-		$totalCat=Cat::count();
 		$bizs = Biz::orderBy('created_at', 'desc')->paginate(6);
-		$stateList= State::lists('name','name');
-		$catList   = Cat::lists('name','name');
-		$featured= Biz::whereFeatured('YES')->paginate(3);
-		$recent= Biz::orderBy('created_at', 'desc')->paginate(2);
-		// dd($featured);
-		return view('pages.map', compact('stateList','catList','cats','bizs','featured','recent', 'totalBiz', 'totalCat'));
+		return view('pages.map', compact('bizs'));
 	}
 
 	public function categories()
 	{
-		$cats=  Cat::all();
-		$totalBiz=Biz::count();
-		$totalCat=Cat::count();
-		$totalSubCat=subCat::count();
-		$stateList= State::lists('name','name');
-		$catList  = Cat::lists('name','name'); 
-		$featured= Biz::whereFeatured('YES')->paginate(3);
-		$recent= Biz::orderBy('created_at', 'desc')->paginate(2);
-		return view('pages.categories', compact('stateList','catList','featured','cats','recent', 'totalBiz', 'totalCat',
-		 'totalSubCat'));
+
+		return view('pages.categories');
 	}
 
 	public function locations()
@@ -103,58 +115,50 @@ class HomeController extends Controller
 
 	public function searchResults()
 	{
-		
+
 		$cats = Cat::all();
 		$stateList= State::lists('name','name');
-		$catList   = Cat::lists('name','name'); 
+		$catList   = Cat::lists('name','name');
 		$featured= Biz::whereFeatured('YES')->get();
 
          return view('pages.search-results', compact('stateList','catList','cats','featured'));
 	}
-	
-	public function regbiz()
-	{
-		$stateList= State::lists('name','name');
-		$catList   = Cat::lists('name','name');
-
-		return view('pages.regbiz', compact('stateList', 'catList'));
-	}
 
 	public function searchResult()
-	{	
+	{
 		$cats = Cat::all();
-		$stateList= State::lists('name','name');
-		$catList   = Cat::lists('name','name'); 
-		$featured= Biz::whereFeatured('YES')->paginate(3);
-		$recent= Biz::orderBy('created_at', 'desc')->paginate(1);
+		//$stateList= State::lists('name','name');
+		//$catList   = Cat::lists('name','name');
+		//$featured= Biz::whereFeatured('YES')->paginate(3);
+		//$recent= Biz::orderBy('created_at', 'desc')->paginate(1);
 		$val= Input::get('category');
 		$loc=Input::get('location');
 		if( $sub= SubCat::whereName($val)->first()){
 			$subID= $sub->id;
-				
+
 	      		if( $area=Lga::whereName($loc)->first()) {
 	      				$areaID=$area->id;
-	      				$bizs= Biz::bySub($subID)->byArea($areaID)->get();	      				
+	      				$bizs= Biz::bySub($subID)->byArea($areaID)->get();
 	      				if($bizs -> count() > 0){
-	      					return view('pages.search-page',compact('bizs','stateList','catList','cats','featured','recent','val','loc'));
+	      					return view('pages.search-page',compact('bizs','cats','val','loc'));
 	  					}else{
 	  						$bizs=$sub->biz;
-	  						return view('pages.no-search',compact('bizs','stateList','catList','cats','featured','recent','val','loc'));
-	  					}    				
-	      	
+	  						return view('pages.no-search',compact('bizs','cats','val','loc'));
+	  					}
+
 	       			} else {
 	      			 	$state=State::whereName($loc)->first();
 	      			 	$stateID=$state->id;
 	      			 	$bizs= Biz::bySub($subID)->byState($stateID)->get();
 	      				if($bizs -> count() > 0){
-	      					return view('pages.search-page',compact('bizs','stateList','catList','cats','featured','recent','val','loc'));
+	      					return view('pages.search-page',compact('bizs','cats','val','loc'));
 	  					}else{
 	  						$bizs=$sub->biz;
-	  						return view('pages.no-search',compact('bizs','stateList','catList','cats','featured','recent','key','loc'));
+	  						return view('pages.no-search',compact('bizs','cats','val','loc'));
 	  					}
-	  				} 
+	  				}
 
-		   
+
 		  } else {
 		   	$cat= Cat::whereName($val)->first();
 		   	$catID=$cat->id;
@@ -166,9 +170,9 @@ class HomeController extends Controller
 	  					}else{
 	  						$bizs=$cat->biz;
 	  						return view('pages.no-search',compact('bizs','stateList','catList','cats','featured','recent','val','loc'));
-	  					} 
-	      				
-	      	
+	  					}
+
+
 	       			} else {
 	      			 	$state=State::whereName($loc)->first();
 	      			 	$stateID=$state->id;
@@ -178,12 +182,12 @@ class HomeController extends Controller
 	  					}else{
 	  						$bizs=$cat->biz;
 	  						return view('pages.no-search',compact('bizs','stateList','catList','cats','featured','recent','val','loc'));
-	  					} 
+	  					}
 	      			 }
 
 
-		    }	
-		
+		    }
+
 	}
 
 	public function search()
@@ -192,7 +196,7 @@ class HomeController extends Controller
 	}
 	public function confirm()
 	{
-		return view('pages.activate');
+		return view('emails.confirm');
 	}
 
 	public function getBusiness($catId)
@@ -204,41 +208,135 @@ class HomeController extends Controller
 
          return view('pages.biz-result', array('biz'=>$biz,'reviews'=>$reviews));
     }
-	 
-	 public function getBizreview($id)
+
+    public function bizedit($id)
+    {
+    	$biz= Biz::findorFail($id);
+        $cat= $biz->cats->lists('id')->all();
+        $sub= $biz->subcats->lists('id')->all();
+       // dd($sub);
+        $catList= Cat::lists('name', 'id');
+        $subList= SubCat::lists('name','id');
+       // dd($subList);
+        $stateList= State::lists('name','id');
+        $lgaList= Lga::lists('name','name');
+
+        return view('pages.editbiz',compact('biz','catList','subList','stateList','cat','lgaList','sub'));
+    }
+    public function postbizedit(BusinessRegRequest $request, $id)
+    {
+    	$biz= Biz::findorFail($id);
+        $bizName =  strtolower($request->get('name'));
+        $biz->name = $bizName;
+        $biz->contactname=   $request->get('contactname');
+        $biz->website=       $request->get('website');
+        $biz->tagline=       $request->get('tagline');
+        $biz->description=   $request->get('description');
+        $biz->save();
+
+        //store user added or system generated local government area/or region 
+        $area=$request['lga'];
+        if($existingArea=Lga::where('name',$area)->first())
+        {
+            $newArea=$existingArea;
+        }
+        else{
+            $newArea=new Lga();
+            $newArea->name=$area;
+            $newArea->state_id=$request['state'];
+            $newArea->save();
+        }
+
+        $add= Address::where('biz_id', $biz->id)->first();
+        $add->street= $request->get('address');
+        $add->lga_id= $newArea->id;
+        $add->state_id=$request->get('state');
+        $add->email=  $request->get('email');
+        $add->phone1= $request->get('phone1');
+        $add->phone2= $request->get('phone2'); 
+        $add->save();
+        //store the link between biz and lga/region
+        $biz->lgas()->attach($newArea->id);
+        
+        $state=$request->get('state');
+        $biz->states()->attach($state);
+
+        $category=$request->get('cats');
+        $biz->cats()->sync($category);
+        $subs= $request->input('sub');
+        $biz->subcats()->sync($subs);
+
+        if($request->hasfile('image'))
+        {
+            $image= $request->file('image');
+            $name= time().$image->getClientOriginalName();
+            $desPath = public_path('bizz/profile/');
+            $upload_success =$image->move($desPath, $name);
+            $picName='bizz/profile/'.$name;
+           
+           
+            $allBiz= Biz::where('name',$bizName)->get();
+            foreach($allBiz as $oneBiz){
+                if($oneBiz->profilePhoto == null){
+                    $pic1=new BizProfilePhoto();
+                    $pic1->image=$picName;
+                    //$pic1->save();
+                    $oneBiz->profilePhoto()->save($pic1);
+                }else {
+                    //$oneBiz->profilePhoto->image=$picName;
+                    $profilePic=BizProfilePhoto::where('biz_id',$oneBiz->id)->first();
+                    $profilePic->image =$picName;
+                    $profilePic->save();
+                }
+            }
+        }
+ 
+
+        return redirect("/biz/profile/$biz->slug/$biz->id")
+        ->withSuccess("Changes Updated");
+    }
+
+	 public function getBizreview($slug,$id)
 	 {
-	 	
+
 	 	  $stateList= State::lists('name','name');
 		  $lgaList= Lga::lists('name','id');
-		 $subList= SubCat::lists('name','id');
+		  $subList= SubCat::lists('name','id');
 		  $catList   = Cat::lists('name','name');
-	 	  $biz = Biz::findOrFail($id);
-	 	  $favourites= \DB::table('favourites')->where('user_id', \Auth::user()->id)->lists('biz_id');
+	 	  //$biz = Biz::findOrFail($id);
+	 	  $biz= Biz::where(['id'=>$id,'slug'=>$slug])->firstOrFail();
+	 	  $sub= $biz->subcats->lists('id')->all();
+
+	 	   $favours= $biz->favoured->count();
+	 	  // dd($favours);
+	 	 // $favourites= \DB::table('favourites')->where('user_id', \Auth::user()->id)->lists('biz_id');
+	 	  // $favourites= \Auth::user()->favours->lists('id')->all();
 	 	  //dd($favourites);
-	 	  $hours=$biz->hours;
-	 	  $mon=$biz->hours->where('day','MON')->first();
-	 	  $tue=$biz->hours->where('day','TUE')->first();
-	 	  $wed=$biz->hours->where('day','WED')->first();
-	 	  $thu=$biz->hours->where('day','THU')->first();
-	 	  $fri=$biz->hours->where('day','FRI')->first();
-	 	  $sat=$biz->hours->where('day','SAT')->first();
-	 	  $sun=$biz->hours->where('day','SUN')->first();
+
+	 	 // $hours=$biz->hours;
+	 	 // $mon=$biz->hours->where('day','MON')->first();
+	 	 // $tue=$biz->hours->where('day','TUE')->first();
+	 	 // $wed=$biz->hours->where('day','WED')->first();
+	 	 // $thu=$biz->hours->where('day','THU')->first();
+	 	 // $fri=$biz->hours->where('day','FRI')->first();
+	 	 // $sat=$biz->hours->where('day','SAT')->first();
+	 	 // $sun=$biz->hours->where('day','SUN')->first();
 	 	  //dd($mon->open_time);
-	 	 
+
 	 	 // $mon=\App\BusinessHour::all();
         // Get all reviews that are not spam for the business and paginate them
         $reviews = $biz->reviews()->with('user')->approved()->notSpam()
         ->orderBy('created_at','desc')->paginate(50);
         $featured= Biz::whereFeatured('YES')->paginate(3);
-		$recent= Biz::orderBy('created_at', 'desc')->paginate(1);
+		$recent= Biz::orderBy('created_at', 'desc')->paginate(3);
 
-         return view('pages.biz-profile', array('biz'=>$biz,'reviews'=>$reviews,'stateList'=>$stateList,'lgaList'=>$lgaList,
-				 'subList'=>$subList,
-         	'catList'=>$catList,'favourites'=>$favourites), compact('featured','recent','mon','tue','wed','thu','fri','sat','sun'));
+         return view('pages.biz-profile', array('biz'=>$biz,'reviews'=>$reviews,'sub'=>$sub,'stateList'=>$stateList,'lgaList'=>$lgaList,
+				 'subList'=>$subList,'favours'=>$favours,
+         	'catList'=>$catList), compact('featured','recent'));
 	 }
 
 	 public function postReview($id)
-	 {  
+	 {
 	 	$input = array(
 		'comment' => \Input::get('comment'),
 		'rating'  => \Input::get('rating')
@@ -246,157 +344,91 @@ class HomeController extends Controller
 
 	 	$review = new Review();
 	 	$validator = \Validator::make( $input, $review->getCreateRules());
+	 	$biz=Biz::where('id',$id)->first();
 
 	 	if ($validator->passes()) {
 	 		$review->storeReviewForBiz($id, $input['comment'], $input['rating']);
-				return redirect('review/biz/'.$id.'#company-reviews')->with('success','Review Submitted successfully');
+				return redirect('biz/profile/'.$biz->slug.'/'.$id.'#company-reviews')->with('success','Review Submitted successfully');
 	         		  }
 
-	       		return redirect('review/biz/'.$id.'#company-reviews')->with('errors', $validator->messages())->withInput();
+	       		return redirect('biz/profile/'.$biz->slug.'/'.$id.'#company-reviews')->with('errors', $validator->messages())->withInput();
 	 }
 
 	 public function postMessage(MessageRequest $request, $id)
 	 {
 	 	$review = new Review();
+	 	$biz=Biz::where('id',$id)->first();
 	 	$review->storeReviewForBiz($id, $request->comment, $request->rating);
-		return redirect('review/biz/'.$id.'#company-reviews')->with('success','Review Submitted successfully');
+		return redirect('biz/profile/'.$biz->slug.'/'.$id.'#company-reviews')->with('success','Review Submitted successfully');
 	 }
-	 public function bizSub($id)
+	 public function bizSub($slug)
 	 {
-	 	$sub= SubCat::findOrFail($id);
+	 	$sub= SubCat::whereSlug($slug)->firstOrFail();
 	 	$bizs=$sub->biz;
-	 	$cats = Cat::all();
-		$stateList= State::lists('name','name');
-		$catList   = Cat::lists('name','name'); 
-		$loc=Input::get('location');
-		$featured= Biz::whereFeatured('YES')->paginate(3);
-		$recent= Biz::orderBy('created_at', 'desc')->paginate(1);
+		$loc=\Input::get('location');
 
-		return view('pages.biz-sub',compact('bizs','stateList','catList','loc','cats','featured','recent','sub'));
+		return view('pages.biz-sub',compact('bizs','loc','sub'));
 	 }
 
-	  public function bizCat($id)
+	  public function bizCat($slug)
 	 {
-	 	$cat= Cat::findOrFail($id);
+	 	$cat= Cat::whereSlug($slug)->firstOrFail();
 	 	$bizs=$cat->biz;
-	 	$cats = Cat::all();
-		$stateList= State::lists('name','name');
-		$catList   = Cat::lists('name','name'); 
-		$featured= Biz::whereFeatured('YES')->paginate(3);
-		$recent= Biz::orderBy('created_at', 'desc')->paginate(1);
-
-		return view('pages.biz-cat',compact('bizs','stateList','catList','cats','featured','recent','cat'));
+	 	return view('pages.biz-cat',compact('bizs','cat'));
 	 }
 
-	 public function profile($userId)
-	{
-		$cats = Cat::all();
-		$user= \App\User::findOrFail($userId);
-		$bizs= $user->favours;
-		$favourites=\DB::table('favourites')->whereUserId(\Auth::user()->id)->lists('biz_id');
-		//$bizs = Biz::orderBy('created_at', 'desc')->paginate(6);
-		$stateList= State::lists('name','name');
-		$lgaList= Lga::lists('name','id');
-		$catList   = Cat::lists('name','name'); 
-		 $featured= Biz::whereFeatured('YES')->paginate(3);
-		 $recent= Biz::orderBy('created_at', 'desc')->paginate(2);
-		// dd($featured);
-		return view('pages.user-profile', compact('stateList','lgaList','catList','cats',
-			'bizs','user','favourites','featured','recent', 'totalBiz', 'totalCat'));
-	}
 
 	 public function favoured()
 	 {
-	 
-  		 \Auth::user()->favours()->attach(\Input::get('biz_id'));
+	    $biz_id=\Input::get('biz_id');
+	    $biz= Biz::findOrFail($biz_id);
+	    $favourites= \Auth::user()->favours->lists('id')->all();
+	    if($favourited=in_array($biz_id, $favourites)){
+	    	\Auth::user()->favours()->detach($biz_id);
+	    	 $data[]=array('id' =>0, 'count' => $biz->favoured->count(), 'text'=>'favorited');
+	    	 return \Response::json(['data'=> $data]);
+		  }
+		  else {
+		  	\Auth::user()->favours()->attach($biz_id);
+		  	$data[]=array('id' =>1, 'count' => $biz->favoured->count(), 'text'=>'not-favorited');
+	    	 return \Response::json(['data'=> $data]);
+		  }
+
+  		// \Auth::user()->favours()->attach(\Input::get('biz_id'));
+    	//	 return \Redirect::back();
+	 }
+
+	 public function favours()
+	 {
+
     		 return \Redirect::back();
 	 }
 
+
+
 	 public function unfavoured($biz_id)
 	 {
-	 	 
+
   		 \Auth::user()->favours()->detach($biz_id);
     		 return \Redirect::back();
 	 }
 
-	 public function userphotos(Request $request,$id)
-	 {
-	 	$file= $request->file('file');
-	 	$name= time(). $file->getClientOriginalName();
-	 	$file->move('users/photos', $name);
-	 	$user= \App\User::findOrFail($id);
-	 	$user->photos()->create(['path'=>"/users/photos/{$name}"]);
-	 	return 'Done';
-	 }
+
 	 public function bizphotos(Request $request,$id)
 	 {
 	 	$file= $request->file('file');
 	 	$name= time(). $file->getClientOriginalName();
-	 	$file->move('biz/photos', $name);
-	 	$biz= \App\Biz::findOrFail($id);
-	 	$biz->photos()->create(['path'=>"/biz/photos/{$name}"]);
+	 	$file->move('bizz/photos', $name);
+	 	$biz= Biz::findOrFail($id);
+	 	$biz->photos()->create(['path'=>"/bizz/photos/{$name}"]);
 	 	return 'Done';
 	 }
 
-	 public function userprofilephoto(Request $request,$id)
-	 {
-	 	//$file= $request->file('file');
-	 	//$name= time(). $file->getClientOriginalName();
-	 	//$file->move('biz/profile/photos', $name);
-	 	//$biz= \App\Biz::findOrFail($id);
-	 	//$biz->photos()->create(['path'=>"/biz/photos/{$name}"]);
-	 	//return 'Done';
 
-      $picture = [
-           'image' => $request->file('image'),
-        ];
 
-        $rules = [
-             'image'=> 'required|image|mimes:jpeg,jpg,bmp,png,gif',
-        ];
-
-        $validator = \Validator::make($picture, $rules);
-        if ($validator->passes())
-         {
-
-          $user_id= $request->get('id');
-          $user= \App\User::findorFail($user_id);
-          $profilePhoto = $user->profilePhoto; 
-
-           $image= $request->file('image');
-           $name= time(). $image->getClientOriginalName();
-           $image->move('user/profile', $name);
-
-          if (! isset($profilePhoto->image))
-          {
-          $pic= new \App\ProfilePhoto;
-          $pic->image ='user/profile/'.$name;
-          $user->profilePhoto()->save($pic);
-
-             return \Redirect::back()
-            ->with('message', 'profile photo added!!!');
-          }
-          if(isset($profilePhoto->image))
-           { 
-                  
-           $profilePhoto->image ='user/profile/'.$name;
-            
-           $user->profilePhoto()->save( $profilePhoto);
-           return \Redirect::back()
-            ->with('message', ' profile photo updated!');
-           }
-    
-        }
-         return \Redirect::back()
-        ->with('errors', $validator->messages());
-      
-        
-
-    }  
-    
     public function bizprofilephoto(Request $request,$id)
 	 {
-	 
+
       $picture = [
            'image' => $request->file('image'),
         ];
@@ -410,48 +442,68 @@ class HomeController extends Controller
          {
 
           $biz_id= $request->get('id');
-          $biz= \App\Biz::findorFail($biz_id);
-          $profilePhoto = $biz->profilePhoto; 
+          $biz= Biz::findorFail($biz_id);
+          $profilePhoto = $biz->profilePhoto;
 
            $image= $request->file('image');
            $name= time(). $image->getClientOriginalName();
-           $image->move('biz/profile', $name);
+           $image->move('bizz/profile', $name);
 
           if (! isset($profilePhoto->image))
           {
           $pic= new \App\BizProfilePhoto;
-          $pic->image ='biz/profile/'.$name;
+          $pic->image ='bizz/profile/'.$name;
           $biz->profilePhoto()->save($pic);
 
              return \Redirect::back()
             ->with('message', 'Biz profile photo added!!!');
           }
           if(isset($profilePhoto->image))
-           { 
-                  
-           $profilePhoto->image ='biz/profile/'.$name;
-            
+           {
+
+           $profilePhoto->image ='bizz/profile/'.$name;
+
            $biz->profilePhoto()->save( $profilePhoto);
            return \Redirect::back()
             ->with('message', ' profile photo updated!');
            }
-    
+
         }
          return \Redirect::back()
         ->with('errors', $validator->messages());
-      
-        
 
-    } 
-public function claimbiz(Request $request)
-{
-	dd($request->all());
-}
-	 
+
+    }
+
 
 	 public function favourites()
 	 {
 
 	 }
+
+	public function contact()
+	{
+		return view('pages.contact');
+	}
+
+	public function aboutus()
+	{
+		return view('pages.aboutus');
+	}
+
+	public function tos()
+	{
+		return view('pages.tos');
+	}
+
+	public function faqs()
+	{
+		return view('pages.faqs');
+	}
+
+	public function privacy()
+	{
+		return view('pages.privacy');
+	}
 
 }

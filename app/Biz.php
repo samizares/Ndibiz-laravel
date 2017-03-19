@@ -8,11 +8,16 @@ class Biz extends Model
 {
       protected $table = 'biz';
 
-      protected $fillable = ['name', 'address', 'contactname', 'email','website', 'phone1', 'phone2'];
+      protected $fillable = ['name', 'address','tagline','description', 'contactname', 'website'];
 
    public function address()
     {
-      return $this->hasOne('App\Address');
+      return $this->hasOne('App\Address','biz_id');
+    }
+
+    public function branch()
+    {
+      return $this->hasMany('App\Branch','biz_id');
     }
 
      public function reviews()
@@ -27,27 +32,32 @@ class Biz extends Model
 
     public function favoured()
     {
-        return $this->belongsToMany('App\User','favourites');
+        return $this->belongsToMany('App\User','favourites','biz_id','user_id');
     }
    public function ownerbiz()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User','user_id');
     }
     public function subcats()
-  {
+   {
        return $this->belongsToMany('App\SubCat','biz_subcat_pivot','biz_id', 'subcat_id');
     }
 
-    public function setTitleAttribute($value)
+    public function subscribedUser()
+    {
+      return $this->belongsToMany('App\User', 'biz_user_pivot','biz_id','user_id');
+    }
+
+    public function setNameAttribute($value)
      {
        $this->attributes['name'] = $value;
 
       if (! $this->exists) {
-            $this->setUniqueSlug($value, '');
-        }
+      $this->attributes['slug'] = str_slug($value);
+         }
     }
 
-     protected function setUniqueSlug($name, $extra)
+   /*  protected function setUniqueSlug($name, $extra)
     {
         $slug = str_slug($name.'-'.$extra);
 
@@ -58,15 +68,27 @@ class Biz extends Model
 
         $this->attributes['slug'] = $slug;
     }
+    */
     
     public function cats()
     {
         return $this->BelongsToMany('App\Cat', 'biz_cat_pivot','biz_id','cat_id');
     }
 
-    public function state()
+    
+    public function states()
     {
-      return $this->belongsToMany('App\State','biz_state_pivot');
+       return $this->belongsToMany('App\State','biz_state_pivot','biz_id', 'state_id');
+    }
+
+    public function lgas()
+    {
+       return $this->belongsToMany('App\Lga','biz_lga_pivot','biz_id', 'lga_id');
+    }
+
+    public function profilePhoto()
+    {
+        return $this->hasOne('App\BizProfilePhoto','biz_id');
     }
 
     public function recalculateRating()
@@ -106,9 +128,9 @@ class Biz extends Model
       return $this->hasMany('App\BizPhoto');
     }
 
-    public function profilePhoto()
+    public function claim()
     {
-        return $this->hasOne('App\BizProfilePhoto');
+      return $this->belongsTo('App\User','owner');
     }
 }
 

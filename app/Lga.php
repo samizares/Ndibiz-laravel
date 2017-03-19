@@ -13,11 +13,17 @@ class Lga extends Model
 
 
 	public function state(){
-		return $this->belongsTo('App\State');
+		return $this->belongsTo('App\State','state_id');
 	}
 	
-	 public function areas(){
+	 public function areas()
+	 {
  		return $this->hasMany('App\Address');
- 	}
+ 	 }
+
+ 	 public function biz()
+	{
+ 	 return $this->belongsToMany('App\Biz','biz_lga_pivot','lga_id', 'biz_id');
+	}
 
 }

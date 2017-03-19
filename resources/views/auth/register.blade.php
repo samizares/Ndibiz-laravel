@@ -1,18 +1,20 @@
-@extends('admin.layout')
+@extends('master')
 <!-- HEAD -->
 @section('title', 'Register')
-
+@section('mobile-header')
+    @include('includes.mobile-header')
+@endsection
 <!-- CONTENT -->
 @section('content')
     <div class="form-content">
-          <div class="container">         
+          <div class="container">
             <div class="row">
                   <div class="col-md-6 col-md-offset-3">
                       @include('partials.notifications')
                       {!! Form::open(array('url' => '/auth/register', 'class' => 'form')) !!}
                       <div class="panel panel-default">
                         <div class="panel-heading">
-                          <h3 class="panel-title"><i class="fa fa-plus-square"></i> Register</h3>
+                          <h3 class="panel-title"><i class="fa fa-plus-square"></i> Register below or Connect with <a class="btn btn-primary" href="/login/facebook">Facebook</a></h3>
                         </div>
                         <div class="panel-body">
                                 <div class="form-group">
@@ -42,8 +44,14 @@
                           </div>
                       </div>
                       {!! Form::close() !!}
-                  </div>               
-            </div>   
+                  </div>
+            </div>
           </div> <!-- end .container -->
     </div>
+@endsection
+@section('footer')
+    @include('includes.footer')
+@endsection
+@section('scripts')
+    <script src="{{asset('js/scripts.js')}}"></script>
 @endsection

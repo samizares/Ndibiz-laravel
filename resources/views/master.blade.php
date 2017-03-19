@@ -8,21 +8,19 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <!--  <meta name="_token" content="{!! csrf_token() !!}"/> -->
 
-  <title> @yield('title') | NdiBiz Directory</title>
+  <title> @yield('title') | BEAZEA Directory</title>
   <meta name="description" content="@yield('description')" />
 
-  <!-- Stylesheets -->  
-      @yield('stylesheets')
-
-    <link rel="stylesheet" href="{{asset('node_modules/bootstrap/dist/css/bootstrap.css')}}">
+  <!-- Stylesheets -->
+    @yield('stylesheets')
+    <link href="{{asset('plugins/bootstrap/css/bootstrap.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/animate.css')}}">
-    <link rel="stylesheet" href="{{ asset('plugins/selectize/selectize.default.css')}}">
+    <link rel="stylesheet" href="{{ asset('plugins/selectize/selectize.bootstrap3.css')}}">
     <link href="{{asset('plugins/select2/select2.min.css')}}" rel="stylesheet">
-
+    <link href="{{asset('css/sweetalert.css')}}" rel="stylesheet">
     {{--FONT AWESOME--}}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-
   <!-- GOOGLE FONTS -->
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,700|Open+Sans:400,600|Lato:400,700' rel='stylesheet' type='text/css'>
 
@@ -33,9 +31,26 @@
 </head>
 <!-- HEAD ENDS-->
 <body>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '245526095813725',
+      xfbml      : true,
+      version    : 'v2.6'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
 <div id="main-wrapper">
 <!-- HEADER STARTS -->
-        @include('includes.header')  
+        @include('includes.header')
 <!-- HEADER ENDS -->
 
 <!-- CONTENT STARTS -->
@@ -49,27 +64,81 @@
 <!-- FOOTER ENDS -->
 
 </div> <!-- end #main-wrapper -->
+    <!-- SCRIPTS STARTS -->
+    <!-- Core Scripts -->
+    <script src="{{asset('js/jquery-2.1.3.min.js') }}"></script>
+    <script src="{{asset('plugins/bootstrap/js/bootstrap.js') }}"></script>
+    {{--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"--}}
+    {{--integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>--}}
+    <script src="{{asset('js/jquery.ba-outside-events.min.js') }}"></script>
+    <script src="{{asset('plugins/selectize/selectize.min.js')}}"></script>
+    <script src="{{asset('plugins/select2/select2.min.js')}}"></script>
+    <script src="{{asset('js/sweetalert.min.js')}}"></script>
+    <!-- Page Scripts -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.rotate').rotaterator({fadeSpeed: 2000, pauseSpeed: 80});
+            $('.carousel').carousel();
+            $('[data-toggle="tooltip"]').tooltip();
+//            $('li:first-child').addClass('active');
+//            $('.tab-pane:first-child').addClass('active');
+        });
+        // footer copyright
+        //-------------------------------------------------------
+        $(document).ready(function() {
+            var currentDate = new Date();
+            var currentYear = currentDate.getFullYear();
 
-<!-- SCRIPTS STARTS -->
-  <!-- Core Scripts -->
+            $("p#copyright").append('&#169;' + " BEAZEA Directory " + currentYear + " " + ". All Rights Reserved.");
+        });
 
-  <script src="{{asset('js/jquery-2.1.3.min.js') }}"></script>
-  <script src="{{asset('node_modules/bootstrap/dist/js/bootstrap.js')}}"></script>
-  <script src="{{asset('js/jquery.ba-outside-events.min.js') }}"></script>
-  <script src="{{asset('plugins/selectize/selectize.min.js')}}" type="text/javascript"></script>
-  <script src="{{asset('plugins/select2/select2.min.js')}}"></script>
+        //-----------------------------------------------------------------
+        $(document).ready(function() {
+            $('').hover(
+                    function() {
+                        (this).addClass('active')
+                    },
+                    function() {
+                        (this).removeClass('active')
+                    }
+            );
+            $("a[href*='" + location.pathname + "']").addClass('active');
+        });
+        $(document).ready(function() {
+            $('#subscribe').submit(function() {
+                if ($('#email').val() == '') {
+                    swal("Error!", "Please supply an email address!", "warning");
 
-  <!-- Page Scripts -->
-  <script type="text/javascript">
-      $(document).ready(function () {
-          $('.carousel').carousel();
-      });
-      //Text rotator
-      //-------------------------------------------------
-      $(document).ready(function() {
-          $('.rotate').rotaterator({fadeSpeed:2000, pauseSpeed:80});
-      });
-      $(document).ready(function() {
+                       } else {
+              var email= $('#email').val();
+              $.ajax({ url: "{{ URL::to('api/subscribe')}}",
+                    data: {email: email},
+                    dataType: 'json',
+                    type: 'post',
+                 success: function(output) {
+                     $.each(output.data, function(){
+                        if(this.id==0){
+                      console.log(this.text);
+                      swal("Error!", this.text, "warning");
+                        }
+                        if(this.id==1){
+                         console.log(this.text);
+                      swal("Success!", this.text, "success");
+                      }
+                      else{
+                        swal("Error!", "Something went wrong", "warning");
+                      }
+
+                  });
+
+                         }
+                });
+          }
+
+               return false;
+                }); // end submit()
+        });
+        $(document).ready(function() {
             // Enable location search
             $('#location').selectize({
                 valueField: 'name',
@@ -77,7 +146,7 @@
                 searchField: ['name'],
                 renrender:{
                     option:function(item, escape) {
-                      return '<div><i class="fa fa-map-marker"></i>' + ' ' + escape(item.name) +'</div>';
+                      return '<div>' + escape(item.name) +'</div>';
                     }
                   },
                   load:function(query, callback){
@@ -91,19 +160,18 @@
                       },
                       success: function(res) {
                         callback(res.data);
-                        } 
+                        }
                     });
                   }
-              });
-
-              // Enable category search
-              $('#category, #category2').selectize({
+            });
+            // Enable category search
+            $('#category, #category2').selectize({
                 valueField: 'name',
                 labelField: 'name',
                 searchField: ['name'],
                 render:{
                   option:function(item, escape) {
-                    return '<div><i class="fa fa-home"></i>' + ' ' + escape(item.name) +'</div>';
+                    return '<div>' + escape(item.name) +'</div>';
                   }
                 },
                 load:function(query, callback) {
@@ -120,36 +188,21 @@
                       }
                   });
                 }
-              });
-
-              $('#category3').select2({
+            });
+            $('#category3').select2({
                 placeholder: 'search category',
                 tags: true
-              });
-          });
-       $(document).ready(function() {
-              $("body").addClass('animated fadeIn');
-              $("h2.page-title").addClass('animated zoomIn');
-          });
-
-       $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
-          });
-       $(function() {
-          $('.tab-pane:first-child ').addClass('active animated zoomIn');
-       });
-
-       
-  </script>
-  @yield('scripts')
-<!-- SCRIPTS ENDS -->
-             
+            });
+        });
+    </script>
+    @yield('scripts')
+    <!-- SCRIPTS ENDS -->
 </body>
 </html>
 
 
 
-   
+
 
 
 

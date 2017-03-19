@@ -1,20 +1,5 @@
-
-      //  scrollspy fixed searchbar
-        $(document).ready(function(){
-            var nav = $('.header-top-bar');
-            $(window).scroll(function () {
-              if ($(this).scrollTop() > 60) {
-                  nav.addClass("sticky").fadeIn(2000);
-                  nav.removeClass("scroll-btn");
-              } else {
-                  nav.removeClass("sticky");
-                  nav.addClass("scroll-btn");
-              }
-            });
-        });
-
       $(document).ready(function () {
-          $('ul.nav li.dropdown').hover(function() {
+          $('ul li.dropdown').hover(function() {
               $(this).find('.dropdown-menu').stop(true, true).fadeIn(100);
           }, function() {
               $(this).find('.dropdown-menu').stop(true, true).fadeOut(100);

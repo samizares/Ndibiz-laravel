@@ -28,11 +28,20 @@ return [
         'secret' => env('SES_SECRET'),
         'region' => 'us-east-1',
     ],
+    
+     'sparkpost' => [
+        'secret' => env('SPARKPOST_SECRET'),
+    ],
 
     'stripe' => [
         'model'  => App\User::class,
         'key'    => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
+    ],
+    'facebook'=>[
+        'client_id'=>env('FACEBOOK_CLIENT_ID'),
+        'client_secret'=>env('FACEBOOK_CLIENT_SECRET'),
+        'redirect'=>'http://localhost:8095/login/facebook',
     ],
 
 ];

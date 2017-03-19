@@ -5,32 +5,13 @@
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 @endsection
 <!-- HEADER -->
-<!-- breadcrumbs -->
-@section('breadcrumb')
-      <div class="breadcrumb">
-        <div class="featured-listing" style="margin:0;">
-            <h2 class="page-title" style="margin:0;">Business Listings</h2>
-        </div>
-      </div>
+@section('search')
+    @include('partials.search')
+@endsection
 @endsection
 <!-- navigation -->
-@section('header-navbar')
-        <div class="header-nav-bar">
-            <div class="container">
-              <nav>
-                <button><i class="fa fa-bars"></i></button>
-                <ul class="primary-nav list-unstyled">
-                  <li class=""><a href="/">Home<i class="fa fa-home"></i></a></li>
-                  <li><a href="/categories">Categories</a></li>
-                  <li><a href="/businesses">Businesses</a></li>
-                  <li><a href="#">About Us</a></li>
-                  <li><a href="#">Contact Us</a></li>
-                   <li><a href="/admin">Admin</a></li>
-                   <li class="bg-color active"><a href="/search-results">Search results</a></li>
-                </ul>
-              </nav>
-            </div> <!-- end .container -->
-        </div> <!-- end .header-nav-bar -->   
+@section('mobile-header')
+    @include('includes.mobile-header')
 @endsection
 <!-- CONTENT -->
 @section('content')
@@ -44,20 +25,20 @@
         <div class="row">
           <div class="col-md-9 col-md-push-3">
             <div class="page-content">
-              <div class="product-details-list view-switch">
-                <div class="tab-content">                               
-                  <div class="tab-pane active" id=""> 
+              <div class="product-details view-switch">
+                <div class="tab-content">
+                  <div class="tab-pane active" id="">
                     <div class="change-view">
-                        <button class="grid-view"><i class="fa fa-th"></i></button>
-                        <button class="list-view active"><i class="fa fa-bars"></i></button>
-                    </div>                     
+                        <button class="grid-view active"><i class="fa fa-th"></i></button>
+                        <button class="list-view"><i class="fa fa-bars"></i></button>
+                    </div>
                       <div class="row clearfix">
                           <div class="col-sm-4 col-xs-6">
                             <div class="single-product">
                               <figure>
                                 <img src="img/content/post-img-10.jpg" alt="">
                                 <div class="rating">
-                                  
+
                                 </div> <!-- end .rating -->
                                 <figcaption>
                                   <div class="bookmark">
@@ -85,14 +66,14 @@
                               </div>
                               <a class="read-more" href="#"><i class="fa fa-angle-right"></i>Read More</a>
                             </div> <!-- end .single-product -->
-                          </div> <!-- end .col-sm-4 grid layout -->   
+                          </div> <!-- end .col-sm-4 grid layout -->
 
                           <div class="col-sm-4 col-xs-6">
                             <div class="single-product">
                               <figure>
                                 <img src="img/content/post-img-10.jpg" alt="">
                                 <div class="rating">
-                                  
+
                                 </div> <!-- end .rating -->
                                 <figcaption>
                                   <div class="bookmark">
@@ -120,10 +101,10 @@
                               </div>
                               <a class="read-more" href="#"><i class="fa fa-angle-right"></i>Read More</a>
                             </div> <!-- end .single-product -->
-                          </div> <!-- end .col-sm-4 grid layout -->   
-                 
-                      </div> <!-- end .row -->                   
-                  </div> <!-- end .tabe-pane -->                 
+                          </div> <!-- end .col-sm-4 grid layout -->
+
+                      </div> <!-- end .row -->
+                  </div> <!-- end .tabe-pane -->
                 </div> <!-- end .tabe-content -->
               </div> <!-- end .product-details -->
             </div> <!-- end .page-content -->
@@ -233,40 +214,34 @@
 
 @section('scripts')
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    
+
   <script type="text/javascript">
     $(document).ready(function() {
-       
+
        // $('.tab-pane a[href="#fashion"]').tab('show');
        // $('#fashion').tab('show');
-        
+
         $('li:first-child').addClass('active');
         $('.tab-pane:first-child ').addClass('active');
     });
 
       // style switcr for list-grid view
       //--------------------------------------------------
-      $(document).ready(function() {
-          $('.change-view button').on('click',function(e) {
-            
-          if ($(this).hasClass('grid-view')) {
-            $(this).addClass('active');
-            $('.list-view').removeClass('active');
-            $('.page-content .view-switch').removeClass('product-details-list').addClass('product-details');
+    $(document).ready(function() {
+        $('.change-view button').on('click',function(e) {
 
-          } else if($(this).hasClass('list-view')) {
-            $(this).addClass('active');
-            $('.grid-view').removeClass('active');
-            $('.page-content .view-switch').removeClass('product-details').addClass('product-details-list');
+            if ($(this).hasClass('list-view')) {
+                $(this).addClass('active');
+                $('.grid-view').removeClass('active');
+                $('.page-content .view-switch').removeClass('product-details').addClass('product-details-list');
+
+            } else if($(this).hasClass('grid-view')) {
+                $(this).addClass('active');
+                $('.list-view').removeClass('active');
+                $('.page-content .view-switch').removeClass('product-details-list').addClass('product-details');
             }
         });
-
-      });
-
-      $(function() {
-              
-      });
-      
+    });
   </script>
   <script src="{{asset('js/scripts.js')}}"></script>
 @endsection
